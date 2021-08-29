@@ -19,33 +19,33 @@ We will start with a basic todo list application.
 
 **Scenario: See an empty todo list**
 
-Given an empty Todo list
-When I check my todo list
-Then no task is displayed
+**Given** an empty Todo list  
+**When** I check my todo list  
+**Then** no task is displayed  
 
 **Scenario: See a filled todo list**
 
-Given a todo list containing ‘Clean the house’ & ‘Wash the dog’
-When I check my todo list
-Then ‘Clean the house’ & ‘Wash the dog’ tasks are displayed
+**Given** a todo list containing ‘Clean the house’ & ‘Wash the dog’  
+**When** I check my todo list  
+**Then** ‘Clean the house’ & ‘Wash the dog’ tasks are displayed  
 
 
 ### Add a task in my todo list
 
 **Scenario: Add a task to empty todo list**
 
-Given an empty Todo list
-When I add a Todo for ‘Buy cheese’
-Then only that item is added to my todo list
+**Given** an empty Todo list  
+**When** I add a Todo for ‘Buy cheese’  
+**Then** only that item is added to my todo list  
 
 **Scenario: Add several tasks to empty todo list**
 
-Given an empty Todo list
-When I add Todos for ‘Buy cheese’ & ‘Wash the car’
-Then only those items are added to my todo list
+**Given** an empty Todo list  
+**When** I add Todos for ‘Buy cheese’ & ‘Wash the car’  
+**Then** only those items are added to my todo list  
 
 **Scenario: Add several tasks to todo list**
 
-Given a todo list containing ‘Clean the house’
-When I add Todos for ‘Buy cheese’ & ‘Wash the car’
-Then my todo list is composed of ‘Clean the house’, ‘Buy cheese’  & ‘Wash the car’ 
+**Given** a todo list containing ‘Clean the house’  
+**When** I add Todos for ‘Buy cheese’ & ‘Wash the car’  
+**Then** my todo list is composed of ‘Clean the house’, ‘Buy cheese’  & ‘Wash the car’   

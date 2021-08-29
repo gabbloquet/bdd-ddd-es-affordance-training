@@ -51,6 +51,14 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- JGiven : Dev-friendly light-weight Java library that helps you to design a high-level, domain-specific language for writing BDD scenarios. 		-->
+		<dependency>
+			<groupId>com.tngtech.jgiven</groupId>
+			<artifactId>jgiven-junit</artifactId>
+			<version>1.1.0</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>

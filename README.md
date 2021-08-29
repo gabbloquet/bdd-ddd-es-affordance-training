@@ -27,8 +27,7 @@ We will start with a basic todo list application.
 
 **Given** a todo list containing ‘Clean the house’ & ‘Wash the dog’  
 **When** I check my todo list  
-**Then** ‘Clean the house’ & ‘Wash the dog’ tasks are displayed  
-
+**Then** ‘Clean the house’ & ‘Wash the dog’ tasks are displayed
 
 ### Add a task in my todo list
 
@@ -48,4 +47,16 @@ We will start with a basic todo list application.
 
 **Given** a todo list containing ‘Clean the house’  
 **When** I add Todos for ‘Buy cheese’ & ‘Wash the car’  
-**Then** my todo list is composed of ‘Clean the house’, ‘Buy cheese’  & ‘Wash the car’   
+**Then** my todo list is composed of ‘Clean the house’, ‘Buy cheese’  & ‘Wash the car’
+
+### Delete a task from my todo list
+
+TODO
+
+### Modify a task from my todo list
+
+TODO
+
+### Move a task from my todo list
+
+TODO

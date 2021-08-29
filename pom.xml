@@ -13,9 +13,12 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>bdd-training</name>
 	<description>Behaviour driven development training project</description>
+
 	<properties>
+		<jgiven.version>1.1.0</jgiven.version>
 		<java.version>16</java.version>
 	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -52,12 +55,33 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- Assertions library -->
+		<dependency>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-core</artifactId>
+			<version>3.19.0</version>
+			<scope>compile</scope>
+		</dependency>
+
+
 		<!-- JGiven : Dev-friendly light-weight Java library that helps you to design a high-level, domain-specific language for writing BDD scenarios. 		-->
 		<dependency>
 			<groupId>com.tngtech.jgiven</groupId>
-			<artifactId>jgiven-junit</artifactId>
-			<version>1.1.0</version>
+			<artifactId>jgiven-html5-report</artifactId>
+			<version>${jgiven.version}</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.tngtech.jgiven</groupId>
+			<artifactId>jgiven-junit5</artifactId>
+			<version>${jgiven.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.tngtech.jgiven</groupId>
+			<artifactId>jgiven-core</artifactId>
+			<version>${jgiven.version}</version>
+			<scope>compile</scope>
 		</dependency>
 	</dependencies>
 

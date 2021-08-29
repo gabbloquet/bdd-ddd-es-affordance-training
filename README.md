@@ -9,7 +9,8 @@ We will start with a basic todo list application.
 
 ## Features
 
-1. Add a task in my todo list
-2. Delete a task from my todo list
-3. Modify a task from my todo list
-4. Move a task from my todo list
+1. See todo list tasks
+2. Add a task in my todo list
+3. Delete a task from my todo list
+4. Modify a task from my todo list
+5. Move a task from my todo list

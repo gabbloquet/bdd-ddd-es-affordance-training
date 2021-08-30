@@ -31,7 +31,7 @@ We will start with a basic todo list application.
 
 ### Add a task in my todo list
 
-**Scenario: Add a task to empty todo list**
+**Scenario: Add a task to an empty todo list**
 
 **Given** an empty Todo list  
 **When** the user add a ‘Buy cheese’ task  
@@ -60,3 +60,11 @@ TODO
 ### Move a task from my todo list
 
 TODO
+
+## Generate HTML reports
+
+```bash
+mvn verify
+```
+
+HTML reports are then generated into the target`/jgiven-reports/html` directory. Note that the plugin relies on the existence of the JSON output, so if the property jgiven.reports.enabled was set to false, no output will be generated.

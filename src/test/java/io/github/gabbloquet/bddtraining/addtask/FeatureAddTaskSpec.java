@@ -13,7 +13,7 @@ public class FeatureAddTaskSpec {
     AddTaskStage addTaskStage;
 
     @Test
-    public void add_a_task_to_empty_todo_list() {
+    public void add_a_task_to_an_empty_todo_list() {
         addTaskStage
             .given().an_empty_todo_list()
             .when().the_user_add_a_$_task("Buy a cheese")

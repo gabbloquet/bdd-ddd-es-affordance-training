@@ -67,12 +67,6 @@
 		<!-- JGiven : Dev-friendly light-weight Java library that helps you to design a high-level, domain-specific language for writing BDD scenarios. 		-->
 		<dependency>
 			<groupId>com.tngtech.jgiven</groupId>
-			<artifactId>jgiven-html5-report</artifactId>
-			<version>${jgiven.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.tngtech.jgiven</groupId>
 			<artifactId>jgiven-junit5</artifactId>
 			<version>${jgiven.version}</version>
 			<scope>test</scope>
@@ -97,6 +91,21 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.tngtech.jgiven</groupId>
+				<artifactId>jgiven-maven-plugin</artifactId>
+				<version>${jgiven.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<format>html</format>
 				</configuration>
 			</plugin>
 		</plugins>

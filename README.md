@@ -57,7 +57,23 @@ We will start with a basic todo list application.
 
 ### Delete a task from my todo list
 
-TODO
+**Scenario: Delete all tasks**
+
+**Given** a todo list containing ‘Clean the house’ & ‘Wash the car’
+**When** the user choose to delete all tasks
+**Then** the todo list contains nothing
+
+**Scenario: Delete a specific task**
+
+**Given** a todo list containing ‘Clean the house’ & ‘Wash the car’
+**When** the user choose to delete ‘Wash the car’ task
+**Then** the todo list contains ‘Clean the house’
+
+**Scenario: Delete a task which doesn't exist**
+
+**Given** an empty todo list
+**When** the user choose to delete ‘Wash the car’ task
+**Then** the todo list contains nothing
 
 ### Modify a task from my todo list
 

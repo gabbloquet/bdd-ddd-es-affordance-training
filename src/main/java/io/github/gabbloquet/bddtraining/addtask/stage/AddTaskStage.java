@@ -20,9 +20,20 @@ public class AddTaskStage extends Stage<AddTaskStage> {
         return self();
     }
 
-    public void the_todo_list_contains_$(String task) {
+    public void the_todo_list_contains_$(String... tasks) {
         Assertions
             .assertThat(todolist)
-            .isEqualTo(List.of(task));
+            .isEqualTo(List.of(tasks));
+    }
+
+    public AddTaskStage the_user_add_$_tasks(String... tasks) {
+        todolist.addAll(List.of(tasks));
+        return self();
+    }
+
+    public AddTaskStage a_todo_list_containing_$(String... tasks) {
+        todolist = new ArrayList<>();
+        todolist.addAll(List.of(tasks));
+        return self();
     }
 }

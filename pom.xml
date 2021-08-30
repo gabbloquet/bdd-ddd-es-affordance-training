@@ -71,6 +71,12 @@
 			<version>${jgiven.version}</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.tngtech.jgiven</groupId>
+			<artifactId>jgiven-core</artifactId>
+			<version>${jgiven.version}</version>
+			<scope>compile</scope>
+		</dependency>
 
 	</dependencies>
 

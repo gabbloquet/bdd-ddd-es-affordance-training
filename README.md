@@ -20,14 +20,14 @@ We will start with a basic todo list application.
 **Scenario: See an empty todo list**
 
 **Given** an empty Todo list  
-**When** the user checks my todo list  
-**Then** no task is displayed  
+**When** the user checks his todo list  
+**Then** no task is returned  
 
 **Scenario: See a filled todo list**
 
 **Given** a todo list containing ‘Clean the house’ & ‘Wash the dog’  
 **When** the user checks my todo list  
-**Then** ‘Clean the house’ & ‘Wash the dog’ tasks are displayed
+**Then** ‘Clean the house’ & ‘Wash the dog’ tasks are returned
 
 ### Add a task in my todo list
 
@@ -45,7 +45,7 @@ We will start with a basic todo list application.
 
 ### Delete a task from my todo list
 
-**Scenario: Delete all tasks**
+**Scenario: Delete all tasks (Clean the todolist)**
 
 **Given** a todo list containing ‘Clean the house’ & ‘Wash the car’
 **When** the user choose to delete all tasks
@@ -56,12 +56,6 @@ We will start with a basic todo list application.
 **Given** a todo list containing ‘Clean the house’ & ‘Wash the car’
 **When** the user choose to delete ‘Wash the car’ task
 **Then** the todo list contains ‘Clean the house’
-
-**Scenario: Delete a task which doesn't exist**
-
-**Given** an empty todo list
-**When** the user choose to delete ‘Wash the car’ task
-**Then** the todo list contains nothing
 
 ### Modify a task from my todo list
 

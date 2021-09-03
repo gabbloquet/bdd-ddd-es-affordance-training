@@ -16,32 +16,15 @@ public class FeatureAddTaskSpec {
     public void add_a_task_to_an_empty_todo_list() {
         addTaskStage
             .given().an_empty_todo_list()
-            .when().the_user_add_a_$_task("Buy a cheese")
+            .when().the_user_add_$_task("Buy a cheese")
             .then().the_todo_list_contains_$("Buy a cheese");
     }
 
     @Test
-    public void add_several_tasks_to_an_empty_todo_list() {
-        addTaskStage
-            .given().an_empty_todo_list()
-            .when().the_user_add_$_tasks("Buy a cheese", "Wash the car")
-            .then().the_todo_list_contains_$("Buy a cheese", "Wash the car");
-    }
-
-    @Test
-    public void add_several_tasks_to_filled_todo_list_of_one_task() {
+    public void add_a_tasks_to_filled_todo_list() {
         addTaskStage
             .given().a_todo_list_containing_$("Clean the house")
-            .when().the_user_add_$_tasks("Buy a cheese", "Wash the car")
-            .then().the_todo_list_contains_$("Clean the house", "Buy a cheese", "Wash the car");
-    }
-
-
-    @Test
-    public void add_several_tasks_to_filled_todo_list_of_several_tasks() {
-        addTaskStage
-            .given().a_todo_list_containing_$("Clean the house", "Walk the dog")
-            .when().the_user_add_$_tasks("Buy a cheese", "Wash the car")
-            .then().the_todo_list_contains_$("Clean the house", "Walk the dog", "Buy a cheese", "Wash the car");
+            .when().the_user_add_$_task("Wash the car")
+            .then().the_todo_list_contains_$("Clean the house", "Wash the car");
     }
 }

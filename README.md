@@ -37,23 +37,11 @@ We will start with a basic todo list application.
 **When** the user add a ‘Buy cheese’ task  
 **Then** the todo list contains ‘Buy cheese’  
 
-**Scenario: Add several tasks to an empty todo list**
-
-**Given** an empty Todo list  
-**When** the user add ‘Buy cheese’ & ‘Wash the car’ tasks  
-**Then** the todo list contains ‘Buy cheese’ & ‘Wash the car’  
-
-**Scenario: Add several tasks to filled todo list of one task**
+**Scenario: Add a task to a filled todo list**
 
 **Given** a todo list containing ‘Clean the house’  
-**When** the user add ‘Buy cheese’ & ‘Wash the car’ tasks  
-**Then** the todo list contains ‘Clean the house’, ‘Buy cheese’ & ‘Wash the car’
-
-**Scenario: Add several tasks to filled todo list of several tasks**
-
-**Given** a todo list containing ‘Clean the house’  
-**When** the user add ‘Buy cheese’ & ‘Wash the car’ tasks  
-**Then** the todo list contains ‘Clean the house’, ‘Buy cheese’ & ‘Wash the car’
+**When** the user add ‘Wash the car’  
+**Then** the todo list contains ‘Clean the house’ & ‘Wash the car’
 
 ### Delete a task from my todo list
 

@@ -13,11 +13,11 @@ public class FeatureDeleteTaskSpec {
     @ScenarioStage
     DeleteTaskStage deleteTaskStage;
 
-    @Test
-    public void delete () {
-        deleteTaskStage
-            .given().()
-            .when().()
-            .then().();
-    }
+//    @Test
+//    public void delete () {
+//        deleteTaskStage
+//            .given().()
+//            .when().()
+//            .then().();
+//    }
 }

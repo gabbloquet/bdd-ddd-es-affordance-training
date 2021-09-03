@@ -15,7 +15,7 @@ public class AddTaskStage extends Stage<AddTaskStage> {
         return self();
     }
 
-    public AddTaskStage the_user_add_a_$_task(String task) {
+    public AddTaskStage the_user_add_$_task(String task) {
         todolist.add(task);
         return self();
     }
@@ -24,11 +24,6 @@ public class AddTaskStage extends Stage<AddTaskStage> {
         Assertions
             .assertThat(todolist)
             .isEqualTo(List.of(tasks));
-    }
-
-    public AddTaskStage the_user_add_$_tasks(String... tasks) {
-        todolist.addAll(List.of(tasks));
-        return self();
     }
 
     public AddTaskStage a_todo_list_containing_$(String... tasks) {

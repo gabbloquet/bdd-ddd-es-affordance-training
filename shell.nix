@@ -6,7 +6,7 @@ in with nixpkgs;
 mkShell {
   buildInputs = [
     maven
-    jdk16
+    jdk17
     niv # Tools to interact with Nix
   ];
 }

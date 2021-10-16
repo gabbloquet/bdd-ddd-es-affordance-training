@@ -5,7 +5,14 @@
 
 # First steps
 
-We will start with a basic todo list application.
+We will this BDD training with a basic todo list application.
+
+First of all, I write the hearth of my application, uses cases, business rules.
+This part (domain) has to be well tested, it carry the intelligence of my application.
+
+I like the approach provide by [jgiven](https://jgiven.org/). I use this library to declare my gerkhins & generate reports (json & html).
+After writing it, I develop my functionalities, TDD approach. 
+
 
 ## Features
 

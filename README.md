@@ -1,5 +1,5 @@
-<div align="center"><img width="1265" alt="Capture d’écran 2021-08-29 à 20 17 36" src="https://user-images.githubusercontent.com/25029077/131261334-8307d9ab-5dd5-49c1-9ae0-4489ce217ea8.png"></div>
-<p align="center">Spring project initialization.</p>
+<div align="center"><img width="1265" alt="JGiven report" src="https://github.com/gabbloquet/bdd-training/blob/master/reports.png"></div>
+<p align="center">Implemented features</p>
 
 <p align="center"><b>Objective of this sandbox is to practice behaviour driven development ! 🚀</b></p>
 
@@ -11,8 +11,7 @@ First of all, I write the hearth of my application, uses cases, business rules.
 This part (domain) has to be well tested, it carry the intelligence of my application.
 
 I like the approach provide by [jgiven](https://jgiven.org/). I use this library to declare my gerkhins & generate reports (json & html).
-After writing it, I develop my functionalities, TDD approach. 
-
+After writing it, I develop my functionalities, TDD approach.
 
 ## Features
 
@@ -92,6 +91,19 @@ After writing it, I develop my functionalities, TDD approach.
 **When** the user choose to put ‘Wash the car’ on 2 position  
 **Then** the todo list contains ‘Clean the house’, ‘Wash the car’, ‘Buy cheese’ & ‘Prepare coffee’
 
+## Installation
+
+### Nix
+
+[Nix installation documentation](./nix.md).
+
+### Project
+
+```bash
+mvn install
+mvn test
+```
+
 ## Generate HTML reports
 
 ```bash
@@ -99,3 +111,7 @@ mvn verify
 ```
 
 HTML reports are then generated into the target`/jgiven-reports/html` directory. Note that the plugin relies on the existence of the JSON output, so if the property jgiven.reports.enabled was set to false, no output will be generated.
+
+## Project Initialization
+
+<div align="center"><img width="1265" alt="Spring boot init" src="https://user-images.githubusercontent.com/25029077/131261334-8307d9ab-5dd5-49c1-9ae0-4489ce217ea8.png"></div>

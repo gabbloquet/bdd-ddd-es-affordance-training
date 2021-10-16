@@ -1,4 +1,4 @@
-package io.github.gabbloquet.bddtraining.domain.Todolist;
+package io.github.gabbloquet.bddtraining.domain;
 
 import io.github.gabbloquet.bddtraining.utils.ArrayUtils;
 

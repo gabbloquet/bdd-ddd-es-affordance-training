@@ -1,7 +1,7 @@
 package io.github.gabbloquet.bddtraining.modifytask;
 
 import com.tngtech.jgiven.Stage;
-import io.github.gabbloquet.bddtraining.domain.Todolist.Todolist;
+import io.github.gabbloquet.bddtraining.domain.Todolist;
 import org.assertj.core.api.Assertions;
 
 import java.util.ArrayList;

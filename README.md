@@ -66,7 +66,7 @@ After writing it, I develop my functionalities, TDD approach.
 
 ### Modify a task from my todo list
 
-**Scenario: Modify a task message**
+**Scenario: Modify a task**
 
 **Given** a todo list containing ‘Clean the house’ & ‘Wash the car’
 **When** the user choose to modify ‘Clean the house’ by ‘Buy cheese’

@@ -1,10 +1,9 @@
 package io.github.gabbloquet.bddtraining.addtask;
 
-import io.github.gabbloquet.bddtraining.addtask.stage.AddTaskStage;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import com.tngtech.jgiven.annotation.ScenarioStage;
 import com.tngtech.jgiven.junit5.JGivenExtension;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 @ExtendWith(JGivenExtension.class)
 public class FeatureAddTaskSpec {

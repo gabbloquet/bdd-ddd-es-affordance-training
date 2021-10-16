@@ -2,8 +2,6 @@ package io.github.gabbloquet.bddtraining.modifytask;
 
 import com.tngtech.jgiven.annotation.ScenarioStage;
 import com.tngtech.jgiven.junit5.JGivenExtension;
-import io.github.gabbloquet.bddtraining.deletetask.stage.DeleteTaskStage;
-import io.github.gabbloquet.bddtraining.modifytask.stage.ModifyTaskStage;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 

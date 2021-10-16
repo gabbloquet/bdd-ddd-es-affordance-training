@@ -1,6 +1,7 @@
-package io.github.gabbloquet.bddtraining.reordertask.stage;
+package io.github.gabbloquet.bddtraining.reordertask;
 
 import com.tngtech.jgiven.Stage;
+import io.github.gabbloquet.bddtraining.domain.Todolist.Todolist;
 import io.github.gabbloquet.bddtraining.utils.ArrayUtils;
 import org.assertj.core.api.Assertions;
 
@@ -9,17 +10,17 @@ import java.util.List;
 
 public class ReorderTaskStage extends Stage<ReorderTaskStage> {
 
-    private List<String> todolist;
+    private Todolist todolist;
 
     public ReorderTaskStage a_todo_list_containing_$_and_$(String task1, String task2) {
-        todolist = new ArrayList<>();
+        todolist = new Todolist(new ArrayList<>());
         todolist.add(task1);
         todolist.add(task2);
         return self();
     }
 
     public ReorderTaskStage a_todo_list_containing_$_$_$_and_$(String task1, String task2, String task3, String task4) {
-        todolist = new ArrayList<>();
+        todolist = new Todolist(new ArrayList<>());
         todolist.add(task1);
         todolist.add(task2);
         todolist.add(task3);
@@ -28,7 +29,7 @@ public class ReorderTaskStage extends Stage<ReorderTaskStage> {
     }
 
     public ReorderTaskStage the_user_choose_to_put_$_on_$_position(String task, int position) {
-        ArrayUtils.moveToPosition(todolist, task, position);
+        todolist.move(task, position);
         return self();
     }
 
@@ -38,7 +39,7 @@ public class ReorderTaskStage extends Stage<ReorderTaskStage> {
         expectedList.add(task2);
 
         Assertions
-                .assertThat(todolist)
+                .assertThat(todolist.tasks())
                 .isEqualTo(expectedList);
     }
 
@@ -50,7 +51,7 @@ public class ReorderTaskStage extends Stage<ReorderTaskStage> {
         expectedList.add(task4);
 
         Assertions
-                .assertThat(todolist)
+                .assertThat(todolist.tasks())
                 .isEqualTo(expectedList);
     }
 }

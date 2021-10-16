@@ -1,6 +1,7 @@
-package io.github.gabbloquet.bddtraining.addtask.stage;
+package io.github.gabbloquet.bddtraining.addtask;
 
 import com.tngtech.jgiven.Stage;
+import io.github.gabbloquet.bddtraining.domain.Todolist.Todolist;
 import org.assertj.core.api.Assertions;
 
 import java.util.ArrayList;
@@ -8,10 +9,10 @@ import java.util.List;
 
 public class AddTaskStage extends Stage<AddTaskStage> {
 
-    private List<String> todolist;
+    private Todolist todolist;
 
     public AddTaskStage an_empty_todo_list() {
-        todolist = new ArrayList<>();
+        todolist = new Todolist(new ArrayList<>());
         return self();
     }
 
@@ -22,13 +23,13 @@ public class AddTaskStage extends Stage<AddTaskStage> {
 
     public void the_todo_list_contains_$(String... tasks) {
         Assertions
-            .assertThat(todolist)
+            .assertThat(todolist.tasks())
             .isEqualTo(List.of(tasks));
     }
 
     public AddTaskStage a_todo_list_containing_$(String... tasks) {
-        todolist = new ArrayList<>();
-        todolist.addAll(List.of(tasks));
+        todolist = new Todolist(new ArrayList<>());
+        todolist.add(List.of(tasks));
         return self();
     }
 }

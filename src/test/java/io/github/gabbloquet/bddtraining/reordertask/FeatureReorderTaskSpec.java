@@ -2,8 +2,6 @@ package io.github.gabbloquet.bddtraining.reordertask;
 
 import com.tngtech.jgiven.annotation.ScenarioStage;
 import com.tngtech.jgiven.junit5.JGivenExtension;
-import io.github.gabbloquet.bddtraining.modifytask.stage.ModifyTaskStage;
-import io.github.gabbloquet.bddtraining.reordertask.stage.ReorderTaskStage;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 

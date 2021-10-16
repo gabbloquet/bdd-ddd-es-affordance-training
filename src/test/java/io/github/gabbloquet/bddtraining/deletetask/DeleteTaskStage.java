@@ -1,18 +1,18 @@
-package io.github.gabbloquet.bddtraining.deletetask.stage;
+package io.github.gabbloquet.bddtraining.deletetask;
 
 import com.tngtech.jgiven.Stage;
+import io.github.gabbloquet.bddtraining.domain.Todolist.Todolist;
 import org.assertj.core.api.Assertions;
-import org.assertj.core.api.Java6BDDSoftAssertionsProvider;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DeleteTaskStage extends Stage<DeleteTaskStage> {
 
-    private List<String> todolist;
+    private Todolist todolist;
 
     public DeleteTaskStage a_todo_list_containing_$_and_$(String task1, String task2) {
-        todolist = new ArrayList<>();
+        todolist = new Todolist(new ArrayList<>());
         todolist.add(task1);
         todolist.add(task2);
         return self();
@@ -25,12 +25,12 @@ public class DeleteTaskStage extends Stage<DeleteTaskStage> {
 
     public void the_todo_list_contains_nothing() {
         Assertions
-                .assertThat(todolist)
+                .assertThat(todolist.tasks())
                 .isEmpty();
     }
 
     public DeleteTaskStage the_user_choose_to_delete_$_task(String task) {
-        todolist.remove(task);
+        todolist.delete(task);
         return self();
     }
 
@@ -39,7 +39,7 @@ public class DeleteTaskStage extends Stage<DeleteTaskStage> {
         expectedList.add(task);
 
         Assertions
-                .assertThat(todolist)
+                .assertThat(todolist.tasks())
                 .isEqualTo(expectedList);
     }
 }

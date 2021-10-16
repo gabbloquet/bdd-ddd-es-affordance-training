@@ -66,11 +66,25 @@ After writing it, I develop my functionalities, TDD approach.
 
 ### Modify a task from my todo list
 
-TODO
+**Scenario: Modify a task message**
 
-### Move a task from my todo list
+**Given** a todo list containing ‘Clean the house’ & ‘Wash the car’
+**When** the user choose to modify ‘Clean the house’ by ‘Buy cheese’
+**Then** the todo list contains ‘Buy cheese’ & ‘Wash the car’
 
-TODO
+### Reorder a task from my todo list
+
+**Scenario: Put a task on first position**
+
+**Given** a todo list containing ‘Clean the house’ & ‘Buy cheese’
+**When** the user choose to put ‘Buy cheese’ on first position
+**Then** the todo list contains ‘Buy cheese’ & ‘Clean the house’
+
+**Scenario: Put a task on last position**
+
+**Given** a todo list containing ‘Clean the house’, ‘Buy cheese’, ‘Prepare coffee’ & ‘Wash the car’
+**When** the user choose to put ‘Clean the house’ on last position
+**Then** the todo list contains ‘Buy cheese’, ‘Prepare coffee’, ‘Wash the car’ & ‘Clean the house’
 
 ## Generate HTML reports
 

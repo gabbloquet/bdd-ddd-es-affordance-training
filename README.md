@@ -48,43 +48,49 @@ After writing it, I develop my functionalities, TDD approach.
 
 **Given** a todo list containing ‘Clean the house’  
 **When** the user add ‘Wash the car’  
-**Then** the todo list contains ‘Clean the house’ & ‘Wash the car’
+**Then** the todo list contains ‘Clean the house’ & ‘Wash the car’  
 
 ### Delete a task from my todo list
 
 **Scenario: Delete all tasks (Clean the todolist)**
 
-**Given** a todo list containing ‘Clean the house’ & ‘Wash the car’
-**When** the user choose to delete all tasks
-**Then** the todo list contains nothing
+**Given** a todo list containing ‘Clean the house’ & ‘Wash the car’  
+**When** the user choose to delete all tasks  
+**Then** the todo list contains nothing  
 
 **Scenario: Delete a specific task**
 
-**Given** a todo list containing ‘Clean the house’ & ‘Wash the car’
-**When** the user choose to delete ‘Wash the car’ task
-**Then** the todo list contains ‘Clean the house’
+**Given** a todo list containing ‘Clean the house’ & ‘Wash the car’  
+**When** the user choose to delete ‘Wash the car’ task  
+**Then** the todo list contains ‘Clean the house’  
 
 ### Modify a task from my todo list
 
 **Scenario: Modify a task**
 
-**Given** a todo list containing ‘Clean the house’ & ‘Wash the car’
-**When** the user choose to modify ‘Clean the house’ by ‘Buy cheese’
-**Then** the todo list contains ‘Buy cheese’ & ‘Wash the car’
+**Given** a todo list containing ‘Clean the house’ & ‘Wash the car’  
+**When** the user choose to modify ‘Clean the house’ by ‘Buy cheese’  
+**Then** the todo list contains ‘Buy cheese’ & ‘Wash the car’  
 
 ### Reorder a task from my todo list
 
-**Scenario: Put a task on first position**
+**Scenario: Place a task on first position**
 
-**Given** a todo list containing ‘Clean the house’ & ‘Buy cheese’
-**When** the user choose to put ‘Buy cheese’ on first position
-**Then** the todo list contains ‘Buy cheese’ & ‘Clean the house’
+**Given** a todo list containing ‘Clean the house’ & ‘Buy cheese’  
+**When** the user choose to put ‘Buy cheese’ on 1 position  
+**Then** the todo list contains ‘Buy cheese’ & ‘Clean the house’  
 
-**Scenario: Put a task on last position**
+**Scenario: Place a task on last position**
 
-**Given** a todo list containing ‘Clean the house’, ‘Buy cheese’, ‘Prepare coffee’ & ‘Wash the car’
-**When** the user choose to put ‘Clean the house’ on last position
-**Then** the todo list contains ‘Buy cheese’, ‘Prepare coffee’, ‘Wash the car’ & ‘Clean the house’
+**Given** a todo list containing ‘Clean the house’, ‘Buy cheese’, ‘Prepare coffee’ & ‘Wash the car’  
+**When** the user choose to put ‘Clean the house’ on 4 position  
+**Then** the todo list contains ‘Buy cheese’, ‘Prepare coffee’, ‘Wash the car’ & ‘Clean the house’  
+
+**Scenario: Place a task on second position**
+
+**Given** a todo list containing ‘Clean the house’, ‘Buy cheese’, ‘Prepare coffee’ & ‘Wash the car’  
+**When** the user choose to put ‘Wash the car’ on 2 position  
+**Then** the todo list contains ‘Clean the house’, ‘Wash the car’, ‘Buy cheese’ & ‘Prepare coffee’
 
 ## Generate HTML reports
 

@@ -1,15 +1,15 @@
 package io.github.gabbloquet.bddtraining.infrastructure.api;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import org.springframework.hateoas.RepresentationModel;
+import org.springframework.hateoas.CollectionModel;
 
 import java.util.List;
 
-public class TodolistRepresentation extends RepresentationModel<TodolistRepresentation> {
+public class TodolistModel extends CollectionModel<TodolistModel> {
     private final List<String> tasks;
 
     @JsonCreator
-    public TodolistRepresentation(List<String> tasks) {
+    public TodolistModel(List<String> tasks) {
         this.tasks = tasks;
     }
 }

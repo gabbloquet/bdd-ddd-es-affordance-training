@@ -2,20 +2,29 @@ package io.github.gabbloquet.bddtraining.infrastructure.api;
 
 import io.github.gabbloquet.bddtraining.domain.InPort.TodolistService;
 import io.github.gabbloquet.bddtraining.domain.Todolist;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.stereotype.Service;
 
 @Service
 public class TodolistRepresentationServiceImpl implements TodolistRepresentationService {
 
+    private final TodolistRepresentationModelAssembler assembler;
     private final TodolistService todolistService;
 
-    public TodolistRepresentationServiceImpl(TodolistService todolistService) {
+    public TodolistRepresentationServiceImpl(TodolistRepresentationModelAssembler assembler, TodolistService todolistService) {
+        this.assembler = assembler;
         this.todolistService = todolistService;
     }
 
     @Override
-    public TodolistRepresentation getTodolistRepresentation() {
+    public EntityModel<Todolist> getTodolistModel() {
         Todolist todolist = todolistService.getTodolist();
-        return new TodolistRepresentation(todolist.tasks());
+        return assembler.toModel(todolist);
+    }
+
+    @Override
+    public EntityModel<Todolist> addTaskModel(String task) {
+        Todolist todolist = todolistService.add(task);
+        return assembler.toModel(todolist);
     }
 }

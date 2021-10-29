@@ -1,11 +1,9 @@
 package io.github.gabbloquet.bddtraining.infrastructure.api;
 
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpStatus;
+import io.github.gabbloquet.bddtraining.domain.Todolist;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(TodolistController.BASE_PATH)
@@ -18,8 +16,14 @@ public class TodolistController {
     }
 
     @GetMapping
-    public HttpEntity<TodolistRepresentation> getTodolist() {
-        TodolistRepresentation todolist = todolistRepresentationService.getTodolistRepresentation();
-        return new ResponseEntity<>(todolist, HttpStatus.OK);
+    public ResponseEntity<EntityModel<Todolist>> getTodolist() {
+        var todolist = todolistRepresentationService.getTodolistModel();
+        return ResponseEntity.ok(todolist);
+    }
+
+    @PostMapping
+    public ResponseEntity<EntityModel<Todolist>> addTask(@RequestBody String task) {
+        var todolist = todolistRepresentationService.addTaskModel(task);
+        return ResponseEntity.ok(todolist);
     }
 }

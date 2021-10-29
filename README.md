@@ -4,7 +4,7 @@ Firstly, objective of this sandbox is to practice **behaviour driven development
 
 Then, we can see today the trend to split front and back-end. These implementations often create a **duplication of business rules**.  
 Indeed, in front we see conditions on the entities to allow such or such action. What about find a way to maximize business rules in the domain (back-end) ?    
-**REST** permits exposing resources, linked actions and everything we want (if it makes sense with this resource). And more precisely when we implement **HATEOAS** constraint (_Hypermedia As The Engine of Application State_).
+**REST** permits exposing resources, linked actions and everything we want (if it makes sense with this resource). And more precisely when we implement **HATEOAS** constraint (_Hypermedia As The Engine of Application State_).  
 We therefore speak of affordance, and I will try to implement it.
 
 ## Steps
@@ -15,6 +15,9 @@ We therefore speak of affordance, and I will try to implement it.
 - [x] Install Hateoas tool & configure it
 - [x] First steps with affordance, expose a resource
 - [ ] Write tests which describe consumer attendees
+- [ ] Add more complex business rules
+- [ ] Add database
+- [ ] Develop a front-end to demonstrate the principle
 
 # First steps
 

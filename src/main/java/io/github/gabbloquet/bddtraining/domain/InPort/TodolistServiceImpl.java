@@ -11,6 +11,11 @@ public class TodolistServiceImpl implements TodolistService {
         todolistRepository = repository;
     }
 
+    @Override
+    public Todolist getTodolist() {
+        return todolistRepository.getTodolist();
+    }
+
     public Todolist add(String task) {
         return todolistRepository.addTask(task);
     }

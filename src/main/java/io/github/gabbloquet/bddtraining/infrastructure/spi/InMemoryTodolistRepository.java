@@ -3,7 +3,14 @@ package io.github.gabbloquet.bddtraining.infrastructure.spi;
 import io.github.gabbloquet.bddtraining.domain.Todolist;
 import io.github.gabbloquet.bddtraining.domain.OutPort.TodolistRepository;
 
+import java.util.List;
+
 public class InMemoryTodolistRepository implements TodolistRepository {
+
+    @Override
+    public Todolist getTodolist() {
+        return new Todolist(List.of());
+    }
 
     @Override
     public Todolist addTask(String task) {

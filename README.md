@@ -1,14 +1,27 @@
-<div align="center"><img width="1265" alt="JGiven report" src="https://github.com/gabbloquet/bdd-training/blob/master/reports.png"></div>
-<p align="center">Implemented features</p>
+# Software craftsmanship & Affordance 
 
-<p align="center"><b>Objective of this sandbox is to practice behaviour driven development ! 🚀</b></p>
+Firstly, objective of this sandbox is to practice **behaviour driven development**, **domain driven design**, **test driven development**.
+
+Then, we can see today the trend to split front and back-end. These implementations often create a **duplication of business rules**.  
+Indeed, in front we see conditions on the entities to allow such or such action. What about find a way to maximize business rules in the domain (back-end) ?    
+**REST** permits exposing resources, linked actions and everything we want (if it makes sense with this resource). And more precisely when we implement **HATEOAS** constraint (_Hypermedia As The Engine of Application State_).
+We therefore speak of affordance, and I will try to implement it.
+
+## Steps
+
+- [x] Describe business rules with gherkins
+- [x] Initialize project and install needed tools
+- [x] Implement business rules (domain, behaviour driven development)
+- [x] Install Hateoas tool & configure it
+- [x] First steps with affordance, expose a resource
+- [ ] Write tests which describe consumer attendees
 
 # First steps
 
 We will this BDD training with a basic todo list application.
 
 First of all, I write the hearth of my application, uses cases, business rules.
-This part (domain) has to be well tested, it carry the intelligence of my application.
+This part (domain) has to be well tested, it carries the intelligence of my application.
 
 I like the approach provide by [jgiven](https://jgiven.org/). I use this library to declare my gerkhins & generate reports (json & html).
 After writing it, I develop my functionalities, TDD approach.
@@ -21,81 +34,19 @@ After writing it, I develop my functionalities, TDD approach.
 4. Modify a task from my todo list
 5. Move a task from my todo list
 
-### Check todo list tasks
+[Associated gherkins](doc/gherkins.md)
 
-**Scenario: Check an empty todo list**
-
-**Given** an empty Todo list  
-**When** the user checks his todo list  
-**Then** no task is returned  
-
-**Scenario: Check a filled todo list**
-
-**Given** a todo list containing ‘Clean the house’ & ‘Wash the dog’  
-**When** the user checks his todo list  
-**Then** ‘Clean the house’ & ‘Wash the dog’ tasks are returned
-
-### Add a task in my todo list
-
-**Scenario: Add a task to an empty todo list**
-
-**Given** an empty Todo list  
-**When** the user add a ‘Buy cheese’ task  
-**Then** the todo list contains ‘Buy cheese’  
-
-**Scenario: Add a task to a filled todo list**
-
-**Given** a todo list containing ‘Clean the house’  
-**When** the user add ‘Wash the car’  
-**Then** the todo list contains ‘Clean the house’ & ‘Wash the car’  
-
-### Delete a task from my todo list
-
-**Scenario: Delete all tasks (Clean the todolist)**
-
-**Given** a todo list containing ‘Clean the house’ & ‘Wash the car’  
-**When** the user choose to delete all tasks  
-**Then** the todo list contains nothing  
-
-**Scenario: Delete a specific task**
-
-**Given** a todo list containing ‘Clean the house’ & ‘Wash the car’  
-**When** the user choose to delete ‘Wash the car’ task  
-**Then** the todo list contains ‘Clean the house’  
-
-### Modify a task from my todo list
-
-**Scenario: Modify a task**
-
-**Given** a todo list containing ‘Clean the house’ & ‘Wash the car’  
-**When** the user choose to modify ‘Clean the house’ by ‘Buy cheese’  
-**Then** the todo list contains ‘Buy cheese’ & ‘Wash the car’  
-
-### Reorder a task from my todo list
-
-**Scenario: Place a task on first position**
-
-**Given** a todo list containing ‘Clean the house’ & ‘Buy cheese’  
-**When** the user choose to put ‘Buy cheese’ on 1 position  
-**Then** the todo list contains ‘Buy cheese’ & ‘Clean the house’  
-
-**Scenario: Place a task on last position**
-
-**Given** a todo list containing ‘Clean the house’, ‘Buy cheese’, ‘Prepare coffee’ & ‘Wash the car’  
-**When** the user choose to put ‘Clean the house’ on 4 position  
-**Then** the todo list contains ‘Buy cheese’, ‘Prepare coffee’, ‘Wash the car’ & ‘Clean the house’  
-
-**Scenario: Place a task on second position**
-
-**Given** a todo list containing ‘Clean the house’, ‘Buy cheese’, ‘Prepare coffee’ & ‘Wash the car’  
-**When** the user choose to put ‘Wash the car’ on 2 position  
-**Then** the todo list contains ‘Clean the house’, ‘Wash the car’, ‘Buy cheese’ & ‘Prepare coffee’
+<div align="center"><img width="1265" alt="JGiven report" src="https://github.com/gabbloquet/bdd-training/blob/master/doc/reports.png"></div>
 
 ## Installation
 
 ### Nix
 
-[Nix installation documentation](./nix.md).
+[Nix installation documentation](doc/nix.md).
+
+### Without Nix
+
+Prerequisites : `Maven` & `Jdk17` 
 
 ### Project
 

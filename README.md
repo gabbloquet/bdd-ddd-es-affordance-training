@@ -15,24 +15,24 @@ After writing it, I develop my functionalities, TDD approach.
 
 ## Features
 
-1. See todo list tasks
+1. Check todo list tasks
 2. Add a task in my todo list
 3. Delete a task from my todo list
 4. Modify a task from my todo list
 5. Move a task from my todo list
 
-### See todo list tasks
+### Check todo list tasks
 
-**Scenario: See an empty todo list**
+**Scenario: Check an empty todo list**
 
 **Given** an empty Todo list  
 **When** the user checks his todo list  
 **Then** no task is returned  
 
-**Scenario: See a filled todo list**
+**Scenario: Check a filled todo list**
 
 **Given** a todo list containing ‘Clean the house’ & ‘Wash the dog’  
-**When** the user checks my todo list  
+**When** the user checks his todo list  
 **Then** ‘Clean the house’ & ‘Wash the dog’ tasks are returned
 
 ### Add a task in my todo list

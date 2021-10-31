@@ -4,15 +4,8 @@ import io.github.gabbloquet.bddtraining.domain.Todolist;
 
 public interface TodolistRepository {
 
-    Todolist getTodolist();
+    Todolist get();
 
-    Todolist addTask(String task);
+    Todolist save(Todolist todolist);
 
-    Todolist modifyTask(String task, String update);
-
-    Todolist deleteAllTask();
-
-    Todolist deleteTask(String task);
-
-    Todolist moveTask(String task, int position);
 }

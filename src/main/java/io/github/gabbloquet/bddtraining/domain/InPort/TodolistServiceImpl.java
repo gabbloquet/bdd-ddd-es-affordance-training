@@ -13,26 +13,36 @@ public class TodolistServiceImpl implements TodolistService {
 
     @Override
     public Todolist getTodolist() {
-        return todolistRepository.getTodolist();
+        return todolistRepository.get();
     }
 
     public Todolist add(String task) {
-        return todolistRepository.addTask(task);
+        var currentTodolist = todolistRepository.get();
+        currentTodolist.add(task);
+        return todolistRepository.save(currentTodolist);
     }
 
     public Todolist clear() {
-        return todolistRepository.deleteAllTask();
+        var currentTodolist = todolistRepository.get();
+        currentTodolist.clear();
+        return todolistRepository.save(currentTodolist);
     }
 
     public Todolist delete(String task) {
-        return todolistRepository.deleteTask(task);
+        var currentTodolist = todolistRepository.get();
+        currentTodolist.delete(task);
+        return todolistRepository.save(currentTodolist);
     }
 
     public Todolist modify(String taskToModify, String update) {
-        return todolistRepository.modifyTask(taskToModify, update);
+        var currentTodolist = todolistRepository.get();
+        currentTodolist.modify(taskToModify, update);
+        return todolistRepository.save(currentTodolist);
     }
 
     public Todolist move(String task, int position) {
-        return todolistRepository.moveTask(task, position);
+        var currentTodolist = todolistRepository.get();
+        currentTodolist.move(task, position);
+        return todolistRepository.save(currentTodolist);
     }
 }

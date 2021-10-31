@@ -2,7 +2,7 @@ package io.github.gabbloquet.bddtraining.application.services;
 
 import io.github.gabbloquet.bddtraining.domain.Todolist;
 import io.github.gabbloquet.bddtraining.infrastructure.api.TodolistController;
-import io.github.gabbloquet.bddtraining.infrastructure.utils.SimpleIdentifiableRepresentationModelAssembler;
+import io.github.gabbloquet.bddtraining.application.utils.SimpleIdentifiableRepresentationModelAssembler;
 import org.springframework.stereotype.Component;
 
 @Component

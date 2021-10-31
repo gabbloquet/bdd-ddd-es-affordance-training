@@ -1,4 +1,4 @@
-package io.github.gabbloquet.bddtraining.infrastructure.utils;
+package io.github.gabbloquet.bddtraining.application.utils;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,7 +1,8 @@
-package io.github.gabbloquet.bddtraining.infrastructure.api;
+package io.github.gabbloquet.bddtraining.application.services;
 
 import io.github.gabbloquet.bddtraining.domain.InPort.TodolistService;
 import io.github.gabbloquet.bddtraining.domain.Todolist;
+import io.github.gabbloquet.bddtraining.infrastructure.api.TodolistRepresentationService;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.stereotype.Service;
 

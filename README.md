@@ -8,6 +8,8 @@ Indeed, in front we see conditions on the entities to allow such or such action.
 Thanks to that, we could reduce back and front office coupling.  
 We therefore speak of affordance, and I will try to implement it.
 
+Few words about [affordance and choices](./doc/affordance.md).
+
 ## Steps
 
 - [x] Describe business rules with gherkins

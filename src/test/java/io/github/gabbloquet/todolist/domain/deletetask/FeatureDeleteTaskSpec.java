@@ -1,4 +1,4 @@
-package io.github.gabbloquet.todolist.deletetask;
+package io.github.gabbloquet.todolist.domain.deletetask;
 
 import com.tngtech.jgiven.annotation.ScenarioStage;
 import com.tngtech.jgiven.junit5.JGivenExtension;

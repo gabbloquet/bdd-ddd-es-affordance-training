@@ -1,4 +1,4 @@
-package io.github.gabbloquet.todolist.addtask;
+package io.github.gabbloquet.todolist.domain.addtask;
 
 import com.tngtech.jgiven.Stage;
 import io.github.gabbloquet.todolist.domain.Todolist;

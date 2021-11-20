@@ -5,9 +5,12 @@ import io.github.gabbloquet.todolist.domain.Todolist;
 import io.github.gabbloquet.todolist.infrastructure.api.TodolistController;
 import io.github.gabbloquet.todolist.infrastructure.api.TodolistModelService;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.mediatype.Affordances;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Service
 public class TodolistHalService implements TodolistModelService {
@@ -39,7 +42,12 @@ public class TodolistHalService implements TodolistModelService {
     public EntityModel<Todolist> toModel(Todolist todolist) {
         EntityModel<Todolist> todolistModel = EntityModel.of(todolist);;
 
-        var selfLink = linkTo(methodOn(TodolistController.class).getTodolist()).withSelfRel();
+        var methodInvocation = methodOn(TodolistController.class).getTodolist();
+        var selfLink = Affordances.of(linkTo(methodInvocation).withSelfRel())
+            .afford(HttpMethod.POST)
+            .withOutput(Todolist.class)
+            .withName("add-task")
+            .toLink();
         todolistModel.add(selfLink);
 
         return todolistModel;

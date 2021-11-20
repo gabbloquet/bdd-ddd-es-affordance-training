@@ -1,4 +1,4 @@
-package io.github.gabbloquet.todolist.checktodolist;
+package io.github.gabbloquet.todolist.domain.checktodolist;
 
 import com.tngtech.jgiven.annotation.ScenarioStage;
 import com.tngtech.jgiven.junit5.JGivenExtension;

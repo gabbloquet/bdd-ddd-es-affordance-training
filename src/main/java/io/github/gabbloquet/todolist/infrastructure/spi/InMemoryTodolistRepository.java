@@ -15,7 +15,6 @@ public class InMemoryTodolistRepository implements TodolistRepository {
 
     @Override
     public Todolist get() {
-        todolist.tasks().add("toto");
         return todolist;
     }
 

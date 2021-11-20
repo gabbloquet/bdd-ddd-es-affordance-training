@@ -9,29 +9,27 @@ import org.springframework.web.bind.annotation.*;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
-@RequestMapping(TodolistController.BASE_PATH)
 public class TodolistController {
-    static final String BASE_PATH = "todolist";
     private final TodolistModelService todolistResourceService;
 
     public TodolistController(TodolistModelService todolistResourceService) {
         this.todolistResourceService = todolistResourceService;
     }
 
-    @GetMapping
+    @GetMapping("/todolist")
     public ResponseEntity<EntityModel<Todolist>> getTodolist() {
         var todolist = todolistResourceService.getTodolist();
         return ok(todolist);
     }
 
-    @PostMapping(BASE_PATH + "/{id}")
-    public ResponseEntity<EntityModel<Todolist>> addTask(@RequestBody String task, @PathVariable String id) {
+    @PostMapping("/todolist" )
+    public ResponseEntity<EntityModel<Todolist>> addTask(@RequestBody String task) {
         var todolist = todolistResourceService.addTask(task);
         return ResponseEntity.status(HttpStatus.CREATED).body(todolist);
     }
 
     record UpdateTask(String task, String update){}
-    @PutMapping
+    @PutMapping("/todolist")
     public ResponseEntity<EntityModel<Todolist>> modifyTask(@RequestBody UpdateTask update) {
         var todolist = todolistResourceService.modifyTask(update.task, update.update);
         return ok(todolist);

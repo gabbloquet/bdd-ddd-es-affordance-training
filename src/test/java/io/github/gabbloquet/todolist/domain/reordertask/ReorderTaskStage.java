@@ -1,4 +1,4 @@
-package io.github.gabbloquet.todolist.reordertask;
+package io.github.gabbloquet.todolist.domain.reordertask;
 
 import com.tngtech.jgiven.Stage;
 import io.github.gabbloquet.todolist.domain.Todolist;

@@ -1,4 +1,4 @@
-package io.github.gabbloquet.todolist.modifytask;
+package io.github.gabbloquet.todolist.domain.modifytask;
 
 import com.tngtech.jgiven.annotation.ScenarioStage;
 import com.tngtech.jgiven.junit5.JGivenExtension;

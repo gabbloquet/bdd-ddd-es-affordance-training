@@ -1,16 +1,14 @@
 package io.github.gabbloquet.todolist.infrastructure.spi;
 
 import io.github.gabbloquet.todolist.domain.OutPort.TodolistRepository;
-import io.github.gabbloquet.todolist.domain.Todolist;
-
-import java.util.ArrayList;
+import io.github.gabbloquet.todolist.domain.model.Todolist;
 
 public class InMemoryTodolistRepository implements TodolistRepository {
 
     private Todolist todolist;
 
     public InMemoryTodolistRepository() {
-        this.todolist = new Todolist(new ArrayList<>());
+        this.todolist = new Todolist();
     }
 
     @Override
@@ -19,8 +17,10 @@ public class InMemoryTodolistRepository implements TodolistRepository {
     }
 
     @Override
-    public Todolist save(Todolist updatedTodolist) {
-        this.todolist = updatedTodolist;
+    public Todolist save(Todolist todolist) {
+        this.todolist = todolist;
         return todolist;
     }
+
+
 }

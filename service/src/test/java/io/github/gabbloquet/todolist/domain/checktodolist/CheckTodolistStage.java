@@ -1,8 +1,8 @@
 package io.github.gabbloquet.todolist.domain.checktodolist;
 
 import com.tngtech.jgiven.Stage;
-import io.github.gabbloquet.todolist.domain.Task;
-import io.github.gabbloquet.todolist.domain.Todolist;
+import io.github.gabbloquet.todolist.domain.model.Task;
+import io.github.gabbloquet.todolist.domain.model.Todolist;
 import org.assertj.core.api.Assertions;
 
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ public class CheckTodolistStage extends Stage<CheckTodolistStage> {
     private List<String> tasks;
 
     public CheckTodolistStage an_empty_todo_list() {
-        todolist = new Todolist(new ArrayList<>());
+        todolist = new Todolist();
         return self();
     }
 
@@ -30,9 +30,9 @@ public class CheckTodolistStage extends Stage<CheckTodolistStage> {
     }
 
     public CheckTodolistStage a_todo_list_containing_$_and_$(String task1, String task2) {
-        todolist = new Todolist(new ArrayList<>());
-        todolist.add(task1);
-        todolist.add(task2);
+        todolist = new Todolist();
+        todolist.add(new Task(task1));
+        todolist.add(new Task(task2));
         return self();
     }
 

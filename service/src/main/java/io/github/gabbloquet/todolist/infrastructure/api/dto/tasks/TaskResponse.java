@@ -4,14 +4,12 @@ import lombok.Builder;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.RepresentationModel;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
 
 @Builder(toBuilder = true)
 public class TaskResponse extends RepresentationModel<TaskResponse> {
-    private TaskDto task;
-    private List<ActionDto> actions;
+    private String task;
 
     public TaskResponse addTasksRel(Supplier<Link> affordance) {
         Optional.ofNullable(affordance.get())

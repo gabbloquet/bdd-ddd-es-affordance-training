@@ -1,14 +1,14 @@
 package io.github.gabbloquet.todolist.infrastructure.api;
 
 import io.github.gabbloquet.todolist.domain.InPort.TodolistService;
+import io.github.gabbloquet.todolist.domain.model.Task;
 import io.github.gabbloquet.todolist.domain.model.Todolist;
 import io.github.gabbloquet.todolist.infrastructure.api.dto.todolist.TodolistResponse;
 import io.github.gabbloquet.todolist.infrastructure.api.dto.todolist.TodolistResponseMapper;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import javax.validation.Valid;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/todolist")
@@ -21,8 +21,14 @@ public class TodolistResource {
     private final TodolistResponseMapper todolistResponseMapper;
 
     @GetMapping("")
-    public TodolistResponse getTodolist() {
+    public TodolistResponse get() {
         Todolist todolist = todolistService.get();
+        return todolistResponseMapper.map(todolist);
+    }
+
+    @PutMapping("/move")
+    public TodolistResponse move(@Valid @RequestBody MoveTaskRequest request) {
+        Todolist todolist = todolistService.move(new Task(request.getTask()), request.getPosition());
         return todolistResponseMapper.map(todolist);
     }
 }

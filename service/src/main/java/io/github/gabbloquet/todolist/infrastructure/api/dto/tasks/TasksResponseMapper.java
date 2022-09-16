@@ -20,8 +20,7 @@ public class TasksResponseMapper {
 
     public TaskResponse map(Task task) {
         TaskResponse taskResponse = TaskResponse.builder()
-                .task(TaskDto.from(task))
-                .actions(ActionDto.from(task))
+                .task(task.task())
                 .build();
 
         Affordance affordance = new Affordance(
@@ -39,14 +38,14 @@ public class TasksResponseMapper {
         private final Task task;
         public Supplier<Link> tasksRel() {
             return () -> linkTo(methodOn(TodolistResource.class)
-                    .getTodolist())
+                    .get())
                     .withRel(TodolistRelations.TASKS)
                     .withName("Add tasks");
         }
 
         public Supplier<Link> actionsRel() {
             return () -> linkTo(methodOn(TodolistResource.class)
-                    .getTodolist())
+                    .get())
                     .withRel(TodolistRelations.TASKS)
                     .withName("Add tasks");
         }

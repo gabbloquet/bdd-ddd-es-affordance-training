@@ -6,6 +6,8 @@ import io.github.gabbloquet.todolist.infrastructure.api.dto.tasks.TaskResponse;
 import io.github.gabbloquet.todolist.infrastructure.api.dto.tasks.TasksResponseMapper;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -29,14 +31,16 @@ public class TasksResource {
     }
 
     @PutMapping("/{id}")
-    public TaskResponse modifyTask(@PathVariable int id, @RequestBody String update) {
+    public EntityModel<Task> modifyTask(@PathVariable int id, @RequestBody String update) {
         Task task = tasksService.modify(id, update);
-        return tasksResponseMapper.map(task);
+        return EntityModel.of(task);
+//        return tasksResponseMapper.map(task);
     }
 
     @DeleteMapping("/{id}")
-    public TaskResponse deleteTask(@PathVariable int id) {
+    public ResponseEntity<?> deleteTask(@PathVariable int id) {
         tasksService.delete(id);
-        return tasksResponseMapper.map(null);
+        return ResponseEntity.noContent().build();
+//        return tasksResponseMapper.map(null);
     }
 }

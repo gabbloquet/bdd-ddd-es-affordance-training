@@ -1,0 +1,179 @@
+{
+  "className": "io.github.gabbloquet.todolist.domain.checktodolist.FeatureCheckTodolistSpec",
+  "name": "Feature Check Todolist Spec",
+  "scenarios": [
+    {
+      "className": "io.github.gabbloquet.todolist.domain.checktodolist.FeatureCheckTodolistSpec",
+      "testMethodName": "add_a_tasks_to_filled_todo_list",
+      "description": "add a tasks to filled todo list",
+      "tagIds": [],
+      "explicitParameters": [],
+      "derivedParameters": [],
+      "scenarioCases": [
+        {
+          "caseNr": 1,
+          "steps": [
+            {
+              "name": "a todo list containing $ and $",
+              "words": [
+                {
+                  "value": "given",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "a todo list containing"
+                },
+                {
+                  "value": "Clean the house",
+                  "argumentInfo": {
+                    "argumentName": "task1",
+                    "formattedValue": "Clean the house"
+                  }
+                },
+                {
+                  "value": "and"
+                },
+                {
+                  "value": "Wash the car",
+                  "argumentInfo": {
+                    "argumentName": "task2",
+                    "formattedValue": "Wash the car"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 405892,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the user checks his todolist",
+              "words": [
+                {
+                  "value": "when",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the user checks his todolist"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 518705,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "$ and $ tasks are returned",
+              "words": [
+                {
+                  "value": "then",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "Clean the house",
+                  "argumentInfo": {
+                    "argumentName": "task1",
+                    "formattedValue": "Clean the house"
+                  }
+                },
+                {
+                  "value": "and"
+                },
+                {
+                  "value": "Wash the car",
+                  "argumentInfo": {
+                    "argumentName": "task2",
+                    "formattedValue": "Wash the car"
+                  }
+                },
+                {
+                  "value": "tasks are returned"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 293267,
+              "depth": 0,
+              "parentFailed": false
+            }
+          ],
+          "explicitArguments": [],
+          "derivedArguments": [],
+          "status": "SUCCESS",
+          "durationInNanos": 1959451
+        }
+      ],
+      "casesAsTable": false,
+      "durationInNanos": 1959451
+    },
+    {
+      "className": "io.github.gabbloquet.todolist.domain.checktodolist.FeatureCheckTodolistSpec",
+      "testMethodName": "add_a_task_to_an_empty_todo_list",
+      "description": "add a task to an empty todo list",
+      "tagIds": [],
+      "explicitParameters": [],
+      "derivedParameters": [],
+      "scenarioCases": [
+        {
+          "caseNr": 1,
+          "steps": [
+            {
+              "name": "an empty todo list",
+              "words": [
+                {
+                  "value": "given",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "an empty todo list"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 113805,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the user checks his todolist",
+              "words": [
+                {
+                  "value": "when",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the user checks his todolist"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 83954,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "no task is returned",
+              "words": [
+                {
+                  "value": "then",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "no task is returned"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 86737,
+              "depth": 0,
+              "parentFailed": false
+            }
+          ],
+          "explicitArguments": [],
+          "derivedArguments": [],
+          "status": "SUCCESS",
+          "durationInNanos": 778811
+        }
+      ],
+      "casesAsTable": false,
+      "durationInNanos": 778811
+    }
+  ],
+  "tagMap": {}
+}

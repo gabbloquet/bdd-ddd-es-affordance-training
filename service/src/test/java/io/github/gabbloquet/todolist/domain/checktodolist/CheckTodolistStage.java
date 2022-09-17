@@ -5,7 +5,6 @@ import io.github.gabbloquet.todolist.domain.model.Task;
 import io.github.gabbloquet.todolist.domain.model.Todolist;
 import org.assertj.core.api.Assertions;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 

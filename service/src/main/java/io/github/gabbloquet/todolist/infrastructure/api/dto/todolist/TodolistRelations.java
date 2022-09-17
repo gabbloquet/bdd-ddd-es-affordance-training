@@ -7,6 +7,7 @@ import org.springframework.hateoas.LinkRelation;
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class TodolistRelations {
 
-    public static final LinkRelation TASKS = LinkRelation.of("tasks");
+    public static final LinkRelation TODOLIST = LinkRelation.of("todolist");
+    public static final LinkRelation ADD_TASK = LinkRelation.of("addTask");
 
 }

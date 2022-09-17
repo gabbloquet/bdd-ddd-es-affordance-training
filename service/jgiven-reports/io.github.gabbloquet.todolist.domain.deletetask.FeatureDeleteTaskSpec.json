@@ -1,0 +1,196 @@
+{
+  "className": "io.github.gabbloquet.todolist.domain.deletetask.FeatureDeleteTaskSpec",
+  "name": "Feature Delete Task Spec",
+  "scenarios": [
+    {
+      "className": "io.github.gabbloquet.todolist.domain.deletetask.FeatureDeleteTaskSpec",
+      "testMethodName": "delete_all_tasks",
+      "description": "delete all tasks",
+      "tagIds": [],
+      "explicitParameters": [],
+      "derivedParameters": [],
+      "scenarioCases": [
+        {
+          "caseNr": 1,
+          "steps": [
+            {
+              "name": "a todo list containing $ and $",
+              "words": [
+                {
+                  "value": "given",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "a todo list containing"
+                },
+                {
+                  "value": "Clean the house",
+                  "argumentInfo": {
+                    "argumentName": "task1",
+                    "formattedValue": "Clean the house"
+                  }
+                },
+                {
+                  "value": "and"
+                },
+                {
+                  "value": "Wash the car",
+                  "argumentInfo": {
+                    "argumentName": "task2",
+                    "formattedValue": "Wash the car"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 671214,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the user choose to clean all tasks",
+              "words": [
+                {
+                  "value": "when",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the user choose to clean all tasks"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 248119,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the todo list contains nothing",
+              "words": [
+                {
+                  "value": "then",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the todo list contains nothing"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 629349,
+              "depth": 0,
+              "parentFailed": false
+            }
+          ],
+          "explicitArguments": [],
+          "derivedArguments": [],
+          "status": "SUCCESS",
+          "durationInNanos": 2182403
+        }
+      ],
+      "casesAsTable": false,
+      "durationInNanos": 2182403
+    },
+    {
+      "className": "io.github.gabbloquet.todolist.domain.deletetask.FeatureDeleteTaskSpec",
+      "testMethodName": "delete_a_specific_task",
+      "description": "delete a specific task",
+      "tagIds": [],
+      "explicitParameters": [],
+      "derivedParameters": [],
+      "scenarioCases": [
+        {
+          "caseNr": 1,
+          "steps": [
+            {
+              "name": "a todo list containing $ and $",
+              "words": [
+                {
+                  "value": "given",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "a todo list containing"
+                },
+                {
+                  "value": "Clean the house",
+                  "argumentInfo": {
+                    "argumentName": "task1",
+                    "formattedValue": "Clean the house"
+                  }
+                },
+                {
+                  "value": "and"
+                },
+                {
+                  "value": "Wash the car",
+                  "argumentInfo": {
+                    "argumentName": "task2",
+                    "formattedValue": "Wash the car"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 556933,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the user choose to delete $ task",
+              "words": [
+                {
+                  "value": "when",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the user choose to delete"
+                },
+                {
+                  "value": "Wash the car",
+                  "argumentInfo": {
+                    "argumentName": "taskToDelete",
+                    "formattedValue": "Wash the car"
+                  }
+                },
+                {
+                  "value": "task"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 428195,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the todo list contains $",
+              "words": [
+                {
+                  "value": "then",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the todo list contains"
+                },
+                {
+                  "value": "Clean the house",
+                  "argumentInfo": {
+                    "argumentName": "task",
+                    "formattedValue": "Clean the house"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 363746,
+              "depth": 0,
+              "parentFailed": false
+            }
+          ],
+          "explicitArguments": [],
+          "derivedArguments": [],
+          "status": "SUCCESS",
+          "durationInNanos": 2126699
+        }
+      ],
+      "casesAsTable": false,
+      "durationInNanos": 2126699
+    }
+  ],
+  "tagMap": {}
+}

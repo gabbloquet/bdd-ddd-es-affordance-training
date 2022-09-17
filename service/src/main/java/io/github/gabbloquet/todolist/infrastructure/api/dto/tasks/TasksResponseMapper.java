@@ -8,11 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.Link;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.function.Supplier;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 @Service
 @RequiredArgsConstructor
@@ -27,6 +25,14 @@ public class TasksResponseMapper {
             task
         );
 
+//        List<EntityModel<Task>> taskResources = List.of(new Task("Amazing task")).stream()
+//                .map(task -> EntityModel.of(task,
+//                        linkTo(tasksResource.getTask("1")).withSelfRel().withTitle("Get Task informations")
+//                                .andAffordance(afford(tasksResource.modifyTask(1, null)))
+//                                .andAffordance(afford(tasksResource.deleteTask(1))),
+//                        linkTo(todolistResource.get()).withRel("todolist")))
+//                .collect(Collectors.toList());
+
         return taskResponse
                 .addTasksRel(affordance.tasksRel())
                 .addActionsRel(affordance.actionsRel());
@@ -39,14 +45,14 @@ public class TasksResponseMapper {
         public Supplier<Link> tasksRel() {
             return () -> linkTo(methodOn(TodolistResource.class)
                     .get())
-                    .withRel(TodolistRelations.TASKS)
+                    .withRel(TodolistRelations.ADD_TASK)
                     .withName("Add tasks");
         }
 
         public Supplier<Link> actionsRel() {
             return () -> linkTo(methodOn(TodolistResource.class)
                     .get())
-                    .withRel(TodolistRelations.TASKS)
+                    .withRel(TodolistRelations.ADD_TASK)
                     .withName("Add tasks");
         }
     }

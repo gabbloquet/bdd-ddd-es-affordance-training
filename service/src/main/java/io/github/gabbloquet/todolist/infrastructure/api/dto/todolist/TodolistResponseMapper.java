@@ -2,52 +2,70 @@ package io.github.gabbloquet.todolist.infrastructure.api.dto.todolist;
 
 import io.github.gabbloquet.todolist.domain.model.Task;
 import io.github.gabbloquet.todolist.domain.model.Todolist;
+import io.github.gabbloquet.todolist.infrastructure.api.MoveTaskRequest;
+import io.github.gabbloquet.todolist.infrastructure.api.TasksResource;
 import io.github.gabbloquet.todolist.infrastructure.api.TodolistResource;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.Link;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.function.Supplier;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
+
 
 @Service
 @RequiredArgsConstructor
 public class TodolistResponseMapper {
 
-    public TodolistResponse map(Todolist todolist) {
-        TodolistResponse todolistResponse = TodolistResponse.builder()
-                .tasks(todolist.tasks().stream().map(Task::task).toList())
-                .build();
+    public EntityModel<Todolist> map(Todolist todolist) {
+//        TodolistResponse todolistResponse = TodolistResponse.builder()
+//                .tasks(todolist.tasks().stream().map(Task::task).toList())
+//                .build();
+//
+//        Affordance affordance = new Affordance();
 
-        Affordance affordance = new Affordance(
-            todolist.tasks()
-        );
+//        return todolistResponse
+//                .selfRel(affordance.selfRel())
+//                .addTaskActionRel(affordance.addTaskRel());
 
-        return todolistResponse
-                .addTasksRel(affordance.tasksRel())
-                .addActionsRel(affordance.actionsRel());
+        TodolistResource todolistResource = methodOn(TodolistResource.class);
+
+        todolist.add(new Task("toto"));
+
+
+        MoveTaskRequest taskRequest = MoveTaskRequest.builder().task("toto").position(1).build();
+        return EntityModel.of( //
+                todolist, //
+                linkTo(todolistResource.get()).withSelfRel()
+                        .andAffordance(afford(todolistResource.move(taskRequest))),
+                linkTo(todolistResource.move(taskRequest)).withRel("MOVE"));
+//                linkTo(todolistResource.get()).withSelfRel()
+//                        .andAffordance(afford(todolistResource.move(null))));
     }
 
     @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
     private static final class Affordance {
 
-        private final List<Task> tasks;
-        public Supplier<Link> tasksRel() {
-            return () -> linkTo(methodOn(TodolistResource.class)
-                    .get())
-                    .withRel(TodolistRelations.TASKS)
-                    .withName("Add tasks");
+        private final TodolistResource todolistResource = methodOn(TodolistResource.class);
+        private final TasksResource tasksResource = methodOn(TasksResource.class);
+
+        public Supplier<Link> selfRel() {
+            return () -> linkTo(todolistResource.get())
+                    .withSelfRel();
         }
 
-        public Supplier<Link> actionsRel() {
-            return () -> linkTo(methodOn(TodolistResource.class)
-                    .get())
-                    .withRel(TodolistRelations.TASKS)
-                    .withName("Add tasks");
+        public Supplier<Link> addTaskRel() {
+//            return () -> linkTo(tasksResource.addTask("Task Example"))
+//                    .withRel(TodolistRelations.ADD_TASK)
+//                    .withType("POST")
+//                    .withTitle("Add a task");
+            return () -> linkTo(tasksResource.addTask("Task Example"))
+                    .withRel(TodolistRelations.ADD_TASK)
+                    .withType("POST")
+                    .withTitle("Add a task");
         }
     }
 }

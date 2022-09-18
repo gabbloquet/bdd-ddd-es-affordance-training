@@ -1,4 +1,4 @@
-package io.github.gabbloquet.todolist.configuration;
+package io.github.gabbloquet.todolist.application;
 
 import io.github.gabbloquet.todolist.domain.InPort.TasksService;
 import io.github.gabbloquet.todolist.domain.InPort.TasksServiceImpl;

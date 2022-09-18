@@ -6,6 +6,7 @@ import io.github.gabbloquet.todolist.domain.InPort.TodolistService;
 import io.github.gabbloquet.todolist.domain.InPort.TodolistServiceImpl;
 import io.github.gabbloquet.todolist.domain.OutPort.TaskRepository;
 import io.github.gabbloquet.todolist.domain.OutPort.TodolistRepository;
+import io.github.gabbloquet.todolist.infrastructure.api.TodolistResource;
 import io.github.gabbloquet.todolist.infrastructure.spi.InMemoryTaskRepository;
 import io.github.gabbloquet.todolist.infrastructure.spi.InMemoryTodolistRepository;
 import org.springframework.context.annotation.Bean;

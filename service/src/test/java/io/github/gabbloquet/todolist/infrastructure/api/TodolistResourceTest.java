@@ -5,15 +5,19 @@ import io.github.gabbloquet.todolist.domain.model.Task;
 import io.github.gabbloquet.todolist.domain.model.Todolist;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static io.github.gabbloquet.todolist.TestUtils.asJsonString;
@@ -38,10 +42,16 @@ class TodolistResourceTest {
         Task task = new Task("Practice TDD");
         Task anotherTask = new Task("Practice Simple Design");
 
+        List<Task> listWithATask = new ArrayList<>(List.of(task));
+        List<Task> listWithTwoTasks = new ArrayList<>(List.of(task, anotherTask));
+
+        Todolist todolistWithOneTask = new Todolist(listWithATask);
+        Todolist todolistWithTwoTasks = new Todolist(listWithTwoTasks);
+
         when(todolistService.get())
-                .thenReturn(new Todolist(List.of(task)));
+                .thenReturn(todolistWithOneTask);
         when(todolistService.move(task, 2))
-                .thenReturn(new Todolist(List.of(anotherTask, task)));
+                .thenReturn(todolistWithTwoTasks);
     }
 
     @Test

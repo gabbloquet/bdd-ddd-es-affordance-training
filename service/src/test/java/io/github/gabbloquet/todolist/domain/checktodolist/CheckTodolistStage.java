@@ -19,7 +19,7 @@ public class CheckTodolistStage extends Stage<CheckTodolistStage> {
     }
 
     public CheckTodolistStage the_user_checks_his_todolist() {
-        tasks = todolist.tasks().stream().map(Task::task).collect(Collectors.toList());
+        tasks = todolist.getTasks().stream().map(Task::task).collect(Collectors.toList());
         return self();
     }
 

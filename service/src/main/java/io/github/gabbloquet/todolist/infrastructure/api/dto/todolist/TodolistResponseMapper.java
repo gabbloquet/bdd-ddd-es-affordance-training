@@ -22,7 +22,7 @@ public class TodolistResponseMapper {
 
     public EntityModel<Todolist> map(Todolist todolist) {
 //        TodolistResponse todolistResponse = TodolistResponse.builder()
-//                .tasks(todolist.tasks().stream().map(Task::task).toList())
+//                .tasks(todolist.getTasks().stream().map(Task::task).toList())
 //                .build();
 //
 //        Affordance affordance = new Affordance();

@@ -8,7 +8,7 @@ Indeed, in front we see conditions on the entities to allow such or such action.
 Thanks to that, we could reduce back and front office coupling.  
 We therefore speak of affordance, and I will try to implement it.
 
-Few words about [affordance and choices](./doc/affordance.md).
+Few words about [affordance and choices](../doc/affordance.md).
 
 ## Steps
 
@@ -24,7 +24,7 @@ Few words about [affordance and choices](./doc/affordance.md).
 
 # First steps
 
-We will this BDD training with a basic todo list application.
+We will start this BDD training with a basic todo list application.
 
 First of all, I write the hearth of my application, uses cases, business rules.
 This part (domain) has to be well tested, it carries the intelligence of my application.
@@ -40,9 +40,7 @@ After writing it, I develop my functionalities, TDD approach.
 4. Modify a task from my todo list
 5. Move a task from my todo list
 
-[Associated gherkins](doc/gherkins.md)
-
-<div align="center"><img width="1265" alt="JGiven report" src="https://github.com/gabbloquet/bdd-training/blob/master/doc/reports.png"></div>
+[Associated gherkins](../doc/gherkins.md)
 
 ## Installation
 
@@ -52,7 +50,7 @@ After writing it, I develop my functionalities, TDD approach.
 
 ### Without Nix
 
-Prerequisites : `Maven` & `Jdk17` 
+Prerequisites : [`Maven`](https://maven.apache.org/install.html) & [`Jdk18`](https://www.oracle.com/java/technologies/javase/jdk18-archive-downloads.html) 
 
 ### Project
 
@@ -69,9 +67,14 @@ mvn verify
 
 HTML reports are then generated into the target`/jgiven-reports/html` directory. Note that the plugin relies on the existence of the JSON output, so if the property jgiven.reports.enabled was set to false, no output will be generated.
 
+![All scenarios](../doc/reports.png)
+
 ## Project Initialization
 
-<div align="center"><img width="1265" alt="Spring boot init" src="https://user-images.githubusercontent.com/25029077/131261334-8307d9ab-5dd5-49c1-9ae0-4489ce217ea8.png"></div>
+After some problems with a homemade version, I was inspired by [Spring hateoas examples](https://github.com/spring-projects/spring-hateoas-examples) and more precisely [affordances part](https://github.com/spring-projects/spring-hateoas-examples/tree/main/affordances) which show how to create templates.  
+
+Templates allow to return the way you can create, modify or delete the given resource.  
+More information about it in [Affordance documentation](../doc/affordance.md);
 
 ## Ideas
 

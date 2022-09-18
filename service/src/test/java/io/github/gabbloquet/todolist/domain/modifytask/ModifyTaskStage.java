@@ -34,7 +34,7 @@ public class ModifyTaskStage extends Stage<ModifyTaskStage> {
         expectedList.add(new Task(task2));
 
         Assertions
-          .assertThat(todolist.getTasks())
+          .assertThat(todolist.tasks())
           .isEqualTo(expectedList);
     }
 }

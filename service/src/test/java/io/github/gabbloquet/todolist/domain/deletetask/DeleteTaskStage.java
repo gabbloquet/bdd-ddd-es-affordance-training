@@ -28,7 +28,7 @@ public class DeleteTaskStage extends Stage<DeleteTaskStage> {
 
     public void the_todo_list_contains_nothing() {
         Assertions
-                .assertThat(todolist.getTasks())
+                .assertThat(todolist.tasks())
                 .isEmpty();
     }
 
@@ -45,7 +45,7 @@ public class DeleteTaskStage extends Stage<DeleteTaskStage> {
         expectedList.add(new Task(task));
 
         Assertions
-            .assertThat(todolist.getTasks())
+            .assertThat(todolist.tasks())
             .isEqualTo(expectedList);
     }
 }

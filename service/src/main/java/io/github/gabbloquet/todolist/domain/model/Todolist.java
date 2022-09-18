@@ -1,17 +1,11 @@
 package io.github.gabbloquet.todolist.domain.model;
 
 import io.github.gabbloquet.todolist.utils.ArrayUtils;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-@AllArgsConstructor
-public class Todolist {
-
-    private List<Task> tasks;
+public record Todolist(List<Task> tasks) {
 
     public Todolist() {
         this(new ArrayList<>());
@@ -30,7 +24,7 @@ public class Todolist {
     }
 
     public void modify(Task task, String update) {
-        int position = tasks.indexOf(task);
+        int position = tasks().indexOf(task);
         tasks.set(position, new Task(update));
     }
 

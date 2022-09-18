@@ -13,7 +13,7 @@ class InMemoryTodolistRepositoryTest {
     void creates_an_empty_todolist() {
         InMemoryTodolistRepository repository = new InMemoryTodolistRepository();
 
-        List<Task> tasks = repository.get().getTasks();
+        List<Task> tasks = repository.get().tasks();
         Assertions.assertTrue(tasks.isEmpty());
     }
 

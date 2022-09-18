@@ -39,7 +39,7 @@ public class ReorderTaskStage extends Stage<ReorderTaskStage> {
         expectedList.add(new Task(task2));
 
         Assertions
-            .assertThat(todolist.getTasks())
+            .assertThat(todolist.tasks())
             .isEqualTo(expectedList);
     }
 
@@ -51,7 +51,7 @@ public class ReorderTaskStage extends Stage<ReorderTaskStage> {
         expectedList.add(new Task(task4));
 
         Assertions
-                .assertThat(todolist.getTasks())
+                .assertThat(todolist.tasks())
                 .isEqualTo(expectedList);
     }
 }

@@ -31,7 +31,7 @@ public class AddTaskStage extends Stage<AddTaskStage> {
     public void the_todo_list_contains_$(String... tasks) {
         List<Task> expectedTasks = Stream.of(tasks).map(Task::new).toList();
         Assertions
-            .assertThat(todolist.getTasks())
+            .assertThat(todolist.tasks())
             .isEqualTo(expectedTasks);
     }
 }

@@ -7,13 +7,13 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.0.0-SNAPSHOT</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/>
 	</parent>
 
 	<groupId>io.github.gabbloquet</groupId>
-	<artifactId>todolist</artifactId>
+	<artifactId>bdd-training</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>service</name>
+	<name>todolist</name>
 	<description>Todolist API using exposes REST Endpoint (Hateoas)</description>
 
 	<properties>
@@ -70,12 +70,6 @@
 		</dependency>
 
 		<!-- JGiven : Dev-friendly light-weight Java library that helps you to design a high-level, domain-specific language for writing BDD scenarios. 		-->
-		<dependency>
-			<groupId>com.tngtech.jgiven</groupId>
-			<artifactId>jgiven-junit</artifactId>
-			<version>${jgiven.version}</version>
-			<scope>test</scope>
-		</dependency>
 		<dependency>
 			<groupId>com.tngtech.jgiven</groupId>
 			<artifactId>jgiven-junit5</artifactId>

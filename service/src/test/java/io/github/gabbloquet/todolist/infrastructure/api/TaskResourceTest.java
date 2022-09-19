@@ -13,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -42,7 +43,9 @@ class TaskResourceTest {
         executeGetTaskOneRequest()
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("id").value(1))
-                .andExpect(jsonPath("description").value("Practice TDD"));
+                .andExpect(jsonPath("description").value("Practice TDD"))
+
+                .andExpect(jsonPath("$._links.self.href", is("http://localhost/tasks/1")));
     }
 
 

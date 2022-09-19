@@ -5,6 +5,7 @@ import io.github.gabbloquet.todolist.infrastructure.api.TodolistResource;
 import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.Link;
+import org.springframework.hateoas.RepresentationModel;
 import org.springframework.stereotype.Service;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
@@ -25,6 +26,12 @@ public class TasksResponseMapper {
                 getAddTaskAffordance(),
                 getTodolistAffordance()
         );
+    }
+
+    public RepresentationModel<?> get() {
+        return new RepresentationModel()
+                .add(getAddTaskAffordance())
+                .add(getTodolistAffordance());
     }
 
     private Link getSelfLink(TaskDto task) {

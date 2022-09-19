@@ -7,6 +7,7 @@ import io.github.gabbloquet.todolist.infrastructure.api.dto.tasks.TasksResponseM
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.RepresentationModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,8 +39,8 @@ public class TaskResource {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteTask(@PathVariable int id) {
+    public RepresentationModel<?> deleteTask(@PathVariable int id) {
         taskService.delete(id);
-        return ResponseEntity.noContent().build();
+        return tasksResponseMapper.get();
     }
 }

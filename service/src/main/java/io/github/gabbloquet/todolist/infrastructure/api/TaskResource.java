@@ -25,18 +25,17 @@ public class TaskResource {
     }
 
     @PostMapping()
-    public EntityModel<TaskDto> addTask(@RequestBody AddTaskRequest addTaskRequest) {
-        Task createdTask = taskService.add(addTaskRequest.description());
+    public EntityModel<TaskDto> addTask(@RequestBody TaskRequest taskRequest) {
+        Task createdTask = taskService.add(taskRequest.description());
         return tasksResponseMapper.map(TaskDto.from(createdTask));
     }
 
-//    @PutMapping("/{id}")
-//    public EntityModel<TaskDto> modifyTask(@PathVariable int id, @RequestBody String update) {
-//        Task task = taskService.modify(id, update);
-//        return EntityModel.of(task);
-//        return tasksResponseMapper.map(task);
-//    }
-//
+    @PutMapping("/{id}")
+    public EntityModel<TaskDto> modifyTask(@RequestBody TaskRequest taskRequest, @PathVariable int id) {
+        Task task = taskService.modify(id, taskRequest.description());
+        return tasksResponseMapper.map(TaskDto.from(task));
+    }
+
 //    @DeleteMapping("/{id}")
 //    public ResponseEntity<?> deleteTask(@PathVariable int id) {
 //        taskService.delete(id);

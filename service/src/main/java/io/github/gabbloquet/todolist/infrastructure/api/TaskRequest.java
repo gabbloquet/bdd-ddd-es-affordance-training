@@ -1,3 +1,3 @@
 package io.github.gabbloquet.todolist.infrastructure.api;
 
-public record AddTaskRequest(String description) {}
+public record TaskRequest(String description) {}

@@ -45,9 +45,18 @@ class TaskResourceTest {
                 .andExpect(jsonPath("id").value(1))
                 .andExpect(jsonPath("description").value("Practice TDD"))
 
-                .andExpect(jsonPath("$._templates.default.method", is("POST")))
+                .andExpect(jsonPath("$._links.self.href", is("http://localhost/tasks/1")))
+                .andExpect(jsonPath("$._links.self.title", is("Modify a task")))
+                .andExpect(jsonPath("$._templates.default.method", is("PUT")))
                 .andExpect(jsonPath("$._templates.default.properties[0].name", is("description")))
                 .andExpect(jsonPath("$._templates.default.properties[0].type", is("text")))
+
+                .andExpect(jsonPath("$._links.addTask.href", is("http://localhost/tasks")))
+                .andExpect(jsonPath("$._links.addTask.title", is("Add a task")))
+                .andExpect(jsonPath("$._templates.addTask.method", is("POST")))
+                .andExpect(jsonPath("$._templates.addTask.properties[0].name", is("description")))
+                .andExpect(jsonPath("$._templates.addTask.properties[0].type", is("text")))
+                .andExpect(jsonPath("$._templates.addTask.target", is("http://localhost/tasks")))
 
                 .andExpect(jsonPath("$._links.self.href", is("http://localhost/tasks/1")));
     }

@@ -18,8 +18,13 @@ public class TasksResponseMapper {
         return EntityModel.of( //
                 task,
                 getSelfLink(task)
-                    .andAffordance(afford(taskResource.addTask(null)))
+                    .andAffordance(afford(taskResource.modifyTask(null, task.id()))).withSelfRel().withTitle("Modify a task"),
+                getAddTaskAffordance()
         );
+    }
+
+    private Link getAddTaskAffordance() {
+        return linkTo(taskResource.addTask(null)).withRel("addTask").withTitle("Add a task");
     }
 
     private Link getSelfLink(TaskDto task) {

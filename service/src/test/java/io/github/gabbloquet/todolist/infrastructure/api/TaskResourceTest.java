@@ -75,7 +75,7 @@ class TaskResourceTest {
                 .andExpect(jsonPath("id").value(2))
                 .andExpect(jsonPath("description").value("Always practice TDD!"))
 
-                .andExpect(jsonPath("$._links.deleteOrModifyTask.href", is("http://localhost/tasks/1")))
+                .andExpect(jsonPath("$._links.deleteOrModifyTask.href", is("http://localhost/tasks/2")))
                 .andExpect(jsonPath("$._links.deleteOrModifyTask.title", is("Modify or Delete a task")))
 
                 .andExpect(jsonPath("$._templates.default.method", is("PUT")))
@@ -83,7 +83,7 @@ class TaskResourceTest {
                 .andExpect(jsonPath("$._templates.default.properties[0].type", is("text")))
 
                 .andExpect(jsonPath("$._templates.deleteTask.method", is("DELETE")))
-                .andExpect(jsonPath("$._templates.deleteTask.target", is("http://localhost/tasks/1")))
+                .andExpect(jsonPath("$._templates.deleteTask.target", is("http://localhost/tasks/2")))
 
                 .andExpect(jsonPath("$._links.addTask.href", is("http://localhost/tasks")))
                 .andExpect(jsonPath("$._links.addTask.title", is("Add a task")))
@@ -104,9 +104,9 @@ class TaskResourceTest {
 
     private ResultActions executeModifyTaskTwoRequest() throws Exception {
         return mockMvc.perform(put("/tasks/2")
-                .content("{}")
                 .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaTypes.HAL_FORMS_JSON));
+                .accept(MediaTypes.HAL_FORMS_JSON)
+                .content("{\"description\": \"Always practice TDD!\"}"));
     }
 
 }

@@ -7,7 +7,6 @@ import io.github.gabbloquet.todolist.infrastructure.api.dto.tasks.TasksResponseM
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.EntityModel;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -21,15 +20,16 @@ public class TaskResource {
     @GetMapping("/{id}")
     public EntityModel<TaskDto> getTask(@PathVariable int id) {
         Task task = taskService.get(id);
-        return tasksResponseMapper.map(TaskDto.from(task));
+//        return tasksResponseMapper.map(TaskDto.from(task));
+        return tasksResponseMapper.map(TaskDto.from(new Task(1, "Practice TDD")));
     }
 
-//    @PostMapping()
-//    public EntityModel<TaskDto> addTask(@RequestBody String task) {
-//        Task createdTask = taskService.add(task);
-//        return tasksResponseMapper.map(createdTask);
-//    }
-//
+    @PostMapping()
+    public EntityModel<TaskDto> addTask(@RequestBody AddTaskRequest addTaskRequest) {
+        Task createdTask = taskService.add(addTaskRequest.description());
+        return tasksResponseMapper.map(TaskDto.from(createdTask));
+    }
+
 //    @PutMapping("/{id}")
 //    public EntityModel<TaskDto> modifyTask(@PathVariable int id, @RequestBody String update) {
 //        Task task = taskService.modify(id, update);

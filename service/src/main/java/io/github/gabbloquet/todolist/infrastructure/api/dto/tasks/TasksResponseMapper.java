@@ -6,8 +6,7 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.Link;
 import org.springframework.stereotype.Service;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 @Service
 @RequiredArgsConstructor
@@ -18,15 +17,12 @@ public class TasksResponseMapper {
     public EntityModel<TaskDto> map(TaskDto task) {
         return EntityModel.of( //
                 task,
-                getSelfLink(task));
-//                getAddTaskAffordance());
+                getSelfLink(task)
+                    .andAffordance(afford(taskResource.addTask(null)))
+        );
     }
 
     private Link getSelfLink(TaskDto task) {
         return linkTo(taskResource.getTask(task.id())).withSelfRel();
-    }
-
-    private Link getAddTaskAffordance() {
-        return null;
     }
 }

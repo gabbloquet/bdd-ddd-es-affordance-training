@@ -45,6 +45,10 @@ class TaskResourceTest {
                 .andExpect(jsonPath("id").value(1))
                 .andExpect(jsonPath("description").value("Practice TDD"))
 
+                .andExpect(jsonPath("$._templates.default.method", is("POST")))
+                .andExpect(jsonPath("$._templates.default.properties[0].name", is("description")))
+                .andExpect(jsonPath("$._templates.default.properties[0].type", is("text")))
+
                 .andExpect(jsonPath("$._links.self.href", is("http://localhost/tasks/1")));
     }
 

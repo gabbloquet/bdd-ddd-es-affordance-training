@@ -7,7 +7,7 @@ public class InMemoryTaskRepository implements TaskRepository {
 
 
     @Override
-    public Task get(String id) {
+    public Task get(int id) {
         return null;
     }
 

@@ -7,7 +7,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class TasksServiceImpl implements TasksService {
+public class TaskServiceImpl implements TaskService {
 
     @NonNull
     private final TaskRepository taskRepository;
@@ -15,7 +15,7 @@ public class TasksServiceImpl implements TasksService {
     private final TodolistRepository todolistRepository;
 
     @Override
-    public Task get(String id) {
+    public Task get(int id) {
         return taskRepository.get(id);
     }
 

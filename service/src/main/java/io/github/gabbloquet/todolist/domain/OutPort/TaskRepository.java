@@ -4,7 +4,7 @@ import io.github.gabbloquet.todolist.domain.model.Task;
 
 public interface TaskRepository {
 
-    Task get(String id);
+    Task get(int id);
 
     void delete(int id);
 

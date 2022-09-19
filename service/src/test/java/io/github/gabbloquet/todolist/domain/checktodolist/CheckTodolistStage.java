@@ -19,10 +19,9 @@ public class CheckTodolistStage extends Stage<CheckTodolistStage> {
     }
 
     public CheckTodolistStage the_user_checks_his_todolist() {
-        tasks = todolist.tasks().stream().map(Task::task).collect(Collectors.toList());
+        tasks = todolist.tasks().stream().map(Task::description).collect(Collectors.toList());
         return self();
     }
-
 
     public void no_task_is_returned() {
         Assertions.assertThat(tasks).isEqualTo(List.of());
@@ -30,8 +29,10 @@ public class CheckTodolistStage extends Stage<CheckTodolistStage> {
 
     public CheckTodolistStage a_todo_list_containing_$_and_$(String task1, String task2) {
         todolist = new Todolist();
+
         todolist.add(new Task(task1));
-        todolist.add(new Task(task2));
+        todolist.add(new Task(2, task2));
+
         return self();
     }
 

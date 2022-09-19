@@ -25,7 +25,8 @@ public record Todolist(List<Task> tasks) {
 
     public void modify(Task task, String update) {
         int position = tasks().indexOf(task);
-        tasks.set(position, new Task(update));
+        Task taskToUpdate = tasks.get(position);
+        tasks.set(position, new Task(taskToUpdate.id(), update));
     }
 
     public void move(Task task, int position) {

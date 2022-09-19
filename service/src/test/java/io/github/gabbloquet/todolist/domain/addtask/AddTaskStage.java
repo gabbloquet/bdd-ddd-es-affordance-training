@@ -5,7 +5,9 @@ import io.github.gabbloquet.todolist.domain.model.Task;
 import io.github.gabbloquet.todolist.domain.model.Todolist;
 import org.assertj.core.api.Assertions;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
 public class AddTaskStage extends Stage<AddTaskStage> {
@@ -24,14 +26,19 @@ public class AddTaskStage extends Stage<AddTaskStage> {
     }
 
     public AddTaskStage the_user_add_$_task(String task) {
-        todolist.add(new Task(task));
+        todolist.add(new Task(2, task));
         return self();
     }
 
     public void the_todo_list_contains_$(String... tasks) {
-        List<Task> expectedTasks = Stream.of(tasks).map(Task::new).toList();
-        Assertions
-            .assertThat(todolist.tasks())
-            .isEqualTo(expectedTasks);
+        Assertions.assertThat(tasks.length)
+                .isEqualTo(todolist.tasks().size());
+
+        AtomicInteger counter = new AtomicInteger(0);
+        Arrays.stream(tasks).forEach((task) -> {
+            Assertions.assertThat(todolist.tasks().get(counter.get()).description())
+                    .isEqualTo(tasks[counter.get()]);
+            counter.incrementAndGet();
+        });
     }
 }

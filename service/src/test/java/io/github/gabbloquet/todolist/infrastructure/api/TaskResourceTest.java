@@ -30,7 +30,7 @@ class TaskResourceTest {
 
     @BeforeEach
     public void setUp() {
-        Task task = new Task("Practice TDD");
+        Task task = new Task(1, "Practice TDD");
 
         when(taskService.get(1))
                 .thenReturn(task);
@@ -41,8 +41,8 @@ class TaskResourceTest {
     public void get_a_task() throws Exception {
         executeGetTaskOneRequest()
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(1))
-                .andExpect(jsonPath("$.description").value("Practice TDD"));
+                .andExpect(jsonPath("id").value(1))
+                .andExpect(jsonPath("description").value("Practice TDD"));
     }
 
 

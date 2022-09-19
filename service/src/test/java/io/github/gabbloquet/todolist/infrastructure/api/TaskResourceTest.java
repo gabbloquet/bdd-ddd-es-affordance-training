@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -35,6 +36,8 @@ class TaskResourceTest {
 
         when(taskService.get(1))
                 .thenReturn(task);
+        when(taskService.modify(2, "Always practice TDD!"))
+                .thenReturn(new Task(2, "Always practice TDD!"));
     }
 
 
@@ -45,11 +48,15 @@ class TaskResourceTest {
                 .andExpect(jsonPath("id").value(1))
                 .andExpect(jsonPath("description").value("Practice TDD"))
 
-                .andExpect(jsonPath("$._links.self.href", is("http://localhost/tasks/1")))
-                .andExpect(jsonPath("$._links.self.title", is("Modify a task")))
+                .andExpect(jsonPath("$._links.deleteOrModifyTask.href", is("http://localhost/tasks/1")))
+                .andExpect(jsonPath("$._links.deleteOrModifyTask.title", is("Modify or Delete a task")))
+
                 .andExpect(jsonPath("$._templates.default.method", is("PUT")))
                 .andExpect(jsonPath("$._templates.default.properties[0].name", is("description")))
                 .andExpect(jsonPath("$._templates.default.properties[0].type", is("text")))
+
+                .andExpect(jsonPath("$._templates.deleteTask.method", is("DELETE")))
+                .andExpect(jsonPath("$._templates.deleteTask.target", is("http://localhost/tasks/1")))
 
                 .andExpect(jsonPath("$._links.addTask.href", is("http://localhost/tasks")))
                 .andExpect(jsonPath("$._links.addTask.title", is("Add a task")))
@@ -58,12 +65,46 @@ class TaskResourceTest {
                 .andExpect(jsonPath("$._templates.addTask.properties[0].type", is("text")))
                 .andExpect(jsonPath("$._templates.addTask.target", is("http://localhost/tasks")))
 
-                .andExpect(jsonPath("$._links.self.href", is("http://localhost/tasks/1")));
+                .andExpect(jsonPath("$._links.todolist.href", is("http://localhost/todolist")));
+    }
+
+    @Test
+    public void modify_a_task() throws Exception {
+        executeModifyTaskTwoRequest()
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("id").value(2))
+                .andExpect(jsonPath("description").value("Always practice TDD!"))
+
+                .andExpect(jsonPath("$._links.deleteOrModifyTask.href", is("http://localhost/tasks/1")))
+                .andExpect(jsonPath("$._links.deleteOrModifyTask.title", is("Modify or Delete a task")))
+
+                .andExpect(jsonPath("$._templates.default.method", is("PUT")))
+                .andExpect(jsonPath("$._templates.default.properties[0].name", is("description")))
+                .andExpect(jsonPath("$._templates.default.properties[0].type", is("text")))
+
+                .andExpect(jsonPath("$._templates.deleteTask.method", is("DELETE")))
+                .andExpect(jsonPath("$._templates.deleteTask.target", is("http://localhost/tasks/1")))
+
+                .andExpect(jsonPath("$._links.addTask.href", is("http://localhost/tasks")))
+                .andExpect(jsonPath("$._links.addTask.title", is("Add a task")))
+                .andExpect(jsonPath("$._templates.addTask.method", is("POST")))
+                .andExpect(jsonPath("$._templates.addTask.properties[0].name", is("description")))
+                .andExpect(jsonPath("$._templates.addTask.properties[0].type", is("text")))
+                .andExpect(jsonPath("$._templates.addTask.target", is("http://localhost/tasks")))
+
+                .andExpect(jsonPath("$._links.todolist.href", is("http://localhost/todolist")));
     }
 
 
     private ResultActions executeGetTaskOneRequest() throws Exception {
         return mockMvc.perform(get("/tasks/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaTypes.HAL_FORMS_JSON));
+    }
+
+    private ResultActions executeModifyTaskTwoRequest() throws Exception {
+        return mockMvc.perform(put("/tasks/2")
+                .content("{}")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaTypes.HAL_FORMS_JSON));
     }

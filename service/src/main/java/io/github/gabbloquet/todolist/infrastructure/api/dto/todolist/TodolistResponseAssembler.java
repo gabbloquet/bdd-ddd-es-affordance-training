@@ -13,7 +13,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 @Service
 @RequiredArgsConstructor
-public class TodolistResponseMapper {
+public class TodolistResponseAssembler {
 
     private final TodolistResource todolistResource = methodOn(TodolistResource.class);
 

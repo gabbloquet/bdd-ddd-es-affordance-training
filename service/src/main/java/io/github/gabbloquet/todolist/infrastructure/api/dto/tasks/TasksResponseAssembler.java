@@ -12,7 +12,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 @Service
 @RequiredArgsConstructor
-public class TasksResponseMapper {
+public class TasksResponseAssembler {
 
     private final TodolistResource todolistResource = methodOn(TodolistResource.class);
     private final TaskResource taskResource = methodOn(TaskResource.class);
@@ -30,8 +30,7 @@ public class TasksResponseMapper {
 
     public RepresentationModel<?> get() {
         return new RepresentationModel()
-                .add(getAddTaskAffordance())
-                .add(getTodolistAffordance());
+                .add(getAddTaskAffordance(), getTodolistAffordance());
     }
 
     private Link getSelfLink(TaskDto task) {

@@ -1,6 +1,6 @@
 package io.github.gabbloquet.todolist.infrastructure.api.dto;
 
-import io.github.gabbloquet.todolist.infrastructure.api.dto.todolist.TodolistResponseMapper;
+import io.github.gabbloquet.todolist.infrastructure.api.dto.todolist.TodolistResponseAssembler;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -9,7 +9,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 class TodolistResponseMapperTest {
 
     @InjectMocks
-    private TodolistResponseMapper todolistResponseMapper;
+    private TodolistResponseAssembler todolistResponseAssembler;
 
 //    @Test
 //    public void has_self_relation() {

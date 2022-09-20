@@ -24,22 +24,22 @@ public class TodolistResponseAssembler {
     private final TodolistResource todolistResource = methodOn(TodolistResource.class);
 
     public EntityModel<TodolistResponse> map(TodolistDto todolist) {
-        MoveTaskRequest taskRequest = new MoveTaskRequest(0, 0);
-
-        List<EntityModel<TaskDto>> todolistTaskEntitites = todolist.tasks().stream()
-                .map((tasksResponseAssembler::map))
-                .toList();
-
-        TodolistResponse todolistResponse = new TodolistResponse(todolistTaskEntitites);
-
+        var todolistResponse = new TodolistResponse(getTasksAffordances(todolist));
 
         return EntityModel.of(
                 todolistResponse,
                 getSelfLink(),
-                getMoveTaskAffordance(taskRequest));
+                getMoveTaskAffordance());
     }
 
-    private Link getMoveTaskAffordance(MoveTaskRequest taskRequest) {
+    private List<EntityModel<TaskDto>> getTasksAffordances(TodolistDto todolist) {
+        return todolist.tasks().stream()
+                .map((tasksResponseAssembler::map))
+                .toList();
+    }
+
+    private Link getMoveTaskAffordance() {
+        MoveTaskRequest taskRequest = new MoveTaskRequest(0, 0);
         return linkTo(todolistResource.move(taskRequest)).withRel("moveTask").withTitle("Move a task");
     }
 

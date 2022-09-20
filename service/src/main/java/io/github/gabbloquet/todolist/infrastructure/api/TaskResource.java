@@ -16,13 +16,14 @@ import org.springframework.web.bind.annotation.*;
 public class TaskResource {
     @NonNull
     private final TaskService taskService;
+
+    @NonNull
     private final TasksResponseAssembler tasksResponseAssembler;
 
     @GetMapping("/{id}")
     public EntityModel<TaskDto> getTask(@PathVariable int id) {
         Task task = taskService.get(id);
-//        return tasksResponseMapper.map(TaskDto.from(task));
-        return tasksResponseAssembler.map(TaskDto.from(new Task(1, "Practice TDD")));
+        return tasksResponseAssembler.map(TaskDto.from(task));
     }
 
     @PostMapping()

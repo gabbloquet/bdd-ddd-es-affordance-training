@@ -7,5 +7,5 @@ public interface TodolistService {
 
     Todolist get();
 
-    Todolist move(Task task, int position);
+    Todolist move(int id, int position);
 }

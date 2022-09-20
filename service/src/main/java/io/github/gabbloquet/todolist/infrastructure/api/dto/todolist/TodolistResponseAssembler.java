@@ -18,7 +18,7 @@ public class TodolistResponseAssembler {
     private final TodolistResource todolistResource = methodOn(TodolistResource.class);
 
     public EntityModel<Todolist> map(Todolist todolist) {
-        MoveTaskRequest taskRequest = MoveTaskRequest.builder().task("toto").position(1).build();
+        MoveTaskRequest taskRequest = new MoveTaskRequest(0, 0);
 
         return EntityModel.of( //
                 todolist, //

@@ -25,8 +25,8 @@ public class ApplicationConfiguration {
     }
 
     @Bean
-    TodolistService todolistService(TodolistRepository todolistRepository) {
-        return new TodolistServiceImpl(todolistRepository);
+    TodolistService todolistService(TodolistRepository todolistRepository, TaskRepository taskRepository) {
+        return new TodolistServiceImpl(todolistRepository, taskRepository);
     }
 
     @Bean

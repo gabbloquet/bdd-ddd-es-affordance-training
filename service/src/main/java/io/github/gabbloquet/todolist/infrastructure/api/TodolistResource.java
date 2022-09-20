@@ -1,7 +1,6 @@
 package io.github.gabbloquet.todolist.infrastructure.api;
 
 import io.github.gabbloquet.todolist.domain.InPort.TodolistService;
-import io.github.gabbloquet.todolist.domain.model.Task;
 import io.github.gabbloquet.todolist.domain.model.Todolist;
 import io.github.gabbloquet.todolist.infrastructure.api.dto.todolist.TodolistResponseAssembler;
 import lombok.NonNull;
@@ -26,9 +25,9 @@ public class TodolistResource {
         return todolistResponseAssembler.map(todolist);
     }
 
-    @PutMapping("/move")
+    @PutMapping("/move/tasks")
     public EntityModel<Todolist> move(@RequestBody MoveTaskRequest request) {
-        Todolist todolist = todolistService.move(new Task(request.getTask()), request.getPosition());
+        Todolist todolist = todolistService.move(request.id(), request.position());
         return todolistResponseAssembler.map(todolist);
     }
 }

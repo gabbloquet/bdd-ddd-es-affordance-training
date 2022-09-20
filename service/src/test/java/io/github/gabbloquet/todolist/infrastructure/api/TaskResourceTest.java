@@ -53,7 +53,7 @@ class TaskResourceTest {
                 .andExpect(jsonPath("description").value("Practice TDD"))
 
                 .andExpect(jsonPath("$._links.deleteOrModifyTask.href", is("http://localhost/tasks/1")))
-                .andExpect(jsonPath("$._links.deleteOrModifyTask.title", is("Modify or Delete a task")))
+                .andExpect(jsonPath("$._links.deleteOrModifyTask.title", is("Modify or delete a task")))
 
                 .andExpect(jsonPath("$._templates.default.method", is("PUT")))
                 .andExpect(jsonPath("$._templates.default.properties[0].name", is("description")))
@@ -80,7 +80,7 @@ class TaskResourceTest {
                 .andExpect(jsonPath("description").value("Always practice TDD!"))
 
                 .andExpect(jsonPath("$._links.deleteOrModifyTask.href", is("http://localhost/tasks/2")))
-                .andExpect(jsonPath("$._links.deleteOrModifyTask.title", is("Modify or Delete a task")))
+                .andExpect(jsonPath("$._links.deleteOrModifyTask.title", is("Modify or delete a task")))
 
                 .andExpect(jsonPath("$._templates.default.method", is("PUT")))
                 .andExpect(jsonPath("$._templates.default.properties[0].name", is("description")))
@@ -107,7 +107,7 @@ class TaskResourceTest {
                 .andExpect(jsonPath("description").value("Hey! Im a new task !"))
 
                 .andExpect(jsonPath("$._links.deleteOrModifyTask.href", is("http://localhost/tasks/3")))
-                .andExpect(jsonPath("$._links.deleteOrModifyTask.title", is("Modify or Delete a task")))
+                .andExpect(jsonPath("$._links.deleteOrModifyTask.title", is("Modify or delete a task")))
 
                 .andExpect(jsonPath("$._templates.default.method", is("PUT")))
                 .andExpect(jsonPath("$._templates.default.properties[0].name", is("description")))

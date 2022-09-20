@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static io.github.gabbloquet.todolist.TestUtils.asJsonString;
+import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -52,10 +53,45 @@ class TodolistResourceTest {
     }
 
     @Test
-    public void get_todolist() throws Exception {
+    public void get_todolist_contains_its_affordance() throws Exception {
         executeGetRequest()
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.tasks[0]").value("Practice TDD"));
+                .andExpect(jsonPath("$._links.self.href", is("http://localhost/todolist")))
+                .andExpect(jsonPath("$._links.self.title", is("Get todolist")))
+
+                .andExpect(jsonPath("$._links.moveTask.href", is("http://localhost/todolist/move/task")))
+                .andExpect(jsonPath("$._links.moveTask.title", is("Move a task")))
+                .andExpect(jsonPath("$._templates.default.method", is("PUT")))
+                .andExpect(jsonPath("$._templates.default.properties[0].name", is("id")))
+                .andExpect(jsonPath("$._templates.default.properties[0].type", is("number")))
+                .andExpect(jsonPath("$._templates.default.properties[1].name", is("position")))
+                .andExpect(jsonPath("$._templates.default.properties[1].type", is("number")))
+                .andExpect(jsonPath("$._templates.default.target", is("http://localhost/todolist/move/task")));
+    }
+
+    @Test
+    public void get_todolist_contains_tasks_affordance() throws Exception {
+        executeGetRequest()
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.tasks[0].id").value("0"))
+                .andExpect(jsonPath("$.tasks[0].description").value("Practice TDD"))
+
+                .andExpect(jsonPath("$.tasks[0]._links.deleteOrModifyTask.href", is("http://localhost/tasks/0")))
+                .andExpect(jsonPath("$.tasks[0]._links.deleteOrModifyTask.title", is("Modify or delete a task")))
+
+                .andExpect(jsonPath("$.tasks[0]._templates.default.method", is("PUT")))
+                .andExpect(jsonPath("$.tasks[0]._templates.default.properties[0].name", is("description")))
+                .andExpect(jsonPath("$.tasks[0]._templates.default.properties[0].type", is("text")))
+
+                .andExpect(jsonPath("$.tasks[0]._templates.deleteTask.method", is("DELETE")))
+                .andExpect(jsonPath("$.tasks[0]._templates.deleteTask.target", is("http://localhost/tasks/0")))
+
+                .andExpect(jsonPath("$.tasks[0]._links.addTask.href", is("http://localhost/tasks")))
+                .andExpect(jsonPath("$.tasks[0]._links.addTask.title", is("Add a task")))
+                .andExpect(jsonPath("$.tasks[0]._templates.addTask.method", is("POST")))
+                .andExpect(jsonPath("$.tasks[0]._templates.addTask.properties[0].name", is("description")))
+                .andExpect(jsonPath("$.tasks[0]._templates.addTask.properties[0].type", is("text")))
+                .andExpect(jsonPath("$.tasks[0]._templates.addTask.target", is("http://localhost/tasks")));
     }
 
 //    @Test

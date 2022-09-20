@@ -22,7 +22,7 @@ public class TasksResponseAssembler {
                 task,
                 getSelfLink(task)
                     .andAffordance(afford(taskResource.modifyTask(null, task.id())))
-                    .andAffordance(afford(taskResource.deleteTask(task.id()))).withRel("deleteOrModifyTask").withTitle("Modify or Delete a task"),
+                    .andAffordance(afford(taskResource.deleteTask(task.id()))).withRel("deleteOrModifyTask").withTitle("Modify or delete a task"),
                 getAddTaskAffordance(),
                 getTodolistAffordance()
         );

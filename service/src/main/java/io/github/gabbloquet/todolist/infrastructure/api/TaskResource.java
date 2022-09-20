@@ -3,6 +3,7 @@ package io.github.gabbloquet.todolist.infrastructure.api;
 import io.github.gabbloquet.todolist.domain.InPort.TaskService;
 import io.github.gabbloquet.todolist.domain.model.Task;
 import io.github.gabbloquet.todolist.infrastructure.api.dto.tasks.TaskDto;
+import io.github.gabbloquet.todolist.infrastructure.api.dto.tasks.TaskRequest;
 import io.github.gabbloquet.todolist.infrastructure.api.dto.tasks.TasksResponseAssembler;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

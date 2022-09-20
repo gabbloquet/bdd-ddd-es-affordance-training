@@ -22,5 +22,4 @@ public class InMemoryTodolistRepository implements TodolistRepository {
         return todolist;
     }
 
-
 }

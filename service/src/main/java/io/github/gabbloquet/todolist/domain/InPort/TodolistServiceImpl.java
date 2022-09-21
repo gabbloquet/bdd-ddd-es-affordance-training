@@ -25,6 +25,32 @@ public class TodolistServiceImpl implements TodolistService {
                 .orElseThrow();
     }
 
+    public Task getTask(int id) {
+        return taskRepository.get(id)
+                .orElseThrow(() -> new TaskNotFound(id));
+    }
+
+    public Task addTask(String task) {
+        Optional<Todolist> todolist = todolistRepository.get();
+
+        Task taskToAdd = new Task(task);
+        todolist.ifPresent(foundTodolist -> {
+            foundTodolist.add(taskToAdd);
+            todolistRepository.save(foundTodolist);
+        });
+
+        return taskToAdd;
+    }
+
+    public void deleteTask(int id) {
+        taskRepository.delete(id);
+    }
+
+    public Task modifyTask(int id, String update) {
+        return taskRepository.modify(id, update)
+                .orElseThrow(() -> new TaskNotFound(id));
+    }
+
     public Todolist move(int id, int position) throws TaskNotFound {
         Optional<Todolist> todolist = todolistRepository.get();
         Optional<Task> taskToMove = taskRepository.get(id);

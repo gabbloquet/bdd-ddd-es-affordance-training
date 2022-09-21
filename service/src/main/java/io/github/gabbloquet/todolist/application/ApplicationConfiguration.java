@@ -1,7 +1,5 @@
 package io.github.gabbloquet.todolist.application;
 
-import io.github.gabbloquet.todolist.domain.InPort.TaskService;
-import io.github.gabbloquet.todolist.domain.InPort.TaskServiceImpl;
 import io.github.gabbloquet.todolist.domain.InPort.TodolistService;
 import io.github.gabbloquet.todolist.domain.InPort.TodolistServiceImpl;
 import io.github.gabbloquet.todolist.domain.OutPort.TaskRepository;
@@ -27,10 +25,5 @@ public class ApplicationConfiguration {
     @Bean
     TodolistService todolistService(TodolistRepository todolistRepository, TaskRepository taskRepository) {
         return new TodolistServiceImpl(todolistRepository, taskRepository);
-    }
-
-    @Bean
-    TaskService taskService(TaskRepository taskRepository, TodolistRepository todolistRepository) {
-        return new TaskServiceImpl(taskRepository, todolistRepository);
     }
 }

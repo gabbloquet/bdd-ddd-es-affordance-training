@@ -24,6 +24,6 @@ public class FeatureAddTaskSpec {
         addTaskStage
             .given().a_todo_list_containing_$("Clean the house")
             .when().the_user_add_$_task("Wash the car")
-            .then().the_todo_list_contains_$("Clean the house", "Wash the car");
+            .then().the_todo_list_contains_$_and_$("Clean the house", "Wash the car");
     }
 }

@@ -30,15 +30,17 @@ public class AddTaskStage extends Stage<AddTaskStage> {
         return self();
     }
 
-    public void the_todo_list_contains_$(String... tasks) {
-        Assertions.assertThat(tasks.length)
-                .isEqualTo(todolist.tasks().size());
+    public void the_todo_list_contains_$(String task) {
+        Assertions.assertThat(todolist.tasks().size()).isEqualTo(1);
+        Assertions.assertThat(task)
+                .isEqualTo(todolist.tasks().get(0).description());
+    }
 
-        AtomicInteger counter = new AtomicInteger(0);
-        Arrays.stream(tasks).forEach((task) -> {
-            Assertions.assertThat(todolist.tasks().get(counter.get()).description())
-                    .isEqualTo(tasks[counter.get()]);
-            counter.incrementAndGet();
-        });
+    public void the_todo_list_contains_$_and_$(String firstTask, String secondTask) {
+        Assertions.assertThat(todolist.tasks().size()).isEqualTo(2);
+        Assertions.assertThat(firstTask)
+                .isEqualTo(todolist.tasks().get(0).description());
+        Assertions.assertThat(secondTask)
+                .isEqualTo(todolist.tasks().get(1).description());
     }
 }

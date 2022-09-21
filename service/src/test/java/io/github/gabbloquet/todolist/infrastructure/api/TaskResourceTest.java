@@ -1,6 +1,6 @@
 package io.github.gabbloquet.todolist.infrastructure.api;
 
-import io.github.gabbloquet.todolist.domain.InPort.TaskService;
+import io.github.gabbloquet.todolist.domain.InPort.TodolistService;
 import io.github.gabbloquet.todolist.domain.model.Task;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,10 +15,7 @@ import org.springframework.test.web.servlet.ResultActions;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -27,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class TaskResourceTest {
 
     @MockBean
-    private TaskService taskService;
+    private TodolistService todolistService;
 
     @Autowired
     private MockMvc mockMvc;
@@ -36,11 +33,11 @@ class TaskResourceTest {
     public void setUp() {
         Task task = new Task(1, "Practice TDD");
 
-        when(taskService.get(1))
+        when(todolistService.getTask(1))
                 .thenReturn(task);
-        when(taskService.modify(2, "Always practice TDD!"))
+        when(todolistService.modifyTask(2, "Always practice TDD!"))
                 .thenReturn(new Task(2, "Always practice TDD!"));
-        when(taskService.add("Hey! Im a new task !"))
+        when(todolistService.addTask("Hey! Im a new task !"))
                 .thenReturn(new Task(3, "Hey! Im a new task !"));
     }
 
@@ -128,8 +125,8 @@ class TaskResourceTest {
 
     @Test
     public void delete_a_task() throws Exception {
-        TaskService spy = spy(taskService);
-        doNothing().when(spy).delete(1);
+        TodolistService spy = spy(todolistService);
+        doNothing().when(spy).deleteTask(1);
 
         executeDeleteATaskRequest()
                 .andExpect(status().isOk())

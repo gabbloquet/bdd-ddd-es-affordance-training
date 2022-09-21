@@ -3,6 +3,8 @@ package io.github.gabbloquet.todolist.infrastructure.spi;
 import io.github.gabbloquet.todolist.domain.OutPort.TodolistRepository;
 import io.github.gabbloquet.todolist.domain.model.Todolist;
 
+import java.util.Optional;
+
 public class InMemoryTodolistRepository implements TodolistRepository {
 
     private Todolist todolist;
@@ -12,14 +14,13 @@ public class InMemoryTodolistRepository implements TodolistRepository {
     }
 
     @Override
-    public Todolist get() {
-        return todolist;
+    public Optional<Todolist> get() {
+        return Optional.of(todolist);
     }
 
     @Override
-    public Todolist save(Todolist todolist) {
+    public void save(Todolist todolist) {
         this.todolist = todolist;
-        return todolist;
     }
 
 }

@@ -2,9 +2,11 @@ package io.github.gabbloquet.todolist.domain.OutPort;
 
 import io.github.gabbloquet.todolist.domain.model.Todolist;
 
+import java.util.Optional;
+
 public interface TodolistRepository {
 
-    Todolist get();
+    Optional<Todolist> get();
 
-    Todolist save(Todolist todolist);
+    void save(Todolist todolist);
 }

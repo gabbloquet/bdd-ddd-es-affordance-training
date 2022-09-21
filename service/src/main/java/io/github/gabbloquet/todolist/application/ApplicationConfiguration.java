@@ -20,8 +20,8 @@ public class ApplicationConfiguration {
     }
 
     @Bean
-    public TaskRepository getTaskRepository() {
-        return new InMemoryTaskRepository();
+    public TaskRepository getTaskRepository(TodolistRepository todolistRepository) {
+        return new InMemoryTaskRepository(todolistRepository);
     }
 
     @Bean

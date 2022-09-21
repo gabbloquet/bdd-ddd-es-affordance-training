@@ -19,7 +19,7 @@ class InMemoryTodolistRepositoryTest {
 
     @Test
     void creates_an_empty_todolist_by_default() {
-        List<Task> tasks = repository.get().tasks();
+        List<Task> tasks = repository.get().get().tasks();
         Assertions.assertTrue(tasks.isEmpty());
     }
 
@@ -30,6 +30,6 @@ class InMemoryTodolistRepositoryTest {
 
         repository.save(todolistToSave);
 
-        Assertions.assertEquals(todolistToSave, repository.get());
+        Assertions.assertEquals(todolistToSave, repository.get().get());
     }
 }

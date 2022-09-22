@@ -32,32 +32,32 @@ public class AddTaskSpec {
                 .thenReturn(Optional.of(todolist));
     }
 
-    @Etantdonné("une todolist contenant la tache {task}")
-    public void toto(Task task) {
+    @Etantdonné("une todolist contenant la tache {string}")
+    public void toto(String task) {
         todolist = new Todolist();
-        todolist.add(task);
+        todolist.add(new Task(task));
 
         when(todolistRepository.get())
                 .thenReturn(Optional.of(todolist));
     }
 
 
-    @Lorsque("la tache {task} est ajoutée")
-    public void la_tache_est_ajoutee(Task task) {
-        todolist = todolistService.addTask(task);
+    @Lorsque("la tache {string} est ajoutée")
+    public void la_tache_est_ajoutee(String task) {
+        todolist = todolistService.addTask(new Task(task));
     }
 
 
-    @Alors("la todolist contient {task}")
-    public void la_todolist_contient(Task expectedTask) {
-        Assertions.assertEquals(todolist.tasks().get(0), expectedTask);
+    @Alors("la todolist contient {string}")
+    public void la_todolist_contient(String expectedTask) {
+        Assertions.assertEquals(todolist.tasks().get(0), new Task(expectedTask));
         verify(todolistRepository, times(1)).save(todolist);
     }
 
-    @Alors("la todolist contient {task} et {task}")
-    public void la_todolist_contient_les_deux_taches(Task firstTask, Task secondTask) {
-        Assertions.assertEquals(todolist.tasks().get(0), firstTask);
-        Assertions.assertEquals(todolist.tasks().get(1), secondTask);
+    @Alors("la todolist contient {string} et {string}")
+    public void la_todolist_contient_les_deux_taches(String firstTask, String secondTask) {
+        Assertions.assertEquals(todolist.tasks().get(0), new Task(firstTask));
+        Assertions.assertEquals(todolist.tasks().get(1), new Task(secondTask));
 
         verify(todolistRepository, times(1)).save(todolist);
     }

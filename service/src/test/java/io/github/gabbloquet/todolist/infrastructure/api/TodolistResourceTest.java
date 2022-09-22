@@ -47,10 +47,10 @@ class TodolistResourceTest {
         Todolist todolistWithOneTask = new Todolist(listWithATask);
         Todolist todolistWithTwoTasks = new Todolist(listWithTwoTasks);
 
-        when(todolistService.get())
-                .thenReturn(todolistWithOneTask);
-        when(todolistService.move(0, 2))
-                .thenReturn(todolistWithTwoTasks);
+//        when(todolistService.get())
+//                .thenReturn(todolistWithOneTask);
+//        when(todolistService.move(0, 2))
+//                .thenReturn(todolistWithTwoTasks);
     }
 
     @Test

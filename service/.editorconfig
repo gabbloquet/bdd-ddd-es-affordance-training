@@ -1,0 +1,14 @@
+root = true
+
+[*]
+insert_final_newline = true
+charset = utf-8
+end_of_line = crlf
+
+[*.java]
+max_line_length = 120
+indent_size = 4
+indent_style = space
+ij_continuation_indent_size = 8
+trim_trailing_whitespace = true
+ij_visual_guides = 120

@@ -33,12 +33,12 @@ class TaskResourceTest {
     public void setUp() {
         Task task = new Task(1, "Practice TDD");
 
-        when(todolistService.getTask(1))
-                .thenReturn(task);
-        when(todolistService.modifyTask(2, "Always practice TDD!"))
-                .thenReturn(new Task(2, "Always practice TDD!"));
-        when(todolistService.addTask("Hey! Im a new task !"))
-                .thenReturn(new Task(3, "Hey! Im a new task !"));
+//        when(todolistService.getTask(1))
+//                .thenReturn(task);
+//        when(todolistService.modifyTask(2, "Always practice TDD!"))
+//                .thenReturn(new Task(2, "Always practice TDD!"));
+//        when(todolistService.addTask("Hey! Im a new task !"))
+//                .thenReturn(new Task(3, "Hey! Im a new task !"));
     }
 
 
@@ -126,7 +126,7 @@ class TaskResourceTest {
     @Test
     public void delete_a_task() throws Exception {
         TodolistService spy = spy(todolistService);
-        doNothing().when(spy).deleteTask(1);
+//        doNothing().when(spy).deleteTask(1);
 
         executeDeleteATaskRequest()
                 .andExpect(status().isOk())

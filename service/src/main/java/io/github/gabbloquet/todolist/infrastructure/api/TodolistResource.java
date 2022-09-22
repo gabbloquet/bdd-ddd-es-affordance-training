@@ -24,13 +24,15 @@ public class TodolistResource {
 
     @GetMapping()
     public EntityModel<TodolistResponse> get() {
-        Todolist todolist = todolistService.get();
+//        Todolist todolist = todolistService.get();
+        Todolist todolist = new Todolist();
         return todolistResponseAssembler.map(TodolistDto.from(todolist));
     }
 
     @PutMapping("/move/task")
     public EntityModel<TodolistResponse> move(@RequestBody MoveTaskRequest request) {
-        Todolist todolist = todolistService.move(request.id(), request.position());
+        Todolist todolist = new Todolist();
+//        Todolist todolist = todolistService.move(request.id(), request.position());
         return todolistResponseAssembler.map(TodolistDto.from(todolist));
     }
 }

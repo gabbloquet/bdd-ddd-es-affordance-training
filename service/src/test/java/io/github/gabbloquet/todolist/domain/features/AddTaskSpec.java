@@ -51,7 +51,7 @@ public class AddTaskSpec {
     @Alors("la todolist contient {string}")
     public void la_todolist_contient(String expectedTask) {
         Assertions.assertEquals(todolist.tasks().get(0).description(), expectedTask);
-        Assertions.assertEquals(todolist.tasks().get(0).isCompleted(), false);
+        Assertions.assertFalse(todolist.tasks().get(0).isCompleted());
 
         verify(todolistRepository, times(1)).save(todolist);
     }
@@ -59,10 +59,10 @@ public class AddTaskSpec {
     @Alors("la todolist contient {string} et {string}")
     public void la_todolist_contient_les_deux_taches(String firstTask, String secondTask) {
         Assertions.assertEquals(todolist.tasks().get(0).description(), firstTask);
-        Assertions.assertEquals(todolist.tasks().get(0).isCompleted(), false);
+        Assertions.assertFalse(todolist.tasks().get(0).isCompleted());
 
         Assertions.assertEquals(todolist.tasks().get(1).description(), secondTask);
-        Assertions.assertEquals(todolist.tasks().get(1).isCompleted(), false);
+        Assertions.assertFalse(todolist.tasks().get(1).isCompleted());
 
         verify(todolistRepository, times(1)).save(todolist);
     }

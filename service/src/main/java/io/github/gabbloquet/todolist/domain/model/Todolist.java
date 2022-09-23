@@ -1,7 +1,6 @@
 package io.github.gabbloquet.todolist.domain.model;
 
 import io.github.gabbloquet.todolist.application.annotations.Aggregate;
-import io.github.gabbloquet.todolist.domain.OutPort.TodolistRepository;
 
 import java.util.ArrayList;
 import java.util.List;

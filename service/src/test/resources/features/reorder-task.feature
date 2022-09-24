@@ -1,5 +1,5 @@
 # language: fr
-Fonctionnalité: Reordonner une tache de ma todolist
+Fonctionnalité: Reordonner une tâche de ma todolist
 
   En tant qu'utilisateur
   Je souhaite pouvoir réordonner une tâche
@@ -7,12 +7,12 @@ Fonctionnalité: Reordonner une tache de ma todolist
 
   Reprioriser signifie qu'elle peut être priorisée ou dépriorisée
 
-  Scénario: Prioriser une tache
+  Scénario: Prioriser une tâche
     Etant donné une todolist contenant "Promener le chien" et Faire le café
-    Lorsque la tache "Faire le café" est prorisée
+    Lorsque la tâche "Faire le café" est prorisée
     Alors la todolist contient "Faire le café"et Promener le chien
 
-  Scénario: Déprioriser une tache
+  Scénario: Déprioriser une tâche
     Etant donné une todolist contenant "Promener le chien" et Faire le café
-    Lorsque la tache "Promener le chien" est dépriorisée
+    Lorsque la tâche "Promener le chien" est dépriorisée
     Alors la todolist contient "Faire le café"et Promener le chien

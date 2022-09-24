@@ -1,55 +1,72 @@
 package io.github.gabbloquet.todolist.domain.model;
 
 import io.github.gabbloquet.todolist.application.annotations.Aggregate;
+import io.github.gabbloquet.todolist.domain.features.TaskCompleted;
+import io.github.gabbloquet.todolist.domain.features.TaskCreated;
+import io.github.gabbloquet.todolist.domain.features.TaskUpdated;
+import io.github.gabbloquet.todolist.infrastructure.spi.TaskNotFound;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Aggregate
 public class Todolist {
 
-    private List<Task> tasks;
+    private Map<TaskId, Task> tasks;
 
     public Todolist() {
-        this.tasks = new ArrayList<>();
+        this.tasks = new LinkedHashMap<>();
     }
 
-    public Todolist(List<Task> taskToAdd) {
+    public Todolist(Map<TaskId, Task> taskToAdd) {
         this.tasks = taskToAdd;
     }
 
     public List<Task> tasks() {
-        return tasks;
+        return tasks.values().stream().toList();
     }
 
-    public void add(Task task) {
-        tasks.add(task);
+//    public void modify(Task taskToUpdate) {
+//        tasks = tasks.stream().map(task -> {
+//            if(Objects.equals(task.id(), taskToUpdate.id())){
+//                return taskToUpdate;
+//            }
+//            return task;
+//        })
+//        .toList();
+//    }
+
+//    public Task getTask(Task taskToFound) {
+//        Optional<Task> foundTask = tasks.values().stream()
+//                .filter(task -> Objects.equals(task.id(), taskToFound.id()))
+//                .findFirst();
+//
+//        return foundTask
+//                .orElseThrow();
+//    }
+//
+//    public void completeTask(Task task) {
+//        Task taskToComplete = getTask(task);
+//        taskToComplete.complete();
+//        modify(taskToComplete);
+//    }
+
+    public TaskId findByName(String taskToFound) {
+        return this.tasks.values().stream()
+                .filter(task -> task.description().equals(taskToFound))
+                .findFirst()
+                .map(Task::id)
+                .orElseThrow(() -> new TaskNotFound(taskToFound));
     }
 
-    public void modify(Task taskToUpdate) {
-        tasks = tasks.stream().map(task -> {
-            if(Objects.equals(task.id(), taskToUpdate.id())){
-                return taskToUpdate;
-            }
-            return task;
-        })
-        .toList();
+    public void apply(TaskUpdated taskUpdated) {
+        tasks.put(taskUpdated.task().id(), taskUpdated.task());
     }
 
-    public Task getTask(Task taskToFound) {
-        Optional<Task> foundTask = tasks.stream()
-                .filter(task -> Objects.equals(task.id(), taskToFound.id()))
-                .findFirst();
-
-        return foundTask
-                .orElseThrow();
+    public void apply(TaskCreated taskCreated) {
+        tasks.put(taskCreated.task().id(), taskCreated.task());
     }
 
-    public void completeTask(Task task) {
-        Task taskToComplete = getTask(task);
-        taskToComplete.complete();
-        modify(taskToComplete);
+    public void apply(TaskCompleted taskCompleted) {
+        tasks.put(taskCompleted.task().id(), taskCompleted.task());
     }
 }

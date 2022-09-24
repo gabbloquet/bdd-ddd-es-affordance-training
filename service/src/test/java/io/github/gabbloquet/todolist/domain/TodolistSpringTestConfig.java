@@ -1,5 +1,6 @@
 package io.github.gabbloquet.todolist.domain;
 
+import io.github.gabbloquet.todolist.MockRegistry;
 import io.github.gabbloquet.todolist.domain.InPort.TodolistService;
 import io.github.gabbloquet.todolist.domain.InPort.TodolistServiceImpl;
 import io.github.gabbloquet.todolist.domain.OutPort.TodolistRepository;

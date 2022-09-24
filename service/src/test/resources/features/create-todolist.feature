@@ -3,7 +3,7 @@ Fonctionnalité: Création de ma todolist
 
   En tant qu'utilisateur
   Je souhaite pouvoir créer ma todolist
-  Afin de connaitre mes taches à faire
+  Afin de connaitre mes tâches à faire
 
   Scénario: Ouverture de l'application
     Quand l'application est ouverte

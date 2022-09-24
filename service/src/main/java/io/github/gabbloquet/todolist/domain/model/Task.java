@@ -1,32 +1,41 @@
 package io.github.gabbloquet.todolist.domain.model;
 
-import io.github.gabbloquet.todolist.application.annotations.DomainEntity;
+import io.github.gabbloquet.todolist.application.annotations.Aggregate;
+import io.github.gabbloquet.todolist.domain.features.TaskCompleted;
+import io.github.gabbloquet.todolist.domain.features.TaskUpdated;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
-@DomainEntity
+@Aggregate
+@RequiredArgsConstructor
 public class Task {
 
-    private int id;
+    @NonNull
+    private final TaskId id;
+    @NonNull
     private String description;
-
+    @NonNull
     private boolean isCompleted;
 
     public Task(String description) {
+        this.id = new TaskId();
         this.description = description;
         this.isCompleted = false;
     }
 
-    public Task(int id, String description) {
+    public Task(TaskId id, String description) {
         this.id = id;
         this.description = description;
         this.isCompleted = false;
     }
 
     public Task(String description, boolean isCompleted) {
+        this.id = new TaskId();
         this.description = description;
         this.isCompleted = isCompleted;
     }
 
-    public int id() {
+    public TaskId id() {
         return id;
     }
 
@@ -34,11 +43,17 @@ public class Task {
         return description;
     }
 
-    public void complete() {
+    public TaskCompleted complete() {
         this.isCompleted = true;
+        return new TaskCompleted(this);
     }
 
     public boolean isCompleted() {
         return isCompleted;
+    }
+
+    public TaskUpdated modify(String update) {
+        this.description = update;
+        return new TaskUpdated(this);
     }
 }

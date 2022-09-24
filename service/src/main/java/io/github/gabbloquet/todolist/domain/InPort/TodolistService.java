@@ -10,4 +10,6 @@ public interface TodolistService {
     Todolist addTask(Task task);
 
     Todolist completeTask(Task task);
+
+    void openTodolist();
 }

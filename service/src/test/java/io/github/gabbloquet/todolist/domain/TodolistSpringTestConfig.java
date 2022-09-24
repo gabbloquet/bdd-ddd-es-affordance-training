@@ -5,6 +5,7 @@ import io.github.gabbloquet.todolist.domain.InPort.TodolistServiceImpl;
 import io.github.gabbloquet.todolist.domain.OutPort.TodolistRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
+import org.springframework.web.context.annotation.RequestScope;
 
 public class TodolistSpringTestConfig {
 
@@ -14,6 +15,7 @@ public class TodolistSpringTestConfig {
     }
 
     @Bean
+    @RequestScope
     public TodolistRepository todolistRepository(MockRegistry registry) {
         return registry.mock(TodolistRepository.class);
     }

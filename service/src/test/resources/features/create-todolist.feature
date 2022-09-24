@@ -5,6 +5,6 @@ Fonctionnalité: Création de ma todolist
   Je souhaite pouvoir créer ma todolist
   Afin de connaitre mes taches à faire
 
-  Scénario: Création de ma todolist
+  Scénario: Ouverture de l'application
     Quand l'application est ouverte
     Alors une todolist vierge est disponible

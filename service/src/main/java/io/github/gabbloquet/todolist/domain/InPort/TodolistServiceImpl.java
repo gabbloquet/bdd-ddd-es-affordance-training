@@ -35,4 +35,9 @@ public class TodolistServiceImpl implements TodolistService {
                 })
                 .orElseThrow();
     }
+
+    @Override
+    public void openTodolist() {
+        todolistRepository.save(new Todolist());
+    }
 }

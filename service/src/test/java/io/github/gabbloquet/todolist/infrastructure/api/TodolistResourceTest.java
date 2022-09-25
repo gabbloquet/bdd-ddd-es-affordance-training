@@ -46,11 +46,11 @@ class TodolistResourceTest {
     public void setUp() {
 
 
-        Map<TaskId, Task> mapWithATask = new HashMap<>(Map.of(task.id(), task));
-        Map<TaskId, Task> mapWithTwoTasks = new HashMap<>(Map.of(anotherTask.id(), anotherTask, task.id(), task));
+        ArrayList<Task> listWithATask = new ArrayList<>(List.of(task));
+        ArrayList<Task> listWithTwoTasks = new ArrayList<>(List.of(anotherTask, task));
 
-        Todolist todolistWithOneTask = new Todolist(mapWithATask);
-        Todolist todolistWithTwoTasks = new Todolist(mapWithTwoTasks);
+        Todolist todolistWithOneTask = new Todolist(listWithATask);
+        Todolist todolistWithTwoTasks = new Todolist(listWithTwoTasks);
 
 //        when(todolistService.get())
 //                .thenReturn(todolistWithOneTask);

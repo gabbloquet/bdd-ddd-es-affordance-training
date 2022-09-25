@@ -2,86 +2,84 @@ package io.github.gabbloquet.todolist.domain.model;
 
 import io.github.gabbloquet.todolist.application.annotations.Aggregate;
 import io.github.gabbloquet.todolist.domain.InPort.commands.OpenTodolist;
-import io.github.gabbloquet.todolist.domain.features.TaskCompleted;
-import io.github.gabbloquet.todolist.domain.features.TaskCreated;
-import io.github.gabbloquet.todolist.domain.features.TaskUpdated;
+import io.github.gabbloquet.todolist.domain.features.events.TaskCompleted;
+import io.github.gabbloquet.todolist.domain.features.events.TaskCreated;
+import io.github.gabbloquet.todolist.domain.features.events.TaskPriorized;
+import io.github.gabbloquet.todolist.domain.features.events.TaskUpdated;
 import io.github.gabbloquet.todolist.infrastructure.spi.TaskNotFound;
 
 import java.util.*;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 @Aggregate
 public class Todolist {
 
-    private Map<TaskId, Task> tasks;
+    private ArrayList<Task> tasks;
+    private ArrayList<Task> completedTasks;
 
     public Todolist() {
-        this.tasks = new LinkedHashMap<>();
+        this.tasks = new ArrayList<>();
+        this.completedTasks = new ArrayList<>();
     }
 
-    public Todolist(Map<TaskId, Task> taskToAdd) {
+    public Todolist(ArrayList<Task> taskToAdd) {
         this.tasks = taskToAdd;
     }
 
-    public Map<TaskId, Task> tasks() {
+    public ArrayList<Task> tasks() {
         return tasks;
     }
 
-    public List<Task> render() {
-        return tasks.values().stream()
-                .sorted(Comparator.comparing(Task::isCompleted).reversed())
-                .toList();
+    public TaskPriorized priorize(Task task) {
+        ArrayList<Task> existingTasks = new ArrayList<>(this.tasks);
+        existingTasks.remove(task);
+
+        this.tasks.clear();
+
+        this.tasks.add(task);
+        this.tasks.addAll(existingTasks);
+
+        return new TaskPriorized();
     }
 
-//    public void modify(Task taskToUpdate) {
-//        tasks = tasks.stream().map(task -> {
-//            if(Objects.equals(task.id(), taskToUpdate.id())){
-//                return taskToUpdate;
-//            }
-//            return task;
-//        })
-//        .toList();
-//    }
-
-//    public Task getTask(Task taskToFound) {
-//        Optional<Task> foundTask = tasks.values().stream()
-//                .filter(task -> Objects.equals(task.id(), taskToFound.id()))
-//                .findFirst();
-//
-//        return foundTask
-//                .orElseThrow();
-//    }
-//
-//    public void completeTask(Task task) {
-//        Task taskToComplete = getTask(task);
-//        taskToComplete.complete();
-//        modify(taskToComplete);
-//    }
-
-    public TaskId findByName(String taskToFound) {
-        return this.tasks.values().stream()
+    public Task findByName(String taskToFound) {
+        return this.tasks.stream()
                 .filter(task -> task.description().equals(taskToFound))
                 .findFirst()
-                .map(Task::id)
                 .orElseThrow(() -> new TaskNotFound(taskToFound));
     }
 
+    public List<Task> render() {
+        return Stream.concat(completedTasks.stream(), tasks.stream()).toList();
+    }
+
     public void apply(TaskUpdated taskUpdated) {
-        add(taskUpdated.task());
+        int taskPosition = getTaskPosition(taskUpdated);
+        tasks.set(taskPosition, taskUpdated.task());
     }
 
     public void apply(TaskCreated taskCreated) {
-        add(taskCreated.task());
+        tasks.add(taskCreated.task());
     }
 
     public void apply(TaskCompleted taskCompleted) {
-        add(taskCompleted.task());
+        completedTasks.add(taskCompleted.task());
+    }
+
+    public void apply(OpenTodolist command) {}
+
+    private int getTaskPosition(TaskUpdated taskUpdated) {
+        return IntStream.range(0, tasks.size())
+                .filter(i -> tasks.get(i).id().equals(taskUpdated.task().id()))
+                .findFirst()
+                .orElseThrow(() -> new TaskNotFound(taskUpdated.task().description()));
     }
 
     public void add(Task task) {
-        tasks.put(task.id(), task);
-    }
-
-    public void apply(OpenTodolist command) {
-        tasks = new LinkedHashMap<>();
+        if(task.isCompleted())
+            completedTasks.add(task);
+        else
+            tasks.add(task);
     }
 }

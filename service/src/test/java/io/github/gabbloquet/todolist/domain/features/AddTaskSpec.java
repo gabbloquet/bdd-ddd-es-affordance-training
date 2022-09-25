@@ -5,7 +5,7 @@ import io.cucumber.java.fr.Etantdonné;
 import io.cucumber.java.fr.Lorsque;
 import io.github.gabbloquet.todolist.domain.InPort.TodolistService;
 import io.github.gabbloquet.todolist.domain.InPort.commands.CreateTask;
-import io.github.gabbloquet.todolist.domain.OutPort.TodolistRepository;
+import io.github.gabbloquet.todolist.domain.repositories.TodolistRepository;
 import io.github.gabbloquet.todolist.domain.model.Task;
 import io.github.gabbloquet.todolist.domain.model.Todolist;
 import org.junit.jupiter.api.Assertions;

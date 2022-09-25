@@ -2,8 +2,10 @@ package io.github.gabbloquet.todolist.application;
 
 import io.github.gabbloquet.todolist.domain.InPort.TodolistService;
 import io.github.gabbloquet.todolist.domain.InPort.TodolistServiceImpl;
-import io.github.gabbloquet.todolist.domain.OutPort.TaskRepository;
-import io.github.gabbloquet.todolist.domain.OutPort.TodolistRepository;
+import io.github.gabbloquet.todolist.domain.features.PriorizeTaskUseCase;
+import io.github.gabbloquet.todolist.domain.features.UpdateTaskUseCase;
+import io.github.gabbloquet.todolist.domain.repositories.TaskRepository;
+import io.github.gabbloquet.todolist.domain.repositories.TodolistRepository;
 import io.github.gabbloquet.todolist.domain.model.Todolist;
 import io.github.gabbloquet.todolist.infrastructure.spi.InMemoryTaskRepository;
 import io.github.gabbloquet.todolist.infrastructure.spi.InMemoryTodolistRepository;
@@ -31,5 +33,21 @@ public class ApplicationConfiguration {
     @Bean
     TodolistService todolistService(TaskRepository taskRepository, TodolistRepository todolistRepository, Todolist todolist) {
         return new TodolistServiceImpl(taskRepository, todolistRepository, todolist);
+    }
+
+    @Bean
+    public UpdateTaskUseCase updateTaskUseCase(
+            TaskRepository taskRepository,
+            TodolistRepository todolistRepository,
+            Todolist todolist
+    ) {
+        return new UpdateTaskUseCase(taskRepository, todolistRepository, todolist);
+    }
+
+    @Bean
+    public PriorizeTaskUseCase priorizeTaskUseCase(
+            Todolist todolist
+    ) {
+        return new PriorizeTaskUseCase(todolist);
     }
 }

@@ -1,4 +1,4 @@
-package io.github.gabbloquet.todolist.domain.OutPort;
+package io.github.gabbloquet.todolist.domain.repositories;
 
 import io.github.gabbloquet.todolist.domain.model.Task;
 import io.github.gabbloquet.todolist.domain.model.TaskId;

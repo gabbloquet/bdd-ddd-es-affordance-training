@@ -3,7 +3,7 @@ package io.github.gabbloquet.todolist.domain.features;
 import io.cucumber.java.fr.Alors;
 import io.cucumber.java.fr.Quand;
 import io.github.gabbloquet.todolist.domain.InPort.TodolistService;
-import io.github.gabbloquet.todolist.domain.OutPort.TodolistRepository;
+import io.github.gabbloquet.todolist.domain.repositories.TodolistRepository;
 import io.github.gabbloquet.todolist.domain.model.Todolist;
 import org.junit.jupiter.api.Assertions;
 import org.mockito.ArgumentCaptor;

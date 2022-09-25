@@ -1,8 +1,8 @@
-package io.github.gabbloquet.todolist.domain.features;
+package io.github.gabbloquet.todolist.domain.features.events;
 
 import io.github.gabbloquet.todolist.application.annotations.DomainEvent;
 import io.github.gabbloquet.todolist.domain.model.Task;
 
 @DomainEvent
-public record TaskUpdated(Task task) {
+public record TaskCreated(Task task) {
 }

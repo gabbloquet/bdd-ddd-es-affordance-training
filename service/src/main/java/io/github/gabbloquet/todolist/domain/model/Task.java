@@ -1,8 +1,8 @@
 package io.github.gabbloquet.todolist.domain.model;
 
 import io.github.gabbloquet.todolist.application.annotations.Aggregate;
-import io.github.gabbloquet.todolist.domain.features.TaskCompleted;
-import io.github.gabbloquet.todolist.domain.features.TaskUpdated;
+import io.github.gabbloquet.todolist.domain.features.events.TaskCompleted;
+import io.github.gabbloquet.todolist.domain.features.events.TaskUpdated;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 

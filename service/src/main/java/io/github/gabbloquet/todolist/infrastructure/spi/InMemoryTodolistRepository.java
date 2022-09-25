@@ -1,6 +1,6 @@
 package io.github.gabbloquet.todolist.infrastructure.spi;
 
-import io.github.gabbloquet.todolist.domain.OutPort.TodolistRepository;
+import io.github.gabbloquet.todolist.domain.repositories.TodolistRepository;
 import io.github.gabbloquet.todolist.domain.model.Todolist;
 
 import java.util.Optional;

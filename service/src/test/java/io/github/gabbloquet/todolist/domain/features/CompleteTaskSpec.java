@@ -6,7 +6,7 @@ import io.cucumber.java.fr.Etantdonné;
 import io.cucumber.java.fr.Lorsque;
 import io.github.gabbloquet.todolist.domain.InPort.TodolistService;
 import io.github.gabbloquet.todolist.domain.InPort.commands.CompleteTask;
-import io.github.gabbloquet.todolist.domain.OutPort.TaskRepository;
+import io.github.gabbloquet.todolist.domain.repositories.TaskRepository;
 import io.github.gabbloquet.todolist.domain.model.Task;
 import io.github.gabbloquet.todolist.domain.model.TaskId;
 import io.github.gabbloquet.todolist.domain.model.Todolist;
@@ -52,31 +52,30 @@ public class CompleteTaskSpec {
 
     @Lorsque("la tâche {string} est accomplie")
     public void latâcheEstAccomplie(String task) {
-        TaskId taskToCompleteId = todolist.findByName(task);
-        CompleteTask command = new CompleteTask(taskToCompleteId);
+        Task taskToComplete = todolist.findByName(task);
+        CompleteTask command = new CompleteTask(taskToComplete.id());
 
         todolistService.completeTask(command);
     }
 
     @Alors("la tâche {string} est terminée")
     public void latâcheEstTerminée(String task) {
-        TaskId completedTaskId = todolist.findByName(task);
-        Task completedTask = todolist.tasks().get(completedTaskId);
+        Task completedTask = todolist.findByName(task);
 
         Assertions.assertTrue(completedTask.isCompleted());
     }
 
     @Et("la tâche {string} est placée en haut de la liste")
     public void latâcheEstPlacéeEnHautDeLaListe(String task) {
-        TaskId firstTaskId = todolist.findByName(task);
+        Task firstTask = todolist.findByName(task);
 
-        Assertions.assertEquals(todolist.render().get(0).id(), firstTaskId);
+        Assertions.assertEquals(todolist.render().get(0), firstTask);
     }
 
     @Et("la tâche {string} est placée en seconde position de la liste")
     public void latâcheEstPlacéeEnSecondePositionDeLaListe(String task) {
-        TaskId secondTaskId = todolist.findByName(task);
+        Task secondTask = todolist.findByName(task);
 
-        Assertions.assertEquals(todolist.render().get(1).id(), secondTaskId);
+        Assertions.assertEquals(todolist.render().get(1), secondTask);
     }
 }

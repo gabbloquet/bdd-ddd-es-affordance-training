@@ -23,6 +23,7 @@ public class TodolistServiceImpl implements TodolistService {
     @NonNull
     private final TodolistRepository todolistRepository;
 
+    @NonNull
     private final Todolist todolist;
 
     @Override

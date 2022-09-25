@@ -27,7 +27,9 @@ public class Todolist {
     }
 
     public List<Task> render() {
-        return tasks.values().stream().toList();
+        return tasks.values().stream()
+                .sorted(Comparator.comparing(Task::isCompleted).reversed())
+                .toList();
     }
 
 //    public void modify(Task taskToUpdate) {

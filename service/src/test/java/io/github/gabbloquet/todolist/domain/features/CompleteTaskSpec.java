@@ -6,47 +6,48 @@ import io.cucumber.java.fr.Etantdonné;
 import io.cucumber.java.fr.Lorsque;
 import io.github.gabbloquet.todolist.domain.InPort.TodolistService;
 import io.github.gabbloquet.todolist.domain.InPort.commands.CompleteTask;
-import io.github.gabbloquet.todolist.domain.OutPort.TodolistRepository;
+import io.github.gabbloquet.todolist.domain.OutPort.TaskRepository;
 import io.github.gabbloquet.todolist.domain.model.Task;
 import io.github.gabbloquet.todolist.domain.model.TaskId;
 import io.github.gabbloquet.todolist.domain.model.Todolist;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Optional;
-
 import static org.mockito.Mockito.when;
 
 public class CompleteTaskSpec {
 
+    @Autowired
     private Todolist todolist;
 
     @Autowired
     private TodolistService todolistService;
 
     @Autowired
-    private TodolistRepository todolistRepository;
+    private TaskRepository taskRepository;
 
     @Etantdonné("les tâches {string} et {string} à faire")
     public void lestâchesEtÀFaire(String firstTask, String secondTask) {
-        todolist = new Todolist();
+        Task taskOne = new Task(firstTask);
+        Task taskTwo = new Task(secondTask);
 
-        todolist.add(new Task(firstTask));
-        todolist.add(new Task(secondTask));
+        todolist.add(taskOne);
+        todolist.add(taskTwo);
 
-        when(todolistRepository.get())
-                .thenReturn(Optional.of(todolist));
+        when(taskRepository.get(taskOne.id()))
+                .thenReturn(taskOne);
+        when(taskRepository.get(taskTwo.id()))
+                .thenReturn(taskTwo);
     }
 
     @Etantdonné("une tâche terminée {string}")
     public void unetâcheTerminée(String task) {
-        todolist = new Todolist();
-
         Task completeTask = new Task(task, true);
+
         todolist.add(completeTask);
 
-        when(todolistRepository.get())
-                .thenReturn(Optional.of(todolist));
+        when(taskRepository.get(completeTask.id()))
+                .thenReturn(completeTask);
     }
 
     @Lorsque("la tâche {string} est accomplie")

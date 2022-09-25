@@ -3,9 +3,11 @@ package io.github.gabbloquet.todolist.domain.InPort;
 import io.github.gabbloquet.todolist.application.annotations.DomainService;
 import io.github.gabbloquet.todolist.domain.InPort.commands.CompleteTask;
 import io.github.gabbloquet.todolist.domain.InPort.commands.CreateTask;
+import io.github.gabbloquet.todolist.domain.OutPort.TaskRepository;
+import io.github.gabbloquet.todolist.domain.InPort.commands.OpenTodolist;
+import io.github.gabbloquet.todolist.domain.OutPort.TodolistRepository;
 import io.github.gabbloquet.todolist.domain.features.TaskCompleted;
 import io.github.gabbloquet.todolist.domain.features.TaskCreated;
-import io.github.gabbloquet.todolist.domain.OutPort.TaskRepository;
 import io.github.gabbloquet.todolist.domain.model.Task;
 import io.github.gabbloquet.todolist.domain.model.Todolist;
 import lombok.NonNull;
@@ -17,6 +19,10 @@ public class TodolistServiceImpl implements TodolistService {
 
     @NonNull
     private final TaskRepository taskRepository;
+
+    @NonNull
+    private final TodolistRepository todolistRepository;
+
     private final Todolist todolist;
 
     @Override
@@ -25,6 +31,8 @@ public class TodolistServiceImpl implements TodolistService {
         taskRepository.save(task);
 
         todolist.apply(new TaskCreated(task));
+
+        todolistRepository.save(todolist);
     }
 
     @Override
@@ -34,10 +42,16 @@ public class TodolistServiceImpl implements TodolistService {
         taskRepository.save(task);
 
         todolist.apply(taskCompleted);
+
+        todolistRepository.save(todolist);
     }
 
     @Override
     public void openTodolist() {
-        todolistRepository.save(new Todolist());
+        OpenTodolist command = new OpenTodolist();
+
+        todolist.apply(command);
+
+        todolistRepository.save(todolist);
     }
 }

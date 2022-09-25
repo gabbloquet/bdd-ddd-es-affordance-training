@@ -2,7 +2,10 @@ package io.github.gabbloquet.todolist.application;
 
 import io.github.gabbloquet.todolist.domain.InPort.TodolistService;
 import io.github.gabbloquet.todolist.domain.InPort.TodolistServiceImpl;
+import io.github.gabbloquet.todolist.domain.OutPort.TaskRepository;
 import io.github.gabbloquet.todolist.domain.OutPort.TodolistRepository;
+import io.github.gabbloquet.todolist.domain.model.Todolist;
+import io.github.gabbloquet.todolist.infrastructure.spi.InMemoryTaskRepository;
 import io.github.gabbloquet.todolist.infrastructure.spi.InMemoryTodolistRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,12 +14,22 @@ import org.springframework.context.annotation.Configuration;
 public class ApplicationConfiguration {
 
     @Bean
-    public TodolistRepository getTodolistRepository() {
+    public Todolist todolist() {
+        return new Todolist();
+    }
+
+    @Bean
+    public TodolistRepository todolistRepository() {
         return new InMemoryTodolistRepository();
     }
 
     @Bean
-    TodolistService todolistService(TodolistRepository todolistRepository) {
-        return new TodolistServiceImpl(todolistRepository);
+    public TaskRepository taskRepository() {
+        return new InMemoryTaskRepository();
+    }
+
+    @Bean
+    TodolistService todolistService(TaskRepository taskRepository, TodolistRepository todolistRepository, Todolist todolist) {
+        return new TodolistServiceImpl(taskRepository, todolistRepository, todolist);
     }
 }

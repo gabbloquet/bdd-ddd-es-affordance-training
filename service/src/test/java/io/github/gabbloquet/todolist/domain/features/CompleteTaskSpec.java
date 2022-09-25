@@ -8,6 +8,7 @@ import io.github.gabbloquet.todolist.domain.InPort.TodolistService;
 import io.github.gabbloquet.todolist.domain.InPort.commands.CompleteTask;
 import io.github.gabbloquet.todolist.domain.OutPort.TodolistRepository;
 import io.github.gabbloquet.todolist.domain.model.Task;
+import io.github.gabbloquet.todolist.domain.model.TaskId;
 import io.github.gabbloquet.todolist.domain.model.Todolist;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,27 +51,31 @@ public class CompleteTaskSpec {
 
     @Lorsque("la tâche {string} est accomplie")
     public void latâcheEstAccomplie(String task) {
-        todolist = todolistService.completeTask(new CompleteTask(task));
+        TaskId taskToCompleteId = todolist.findByName(task);
+        CompleteTask command = new CompleteTask(taskToCompleteId);
+
+        todolistService.completeTask(command);
     }
 
     @Alors("la tâche {string} est terminée")
     public void latâcheEstTerminée(String task) {
-        Task completedTask = todolist.getTask(new Task(task));
+        TaskId completedTaskId = todolist.findByName(task);
+        Task completedTask = todolist.tasks().get(completedTaskId);
 
         Assertions.assertTrue(completedTask.isCompleted());
     }
 
     @Et("la tâche {string} est placée en haut de la liste")
     public void latâcheEstPlacéeEnHautDeLaListe(String task) {
-        Task firstTask = todolist.getTask(new Task(task));
+        TaskId firstTaskId = todolist.findByName(task);
 
-        Assertions.assertEquals(todolist.tasks().get(0), firstTask);
+        Assertions.assertEquals(todolist.render().get(0).id(), firstTaskId);
     }
 
     @Et("la tâche {string} est placée en seconde position de la liste")
     public void latâcheEstPlacéeEnSecondePositionDeLaListe(String task) {
-        Task secondTask = todolist.getTask(new Task(task));
+        TaskId secondTaskId = todolist.findByName(task);
 
-        Assertions.assertEquals(todolist.tasks().get(1), secondTask);
+        Assertions.assertEquals(todolist.render().get(1).id(), secondTaskId);
     }
 }

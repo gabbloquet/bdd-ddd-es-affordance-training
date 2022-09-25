@@ -11,6 +11,8 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/tasks")
 @RequiredArgsConstructor
@@ -22,7 +24,7 @@ public class TaskResource {
     private final TasksResponseAssembler tasksResponseAssembler;
 
     @GetMapping("/{id}")
-    public EntityModel<TaskDto> getTask(@PathVariable int id) {
+    public EntityModel<TaskDto> getTask(@PathVariable UUID id) {
 //        Task task = todolistService.getTask(id);
         Task task = new Task("toto");
         return tasksResponseAssembler.map(TaskDto.from(task));
@@ -36,14 +38,14 @@ public class TaskResource {
     }
 
     @PutMapping("/{id}")
-    public EntityModel<TaskDto> modifyTask(@RequestBody TaskRequest taskRequest, @PathVariable int id) {
+    public EntityModel<TaskDto> modifyTask(@RequestBody TaskRequest taskRequest, @PathVariable UUID id) {
         Task task = new Task("toto");
 //        Task task = todolistService.modifyTask(id, taskRequest.description());
         return tasksResponseAssembler.map(TaskDto.from(task));
     }
 
     @DeleteMapping("/{id}")
-    public RepresentationModel<?> deleteTask(@PathVariable int id) {
+    public RepresentationModel<?> deleteTask(@PathVariable UUID id) {
 //        todolistService.deleteTask(id);
         return tasksResponseAssembler.get();
     }

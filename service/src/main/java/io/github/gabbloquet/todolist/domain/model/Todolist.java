@@ -1,6 +1,7 @@
 package io.github.gabbloquet.todolist.domain.model;
 
 import io.github.gabbloquet.todolist.application.annotations.Aggregate;
+import io.github.gabbloquet.todolist.domain.InPort.commands.OpenTodolist;
 import io.github.gabbloquet.todolist.domain.features.TaskCompleted;
 import io.github.gabbloquet.todolist.domain.features.TaskCreated;
 import io.github.gabbloquet.todolist.domain.features.TaskUpdated;
@@ -21,7 +22,11 @@ public class Todolist {
         this.tasks = taskToAdd;
     }
 
-    public List<Task> tasks() {
+    public Map<TaskId, Task> tasks() {
+        return tasks;
+    }
+
+    public List<Task> render() {
         return tasks.values().stream().toList();
     }
 
@@ -59,14 +64,22 @@ public class Todolist {
     }
 
     public void apply(TaskUpdated taskUpdated) {
-        tasks.put(taskUpdated.task().id(), taskUpdated.task());
+        add(taskUpdated.task());
     }
 
     public void apply(TaskCreated taskCreated) {
-        tasks.put(taskCreated.task().id(), taskCreated.task());
+        add(taskCreated.task());
     }
 
     public void apply(TaskCompleted taskCompleted) {
-        tasks.put(taskCompleted.task().id(), taskCompleted.task());
+        add(taskCompleted.task());
+    }
+
+    public void add(Task task) {
+        tasks.put(task.id(), task);
+    }
+
+    public void apply(OpenTodolist command) {
+        tasks = new LinkedHashMap<>();
     }
 }

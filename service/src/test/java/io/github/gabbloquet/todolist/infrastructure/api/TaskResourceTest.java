@@ -29,9 +29,10 @@ class TaskResourceTest {
     @Autowired
     private MockMvc mockMvc;
 
+    private final Task task = new Task("Practice TDD");
+
     @BeforeEach
     public void setUp() {
-        Task task = new Task(1, "Practice TDD");
 
 //        when(todolistService.getTask(1))
 //                .thenReturn(task);

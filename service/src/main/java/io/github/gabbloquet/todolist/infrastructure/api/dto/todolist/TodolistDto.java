@@ -8,7 +8,7 @@ import java.util.List;
 public record TodolistDto(List<TaskDto> tasks) {
     public static TodolistDto from(Todolist todolist) {
 
-        List<TaskDto> todolistTasks = todolist.tasks().stream()
+        List<TaskDto> todolistTasks = todolist.render().stream()
                 .map((TaskDto::from))
                 .toList();
 

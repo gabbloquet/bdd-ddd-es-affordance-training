@@ -2,6 +2,7 @@ package io.github.gabbloquet.todolist.infrastructure.api;
 
 import io.github.gabbloquet.todolist.domain.InPort.TodolistService;
 import io.github.gabbloquet.todolist.domain.model.Task;
+import io.github.gabbloquet.todolist.domain.model.TaskId;
 import io.github.gabbloquet.todolist.domain.model.Todolist;
 import io.github.gabbloquet.todolist.infrastructure.api.dto.todolist.MoveTaskRequest;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,7 +17,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static io.github.gabbloquet.todolist.TestUtils.asJsonString;
 import static org.hamcrest.CoreMatchers.is;
@@ -36,16 +39,18 @@ class TodolistResourceTest {
     @Autowired
     private MockMvc mockMvc;
 
+    private final Task task = new Task("Practice TDD");
+    private final Task anotherTask = new Task("Practice Simple Design");
+
     @BeforeEach
     public void setUp() {
-        Task task = new Task(0, "Practice TDD");
-        Task anotherTask = new Task(1,"Practice Simple Design");
 
-        List<Task> listWithATask = new ArrayList<>(List.of(task));
-        List<Task> listWithTwoTasks = new ArrayList<>(List.of(anotherTask, task));
 
-        Todolist todolistWithOneTask = new Todolist(listWithATask);
-        Todolist todolistWithTwoTasks = new Todolist(listWithTwoTasks);
+        Map<TaskId, Task> mapWithATask = new HashMap<>(Map.of(task.id(), task));
+        Map<TaskId, Task> mapWithTwoTasks = new HashMap<>(Map.of(anotherTask.id(), anotherTask, task.id(), task));
+
+        Todolist todolistWithOneTask = new Todolist(mapWithATask);
+        Todolist todolistWithTwoTasks = new Todolist(mapWithTwoTasks);
 
 //        when(todolistService.get())
 //                .thenReturn(todolistWithOneTask);

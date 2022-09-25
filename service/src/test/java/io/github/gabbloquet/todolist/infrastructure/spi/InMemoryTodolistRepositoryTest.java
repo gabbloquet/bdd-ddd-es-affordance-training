@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Map;
 
 class InMemoryTodolistRepositoryTest {
 
@@ -19,14 +20,14 @@ class InMemoryTodolistRepositoryTest {
 
     @Test
     void creates_an_empty_todolist_by_default() {
-        List<Task> tasks = repository.get().get().tasks();
+        List<Task> tasks = repository.get().get().render();
         Assertions.assertTrue(tasks.isEmpty());
     }
 
     @Test
     void saves_the_provided_todolist() {
         Task taskToAdd = new Task("Drink water");
-        Todolist todolistToSave = new Todolist(List.of(taskToAdd));
+        Todolist todolistToSave = new Todolist(Map.of(taskToAdd.id(), taskToAdd));
 
         repository.save(todolistToSave);
 

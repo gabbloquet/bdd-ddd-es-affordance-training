@@ -1,5 +1,6 @@
 package io.github.gabbloquet.todolist.domain;
 
+import io.cucumber.spring.ScenarioScope;
 import io.github.gabbloquet.todolist.MockRegistry;
 import io.github.gabbloquet.todolist.domain.InPort.TodolistService;
 import io.github.gabbloquet.todolist.domain.InPort.TodolistServiceImpl;
@@ -13,6 +14,7 @@ import org.springframework.web.context.annotation.RequestScope;
 public class TodolistSpringTestConfig {
 
     @Bean
+    @ScenarioScope
     public Todolist todolist() {
         return new Todolist();
     }

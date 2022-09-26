@@ -4,6 +4,7 @@ import io.cucumber.spring.ScenarioScope;
 import io.github.gabbloquet.todolist.MockRegistry;
 import io.github.gabbloquet.todolist.domain.InPort.TodolistService;
 import io.github.gabbloquet.todolist.domain.InPort.TodolistServiceImpl;
+import io.github.gabbloquet.todolist.domain.features.DeprioritizeTaskUseCase;
 import io.github.gabbloquet.todolist.domain.features.PriorizeTaskUseCase;
 import io.github.gabbloquet.todolist.domain.repositories.TaskRepository;
 import io.github.gabbloquet.todolist.domain.repositories.TodolistRepository;
@@ -63,5 +64,13 @@ public class TodolistSpringTestConfig {
             TodolistRepository todolistRepository
             ) {
         return new PriorizeTaskUseCase(todolist, todolistRepository);
+    }
+
+    @Bean
+    public DeprioritizeTaskUseCase deprioritizeTaskUseCase(
+            Todolist todolist,
+            TodolistRepository todolistRepository
+    ) {
+        return new DeprioritizeTaskUseCase(todolist, todolistRepository);
     }
 }

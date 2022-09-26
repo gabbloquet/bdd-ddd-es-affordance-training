@@ -2,6 +2,7 @@ package io.github.gabbloquet.todolist.application;
 
 import io.github.gabbloquet.todolist.domain.InPort.TodolistService;
 import io.github.gabbloquet.todolist.domain.InPort.TodolistServiceImpl;
+import io.github.gabbloquet.todolist.domain.features.DeprioritizeTaskUseCase;
 import io.github.gabbloquet.todolist.domain.features.PriorizeTaskUseCase;
 import io.github.gabbloquet.todolist.domain.features.UpdateTaskUseCase;
 import io.github.gabbloquet.todolist.domain.repositories.TaskRepository;
@@ -50,5 +51,13 @@ public class ApplicationConfiguration {
             TodolistRepository todolistRepository
     ) {
         return new PriorizeTaskUseCase(todolist, todolistRepository);
+    }
+
+    @Bean
+    public DeprioritizeTaskUseCase deprioritizeTaskUseCase(
+            Todolist todolist,
+            TodolistRepository todolistRepository
+    ) {
+        return new DeprioritizeTaskUseCase(todolist, todolistRepository);
     }
 }

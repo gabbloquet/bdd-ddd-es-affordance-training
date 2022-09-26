@@ -1,9 +1,9 @@
 package io.github.gabbloquet.todolist.domain.features;
 
 import io.cucumber.java.fr.Lorsque;
+import io.github.gabbloquet.todolist.domain.InPort.commands.DeprioritizeTask;
 import io.github.gabbloquet.todolist.domain.InPort.commands.PrioritizeTask;
 import io.github.gabbloquet.todolist.domain.model.Task;
-import io.github.gabbloquet.todolist.domain.model.TaskId;
 import io.github.gabbloquet.todolist.domain.model.Todolist;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -12,8 +12,8 @@ public class ReorderTaskSpec {
     @Autowired
     private PriorizeTaskUseCase priorizeTaskUseCase;
 
-//    @Autowired
-//    private DeriorizeTaskUseCase depriorizeTaskUseCase;
+    @Autowired
+    private DeprioritizeTaskUseCase deprioritizeTaskUseCase;
 
     @Autowired
     private Todolist todolist;
@@ -28,9 +28,9 @@ public class ReorderTaskSpec {
 
     @Lorsque("la tâche {string} est dépriorisée")
     public void laTâcheEstDépriorisée(String tacheADeprioriser) {
-//        TaskId taskToDepriorizeId = todolist.findByName(tacheADeprioriser);
-//
-//        DeprioritizeTask command = new DeprioritizeTask(taskToDepriorizeId);
-//        depriorizeTaskUseCase.execute(command);
+        Task taskToDepriorize = todolist.findByName(tacheADeprioriser);
+
+        DeprioritizeTask command = new DeprioritizeTask(taskToDepriorize);
+        deprioritizeTaskUseCase.execute(command);
     }
 }

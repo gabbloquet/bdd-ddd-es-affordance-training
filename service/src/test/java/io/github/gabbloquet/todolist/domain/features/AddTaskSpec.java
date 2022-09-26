@@ -3,11 +3,10 @@ package io.github.gabbloquet.todolist.domain.features;
 import io.cucumber.java.fr.Alors;
 import io.cucumber.java.fr.Etantdonné;
 import io.cucumber.java.fr.Lorsque;
-import io.github.gabbloquet.todolist.domain.InPort.TodolistService;
-import io.github.gabbloquet.todolist.domain.InPort.commands.CreateTask;
-import io.github.gabbloquet.todolist.domain.repositories.TodolistRepository;
+import io.github.gabbloquet.todolist.domain.commands.AddTask;
 import io.github.gabbloquet.todolist.domain.model.Task;
 import io.github.gabbloquet.todolist.domain.model.Todolist;
+import io.github.gabbloquet.todolist.domain.repositories.TodolistRepository;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -18,7 +17,7 @@ import static org.mockito.Mockito.*;
 public class AddTaskSpec {
 
     @Autowired
-    private TodolistService todolistService;
+    private AddTaskUseCase addTaskUseCase;
 
     @Autowired
     private TodolistRepository todolistRepository;
@@ -43,7 +42,7 @@ public class AddTaskSpec {
 
     @Lorsque("la tâche {string} est ajoutée")
     public void la_tâche_est_ajoutee(String task) {
-        todolistService.addTask(new CreateTask(task));
+        addTaskUseCase.execute(new AddTask(task));
     }
 
 

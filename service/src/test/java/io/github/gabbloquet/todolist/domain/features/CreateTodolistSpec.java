@@ -2,7 +2,7 @@ package io.github.gabbloquet.todolist.domain.features;
 
 import io.cucumber.java.fr.Alors;
 import io.cucumber.java.fr.Quand;
-import io.github.gabbloquet.todolist.domain.InPort.TodolistService;
+import io.github.gabbloquet.todolist.domain.commands.OpenApplication;
 import io.github.gabbloquet.todolist.domain.repositories.TodolistRepository;
 import io.github.gabbloquet.todolist.domain.model.Todolist;
 import org.junit.jupiter.api.Assertions;
@@ -14,16 +14,19 @@ import static org.mockito.Mockito.*;
 public class CreateTodolistSpec {
 
     @Autowired
-    private TodolistService todolistService;
+    private OpenApplicationUseCase openApplicationUseCase;
 
     @Autowired
     private TodolistRepository todolistRepository;
+
+    @Autowired
+    private Todolist todolist;
 
     private final ArgumentCaptor<Todolist> todolistArgumentCaptor = ArgumentCaptor.forClass(Todolist.class);
 
     @Quand("l'application est ouverte")
     public void lApplicationEstOuverte() {
-        todolistService.openTodolist();
+        openApplicationUseCase.execute(new OpenApplication());
     }
 
     @Alors("une todolist vierge est disponible")
@@ -32,5 +35,6 @@ public class CreateTodolistSpec {
                 .save(todolistArgumentCaptor.capture());
 
         Assertions.assertTrue(todolistArgumentCaptor.getValue().tasks().isEmpty());
+        Assertions.assertEquals(todolistArgumentCaptor.getValue(), todolist);
     }
 }

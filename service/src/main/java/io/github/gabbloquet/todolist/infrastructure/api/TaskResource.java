@@ -1,6 +1,5 @@
 package io.github.gabbloquet.todolist.infrastructure.api;
 
-import io.github.gabbloquet.todolist.domain.InPort.TodolistService;
 import io.github.gabbloquet.todolist.domain.model.Task;
 import io.github.gabbloquet.todolist.infrastructure.api.dto.tasks.TaskDto;
 import io.github.gabbloquet.todolist.infrastructure.api.dto.tasks.TaskRequest;
@@ -17,8 +16,6 @@ import java.util.UUID;
 @RequestMapping("/tasks")
 @RequiredArgsConstructor
 public class TaskResource {
-
-    private final TodolistService todolistService;
 
     @NonNull
     private final TasksResponseAssembler tasksResponseAssembler;

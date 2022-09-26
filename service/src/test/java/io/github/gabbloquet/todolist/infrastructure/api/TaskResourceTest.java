@@ -1,6 +1,5 @@
 package io.github.gabbloquet.todolist.infrastructure.api;
 
-import io.github.gabbloquet.todolist.domain.InPort.TodolistService;
 import io.github.gabbloquet.todolist.domain.model.Task;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,9 +21,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 class TaskResourceTest {
-
-    @MockBean
-    private TodolistService todolistService;
 
     @Autowired
     private MockMvc mockMvc;
@@ -126,7 +122,7 @@ class TaskResourceTest {
 
     @Test
     public void delete_a_task() throws Exception {
-        TodolistService spy = spy(todolistService);
+//        TodolistService spy = spy(todolistService);
 //        doNothing().when(spy).deleteTask(1);
 
         executeDeleteATaskRequest()

@@ -2,16 +2,11 @@ package io.github.gabbloquet.todolist.domain;
 
 import io.cucumber.spring.ScenarioScope;
 import io.github.gabbloquet.todolist.MockRegistry;
-import io.github.gabbloquet.todolist.domain.InPort.TodolistService;
-import io.github.gabbloquet.todolist.domain.InPort.TodolistServiceImpl;
-import io.github.gabbloquet.todolist.domain.features.DeprioritizeTaskUseCase;
-import io.github.gabbloquet.todolist.domain.features.PriorizeTaskUseCase;
+import io.github.gabbloquet.todolist.domain.features.*;
+import io.github.gabbloquet.todolist.domain.model.Todolist;
 import io.github.gabbloquet.todolist.domain.repositories.TaskRepository;
 import io.github.gabbloquet.todolist.domain.repositories.TodolistRepository;
-import io.github.gabbloquet.todolist.domain.features.UpdateTaskUseCase;
-import io.github.gabbloquet.todolist.domain.model.Todolist;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Primary;
 import org.springframework.web.context.annotation.RequestScope;
 
 public class TodolistSpringTestConfig {
@@ -40,13 +35,20 @@ public class TodolistSpringTestConfig {
     }
 
     @Bean
-    @Primary
-    public TodolistService todolistService(
+    public OpenApplicationUseCase openApplicationUseCase(
+            TodolistRepository todolistRepository,
+            Todolist todolist
+    ) {
+        return new OpenApplicationUseCase(todolistRepository, todolist);
+    }
+
+    @Bean
+    public AddTaskUseCase addTaskUseCase(
             TaskRepository taskRepository,
             TodolistRepository todolistRepository,
             Todolist todolist
     ) {
-        return new TodolistServiceImpl(taskRepository, todolistRepository, todolist);
+        return new AddTaskUseCase(taskRepository, todolistRepository, todolist);
     }
 
     @Bean
@@ -56,6 +58,15 @@ public class TodolistSpringTestConfig {
             Todolist todolist
     ) {
         return new UpdateTaskUseCase(taskRepository, todolistRepository, todolist);
+    }
+
+    @Bean
+    public CompleteTaskUseCase completeTaskUseCase(
+            TaskRepository taskRepository,
+            TodolistRepository todolistRepository,
+            Todolist todolist
+    ) {
+        return new CompleteTaskUseCase(taskRepository, todolistRepository, todolist);
     }
 
     @Bean

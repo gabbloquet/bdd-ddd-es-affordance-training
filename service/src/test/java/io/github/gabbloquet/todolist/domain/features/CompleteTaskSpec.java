@@ -4,12 +4,10 @@ import io.cucumber.java.fr.Alors;
 import io.cucumber.java.fr.Et;
 import io.cucumber.java.fr.Etantdonné;
 import io.cucumber.java.fr.Lorsque;
-import io.github.gabbloquet.todolist.domain.InPort.TodolistService;
-import io.github.gabbloquet.todolist.domain.InPort.commands.CompleteTask;
-import io.github.gabbloquet.todolist.domain.repositories.TaskRepository;
+import io.github.gabbloquet.todolist.domain.commands.CompleteTask;
 import io.github.gabbloquet.todolist.domain.model.Task;
-import io.github.gabbloquet.todolist.domain.model.TaskId;
 import io.github.gabbloquet.todolist.domain.model.Todolist;
+import io.github.gabbloquet.todolist.domain.repositories.TaskRepository;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -21,7 +19,7 @@ public class CompleteTaskSpec {
     private Todolist todolist;
 
     @Autowired
-    private TodolistService todolistService;
+    private CompleteTaskUseCase completeTaskUseCase;
 
     @Autowired
     private TaskRepository taskRepository;
@@ -55,7 +53,7 @@ public class CompleteTaskSpec {
         Task taskToComplete = todolist.findByName(task);
         CompleteTask command = new CompleteTask(taskToComplete.id());
 
-        todolistService.completeTask(command);
+        completeTaskUseCase.execute(command);
     }
 
     @Alors("la tâche {string} est terminée")

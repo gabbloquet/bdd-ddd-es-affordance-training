@@ -1,8 +1,6 @@
 package io.github.gabbloquet.todolist.infrastructure.api;
 
-import io.github.gabbloquet.todolist.domain.InPort.TodolistService;
 import io.github.gabbloquet.todolist.domain.model.Task;
-import io.github.gabbloquet.todolist.domain.model.TaskId;
 import io.github.gabbloquet.todolist.domain.model.Todolist;
 import io.github.gabbloquet.todolist.infrastructure.api.dto.todolist.MoveTaskRequest;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,13 +15,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static io.github.gabbloquet.todolist.TestUtils.asJsonString;
 import static org.hamcrest.CoreMatchers.is;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -32,9 +27,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 class TodolistResourceTest {
-
-    @MockBean
-    private TodolistService todolistService;
 
     @Autowired
     private MockMvc mockMvc;

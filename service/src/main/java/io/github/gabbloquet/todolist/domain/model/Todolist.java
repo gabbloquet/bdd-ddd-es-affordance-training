@@ -1,7 +1,7 @@
 package io.github.gabbloquet.todolist.domain.model;
 
 import io.github.gabbloquet.todolist.application.annotations.Aggregate;
-import io.github.gabbloquet.todolist.domain.InPort.commands.OpenTodolist;
+import io.github.gabbloquet.todolist.domain.commands.OpenApplication;
 import io.github.gabbloquet.todolist.domain.features.events.*;
 import io.github.gabbloquet.todolist.infrastructure.spi.TaskNotFound;
 
@@ -52,6 +52,10 @@ public class Todolist {
         return new TaskDeprioritized();
     }
 
+    public TodolistCreated create() {
+        return new TodolistCreated();
+    }
+
     public Task findByName(String taskToFound) {
         return this.tasks.stream()
                 .filter(task -> task.description().equals(taskToFound))
@@ -75,8 +79,6 @@ public class Todolist {
     public void apply(TaskCompleted taskCompleted) {
         completedTasks.add(taskCompleted.task());
     }
-
-    public void apply(OpenTodolist command) {}
 
     private int getTaskPosition(TaskUpdated taskUpdated) {
         return IntStream.range(0, tasks.size())

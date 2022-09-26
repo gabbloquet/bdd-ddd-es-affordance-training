@@ -1,6 +1,5 @@
 package io.github.gabbloquet.todolist.infrastructure.api;
 
-import io.github.gabbloquet.todolist.domain.InPort.TodolistService;
 import io.github.gabbloquet.todolist.domain.model.Todolist;
 import io.github.gabbloquet.todolist.infrastructure.api.dto.todolist.MoveTaskRequest;
 import io.github.gabbloquet.todolist.infrastructure.api.dto.todolist.TodolistDto;
@@ -16,9 +15,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/todolist")
 @RequiredArgsConstructor
 public class TodolistResource {
-    @NonNull
-    private final TodolistService todolistService;
-
     @NonNull
     private final TodolistResponseAssembler todolistResponseAssembler;
 

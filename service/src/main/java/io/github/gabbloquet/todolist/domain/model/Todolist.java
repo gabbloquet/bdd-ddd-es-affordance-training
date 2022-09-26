@@ -4,7 +4,7 @@ import io.github.gabbloquet.todolist.application.annotations.Aggregate;
 import io.github.gabbloquet.todolist.domain.InPort.commands.OpenTodolist;
 import io.github.gabbloquet.todolist.domain.features.events.TaskCompleted;
 import io.github.gabbloquet.todolist.domain.features.events.TaskCreated;
-import io.github.gabbloquet.todolist.domain.features.events.TaskPriorized;
+import io.github.gabbloquet.todolist.domain.features.events.TaskPrioritized;
 import io.github.gabbloquet.todolist.domain.features.events.TaskUpdated;
 import io.github.gabbloquet.todolist.infrastructure.spi.TaskNotFound;
 
@@ -15,7 +15,7 @@ import java.util.stream.Stream;
 @Aggregate
 public class Todolist {
 
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
     private ArrayList<Task> completedTasks;
 
     public Todolist() {
@@ -31,7 +31,7 @@ public class Todolist {
         return tasks;
     }
 
-    public TaskPriorized priorize(Task task) {
+    public TaskPrioritized priorize(Task task) {
         ArrayList<Task> existingTasks = new ArrayList<>(this.tasks);
         existingTasks.remove(task);
 
@@ -40,7 +40,7 @@ public class Todolist {
         this.tasks.add(task);
         this.tasks.addAll(existingTasks);
 
-        return new TaskPriorized();
+        return new TaskPrioritized();
     }
 
     public Task findByName(String taskToFound) {

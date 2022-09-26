@@ -59,8 +59,9 @@ public class TodolistSpringTestConfig {
 
     @Bean
     public PriorizeTaskUseCase priorizeTaskUseCase(
-            Todolist todolist
-    ) {
-        return new PriorizeTaskUseCase(todolist);
+            Todolist todolist,
+            TodolistRepository todolistRepository
+            ) {
+        return new PriorizeTaskUseCase(todolist, todolistRepository);
     }
 }

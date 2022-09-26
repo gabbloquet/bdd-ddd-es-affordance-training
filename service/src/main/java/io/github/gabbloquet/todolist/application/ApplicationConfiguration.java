@@ -46,8 +46,9 @@ public class ApplicationConfiguration {
 
     @Bean
     public PriorizeTaskUseCase priorizeTaskUseCase(
-            Todolist todolist
+            Todolist todolist,
+            TodolistRepository todolistRepository
     ) {
-        return new PriorizeTaskUseCase(todolist);
+        return new PriorizeTaskUseCase(todolist, todolistRepository);
     }
 }

@@ -1,11 +1,14 @@
 # language: fr
-Fonctionnalité: Reordonner une tâche de ma todolist
+Fonctionnalité: Prioriser / Déprioriser une tâche de ma todolist
 
   En tant qu'utilisateur
-  Je souhaite pouvoir réordonner une tâche
-  Afin de la reprioriser
+  Je souhaite pouvoir prioriser une tâche
+  Afin de marquer son importance
 
-  Reprioriser signifie qu'elle peut être priorisée ou dépriorisée
+  En tant qu'utilisateur
+  Je souhaite pouvoir déprioriser une tâche
+  Afin de la mettre au second plan
+
 
   Scénario: Prioriser une tâche
     Etant donné les tâches "Promener le chien" et "Faire le café" à faire

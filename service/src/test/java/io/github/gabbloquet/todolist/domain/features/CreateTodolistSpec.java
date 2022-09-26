@@ -2,7 +2,7 @@ package io.github.gabbloquet.todolist.domain.features;
 
 import io.cucumber.java.fr.Alors;
 import io.cucumber.java.fr.Quand;
-import io.github.gabbloquet.todolist.domain.commands.OpenApplication;
+import io.github.gabbloquet.todolist.domain.commands.StartTodolist;
 import io.github.gabbloquet.todolist.domain.repositories.TodolistRepository;
 import io.github.gabbloquet.todolist.domain.model.Todolist;
 import org.junit.jupiter.api.Assertions;
@@ -14,7 +14,7 @@ import static org.mockito.Mockito.*;
 public class CreateTodolistSpec {
 
     @Autowired
-    private OpenApplicationUseCase openApplicationUseCase;
+    private TodolistService todolistService;
 
     @Autowired
     private TodolistRepository todolistRepository;
@@ -26,7 +26,7 @@ public class CreateTodolistSpec {
 
     @Quand("l'application est ouverte")
     public void lApplicationEstOuverte() {
-        openApplicationUseCase.execute(new OpenApplication());
+        todolistService.execute(new StartTodolist());
     }
 
     @Alors("une todolist vierge est disponible")

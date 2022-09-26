@@ -35,11 +35,11 @@ public class TodolistSpringTestConfig {
     }
 
     @Bean
-    public OpenApplicationUseCase openApplicationUseCase(
+    public TodolistService openApplicationUseCase(
             TodolistRepository todolistRepository,
             Todolist todolist
     ) {
-        return new OpenApplicationUseCase(todolistRepository, todolist);
+        return new TodolistService(todolistRepository, todolist);
     }
 
     @Bean

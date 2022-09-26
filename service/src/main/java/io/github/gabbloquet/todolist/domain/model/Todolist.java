@@ -1,7 +1,6 @@
 package io.github.gabbloquet.todolist.domain.model;
 
 import io.github.gabbloquet.todolist.application.annotations.Aggregate;
-import io.github.gabbloquet.todolist.domain.commands.OpenApplication;
 import io.github.gabbloquet.todolist.domain.features.events.*;
 import io.github.gabbloquet.todolist.infrastructure.spi.TaskNotFound;
 

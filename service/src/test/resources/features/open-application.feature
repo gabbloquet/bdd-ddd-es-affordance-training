@@ -1,9 +1,11 @@
 #language: fr
-Fonctionnalité: Création de ma todolist
+Fonctionnalité: Ouverture de l'application
 
   En tant qu'utilisateur
-  Je souhaite pouvoir créer ma todolist
-  Afin de connaitre mes tâches à faire
+  Je souhaite pouvoir ouvrir l'application
+  Afin d'organiser mes taches à faire
+
+  (Ceci grâce à une todolist)
 
   Scénario: Ouverture de l'application
     Quand l'application est ouverte

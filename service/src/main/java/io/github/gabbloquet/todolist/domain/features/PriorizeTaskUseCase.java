@@ -7,17 +7,20 @@ import io.github.gabbloquet.todolist.domain.repositories.TodolistRepository;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
+import java.util.function.Supplier;
+
 @DomainService
 @RequiredArgsConstructor
 public class PriorizeTaskUseCase {
 
-    private final Todolist todolist;
+    @NonNull
+    private final Supplier<Todolist> todolistSupplier;
     @NonNull
     private final TodolistRepository todolistRepository;
 
     public void execute(PrioritizeTask command) {
-        todolist.prioritize(command.task());
+        todolistSupplier.get().prioritize(command.task());
 //        TODO: Si je save la todolist retrounée par l'evenement on me dit que ça n'est pas du même type, sping model et model
-        todolistRepository.save(todolist);
+        todolistRepository.save(todolistSupplier.get());
     }
 }

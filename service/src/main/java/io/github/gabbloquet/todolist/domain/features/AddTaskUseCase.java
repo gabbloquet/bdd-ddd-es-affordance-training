@@ -10,6 +10,8 @@ import io.github.gabbloquet.todolist.domain.repositories.TodolistRepository;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
+import java.util.function.Supplier;
+
 @DomainService
 @RequiredArgsConstructor
 public class AddTaskUseCase {
@@ -20,14 +22,15 @@ public class AddTaskUseCase {
     @NonNull
     private TodolistRepository todolistRepository;
 
-    private final Todolist todolist;
+    @NonNull
+    private final Supplier<Todolist> todolistSupplier;
 
     public void execute(AddTask command) {
         Task task = new Task(command.description());
         taskRepository.save(task);
 
-        todolist.apply(new TaskCreated(task));
+        todolistSupplier.get().apply(TaskCreated.builder().task(task).build());
 
-        todolistRepository.save(todolist);
+        todolistRepository.save(todolistSupplier.get());
     }
 }

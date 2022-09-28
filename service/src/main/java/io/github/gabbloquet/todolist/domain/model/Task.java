@@ -45,7 +45,7 @@ public class Task {
 
     public TaskCompleted complete() {
         this.isCompleted = true;
-        return new TaskCompleted(this);
+        return TaskCompleted.builder().task(this).build();
     }
 
     public boolean isCompleted() {
@@ -54,6 +54,6 @@ public class Task {
 
     public TaskUpdated modify(String update) {
         this.description = update;
-        return new TaskUpdated(this);
+        return TaskUpdated.builder().task(this).build();
     }
 }

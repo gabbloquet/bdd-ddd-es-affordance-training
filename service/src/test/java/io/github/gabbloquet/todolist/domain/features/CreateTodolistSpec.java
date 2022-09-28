@@ -1,13 +1,18 @@
 package io.github.gabbloquet.todolist.domain.features;
 
 import io.cucumber.java.fr.Alors;
+import io.cucumber.java.fr.Lorsque;
 import io.cucumber.java.fr.Quand;
-import io.github.gabbloquet.todolist.domain.commands.StartTodolist;
+import io.github.gabbloquet.todolist.domain.TodolistUseCaseTransaction;
+import io.github.gabbloquet.todolist.domain.commands.OpenApplication;
 import io.github.gabbloquet.todolist.domain.repositories.TodolistRepository;
 import io.github.gabbloquet.todolist.domain.model.Todolist;
 import org.junit.jupiter.api.Assertions;
 import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Optional;
+import java.util.function.Supplier;
 
 import static org.mockito.Mockito.*;
 
@@ -20,13 +25,13 @@ public class CreateTodolistSpec {
     private TodolistRepository todolistRepository;
 
     @Autowired
-    private Todolist todolist;
+    private TodolistUseCaseTransaction todolistUseCaseTransaction;
 
     private final ArgumentCaptor<Todolist> todolistArgumentCaptor = ArgumentCaptor.forClass(Todolist.class);
 
-    @Quand("l'application est ouverte")
+    @Lorsque("l'application est ouverte")
     public void lApplicationEstOuverte() {
-        todolistService.execute(new StartTodolist());
+        todolistService.execute(new OpenApplication());
     }
 
     @Alors("une todolist vierge est disponible")
@@ -35,6 +40,5 @@ public class CreateTodolistSpec {
                 .save(todolistArgumentCaptor.capture());
 
         Assertions.assertTrue(todolistArgumentCaptor.getValue().tasks().isEmpty());
-        Assertions.assertEquals(todolistArgumentCaptor.getValue(), todolist);
     }
 }

@@ -7,16 +7,20 @@ import io.github.gabbloquet.todolist.domain.repositories.TodolistRepository;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
+import java.util.function.Supplier;
+
 @DomainService
 @RequiredArgsConstructor
 public class DeprioritizeTaskUseCase {
 
-    private final Todolist todolist;
+    @NonNull
+    private final Supplier<Todolist> todolistSupplier;
     @NonNull
     private final TodolistRepository todolistRepository;
 
     public void execute(DeprioritizeTask command) {
-        todolist.deprioritize(command.task());
-        todolistRepository.save(todolist);
+        todolistSupplier.get().deprioritize(command.task());
+
+        todolistRepository.save(todolistSupplier.get());
     }
 }

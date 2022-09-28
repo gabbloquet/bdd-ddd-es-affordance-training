@@ -1,4 +1,4 @@
-package io.github.gabbloquet.todolist.infrastructure.spi;
+package io.github.gabbloquet.todolist.domain.model.error;
 
 public class TaskNotFound extends RuntimeException {
     public TaskNotFound(int taskId) {

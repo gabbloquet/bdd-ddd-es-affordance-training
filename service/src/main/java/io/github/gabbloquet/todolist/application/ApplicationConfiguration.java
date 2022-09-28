@@ -1,20 +1,33 @@
 package io.github.gabbloquet.todolist.application;
 
+import io.github.gabbloquet.todolist.domain.TodolistUseCaseTransaction;
 import io.github.gabbloquet.todolist.domain.features.*;
 import io.github.gabbloquet.todolist.domain.model.Todolist;
+import io.github.gabbloquet.todolist.domain.model.TodolistCommandBus;
+import io.github.gabbloquet.todolist.domain.model.TodolistEventBus;
 import io.github.gabbloquet.todolist.domain.repositories.TaskRepository;
 import io.github.gabbloquet.todolist.domain.repositories.TodolistRepository;
-import io.github.gabbloquet.todolist.infrastructure.spi.InMemoryTaskRepository;
-import io.github.gabbloquet.todolist.infrastructure.spi.InMemoryTodolistRepository;
+import io.github.gabbloquet.todolist.infrastructure.spi.*;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.context.annotation.RequestScope;
+
+import java.util.function.Supplier;
 
 @Configuration
 public class ApplicationConfiguration {
 
     @Bean
-    public Todolist todolist() {
-        return new Todolist();
+    @RequestScope
+    public Supplier<Todolist> todolistSupplier(TodolistUseCaseTransaction todolistUseCaseTransaction) {
+        return todolistUseCaseTransaction;
+    }
+
+    @Bean
+    @RequestScope
+    public TodolistUseCaseTransaction todolistUseCaseTransaction(TodolistRepository todolistRepository) {
+        return new TodolistUseCaseTransaction(todolistRepository);
     }
 
     @Bean
@@ -28,53 +41,68 @@ public class ApplicationConfiguration {
     }
 
     @Bean
-    public TodolistService openApplicationUseCase(
+    public TodolistCommandBus todolistCommandBus(
+            ApplicationEventPublisher eventPublisher) {
+        return new TodolistSpringCommandBus(eventPublisher);
+    }
+
+    @Bean
+    public TodolistEventBus todolistEventBus(
+            ApplicationEventPublisher eventPublisher,
+            Supplier<Todolist> todolistSupplier) {
+        return new TodolistSpringEventBus(eventPublisher, todolistSupplier);
+    }
+
+    @Bean
+    public TodolistService todolistService(
+            TodolistUseCaseTransaction todolistUseCaseTransaction,
             TodolistRepository todolistRepository,
-            Todolist todolist
+            TodolistCommandBus todolistCommandBus
     ) {
-        return new TodolistService(todolistRepository, todolist);
+        return new TodolistService(todolistUseCaseTransaction, todolistRepository, todolistCommandBus);
     }
 
     @Bean
     public AddTaskUseCase addTaskUseCase(
             TaskRepository taskRepository,
             TodolistRepository todolistRepository,
-            Todolist todolist
+            Supplier<Todolist> todolistSupplier
     ) {
-        return new AddTaskUseCase(taskRepository, todolistRepository, todolist);
+        return new AddTaskUseCase(taskRepository, todolistRepository, todolistSupplier);
     }
 
     @Bean
     public UpdateTaskUseCase updateTaskUseCase(
             TaskRepository taskRepository,
             TodolistRepository todolistRepository,
-            Todolist todolist
+            Supplier<Todolist> todolistSupplier,
+            TodolistEventBus todolistEventBus
     ) {
-        return new UpdateTaskUseCase(taskRepository, todolistRepository, todolist);
+        return new UpdateTaskUseCase(taskRepository, todolistRepository, todolistSupplier, todolistEventBus);
     }
 
     @Bean
     public CompleteTaskUseCase completeTaskUseCase(
             TaskRepository taskRepository,
             TodolistRepository todolistRepository,
-            Todolist todolist
+            Supplier<Todolist> todolistSupplier
     ) {
-        return new CompleteTaskUseCase(taskRepository, todolistRepository, todolist);
+        return new CompleteTaskUseCase(taskRepository, todolistRepository, todolistSupplier);
     }
 
     @Bean
     public PriorizeTaskUseCase priorizeTaskUseCase(
-            Todolist todolist,
+            Supplier<Todolist> todolistSupplier,
             TodolistRepository todolistRepository
     ) {
-        return new PriorizeTaskUseCase(todolist, todolistRepository);
+        return new PriorizeTaskUseCase(todolistSupplier, todolistRepository);
     }
 
     @Bean
     public DeprioritizeTaskUseCase deprioritizeTaskUseCase(
-            Todolist todolist,
+            Supplier<Todolist> todolistSupplier,
             TodolistRepository todolistRepository
     ) {
-        return new DeprioritizeTaskUseCase(todolist, todolistRepository);
+        return new DeprioritizeTaskUseCase(todolistSupplier, todolistRepository);
     }
 }

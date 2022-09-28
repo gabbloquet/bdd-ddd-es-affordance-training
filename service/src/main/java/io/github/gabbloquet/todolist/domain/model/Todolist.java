@@ -2,9 +2,10 @@ package io.github.gabbloquet.todolist.domain.model;
 
 import io.github.gabbloquet.todolist.application.annotations.Aggregate;
 import io.github.gabbloquet.todolist.domain.features.events.*;
-import io.github.gabbloquet.todolist.infrastructure.spi.TaskNotFound;
+import io.github.gabbloquet.todolist.domain.model.error.TaskNotFound;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -13,10 +14,12 @@ public class Todolist {
 
     private final ArrayList<Task> tasks;
     private ArrayList<Task> completedTasks;
+    private TodolistEvent unsavedEvent;
 
     public Todolist() {
         this.tasks = new ArrayList<>();
         this.completedTasks = new ArrayList<>();
+        this.unsavedEvent = null;
     }
 
     public Todolist(ArrayList<Task> taskToAdd) {
@@ -36,7 +39,7 @@ public class Todolist {
         this.tasks.add(task);
         this.tasks.addAll(existingTasks);
 
-        return new TaskPrioritized();
+        return TaskPrioritized.builder().build();
     }
 
     public TaskDeprioritized deprioritize(Task task) {
@@ -48,11 +51,11 @@ public class Todolist {
         this.tasks.addAll(existingTasks);
         this.tasks.add(task);
 
-        return new TaskDeprioritized();
+        return TaskDeprioritized.builder().build();
     }
 
     public TodolistCreated create() {
-        return new TodolistCreated();
+        return TodolistCreated.builder().build();
     }
 
     public Task findByName(String taskToFound) {
@@ -68,22 +71,22 @@ public class Todolist {
 
     public void apply(TaskUpdated taskUpdated) {
         int taskPosition = getTaskPosition(taskUpdated);
-        tasks.set(taskPosition, taskUpdated.task());
+        tasks.set(taskPosition, taskUpdated.getTask());
     }
 
     public void apply(TaskCreated taskCreated) {
-        tasks.add(taskCreated.task());
+        tasks.add(taskCreated.getTask());
     }
 
     public void apply(TaskCompleted taskCompleted) {
-        completedTasks.add(taskCompleted.task());
+        completedTasks.add(taskCompleted.getTask());
     }
 
     private int getTaskPosition(TaskUpdated taskUpdated) {
         return IntStream.range(0, tasks.size())
-                .filter(i -> tasks.get(i).id().equals(taskUpdated.task().id()))
+                .filter(i -> tasks.get(i).id().equals(taskUpdated.getTask().id()))
                 .findFirst()
-                .orElseThrow(() -> new TaskNotFound(taskUpdated.task().description()));
+                .orElseThrow(() -> new TaskNotFound(taskUpdated.getTask().description()));
     }
 
     public void add(Task task) {
@@ -91,5 +94,9 @@ public class Todolist {
             completedTasks.add(task);
         else
             tasks.add(task);
+    }
+
+    public void addUnsavedEvent(TodolistEvent event) {
+        this.unsavedEvent = event;
     }
 }

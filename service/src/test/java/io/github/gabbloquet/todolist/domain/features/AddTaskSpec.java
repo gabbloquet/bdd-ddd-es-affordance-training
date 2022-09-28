@@ -1,18 +1,18 @@
 package io.github.gabbloquet.todolist.domain.features;
 
 import io.cucumber.java.fr.Alors;
-import io.cucumber.java.fr.Etantdonné;
 import io.cucumber.java.fr.Lorsque;
+import io.github.gabbloquet.todolist.domain.TodolistUseCaseTransaction;
 import io.github.gabbloquet.todolist.domain.commands.AddTask;
-import io.github.gabbloquet.todolist.domain.model.Task;
 import io.github.gabbloquet.todolist.domain.model.Todolist;
 import io.github.gabbloquet.todolist.domain.repositories.TodolistRepository;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Optional;
+import java.util.function.Supplier;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 public class AddTaskSpec {
 
@@ -23,39 +23,27 @@ public class AddTaskSpec {
     private TodolistRepository todolistRepository;
 
     @Autowired
-    private Todolist todolist;
-
-    @Etantdonné("aucune tâche à faire")
-    public void une_todolist_vierge() {
-        when(todolistRepository.get())
-                .thenReturn(Optional.of(todolist));
-    }
-
-    @Etantdonné("la tâche {string} à faire")
-    public void la_tache_à_faire(String task) {
-        todolist.add(new Task(task));
-
-        when(todolistRepository.get())
-                .thenReturn(Optional.of(todolist));
-    }
-
+    private TodolistUseCaseTransaction todolistUseCaseTransaction;
 
     @Lorsque("la tâche {string} est ajoutée")
     public void la_tâche_est_ajoutee(String task) {
+        todolistUseCaseTransaction.start();
         addTaskUseCase.execute(new AddTask(task));
     }
 
 
     @Alors("la tâche {string} est à faire")
     public void la_todolist_contient_une_tache(String expectedTask) {
-        Assertions.assertEquals(todolist.render().get(0).description(), expectedTask);
-        Assertions.assertFalse(todolist.render().get(0).isCompleted());
+        Assertions.assertEquals(todolistUseCaseTransaction.get().render().get(0).description(), expectedTask);
+        Assertions.assertFalse(todolistUseCaseTransaction.get().render().get(0).isCompleted());
 
-        verify(todolistRepository, times(1)).save(todolist);
+        verify(todolistRepository, times(1)).save(todolistUseCaseTransaction.get());
     }
 
     @Alors("les tâches {string} et {string} sont à faire")
     public void la_todolist_contient_deux_tâches(String firstTask, String secondTask) {
+        Todolist todolist = todolistUseCaseTransaction.get();
+
         Assertions.assertEquals(todolist.render().get(0).description(), firstTask);
         Assertions.assertFalse(todolist.render().get(0).isCompleted());
 

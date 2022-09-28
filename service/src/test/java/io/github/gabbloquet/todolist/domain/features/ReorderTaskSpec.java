@@ -10,10 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class ReorderTaskSpec {
 
     @Autowired
-    private PriorizeTaskUseCase priorizeTaskUseCase;
-
-    @Autowired
-    private DeprioritizeTaskUseCase deprioritizeTaskUseCase;
+    private TodolistService todolistService;
 
     @Autowired
     private TodolistUseCaseTransaction todolistUseCaseTransaction;
@@ -28,7 +25,7 @@ public class ReorderTaskSpec {
                 .builder()
                 .task(taskToPriorize)
                 .build();
-        priorizeTaskUseCase.execute(command);
+        todolistService.execute(command);
     }
 
     @Lorsque("la tâche {string} est dépriorisée")
@@ -40,6 +37,6 @@ public class ReorderTaskSpec {
         DeprioritizeTask command = DeprioritizeTask.builder()
                 .task(taskToDepriorize)
                 .build();
-        deprioritizeTaskUseCase.execute(command);
+        todolistService.execute(command);
     }
 }

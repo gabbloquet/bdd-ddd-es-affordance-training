@@ -98,17 +98,15 @@ public class TodolistSpringTestConfig {
 
     @Bean
     public PriorizeTaskUseCase priorizeTaskUseCase(
-            Supplier<Todolist> todolistSupplier,
-            TodolistRepository todolistRepository
+            Supplier<Todolist> todolistSupplier
             ) {
-        return new PriorizeTaskUseCase(todolistSupplier, todolistRepository);
+        return new PriorizeTaskUseCase(todolistSupplier);
     }
 
     @Bean
     public DeprioritizeTaskUseCase deprioritizeTaskUseCase(
-            Supplier<Todolist> todolistSupplier,
-            TodolistRepository todolistRepository
+            Supplier<Todolist> todolistSupplier
     ) {
-        return new DeprioritizeTaskUseCase(todolistSupplier, todolistRepository);
+        return new DeprioritizeTaskUseCase(todolistSupplier);
     }
 }

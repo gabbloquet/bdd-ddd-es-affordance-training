@@ -83,10 +83,9 @@ public class ApplicationConfiguration {
     @Bean
     public CompleteTaskUseCase completeTaskUseCase(
             TaskRepository taskRepository,
-            TodolistRepository todolistRepository,
             Supplier<Todolist> todolistSupplier
     ) {
-        return new CompleteTaskUseCase(taskRepository, todolistRepository, todolistSupplier);
+        return new CompleteTaskUseCase(taskRepository, todolistSupplier);
     }
 
     @Bean

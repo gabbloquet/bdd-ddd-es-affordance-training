@@ -10,24 +10,24 @@ import io.github.gabbloquet.todolist.domain.model.Todolist;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.function.Supplier;
-
 public class CompleteTaskSpec {
 
     @Autowired
     private TodolistUseCaseTransaction todolistUseCaseTransaction;
 
     @Autowired
-    private CompleteTaskUseCase completeTaskUseCase;
+    private TodolistService todolistService;
 
     @Lorsque("la tâche {string} est accomplie")
     public void latâcheEstAccomplie(String task) {
         todolistUseCaseTransaction.start();
 
         Task taskToComplete = todolistUseCaseTransaction.get().findByName(task);
-        CompleteTask command = new CompleteTask(taskToComplete.id());
+        CompleteTask command = CompleteTask.builder()
+                .id(taskToComplete.id())
+                .build();
 
-        completeTaskUseCase.execute(command);
+        todolistService.execute(command);
     }
 
     @Alors("la tâche {string} est terminée")

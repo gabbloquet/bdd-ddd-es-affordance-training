@@ -9,15 +9,13 @@ import io.github.gabbloquet.todolist.domain.repositories.TodolistRepository;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.function.Supplier;
-
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 public class AddTaskSpec {
 
     @Autowired
-    private AddTaskUseCase addTaskUseCase;
+    private TodolistService todolistService;
 
     @Autowired
     private TodolistRepository todolistRepository;
@@ -28,7 +26,12 @@ public class AddTaskSpec {
     @Lorsque("la tâche {string} est ajoutée")
     public void la_tâche_est_ajoutee(String task) {
         todolistUseCaseTransaction.start();
-        addTaskUseCase.execute(new AddTask(task));
+        todolistService.execute(
+            AddTask
+                .builder()
+                .description(task)
+                .build()
+        );
     }
 
 

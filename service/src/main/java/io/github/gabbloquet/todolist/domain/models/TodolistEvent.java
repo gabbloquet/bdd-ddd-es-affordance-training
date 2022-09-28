@@ -1,4 +1,4 @@
-package io.github.gabbloquet.todolist.domain.model;
+package io.github.gabbloquet.todolist.domain.models;
 
 import io.github.gabbloquet.todolist.application.annotations.DomainEvent;
 import io.github.gabbloquet.todolist.domain.features.events.*;

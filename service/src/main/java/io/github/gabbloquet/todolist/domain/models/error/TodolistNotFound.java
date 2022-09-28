@@ -1,4 +1,4 @@
-package io.github.gabbloquet.todolist.domain.model.error;
+package io.github.gabbloquet.todolist.domain.models.error;
 
 public class TodolistNotFound extends RuntimeException {
     public TodolistNotFound() {

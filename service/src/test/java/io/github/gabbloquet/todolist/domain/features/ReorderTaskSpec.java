@@ -2,9 +2,9 @@ package io.github.gabbloquet.todolist.domain.features;
 
 import io.cucumber.java.fr.Lorsque;
 import io.github.gabbloquet.todolist.domain.TodolistUseCaseTransaction;
-import io.github.gabbloquet.todolist.domain.commands.DeprioritizeTask;
-import io.github.gabbloquet.todolist.domain.commands.PrioritizeTask;
-import io.github.gabbloquet.todolist.domain.model.Task;
+import io.github.gabbloquet.todolist.domain.features.commands.DeprioritizeTask;
+import io.github.gabbloquet.todolist.domain.features.commands.PrioritizeTask;
+import io.github.gabbloquet.todolist.domain.models.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class ReorderTaskSpec {

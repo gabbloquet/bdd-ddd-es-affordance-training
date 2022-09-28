@@ -1,6 +1,6 @@
 package io.github.gabbloquet.todolist.infrastructure.api.dto.todolist;
 
-import io.github.gabbloquet.todolist.domain.model.Todolist;
+import io.github.gabbloquet.todolist.domain.models.Todolist;
 import io.github.gabbloquet.todolist.infrastructure.api.dto.tasks.TaskDto;
 
 import java.util.List;

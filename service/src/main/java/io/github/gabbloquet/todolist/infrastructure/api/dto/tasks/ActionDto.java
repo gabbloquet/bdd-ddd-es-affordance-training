@@ -1,6 +1,6 @@
 package io.github.gabbloquet.todolist.infrastructure.api.dto.tasks;
 
-import io.github.gabbloquet.todolist.domain.model.Task;
+import io.github.gabbloquet.todolist.domain.models.Task;
 import lombok.Builder;
 import lombok.Data;
 

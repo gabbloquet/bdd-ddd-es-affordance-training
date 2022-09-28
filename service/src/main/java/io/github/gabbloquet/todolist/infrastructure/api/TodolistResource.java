@@ -1,6 +1,6 @@
 package io.github.gabbloquet.todolist.infrastructure.api;
 
-import io.github.gabbloquet.todolist.domain.model.Todolist;
+import io.github.gabbloquet.todolist.domain.models.Todolist;
 import io.github.gabbloquet.todolist.infrastructure.api.dto.todolist.MoveTaskRequest;
 import io.github.gabbloquet.todolist.infrastructure.api.dto.todolist.TodolistDto;
 import io.github.gabbloquet.todolist.infrastructure.api.dto.todolist.TodolistResponse;

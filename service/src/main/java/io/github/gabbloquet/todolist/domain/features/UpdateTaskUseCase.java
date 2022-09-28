@@ -1,12 +1,12 @@
 package io.github.gabbloquet.todolist.domain.features;
 
 import io.github.gabbloquet.todolist.application.annotations.DomainService;
-import io.github.gabbloquet.todolist.domain.commands.ModifyTask;
+import io.github.gabbloquet.todolist.domain.features.commands.ModifyTask;
 import io.github.gabbloquet.todolist.domain.features.events.TaskUpdated;
-import io.github.gabbloquet.todolist.domain.model.Task;
-import io.github.gabbloquet.todolist.domain.model.Todolist;
-import io.github.gabbloquet.todolist.domain.model.TodolistCommandReceiver;
-import io.github.gabbloquet.todolist.domain.model.TodolistEventBus;
+import io.github.gabbloquet.todolist.domain.models.Task;
+import io.github.gabbloquet.todolist.domain.models.Todolist;
+import io.github.gabbloquet.todolist.domain.models.TodolistCommandReceiver;
+import io.github.gabbloquet.todolist.domain.models.TodolistEventBus;
 import io.github.gabbloquet.todolist.domain.repositories.TaskRepository;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

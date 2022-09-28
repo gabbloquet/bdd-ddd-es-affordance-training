@@ -1,14 +1,12 @@
 package io.github.gabbloquet.todolist.infrastructure.spi;
 
-import io.github.gabbloquet.todolist.domain.model.Task;
-import io.github.gabbloquet.todolist.domain.model.Todolist;
+import io.github.gabbloquet.todolist.domain.models.Task;
+import io.github.gabbloquet.todolist.domain.models.Todolist;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 class InMemoryTodolistRepositoryTest {
 

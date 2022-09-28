@@ -1,9 +1,9 @@
 package io.github.gabbloquet.todolist.domain.features;
 
 import io.github.gabbloquet.todolist.application.annotations.DomainService;
-import io.github.gabbloquet.todolist.domain.commands.DeprioritizeTask;
-import io.github.gabbloquet.todolist.domain.model.Todolist;
-import io.github.gabbloquet.todolist.domain.model.TodolistCommandReceiver;
+import io.github.gabbloquet.todolist.domain.features.commands.DeprioritizeTask;
+import io.github.gabbloquet.todolist.domain.models.Todolist;
+import io.github.gabbloquet.todolist.domain.models.TodolistCommandReceiver;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;

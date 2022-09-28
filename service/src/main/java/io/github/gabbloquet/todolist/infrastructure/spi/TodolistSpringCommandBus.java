@@ -1,7 +1,7 @@
 package io.github.gabbloquet.todolist.infrastructure.spi;
 
-import io.github.gabbloquet.todolist.domain.commands.TodolistCommand;
-import io.github.gabbloquet.todolist.domain.model.TodolistCommandBus;
+import io.github.gabbloquet.todolist.domain.features.commands.TodolistCommand;
+import io.github.gabbloquet.todolist.domain.models.TodolistCommandBus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
 

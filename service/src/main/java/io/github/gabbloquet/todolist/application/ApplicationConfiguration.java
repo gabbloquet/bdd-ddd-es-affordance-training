@@ -2,9 +2,9 @@ package io.github.gabbloquet.todolist.application;
 
 import io.github.gabbloquet.todolist.domain.TodolistUseCaseTransaction;
 import io.github.gabbloquet.todolist.domain.features.*;
-import io.github.gabbloquet.todolist.domain.model.Todolist;
-import io.github.gabbloquet.todolist.domain.model.TodolistCommandBus;
-import io.github.gabbloquet.todolist.domain.model.TodolistEventBus;
+import io.github.gabbloquet.todolist.domain.models.Todolist;
+import io.github.gabbloquet.todolist.domain.models.TodolistCommandBus;
+import io.github.gabbloquet.todolist.domain.models.TodolistEventBus;
 import io.github.gabbloquet.todolist.domain.repositories.TaskRepository;
 import io.github.gabbloquet.todolist.domain.repositories.TodolistRepository;
 import io.github.gabbloquet.todolist.infrastructure.spi.*;

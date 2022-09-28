@@ -1,7 +1,7 @@
 package io.github.gabbloquet.todolist.domain.repositories;
 
-import io.github.gabbloquet.todolist.domain.model.Task;
-import io.github.gabbloquet.todolist.domain.model.TaskId;
+import io.github.gabbloquet.todolist.domain.models.Task;
+import io.github.gabbloquet.todolist.domain.models.TaskId;
 
 public interface TaskRepository {
 

@@ -2,10 +2,10 @@ package io.github.gabbloquet.todolist.domain.features;
 
 import io.github.gabbloquet.todolist.application.annotations.DomainService;
 import io.github.gabbloquet.todolist.domain.TodolistUseCaseTransaction;
-import io.github.gabbloquet.todolist.domain.commands.OpenApplication;
-import io.github.gabbloquet.todolist.domain.commands.TodolistCommand;
-import io.github.gabbloquet.todolist.domain.model.Todolist;
-import io.github.gabbloquet.todolist.domain.model.TodolistCommandBus;
+import io.github.gabbloquet.todolist.domain.features.commands.OpenApplication;
+import io.github.gabbloquet.todolist.domain.features.commands.TodolistCommand;
+import io.github.gabbloquet.todolist.domain.models.Todolist;
+import io.github.gabbloquet.todolist.domain.models.TodolistCommandBus;
 import io.github.gabbloquet.todolist.domain.repositories.TodolistRepository;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -38,6 +38,7 @@ public class TodolistService {
                 command);
 
         todolistUseCaseTransaction.start();
+
         todolistCommandBus.dispatch(command);
 
         todolistUseCaseTransaction.commit();

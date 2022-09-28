@@ -1,8 +1,8 @@
-package io.github.gabbloquet.todolist.domain.model;
+package io.github.gabbloquet.todolist.domain.models;
 
 import io.github.gabbloquet.todolist.application.annotations.Aggregate;
 import io.github.gabbloquet.todolist.domain.features.events.*;
-import io.github.gabbloquet.todolist.domain.model.error.TaskNotFound;
+import io.github.gabbloquet.todolist.domain.models.error.TaskNotFound;
 
 import java.util.ArrayList;
 import java.util.List;

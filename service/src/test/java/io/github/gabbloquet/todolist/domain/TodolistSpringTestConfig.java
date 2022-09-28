@@ -82,11 +82,10 @@ public class TodolistSpringTestConfig {
     @Bean
     public UpdateTaskUseCase updateTaskUseCase(
             TaskRepository taskRepository,
-            TodolistRepository todolistRepository,
             Supplier<Todolist> todolistSupplier,
             TodolistEventBus todolistEventBus
     ) {
-        return new UpdateTaskUseCase(taskRepository, todolistRepository, todolistSupplier, todolistEventBus);
+        return new UpdateTaskUseCase(taskRepository, todolistSupplier, todolistEventBus);
     }
 
     @Bean

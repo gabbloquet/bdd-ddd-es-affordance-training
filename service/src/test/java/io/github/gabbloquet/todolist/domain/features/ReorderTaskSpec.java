@@ -5,10 +5,7 @@ import io.github.gabbloquet.todolist.domain.TodolistUseCaseTransaction;
 import io.github.gabbloquet.todolist.domain.commands.DeprioritizeTask;
 import io.github.gabbloquet.todolist.domain.commands.PrioritizeTask;
 import io.github.gabbloquet.todolist.domain.model.Task;
-import io.github.gabbloquet.todolist.domain.model.Todolist;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.function.Supplier;
 
 public class ReorderTaskSpec {
 
@@ -27,7 +24,10 @@ public class ReorderTaskSpec {
 
         Task taskToPriorize = todolistUseCaseTransaction.get().findByName(tacheAPrioriser);
 
-        PrioritizeTask command = new PrioritizeTask(taskToPriorize);
+        PrioritizeTask command = PrioritizeTask
+                .builder()
+                .task(taskToPriorize)
+                .build();
         priorizeTaskUseCase.execute(command);
     }
 
@@ -37,7 +37,9 @@ public class ReorderTaskSpec {
 
         Task taskToDepriorize = todolistUseCaseTransaction.get().findByName(tacheADeprioriser);
 
-        DeprioritizeTask command = new DeprioritizeTask(taskToDepriorize);
+        DeprioritizeTask command = DeprioritizeTask.builder()
+                .task(taskToDepriorize)
+                .build();
         deprioritizeTaskUseCase.execute(command);
     }
 }

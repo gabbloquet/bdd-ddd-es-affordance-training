@@ -19,7 +19,7 @@ public class DeprioritizeTaskUseCase {
     private final TodolistRepository todolistRepository;
 
     public void execute(DeprioritizeTask command) {
-        todolistSupplier.get().deprioritize(command.task());
+        todolistSupplier.get().deprioritize(command.getTask());
 
         todolistRepository.save(todolistSupplier.get());
     }

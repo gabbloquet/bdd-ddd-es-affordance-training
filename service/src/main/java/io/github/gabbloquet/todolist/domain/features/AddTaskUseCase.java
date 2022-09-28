@@ -7,7 +7,6 @@ import io.github.gabbloquet.todolist.domain.model.Task;
 import io.github.gabbloquet.todolist.domain.model.Todolist;
 import io.github.gabbloquet.todolist.domain.model.TodolistCommandReceiver;
 import io.github.gabbloquet.todolist.domain.repositories.TaskRepository;
-import io.github.gabbloquet.todolist.domain.repositories.TodolistRepository;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;

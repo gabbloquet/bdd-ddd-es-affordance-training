@@ -1,18 +1,20 @@
 package io.github.gabbloquet.todolist.infrastructure.api;
 
 import io.github.gabbloquet.todolist.domain.features.TodolistService;
-import io.github.gabbloquet.todolist.domain.features.commands.*;
-import io.github.gabbloquet.todolist.domain.models.Task;
+import io.github.gabbloquet.todolist.domain.features.commands.DeprioritizeTask;
+import io.github.gabbloquet.todolist.domain.features.commands.OpenApplication;
+import io.github.gabbloquet.todolist.domain.features.commands.PrioritizeTask;
+import io.github.gabbloquet.todolist.domain.features.commands.TodolistCommand;
 import io.github.gabbloquet.todolist.domain.models.TaskId;
 import io.github.gabbloquet.todolist.domain.models.Todolist;
-import io.github.gabbloquet.todolist.infrastructure.api.dto.todolist.*;
+import io.github.gabbloquet.todolist.infrastructure.api.dto.todolist.PrioritizeTaskRequest;
+import io.github.gabbloquet.todolist.infrastructure.api.dto.todolist.TodolistDto;
+import io.github.gabbloquet.todolist.infrastructure.api.dto.todolist.TodolistResponse;
+import io.github.gabbloquet.todolist.infrastructure.api.dto.todolist.TodolistResponseAssembler;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 @RestController
@@ -27,8 +29,9 @@ public class TodolistResource {
 
     @GetMapping()
     public EntityModel<TodolistResponse> get() {
+
         Todolist todolist = todolistService.execute(OpenApplication.builder().build());
-//        Todolist todolist = new Todolist(new ArrayList<>(List.of(new Task("toto"))));
+
         return todolistResponseAssembler.map(TodolistDto.from(todolist));
     }
 
@@ -37,7 +40,9 @@ public class TodolistResource {
         TodolistCommand command = PrioritizeTask.builder()
                 .taskId(TaskId.from(request.id()))
                 .build();
+
         Todolist todolist = todolistService.execute(command);
+
         return todolistResponseAssembler.map(TodolistDto.from(todolist));
     }
 
@@ -46,7 +51,9 @@ public class TodolistResource {
         TodolistCommand command = DeprioritizeTask.builder()
                 .taskId(TaskId.from(request.id()))
                 .build();
+
         Todolist todolist = todolistService.execute(command);
+
         return todolistResponseAssembler.map(TodolistDto.from(todolist));
     }
 }

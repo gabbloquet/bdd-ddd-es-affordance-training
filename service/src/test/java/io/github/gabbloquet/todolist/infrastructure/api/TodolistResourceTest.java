@@ -1,12 +1,18 @@
 package io.github.gabbloquet.todolist.infrastructure.api;
 
+import io.github.gabbloquet.todolist.domain.features.TodolistService;
+import io.github.gabbloquet.todolist.domain.features.commands.DeprioritizeTask;
+import io.github.gabbloquet.todolist.domain.features.commands.OpenApplication;
+import io.github.gabbloquet.todolist.domain.features.commands.PrioritizeTask;
 import io.github.gabbloquet.todolist.domain.models.Task;
 import io.github.gabbloquet.todolist.domain.models.Todolist;
+import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -16,6 +22,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -28,6 +37,9 @@ class TodolistResourceTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @MockBean
+    private TodolistService todolistService;
+
     private final Task task = new Task("Practice TDD");
     private final Task anotherTask = new Task("Practice Simple Design");
 
@@ -39,10 +51,12 @@ class TodolistResourceTest {
         Todolist todolistWithOneTask = new Todolist(listWithATask);
         Todolist todolistWithTwoTasks = new Todolist(listWithTwoTasks);
 
-//        when(todolistService.get())
-//                .thenReturn(todolistWithOneTask);
-//        when(todolistService.move(0, 2))
-//                .thenReturn(todolistWithTwoTasks);
+        when(todolistService.execute(OpenApplication.builder().build()))
+                .thenReturn(todolistWithOneTask);
+        when(todolistService.execute(PrioritizeTask.builder().taskId(task.id()).build()))
+                .thenReturn(todolistWithTwoTasks);
+        when(todolistService.execute(DeprioritizeTask.builder().taskId(anotherTask.id()).build()))
+                .thenReturn(todolistWithTwoTasks);
     }
 
     @Test
@@ -52,24 +66,32 @@ class TodolistResourceTest {
                 .andExpect(jsonPath("$._links.self.href", is("http://localhost/todolist")))
                 .andExpect(jsonPath("$._links.self.title", is("Get todolist")))
 
-                .andExpect(jsonPath("$._links.moveTask.href", is("http://localhost/todolist/move/task")))
-                .andExpect(jsonPath("$._links.moveTask.title", is("Move a task")))
-                .andExpect(jsonPath("$._templates.default.method", is("PUT")))
+                .andExpect(jsonPath("$._links.prioritizeTask.href", is("http://localhost/todolist/prioritize/task")))
+                .andExpect(jsonPath("$._links.prioritizeTask.title", is("Prioritize a task")))
+                .andExpect(jsonPath("$._links.prioritizeTask.name", is("default")))
                 .andExpect(jsonPath("$._templates.default.properties[0].name", is("id")))
-                .andExpect(jsonPath("$._templates.default.properties[0].type", is("number")))
-                .andExpect(jsonPath("$._templates.default.properties[1].name", is("position")))
-                .andExpect(jsonPath("$._templates.default.properties[1].type", is("number")))
-                .andExpect(jsonPath("$._templates.default.target", is("http://localhost/todolist/move/task")));
+                .andExpect(jsonPath("$._templates.default.properties[0].readOnly", is(true)))
+                .andExpect(jsonPath("$._templates.default.method", is("POST")))
+                .andExpect(jsonPath("$._templates.default.target", is("http://localhost/todolist/prioritize/task")))
+
+                .andExpect(jsonPath("$._links.deprioritizeTask.href", is("http://localhost/todolist/deprioritize/task")))
+                .andExpect(jsonPath("$._links.deprioritizeTask.title", is("Deprioritize a task")))
+                .andExpect(jsonPath("$._links.deprioritizeTask.name", is("deprioritize")))
+                .andExpect(jsonPath("$._templates.default.properties[0].name", is("id")))
+                .andExpect(jsonPath("$._templates.default.properties[0].readOnly", is(true)))
+                .andExpect(jsonPath("$._templates.deprioritize.method", is("POST")))
+                .andExpect(jsonPath("$._templates.deprioritize.target", is("http://localhost/todolist/deprioritize/task")));
     }
 
     @Test
     public void get_todolist_contains_tasks_affordance() throws Exception {
+        String taskId = task.id().id().toString();
         executeGetRequest()
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.tasks[0].id").value("0"))
+                .andExpect(jsonPath("$.tasks[0].id").value(taskId))
                 .andExpect(jsonPath("$.tasks[0].description").value("Practice TDD"))
 
-                .andExpect(jsonPath("$.tasks[0]._links.deleteOrModifyTask.href", is("http://localhost/tasks/0")))
+                .andExpect(jsonPath("$.tasks[0]._links.deleteOrModifyTask.href", is("http://localhost/tasks/" + taskId)))
                 .andExpect(jsonPath("$.tasks[0]._links.deleteOrModifyTask.title", is("Modify or delete a task")))
 
                 .andExpect(jsonPath("$.tasks[0]._templates.default.method", is("PUT")))
@@ -77,7 +99,7 @@ class TodolistResourceTest {
                 .andExpect(jsonPath("$.tasks[0]._templates.default.properties[0].type", is("text")))
 
                 .andExpect(jsonPath("$.tasks[0]._templates.deleteTask.method", is("DELETE")))
-                .andExpect(jsonPath("$.tasks[0]._templates.deleteTask.target", is("http://localhost/tasks/0")))
+                .andExpect(jsonPath("$.tasks[0]._templates.deleteTask.target", is("http://localhost/tasks/" + taskId)))
 
                 .andExpect(jsonPath("$.tasks[0]._links.addTask.href", is("http://localhost/tasks")))
                 .andExpect(jsonPath("$.tasks[0]._links.addTask.title", is("Add a task")))
@@ -106,12 +128,13 @@ class TodolistResourceTest {
 
     @Test
     public void prioritize_task_in_todolist_contains_tasks_affordances() throws Exception {
+        String taskId = task.id().id().toString();
         executePrioritizeRequest()
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.tasks[1].id").value("0"))
                 .andExpect(jsonPath("$.tasks[1].description").value("Practice TDD"))
 
-                .andExpect(jsonPath("$.tasks[1]._links.deleteOrModifyTask.href", is("http://localhost/tasks/0")))
+                .andExpect(jsonPath("$.tasks[1]._links.deleteOrModifyTask.href", is("http://localhost/tasks/" + taskId)))
                 .andExpect(jsonPath("$.tasks[1]._links.deleteOrModifyTask.title", is("Modify or delete a task")))
 
                 .andExpect(jsonPath("$.tasks[1]._templates.default.method", is("PUT")))
@@ -119,7 +142,7 @@ class TodolistResourceTest {
                 .andExpect(jsonPath("$.tasks[1]._templates.default.properties[0].type", is("text")))
 
                 .andExpect(jsonPath("$.tasks[1]._templates.deleteTask.method", is("DELETE")))
-                .andExpect(jsonPath("$.tasks[1]._templates.deleteTask.target", is("http://localhost/tasks/0")))
+                .andExpect(jsonPath("$.tasks[1]._templates.deleteTask.target", is("http://localhost/tasks/" + taskId)))
 
                 .andExpect(jsonPath("$.tasks[1]._links.addTask.href", is("http://localhost/tasks")))
                 .andExpect(jsonPath("$.tasks[1]._links.addTask.title", is("Add a task")))
@@ -178,13 +201,13 @@ class TodolistResourceTest {
     }
 
     private ResultActions executePrioritizeRequest() throws Exception {
-        return mockMvc.perform(post("/todolist/prioritize/task/" + task.id())
+        return mockMvc.perform(post("/todolist/prioritize/task/" + task.id().id())
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaTypes.HAL_FORMS_JSON));
     }
 
     private ResultActions executeDeprioritizeRequest() throws Exception {
-        return mockMvc.perform(post("/todolist/deprioritize/task" + anotherTask.id())
+        return mockMvc.perform(post("/todolist/deprioritize/task" + anotherTask.id().id())
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaTypes.HAL_FORMS_JSON));
     }

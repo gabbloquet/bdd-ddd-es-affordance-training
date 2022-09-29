@@ -2,6 +2,7 @@ package io.github.gabbloquet.todolist.infrastructure.api;
 
 import io.github.gabbloquet.todolist.domain.features.TodolistService;
 import io.github.gabbloquet.todolist.domain.features.commands.*;
+import io.github.gabbloquet.todolist.domain.models.Task;
 import io.github.gabbloquet.todolist.domain.models.TaskId;
 import io.github.gabbloquet.todolist.domain.models.Todolist;
 import io.github.gabbloquet.todolist.infrastructure.api.dto.todolist.*;
@@ -10,7 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @RestController
@@ -26,22 +28,23 @@ public class TodolistResource {
     @GetMapping()
     public EntityModel<TodolistResponse> get() {
         Todolist todolist = todolistService.execute(OpenApplication.builder().build());
+//        Todolist todolist = new Todolist(new ArrayList<>(List.of(new Task("toto"))));
         return todolistResponseAssembler.map(TodolistDto.from(todolist));
     }
 
-    @PostMapping("/prioritize/task/{id}")
-    public EntityModel<TodolistResponse> prioritize(@PathVariable UUID id) {
+    @PostMapping("/prioritize/task")
+    public EntityModel<TodolistResponse> prioritize(@RequestBody PrioritizeTaskRequest request) {
         TodolistCommand command = PrioritizeTask.builder()
-                .taskId(TaskId.from(id))
+                .taskId(TaskId.from(request.id()))
                 .build();
         Todolist todolist = todolistService.execute(command);
         return todolistResponseAssembler.map(TodolistDto.from(todolist));
     }
 
-    @PostMapping("/deprioritize/task/{id}")
-    public EntityModel<TodolistResponse> deprioritize(@PathVariable UUID id) {
+    @PostMapping("/deprioritize/task")
+    public EntityModel<TodolistResponse> deprioritize(@RequestBody PrioritizeTaskRequest request) {
         TodolistCommand command = DeprioritizeTask.builder()
-                .taskId(TaskId.from(id))
+                .taskId(TaskId.from(request.id()))
                 .build();
         Todolist todolist = todolistService.execute(command);
         return todolistResponseAssembler.map(TodolistDto.from(todolist));

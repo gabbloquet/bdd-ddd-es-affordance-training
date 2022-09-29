@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 public class Todolist {
 
     private final ArrayList<Task> tasks;
-    private ArrayList<Task> completedTasks;
+    private final ArrayList<Task> completedTasks;
 
     public Todolist() {
         this.tasks = new ArrayList<>();
@@ -23,6 +23,7 @@ public class Todolist {
 
     public Todolist(ArrayList<Task> taskToAdd) {
         this.tasks = taskToAdd;
+        this.completedTasks = new ArrayList<>();
     }
 
     public ArrayList<Task> tasks() {

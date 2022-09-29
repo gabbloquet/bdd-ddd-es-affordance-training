@@ -39,11 +39,11 @@ public class TodolistResponseAssembler {
     }
 
     private Link getPrioritizeTaskAffordance() {
-        return linkTo(todolistResource.prioritize(null)).withRel("prioritizeTask").withTitle("Prioritize a task");
+        return linkTo(todolistResource.prioritize(null)).withRel("prioritizeTask").withName("default").withTitle("Prioritize a task");
     }
 
     private Link getDeprioritizeTaskAffordance() {
-        return linkTo(todolistResource.deprioritize(null)).withRel("deprioritizeTask").withTitle("Deprioritize a task");
+        return linkTo(todolistResource.deprioritize(null)).withRel("deprioritizeTask").withName("deprioritize").withTitle("Deprioritize a task");
     }
 
     private Link getSelfLink() {

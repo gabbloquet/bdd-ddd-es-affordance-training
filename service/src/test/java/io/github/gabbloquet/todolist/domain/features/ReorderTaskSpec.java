@@ -23,7 +23,7 @@ public class ReorderTaskSpec {
 
         PrioritizeTask command = PrioritizeTask
                 .builder()
-                .task(taskToPriorize)
+                .taskId(taskToPriorize.id())
                 .build();
         todolistService.execute(command);
     }
@@ -35,7 +35,7 @@ public class ReorderTaskSpec {
         Task taskToDepriorize = todolistUseCaseTransaction.get().findByName(tacheADeprioriser);
 
         DeprioritizeTask command = DeprioritizeTask.builder()
-                .task(taskToDepriorize)
+                .taskId(taskToDepriorize.id())
                 .build();
         todolistService.execute(command);
     }

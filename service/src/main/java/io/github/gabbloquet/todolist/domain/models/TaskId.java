@@ -9,4 +9,8 @@ public record TaskId(@NonNull UUID id) {
     public TaskId() {
         this(UUID.randomUUID());
     }
+
+    public static TaskId from(UUID id) {
+        return new TaskId(id);
+    }
 }

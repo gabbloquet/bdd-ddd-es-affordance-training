@@ -1,7 +1,9 @@
 package io.github.gabbloquet.todolist.domain.models.error;
 
+import io.github.gabbloquet.todolist.domain.models.TaskId;
+
 public class TaskNotFound extends RuntimeException {
-    public TaskNotFound(int taskId) {
+    public TaskNotFound(TaskId taskId) {
         super(String.format("Task %s not found.", taskId));
     }
 

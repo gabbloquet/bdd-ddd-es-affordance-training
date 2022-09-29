@@ -24,15 +24,17 @@ public class TodolistService {
     @NonNull
     private final TodolistCommandBus todolistCommandBus;
 
-    public void execute(OpenApplication command) {
+    public Todolist execute(OpenApplication command) {
         log.info("[{}] command={}",
                 command.getClass().getSimpleName(),
                 command);
 
         todolistRepository.save(new Todolist());
+
+        return todolistUseCaseTransaction.get();
     }
 
-    public void execute(TodolistCommand command) {
+    public Todolist execute(TodolistCommand command) {
         log.info("[{}] command={}",
                 command.getClass().getSimpleName(),
                 command);
@@ -42,5 +44,7 @@ public class TodolistService {
         todolistCommandBus.dispatch(command);
 
         todolistUseCaseTransaction.commit();
+
+        return todolistUseCaseTransaction.get();
     }
 }

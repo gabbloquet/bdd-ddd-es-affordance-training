@@ -28,7 +28,8 @@ public class TodolistResponseAssembler {
         return EntityModel.of(
                 todolistResponse,
                 getSelfLink(),
-                getMoveTaskAffordance());
+                getPrioritizeTaskAffordance(),
+                getDeprioritizeTaskAffordance());
     }
 
     private List<EntityModel<TaskDto>> getTasksAffordances(TodolistDto todolist) {
@@ -37,9 +38,12 @@ public class TodolistResponseAssembler {
                 .toList();
     }
 
-    private Link getMoveTaskAffordance() {
-        MoveTaskRequest taskRequest = new MoveTaskRequest(0, 0);
-        return linkTo(todolistResource.move(taskRequest)).withRel("moveTask").withTitle("Move a task");
+    private Link getPrioritizeTaskAffordance() {
+        return linkTo(todolistResource.prioritize(null)).withRel("prioritizeTask").withTitle("Prioritize a task");
+    }
+
+    private Link getDeprioritizeTaskAffordance() {
+        return linkTo(todolistResource.deprioritize(null)).withRel("deprioritizeTask").withTitle("Deprioritize a task");
     }
 
     private Link getSelfLink() {

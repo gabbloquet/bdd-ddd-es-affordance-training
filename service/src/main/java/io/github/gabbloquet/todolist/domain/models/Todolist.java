@@ -3,6 +3,7 @@ package io.github.gabbloquet.todolist.domain.models;
 import io.github.gabbloquet.todolist.application.annotations.Aggregate;
 import io.github.gabbloquet.todolist.domain.features.events.*;
 import io.github.gabbloquet.todolist.domain.models.error.TaskNotFound;
+import lombok.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,12 +15,10 @@ public class Todolist {
 
     private final ArrayList<Task> tasks;
     private ArrayList<Task> completedTasks;
-    private TodolistEvent unsavedEvent;
 
     public Todolist() {
         this.tasks = new ArrayList<>();
         this.completedTasks = new ArrayList<>();
-        this.unsavedEvent = null;
     }
 
     public Todolist(ArrayList<Task> taskToAdd) {
@@ -30,32 +29,41 @@ public class Todolist {
         return tasks;
     }
 
-    public TaskPrioritized prioritize(Task task) {
-        ArrayList<Task> existingTasks = new ArrayList<>(this.tasks);
-        existingTasks.remove(task);
+    public TaskPrioritized prioritize(@NonNull TaskId taskId) {
+        Task prioritizeTask = this.findById(taskId);
+        List<Task> tasksWithoutPrioritize = new ArrayList<>(this.tasks)
+                .stream()
+                .filter(task -> task.id() != taskId)
+                .toList();
 
         this.tasks.clear();
 
-        this.tasks.add(task);
-        this.tasks.addAll(existingTasks);
+        this.tasks.add(prioritizeTask);
+        this.tasks.addAll(tasksWithoutPrioritize);
 
         return TaskPrioritized.builder().build();
     }
 
-    public TaskDeprioritized deprioritize(Task task) {
-        ArrayList<Task> existingTasks = new ArrayList<>(this.tasks);
-        existingTasks.remove(task);
+    public TaskDeprioritized deprioritize(@NonNull TaskId taskId) {
+        Task deprioritizeTask = this.findById(taskId);
+        List<Task> tasksWithoutPrioritize = new ArrayList<>(this.tasks)
+                .stream()
+                .filter(task -> task.id() != taskId)
+                .toList();
 
         this.tasks.clear();
 
-        this.tasks.addAll(existingTasks);
-        this.tasks.add(task);
+        this.tasks.addAll(tasksWithoutPrioritize);
+        this.tasks.add(deprioritizeTask);
 
         return TaskDeprioritized.builder().build();
     }
 
-    public TodolistCreated create() {
-        return TodolistCreated.builder().build();
+    private Task findById(TaskId taskId) {
+        return this.tasks.stream()
+                .filter(task -> task.id().equals(taskId))
+                .findFirst()
+                .orElseThrow(() -> new TaskNotFound(taskId));
     }
 
     public Task findByName(String taskToFound) {
@@ -94,9 +102,5 @@ public class Todolist {
             completedTasks.add(task);
         else
             tasks.add(task);
-    }
-
-    public void addUnsavedEvent(TodolistEvent event) {
-        this.unsavedEvent = event;
     }
 }

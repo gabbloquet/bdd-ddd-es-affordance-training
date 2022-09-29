@@ -36,9 +36,10 @@ public class TodolistUseCaseTransaction implements Supplier<Todolist> {
         todolistRepository.save(todolist);
     }
 
-    @EventListener
-    @Order(1)
-    public void onConfigurationEvent(TodolistEvent event) {
-        todolist.addUnsavedEvent(event);
-    }
+//    TODO
+//    @EventListener
+//    @Order(1)
+//    public void onConfigurationEvent(TodolistEvent event) {
+//        todolist.addUnsavedEvent(event);
+//    }
 }

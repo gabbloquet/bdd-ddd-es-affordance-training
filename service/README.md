@@ -17,6 +17,8 @@ Few words about [affordance and choices](../doc/affordance.md).
 - [x] Implement business rules (domain, behaviour driven development)
 - [x] Install Hateoas tool & configure it
 - [x] First steps with affordance, expose a resource
+- [x] [Implement Domain driven design](../doc/ddd.md)
+- [ ] [Implement Event sourcing](../doc/event_sourcing.md)
 - [ ] Write tests which describe consumer attendees
 - [ ] Add more complex business rules
 - [ ] Add a database

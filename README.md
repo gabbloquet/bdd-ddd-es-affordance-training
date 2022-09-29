@@ -9,7 +9,7 @@ Firstly, I tried to work on a TODO list example.
 1. I started by working on [gherkins](./doc/gherkins.md)
 2. Then, tried to discover [affordance tools](./doc/affordance.md)
 3. Working on an [architecture schema](./doc/architecture.md)
-4. [Service documentation](./service/README.md)
+4. [Service development](./service/README.md)
 
 ## Next steps
 

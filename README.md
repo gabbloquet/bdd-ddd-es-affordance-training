@@ -1,4 +1,4 @@
-# BDD, DDD, Affordance training
+# BDD, DDD, Event sourcing, Affordance training
 
 This repository is a boot camp to try to implement BDD, DDD, affordance.  
 

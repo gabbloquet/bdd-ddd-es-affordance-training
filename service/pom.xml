@@ -17,7 +17,7 @@
 	<description>Todolist API using exposes REST Endpoint (Hateoas)</description>
 
 	<properties>
-		<cucumber.version>7.7.0</cucumber.version>
+		<cucumber.version>7.8.0</cucumber.version>
 		<junit.version>5.9.1</junit.version>
 		<java.version>18</java.version>
 	</properties>

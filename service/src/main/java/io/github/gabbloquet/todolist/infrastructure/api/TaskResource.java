@@ -1,5 +1,6 @@
 package io.github.gabbloquet.todolist.infrastructure.api;
 
+import io.github.gabbloquet.todolist.domain.features.TodolistService;
 import io.github.gabbloquet.todolist.domain.models.Task;
 import io.github.gabbloquet.todolist.infrastructure.api.dto.tasks.TaskDto;
 import io.github.gabbloquet.todolist.infrastructure.api.dto.tasks.TaskRequest;
@@ -20,24 +21,20 @@ public class TaskResource {
     @NonNull
     private final TasksResponseAssembler tasksResponseAssembler;
 
-    @GetMapping("/{id}")
-    public EntityModel<TaskDto> getTask(@PathVariable UUID id) {
-//        Task task = todolistService.getTask(id);
-        Task task = new Task("toto");
-        return tasksResponseAssembler.map(TaskDto.from(task));
-    }
+    @NonNull
+    private final TodolistService todolistService;
 
     @PostMapping()
     public EntityModel<TaskDto> addTask(@RequestBody TaskRequest taskRequest) {
-//        Task createdTask = todolistService.addTask(taskRequest.description());
-        Task createdTask = new Task("toto");
+        Task createdTask = todolistService.addTask(taskRequest.description());
+//        Task createdTask = new Task("toto");
         return tasksResponseAssembler.map(TaskDto.from(createdTask));
     }
 
     @PutMapping("/{id}")
     public EntityModel<TaskDto> modifyTask(@RequestBody TaskRequest taskRequest, @PathVariable UUID id) {
-        Task task = new Task("toto");
-//        Task task = todolistService.modifyTask(id, taskRequest.description());
+//        Task task = new Task("toto");
+        Task task = todolistService.modifyTask(id, taskRequest.description());
         return tasksResponseAssembler.map(TaskDto.from(task));
     }
 

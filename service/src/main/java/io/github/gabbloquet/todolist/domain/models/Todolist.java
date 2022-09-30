@@ -15,15 +15,18 @@ public class Todolist {
 
     private final ArrayList<Task> tasks;
     private final ArrayList<Task> completedTasks;
+    private final List<TaskEvent> unsavedEvents;
 
     public Todolist() {
         this.tasks = new ArrayList<>();
         this.completedTasks = new ArrayList<>();
+        this.unsavedEvents = new ArrayList<>();
     }
 
     public Todolist(ArrayList<Task> taskToAdd) {
         this.tasks = taskToAdd;
         this.completedTasks = new ArrayList<>();
+        this.unsavedEvents = new ArrayList<>();
     }
 
     public ArrayList<Task> tasks() {
@@ -78,24 +81,24 @@ public class Todolist {
         return Stream.concat(completedTasks.stream(), tasks.stream()).toList();
     }
 
-    public void apply(TaskUpdated taskUpdated) {
-        int taskPosition = getTaskPosition(taskUpdated);
-        tasks.set(taskPosition, taskUpdated.getTask());
+    public void apply(TaskModified taskModified) {
+        int taskPosition = getTaskPosition(taskModified);
+        tasks.set(taskPosition, taskModified.getTask());
     }
 
     public void apply(TaskCreated taskCreated) {
-        tasks.add(taskCreated.getTask());
+        tasks.add(taskCreated.task);
     }
 
     public void apply(TaskCompleted taskCompleted) {
         completedTasks.add(taskCompleted.getTask());
     }
 
-    private int getTaskPosition(TaskUpdated taskUpdated) {
+    private int getTaskPosition(TaskModified taskModified) {
         return IntStream.range(0, tasks.size())
-                .filter(i -> tasks.get(i).id().equals(taskUpdated.getTask().id()))
+                .filter(i -> tasks.get(i).id().equals(taskModified.getTask().id()))
                 .findFirst()
-                .orElseThrow(() -> new TaskNotFound(taskUpdated.getTask().description()));
+                .orElseThrow(() -> new TaskNotFound(taskModified.getTask().description()));
     }
 
     public void add(Task task) {
@@ -103,5 +106,17 @@ public class Todolist {
             completedTasks.add(task);
         else
             tasks.add(task);
+    }
+
+    public void addUnsavedEvent(TaskEvent event) {
+        this.unsavedEvents.add(event);
+    }
+
+    public List<TaskEvent> unsavedEvents() {
+        return this.unsavedEvents.forEach(taskEvent -> {
+            if(taskEvent instanceof ){
+
+            }
+        });
     }
 }

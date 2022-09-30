@@ -2,7 +2,7 @@ package io.github.gabbloquet.todolist.domain.models;
 
 import io.github.gabbloquet.todolist.application.annotations.Aggregate;
 import io.github.gabbloquet.todolist.domain.features.events.TaskCompleted;
-import io.github.gabbloquet.todolist.domain.features.events.TaskUpdated;
+import io.github.gabbloquet.todolist.domain.features.events.TaskModified;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
@@ -52,8 +52,8 @@ public class Task {
         return isCompleted;
     }
 
-    public TaskUpdated modify(String update) {
+    public TaskModified modify(String update) {
         this.description = update;
-        return TaskUpdated.builder().task(this).build();
+        return TaskModified.builder().task(this).build();
     }
 }

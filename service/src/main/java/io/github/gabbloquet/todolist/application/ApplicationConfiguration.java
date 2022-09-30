@@ -71,12 +71,12 @@ public class ApplicationConfiguration {
     }
 
     @Bean
-    public UpdateTaskUseCase updateTaskUseCase(
+    public ModifyTaskUseCase updateTaskUseCase(
             TaskRepository taskRepository,
             Supplier<Todolist> todolistSupplier,
             TodolistEventBus todolistEventBus
     ) {
-        return new UpdateTaskUseCase(taskRepository, todolistSupplier, todolistEventBus);
+        return new ModifyTaskUseCase(taskRepository, todolistSupplier, todolistEventBus);
     }
 
     @Bean

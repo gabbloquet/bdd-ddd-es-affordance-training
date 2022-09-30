@@ -1,8 +1,10 @@
 package io.github.gabbloquet.todolist.domain.features;
 
 import io.github.gabbloquet.todolist.application.annotations.DomainService;
+import io.github.gabbloquet.todolist.domain.TaskUseCaseTransaction;
 import io.github.gabbloquet.todolist.domain.TodolistUseCaseTransaction;
 import io.github.gabbloquet.todolist.domain.features.commands.OpenApplication;
+import io.github.gabbloquet.todolist.domain.features.commands.StartTask;
 import io.github.gabbloquet.todolist.domain.features.commands.TaskCommand;
 import io.github.gabbloquet.todolist.domain.features.commands.TodolistCommand;
 import io.github.gabbloquet.todolist.domain.models.Task;
@@ -16,37 +18,39 @@ import lombok.extern.slf4j.Slf4j;
 @DomainService
 @RequiredArgsConstructor
 @Slf4j
-public class TodolistService {
-    @NonNull
-    private final TodolistUseCaseTransaction todolistUseCaseTransaction;
+public class TaskService {
 
     @NonNull
-    private final TodolistRepository todolistRepository;
+    private final TaskUseCaseTransaction taskUseCaseTransaction;
 
     @NonNull
     private final TodolistCommandBus todolistCommandBus;
 
-    public Todolist execute(OpenApplication command) {
+    public Task execute(StartTask command) {
         log.info("[{}] command={}",
                 command.getClass().getSimpleName(),
                 command);
 
-        todolistRepository.save(new Todolist());
+        todolistCommandBus.dispatch(command);
+        taskUseCaseTransaction.commit();
 
-        return todolistUseCaseTransaction.get();
+        return taskUseCaseTransaction.get();
     }
 
-    public Todolist execute(TodolistCommand command) {
+
+    public Task execute(TaskCommand command) {
         log.info("[{}] command={}",
                 command.getClass().getSimpleName(),
                 command);
 
-        todolistUseCaseTransaction.start();
+        taskUseCaseTransaction.start(command.taskId);
 
         todolistCommandBus.dispatch(command);
 
-        todolistUseCaseTransaction.commit();
+        taskUseCaseTransaction.commit();
 
-        return todolistUseCaseTransaction.get();
+//        TODO: maintenant on doit jouer les evenements pour les appliquer à la todolist
+
+        return taskUseCaseTransaction.get();
     }
 }

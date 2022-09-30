@@ -1,17 +1,21 @@
 package io.github.gabbloquet.todolist.infrastructure.api;
 
+import io.github.gabbloquet.todolist.domain.features.TodolistService;
+import io.github.gabbloquet.todolist.domain.features.commands.AddTask;
 import io.github.gabbloquet.todolist.domain.models.Task;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -23,28 +27,29 @@ class TaskResourceTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @MockBean
+    private TodolistService todolistService;
+
     private final Task task = new Task("Practice TDD");
 
     @BeforeEach
     public void setUp() {
-
-//        when(todolistService.getTask(1))
-//                .thenReturn(task);
-//        when(todolistService.modifyTask(2, "Always practice TDD!"))
-//                .thenReturn(new Task(2, "Always practice TDD!"));
-//        when(todolistService.addTask("Hey! Im a new task !"))
-//                .thenReturn(new Task(3, "Hey! Im a new task !"));
+        when(todolistService.execute(AddTask.builder().description("Practice TDD").build()))
+                .thenReturn(task);
+        when(todolistService.modifyTask(2, "Always practice TDD!"))
+                .thenReturn(new Task(2, "Always practice TDD!"));
+        when(todolistService.addTask("Hey! Im a new task !"))
+                .thenReturn(new Task(3, "Hey! Im a new task !"));
     }
 
-
     @Test
-    public void get_a_task() throws Exception {
-        executeGetTaskOneRequest()
+    public void add_a_task() throws Exception {
+        executeAddATaskRequest()
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("id").value(1))
-                .andExpect(jsonPath("description").value("Practice TDD"))
+                .andExpect(jsonPath("id").value(3))
+                .andExpect(jsonPath("description").value("Hey! Im a new task !"))
 
-                .andExpect(jsonPath("$._links.deleteOrModifyTask.href", is("http://localhost/tasks/1")))
+                .andExpect(jsonPath("$._links.deleteOrModifyTask.href", is("http://localhost/tasks/3")))
                 .andExpect(jsonPath("$._links.deleteOrModifyTask.title", is("Modify or delete a task")))
 
                 .andExpect(jsonPath("$._templates.default.method", is("PUT")))
@@ -52,7 +57,7 @@ class TaskResourceTest {
                 .andExpect(jsonPath("$._templates.default.properties[0].type", is("text")))
 
                 .andExpect(jsonPath("$._templates.deleteTask.method", is("DELETE")))
-                .andExpect(jsonPath("$._templates.deleteTask.target", is("http://localhost/tasks/1")))
+                .andExpect(jsonPath("$._templates.deleteTask.target", is("http://localhost/tasks/3")))
 
                 .andExpect(jsonPath("$._links.addTask.href", is("http://localhost/tasks")))
                 .andExpect(jsonPath("$._links.addTask.title", is("Add a task")))
@@ -80,33 +85,6 @@ class TaskResourceTest {
 
                 .andExpect(jsonPath("$._templates.deleteTask.method", is("DELETE")))
                 .andExpect(jsonPath("$._templates.deleteTask.target", is("http://localhost/tasks/2")))
-
-                .andExpect(jsonPath("$._links.addTask.href", is("http://localhost/tasks")))
-                .andExpect(jsonPath("$._links.addTask.title", is("Add a task")))
-                .andExpect(jsonPath("$._templates.addTask.method", is("POST")))
-                .andExpect(jsonPath("$._templates.addTask.properties[0].name", is("description")))
-                .andExpect(jsonPath("$._templates.addTask.properties[0].type", is("text")))
-                .andExpect(jsonPath("$._templates.addTask.target", is("http://localhost/tasks")))
-
-                .andExpect(jsonPath("$._links.todolist.href", is("http://localhost/todolist")));
-    }
-
-    @Test
-    public void add_a_task() throws Exception {
-        executeAddATaskRequest()
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("id").value(3))
-                .andExpect(jsonPath("description").value("Hey! Im a new task !"))
-
-                .andExpect(jsonPath("$._links.deleteOrModifyTask.href", is("http://localhost/tasks/3")))
-                .andExpect(jsonPath("$._links.deleteOrModifyTask.title", is("Modify or delete a task")))
-
-                .andExpect(jsonPath("$._templates.default.method", is("PUT")))
-                .andExpect(jsonPath("$._templates.default.properties[0].name", is("description")))
-                .andExpect(jsonPath("$._templates.default.properties[0].type", is("text")))
-
-                .andExpect(jsonPath("$._templates.deleteTask.method", is("DELETE")))
-                .andExpect(jsonPath("$._templates.deleteTask.target", is("http://localhost/tasks/3")))
 
                 .andExpect(jsonPath("$._links.addTask.href", is("http://localhost/tasks")))
                 .andExpect(jsonPath("$._links.addTask.title", is("Add a task")))

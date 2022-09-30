@@ -2,7 +2,7 @@ package io.github.gabbloquet.todolist.domain.features.events;
 
 import io.github.gabbloquet.todolist.application.annotations.DomainEvent;
 import io.github.gabbloquet.todolist.domain.models.Task;
-import io.github.gabbloquet.todolist.domain.models.TodolistEvent;
+import io.github.gabbloquet.todolist.domain.models.TaskEvent;
 import lombok.*;
 
 @DomainEvent
@@ -10,7 +10,7 @@ import lombok.*;
 @ToString
 @Builder
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-public class TaskCompleted implements TodolistEvent {
+public class TaskCompleted implements TaskEvent {
 
     @NonNull
     private final Task task;

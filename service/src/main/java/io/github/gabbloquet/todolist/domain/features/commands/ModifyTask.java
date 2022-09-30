@@ -2,21 +2,19 @@ package io.github.gabbloquet.todolist.domain.features.commands;
 
 import io.github.gabbloquet.todolist.application.annotations.DomainCommand;
 import io.github.gabbloquet.todolist.domain.models.TaskId;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.ToString;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @DomainCommand
-@Builder
-@ToString
-@Getter
-public final class ModifyTask implements TodolistCommand {
+@SuperBuilder
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
+public final class ModifyTask extends TaskCommand {
 
     @NonNull
-    private final TaskId taskId;
+    public final TaskId taskId;
 
     @NonNull
-    private final String update;
+    public final String update;
 
 }

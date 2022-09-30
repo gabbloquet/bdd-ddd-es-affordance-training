@@ -2,7 +2,7 @@ package io.github.gabbloquet.todolist.domain.features;
 
 import io.github.gabbloquet.todolist.application.annotations.DomainService;
 import io.github.gabbloquet.todolist.domain.features.commands.ModifyTask;
-import io.github.gabbloquet.todolist.domain.features.events.TaskUpdated;
+import io.github.gabbloquet.todolist.domain.features.events.TaskModified;
 import io.github.gabbloquet.todolist.domain.models.Task;
 import io.github.gabbloquet.todolist.domain.models.Todolist;
 import io.github.gabbloquet.todolist.domain.models.TodolistCommandReceiver;
@@ -16,13 +16,10 @@ import java.util.function.Supplier;
 
 @DomainService
 @RequiredArgsConstructor
-public class UpdateTaskUseCase implements TodolistCommandReceiver<ModifyTask> {
+public class ModifyTaskUseCase implements TodolistCommandReceiver<ModifyTask> {
 
     @NonNull
-    private TaskRepository taskRepository;
-
-    @NonNull
-    private final Supplier<Todolist> todolistSupplier;
+    private final Supplier<Task> taskSupplier;
 
     @NonNull
     private final TodolistEventBus todolistEventBus;
@@ -30,11 +27,9 @@ public class UpdateTaskUseCase implements TodolistCommandReceiver<ModifyTask> {
     @Override
     @EventListener
     public void execute(ModifyTask modifyTask) {
-        Task task = taskRepository.get(modifyTask.getTaskId());
-        TaskUpdated taskUpdated = task.modify(modifyTask.getUpdate());
+        Task task = taskSupplier.get();
+        TaskModified taskModified = task.modify(modifyTask.update);
 
-        todolistEventBus.publish(taskUpdated);
-
-        todolistSupplier.get().apply(taskUpdated);
+        todolistEventBus.publish(taskModified);
     }
 }

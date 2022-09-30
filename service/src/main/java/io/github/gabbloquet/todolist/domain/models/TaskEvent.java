@@ -4,17 +4,16 @@ import io.github.gabbloquet.todolist.application.annotations.DomainEvent;
 import io.github.gabbloquet.todolist.domain.features.events.*;
 
 @DomainEvent
-public interface TodolistEvent {
+public interface TaskEvent {
 
-    <T> T accept(Visitor<T> visitor);
+    <T> T accept(TaskEvent.Visitor<T> visitor);
 
     interface Visitor<T> {
+        T apply(TaskCompleted event);
 
-        T apply(TaskPrioritized event);
+        T apply(TaskCreated event);
 
-        T apply(TaskDeprioritized event);
-
-        T apply(TodolistCreated event);
+        T apply(TaskModified event);
     }
 
 }

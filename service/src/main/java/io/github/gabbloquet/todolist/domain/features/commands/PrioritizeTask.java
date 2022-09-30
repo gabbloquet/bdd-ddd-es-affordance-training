@@ -3,12 +3,14 @@ package io.github.gabbloquet.todolist.domain.features.commands;
 import io.github.gabbloquet.todolist.application.annotations.DomainCommand;
 import io.github.gabbloquet.todolist.domain.models.TaskId;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.ToString;
 
 @DomainCommand
 @Builder
 @ToString
+@EqualsAndHashCode
 public final class PrioritizeTask implements TodolistCommand {
 
     @NonNull

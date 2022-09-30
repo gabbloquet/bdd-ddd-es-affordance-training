@@ -2,17 +2,17 @@ package io.github.gabbloquet.todolist.domain.features.commands;
 
 import io.github.gabbloquet.todolist.application.annotations.DomainCommand;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.ToString;
 
 @DomainCommand
 @Builder
 @ToString
-@Getter
-public final class AddTask implements TodolistCommand {
+@EqualsAndHashCode
+public final class AddTask implements StartTask, TodolistCommand {
 
     @NonNull
-    private final String description;
+    public final String description;
 
 }

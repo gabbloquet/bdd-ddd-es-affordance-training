@@ -4,8 +4,8 @@ import io.github.gabbloquet.todolist.application.annotations.DomainService;
 import io.github.gabbloquet.todolist.domain.features.commands.CompleteTask;
 import io.github.gabbloquet.todolist.domain.features.events.TaskCompleted;
 import io.github.gabbloquet.todolist.domain.models.Task;
-import io.github.gabbloquet.todolist.domain.models.Todolist;
 import io.github.gabbloquet.todolist.domain.models.TodolistCommandReceiver;
+import io.github.gabbloquet.todolist.domain.models.TodolistEventBus;
 import io.github.gabbloquet.todolist.domain.repositories.TaskRepository;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -18,18 +18,17 @@ import java.util.function.Supplier;
 public class CompleteTaskUseCase implements TodolistCommandReceiver<CompleteTask> {
 
     @NonNull
-    private TaskRepository taskRepository;
+    private final Supplier<Task> taskSupplier;
 
     @NonNull
-    private final Supplier<Todolist> todolistSupplier;
+    private final TodolistEventBus todolistEventBus;
 
     @Override
     @EventListener
     public void execute(CompleteTask command) {
-        Task task = taskRepository.get(command.getId());
+        Task task = taskSupplier.get();
         TaskCompleted taskCompleted = task.complete();
-        taskRepository.save(task);
 
-        todolistSupplier.get().apply(taskCompleted);
+        todolistEventBus.publish(taskCompleted);
     }
 }

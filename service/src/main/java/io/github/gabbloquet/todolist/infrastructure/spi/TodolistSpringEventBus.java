@@ -1,5 +1,6 @@
 package io.github.gabbloquet.todolist.infrastructure.spi;
 
+import io.github.gabbloquet.todolist.domain.models.TaskEvent;
 import io.github.gabbloquet.todolist.domain.models.Todolist;
 import io.github.gabbloquet.todolist.domain.models.TodolistEvent;
 import io.github.gabbloquet.todolist.domain.models.TodolistEventBus;
@@ -26,6 +27,16 @@ public class TodolistSpringEventBus implements TodolistEventBus {
 
     @Override
     public void publish(TodolistEvent event) {
+        log.info("[{}] todolist={} event={}",
+                event.getClass().getSimpleName(),
+                todolistSupplier.get(),
+                event);
+
+        eventPublisher.publishEvent(event);
+    }
+
+    @Override
+    public void publish(TaskEvent event) {
         log.info("[{}] todolist={} event={}",
                 event.getClass().getSimpleName(),
                 todolistSupplier.get(),

@@ -24,7 +24,7 @@ public class CompleteTaskSpec {
 
         Task taskToComplete = todolistUseCaseTransaction.get().findByName(task);
         CompleteTask command = CompleteTask.builder()
-                .id(taskToComplete.id())
+                .taskId(taskToComplete.id())
                 .build();
 
         todolistService.execute(command);

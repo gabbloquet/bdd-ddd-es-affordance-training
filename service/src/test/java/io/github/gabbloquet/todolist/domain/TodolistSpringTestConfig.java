@@ -2,6 +2,7 @@ package io.github.gabbloquet.todolist.domain;
 
 import io.github.gabbloquet.todolist.MockRegistry;
 import io.github.gabbloquet.todolist.domain.features.*;
+import io.github.gabbloquet.todolist.domain.models.Task;
 import io.github.gabbloquet.todolist.domain.models.Todolist;
 import io.github.gabbloquet.todolist.domain.models.TodolistCommandBus;
 import io.github.gabbloquet.todolist.domain.models.TodolistEventBus;
@@ -26,8 +27,20 @@ public class TodolistSpringTestConfig {
 
     @Bean
     @RequestScope
+    public Supplier<Task> taskSupplier(TaskUseCaseTransaction taskUseCaseTransaction) {
+        return taskUseCaseTransaction;
+    }
+
+    @Bean
+    @RequestScope
     public TodolistUseCaseTransaction todolistUseCaseTransaction(TodolistRepository todolistRepository) {
         return new TodolistUseCaseTransaction(todolistRepository);
+    }
+
+    @Bean
+    @RequestScope
+    public TaskUseCaseTransaction taskUseCaseTransaction(TaskRepository taskRepository) {
+        return new TaskUseCaseTransaction(taskRepository);
     }
 
     @Bean
@@ -73,27 +86,25 @@ public class TodolistSpringTestConfig {
 
     @Bean
     public AddTaskUseCase addTaskUseCase(
-            TaskRepository taskRepository,
-            Supplier<Todolist> todolistSupplier
+            TodolistEventBus todolistEventBus
     ) {
-        return new AddTaskUseCase(taskRepository, todolistSupplier);
+        return new AddTaskUseCase(todolistEventBus);
     }
 
     @Bean
     public ModifyTaskUseCase updateTaskUseCase(
-            TaskRepository taskRepository,
-            Supplier<Todolist> todolistSupplier,
+            Supplier<Task> taskSupplier,
             TodolistEventBus todolistEventBus
     ) {
-        return new ModifyTaskUseCase(taskRepository, todolistSupplier, todolistEventBus);
+        return new ModifyTaskUseCase(taskSupplier, todolistEventBus);
     }
 
     @Bean
     public CompleteTaskUseCase completeTaskUseCase(
-            TaskRepository taskRepository,
-            Supplier<Todolist> todolistSupplier
+            Supplier<Task> taskSupplier,
+            TodolistEventBus todolistEventBus
     ) {
-        return new CompleteTaskUseCase(taskRepository, todolistSupplier);
+        return new CompleteTaskUseCase(taskSupplier, todolistEventBus);
     }
 
     @Bean

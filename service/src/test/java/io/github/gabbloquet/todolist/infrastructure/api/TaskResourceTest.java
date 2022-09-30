@@ -34,12 +34,38 @@ class TaskResourceTest {
 
     @BeforeEach
     public void setUp() {
-        when(todolistService.execute(AddTask.builder().description("Practice TDD").build()))
-                .thenReturn(task);
-        when(todolistService.modifyTask(2, "Always practice TDD!"))
-                .thenReturn(new Task(2, "Always practice TDD!"));
-        when(todolistService.addTask("Hey! Im a new task !"))
-                .thenReturn(new Task(3, "Hey! Im a new task !"));
+//        when(todolistService.execute(AddTask.builder().description("Practice TDD").build()))
+//                .thenReturn(task);
+//        when(todolistService.modifyTask(2, "Always practice TDD!"))
+//                .thenReturn(new Task(2, "Always practice TDD!"));
+//        when(todolistService.addTask("Hey! Im a new task !"))
+//                .thenReturn(new Task(3, "Hey! Im a new task !"));
+    }
+
+    @Test
+    public void get_a_task() throws Exception {
+        executeGetTaskOneRequest()
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("id").value(1))
+                .andExpect(jsonPath("description").value("Practice TDD"))
+
+                .andExpect(jsonPath("$._links.deleteOrModifyTask.href", is("http://localhost/tasks/1")))
+                .andExpect(jsonPath("$._links.deleteOrModifyTask.title", is("Modify or delete a task")))
+
+                .andExpect(jsonPath("$._templates.default.method", is("PUT")))
+                .andExpect(jsonPath("$._templates.default.properties[0].name", is("description")))
+                .andExpect(jsonPath("$._templates.default.properties[0].type", is("text")))
+
+                .andExpect(jsonPath("$._templates.deleteTask.method", is("DELETE")))
+                .andExpect(jsonPath("$._templates.deleteTask.target", is("http://localhost/tasks/1")))
+
+                .andExpect(jsonPath("$._links.addTask.href", is("http://localhost/tasks")))
+                .andExpect(jsonPath("$._links.addTask.title", is("Add a task")))
+                .andExpect(jsonPath("$._templates.addTask.method", is("POST")))
+                .andExpect(jsonPath("$._templates.addTask.properties[0].name", is("description")))
+                .andExpect(jsonPath("$._templates.addTask.properties[0].type", is("text")))
+                .andExpect(jsonPath("$._templates.addTask.target", is("http://localhost/tasks")))
+                .andExpect(jsonPath("$._links.todolist.href", is("http://localhost/todolist")));
     }
 
     @Test

@@ -44,9 +44,9 @@ public class TodolistSpec {
         todolist.add(taskTwo);
 
         when(taskRepository.get(taskOne.id()))
-                .thenReturn(taskOne);
+                .thenReturn(Optional.of(taskOne));
         when(taskRepository.get(taskTwo.id()))
-                .thenReturn(taskTwo);
+                .thenReturn(Optional.of(taskTwo));
         when(todolistRepository.get())
                 .thenReturn(Optional.of(todolist));
     }
@@ -59,7 +59,7 @@ public class TodolistSpec {
         todolist.add(completeTask);
 
         when(taskRepository.get(completeTask.id()))
-                .thenReturn(completeTask);
+                .thenReturn(Optional.of(completeTask));
         when(todolistRepository.get())
                 .thenReturn(Optional.of(todolist));
     }

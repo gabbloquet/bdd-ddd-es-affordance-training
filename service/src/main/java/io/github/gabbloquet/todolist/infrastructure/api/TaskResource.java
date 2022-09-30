@@ -24,17 +24,25 @@ public class TaskResource {
     @NonNull
     private final TodolistService todolistService;
 
+
+    @GetMapping("/{id}")
+    public EntityModel<TaskDto> getTask(@PathVariable UUID id) {
+//        Task task = todolistService.getTask(id);
+        Task task = new Task("toto");
+        return tasksResponseAssembler.map(TaskDto.from(task));
+    }
+
     @PostMapping()
     public EntityModel<TaskDto> addTask(@RequestBody TaskRequest taskRequest) {
-        Task createdTask = todolistService.addTask(taskRequest.description());
-//        Task createdTask = new Task("toto");
+//        Task createdTask = todolistService.addTask(taskRequest.description());
+        Task createdTask = new Task("toto");
         return tasksResponseAssembler.map(TaskDto.from(createdTask));
     }
 
     @PutMapping("/{id}")
     public EntityModel<TaskDto> modifyTask(@RequestBody TaskRequest taskRequest, @PathVariable UUID id) {
-//        Task task = new Task("toto");
-        Task task = todolistService.modifyTask(id, taskRequest.description());
+        Task task = new Task("toto");
+//        Task task = todolistService.modifyTask(id, taskRequest.description());
         return tasksResponseAssembler.map(TaskDto.from(task));
     }
 

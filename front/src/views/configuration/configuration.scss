@@ -1,0 +1,8 @@
+pre {
+    background: lightgrey;
+    color: darkgreen;
+    line-height: calc(2.5 * var(--base-spacing));
+    font-family: monospace;
+    font-size: calc(1.05 * var(--base-font-size));
+    padding: var(--base-spacing);
+}

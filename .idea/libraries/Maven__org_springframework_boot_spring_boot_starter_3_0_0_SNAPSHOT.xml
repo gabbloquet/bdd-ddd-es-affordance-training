@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: org.springframework.boot:spring-boot-starter:3.0.0-SNAPSHOT">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter/3.0.0-SNAPSHOT/spring-boot-starter-3.0.0-20220922.072114-816.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter/3.0.0-SNAPSHOT/spring-boot-starter-3.0.0-20220930.002007-850.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter/3.0.0-SNAPSHOT/spring-boot-starter-3.0.0-20220922.072114-816-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter/3.0.0-SNAPSHOT/spring-boot-starter-3.0.0-20220930.002007-850-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter/3.0.0-SNAPSHOT/spring-boot-starter-3.0.0-20220922.072114-816-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-starter/3.0.0-SNAPSHOT/spring-boot-starter-3.0.0-20220930.002007-850-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

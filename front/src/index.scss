@@ -1,0 +1,38 @@
+body {
+  --base-spacing: 1.5em;
+  --base-font-size: 1em;
+
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  font-family: Roboto, arial, helvetica, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+pre {
+  margin: 0 0 var(--base-spacing) 0;
+}
+
+a,
+span,
+div,
+p,
+pre,
+input,
+select,
+button {
+  font-size: var(--base-font-size);
+}
+
+input {
+  padding: calc(0.3 * var(--base-spacing));
+}

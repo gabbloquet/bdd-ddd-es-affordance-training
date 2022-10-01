@@ -1,22 +1,22 @@
 package io.github.gabbloquet.todolist.domain;
 
 import io.github.gabbloquet.todolist.MockRegistry;
-import io.github.gabbloquet.todolist.domain.task.model.Task;
-import io.github.gabbloquet.todolist.domain.todolist.model.Todolist;
-import io.github.gabbloquet.todolist.domain.todolist.model.TodolistCommandBus;
-import io.github.gabbloquet.todolist.domain.todolist.model.TodolistEventBus;
 import io.github.gabbloquet.todolist.domain.task.TaskRepository;
-import io.github.gabbloquet.todolist.domain.task.TaskUseCaseTransaction;
 import io.github.gabbloquet.todolist.domain.task.addTask.AddTaskUseCase;
 import io.github.gabbloquet.todolist.domain.task.completeTask.CompleteTaskUseCase;
+import io.github.gabbloquet.todolist.domain.task.model.TaskFactory;
+import io.github.gabbloquet.todolist.domain.task.model.TaskId;
 import io.github.gabbloquet.todolist.domain.task.modifyTask.ModifyTaskUseCase;
 import io.github.gabbloquet.todolist.domain.todolist.TodolistRepository;
 import io.github.gabbloquet.todolist.domain.todolist.TodolistService;
 import io.github.gabbloquet.todolist.domain.todolist.TodolistUseCaseTransaction;
 import io.github.gabbloquet.todolist.domain.todolist.deprioritizeTask.DeprioritizeTaskUseCase;
-import io.github.gabbloquet.todolist.domain.todolist.prioritizeTask.PriorizeTaskUseCase;
 import io.github.gabbloquet.todolist.domain.todolist.infra.TodolistSpringCommandBus;
 import io.github.gabbloquet.todolist.domain.todolist.infra.TodolistSpringEventBus;
+import io.github.gabbloquet.todolist.domain.todolist.model.Todolist;
+import io.github.gabbloquet.todolist.domain.todolist.model.TodolistCommandBus;
+import io.github.gabbloquet.todolist.domain.todolist.model.TodolistEventBus;
+import io.github.gabbloquet.todolist.domain.todolist.prioritizeTask.PriorizeTaskUseCase;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
@@ -34,20 +34,8 @@ public class TodolistSpringTestConfig {
 
     @Bean
     @RequestScope
-    public Supplier<Task> taskSupplier(TaskUseCaseTransaction taskUseCaseTransaction) {
-        return taskUseCaseTransaction;
-    }
-
-    @Bean
-    @RequestScope
     public TodolistUseCaseTransaction todolistUseCaseTransaction(TodolistRepository todolistRepository) {
         return new TodolistUseCaseTransaction(todolistRepository);
-    }
-
-    @Bean
-    @RequestScope
-    public TaskUseCaseTransaction taskUseCaseTransaction(TaskRepository taskRepository) {
-        return new TaskUseCaseTransaction(taskRepository);
     }
 
     @Bean
@@ -72,11 +60,10 @@ public class TodolistSpringTestConfig {
 
     @Bean
     public TodolistService todolistService(
-            TodolistUseCaseTransaction todolistUseCaseTransaction,
             TodolistRepository todolistRepository,
             TodolistCommandBus todolistCommandBus
     ) {
-        return new TodolistService(todolistUseCaseTransaction, todolistRepository, todolistCommandBus);
+        return new TodolistService(todolistRepository, todolistCommandBus);
     }
 
     @Bean
@@ -93,25 +80,24 @@ public class TodolistSpringTestConfig {
 
     @Bean
     public AddTaskUseCase addTaskUseCase(
+            Supplier<TaskId> taskIdProvider,
             TodolistEventBus todolistEventBus
     ) {
-        return new AddTaskUseCase(todolistEventBus);
+        return new AddTaskUseCase(taskIdProvider, todolistEventBus);
     }
 
     @Bean
     public ModifyTaskUseCase updateTaskUseCase(
-            Supplier<Task> taskSupplier,
             TodolistEventBus todolistEventBus
     ) {
-        return new ModifyTaskUseCase(taskSupplier, todolistEventBus);
+        return new ModifyTaskUseCase(todolistEventBus);
     }
 
     @Bean
     public CompleteTaskUseCase completeTaskUseCase(
-            Supplier<Task> taskSupplier,
             TodolistEventBus todolistEventBus
     ) {
-        return new CompleteTaskUseCase(taskSupplier, todolistEventBus);
+        return new CompleteTaskUseCase(todolistEventBus);
     }
 
     @Bean
@@ -126,5 +112,15 @@ public class TodolistSpringTestConfig {
             Supplier<Todolist> todolistSupplier
     ) {
         return new DeprioritizeTaskUseCase(todolistSupplier);
+    }
+
+    @Bean
+    public Supplier<TaskId> taskIdProvider(){
+        return TaskId::new;
+    }
+
+    @Bean
+    public TaskFactory taskFactory(){
+        return new TaskFactory();
     }
 }

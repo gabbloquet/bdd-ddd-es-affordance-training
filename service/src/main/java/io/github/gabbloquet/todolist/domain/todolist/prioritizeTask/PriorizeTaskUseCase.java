@@ -19,6 +19,6 @@ public class PriorizeTaskUseCase implements TodolistCommandReceiver<PrioritizeTa
     @Override
     @EventListener
     public void execute(PrioritizeTask command) {
-        todolistSupplier.get().prioritize(command.taskId);
+        todolistSupplier.get().prioritize(command.taskId.id());
     }
 }

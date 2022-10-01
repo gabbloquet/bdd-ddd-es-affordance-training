@@ -1,8 +1,8 @@
 package io.github.gabbloquet.todolist.domain.task.modifyTask;
 
 import io.github.gabbloquet.todolist.annotations.DomainEvent;
-import io.github.gabbloquet.todolist.domain.task.model.Task;
 import io.github.gabbloquet.todolist.domain.task.model.TaskEvent;
+import io.github.gabbloquet.todolist.domain.task.model.TaskId;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,7 +14,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class TaskModified implements TaskEvent {
 
-    private final Task task;
+    private final TaskId taskId;
+
+    private final String description;
 
     @Override
     public <T> T accept(Visitor<T> visitor) {

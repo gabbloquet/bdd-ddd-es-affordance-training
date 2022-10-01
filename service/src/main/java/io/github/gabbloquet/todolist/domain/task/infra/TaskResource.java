@@ -1,10 +1,15 @@
 package io.github.gabbloquet.todolist.domain.task.infra;
 
+import io.github.gabbloquet.todolist.domain.task.TaskCommand;
+import io.github.gabbloquet.todolist.domain.task.TaskService;
+import io.github.gabbloquet.todolist.domain.task.addTask.AddTask;
+import io.github.gabbloquet.todolist.domain.task.addTask.OpenTask;
 import io.github.gabbloquet.todolist.domain.task.infra.dto.TaskDto;
 import io.github.gabbloquet.todolist.domain.task.infra.dto.TaskRequest;
 import io.github.gabbloquet.todolist.domain.task.infra.dto.TasksResponseAssembler;
 import io.github.gabbloquet.todolist.domain.task.model.Task;
-import io.github.gabbloquet.todolist.domain.todolist.TodolistService;
+import io.github.gabbloquet.todolist.domain.task.model.TaskId;
+import io.github.gabbloquet.todolist.domain.task.modifyTask.ModifyTask;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.EntityModel;
@@ -22,33 +27,48 @@ public class TaskResource {
     private final TasksResponseAssembler tasksResponseAssembler;
 
     @NonNull
-    private final TodolistService todolistService;
+    private final TaskService taskService;
 
 
     @GetMapping("/{id}")
     public EntityModel<TaskDto> getTask(@PathVariable UUID id) {
-//        Task task = todolistService.getTask(id);
-        Task task = new Task("toto");
+
+        Task task = taskService.getTask(id);
+
         return tasksResponseAssembler.map(TaskDto.from(task));
     }
 
     @PostMapping()
     public EntityModel<TaskDto> addTask(@RequestBody TaskRequest taskRequest) {
-//        Task createdTask = todolistService.addTask(taskRequest.description());
-        Task createdTask = new Task("toto");
+
+        OpenTask command = AddTask.builder()
+                .description(taskRequest.description())
+                .build();
+
+        Task createdTask = taskService.execute(command);
+
         return tasksResponseAssembler.map(TaskDto.from(createdTask));
     }
 
     @PutMapping("/{id}")
     public EntityModel<TaskDto> modifyTask(@RequestBody TaskRequest taskRequest, @PathVariable UUID id) {
-        Task task = new Task("toto");
-//        Task task = todolistService.modifyTask(id, taskRequest.description());
-        return tasksResponseAssembler.map(TaskDto.from(task));
+
+        TaskCommand command = ModifyTask.builder()
+                .taskId(TaskId.from(id))
+                .update(taskRequest.description())
+                .build();
+
+        Task modifiedTask = taskService.execute(command);
+
+        return tasksResponseAssembler.map(TaskDto.from(modifiedTask));
     }
 
     @DeleteMapping("/{id}")
     public RepresentationModel<?> deleteTask(@PathVariable UUID id) {
-//        todolistService.deleteTask(id);
+//        TaskCommand command = new DeleteTask.builder().build();
+
+//        taskService.execute();
+
         return tasksResponseAssembler.get();
     }
 }

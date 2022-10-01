@@ -11,7 +11,7 @@ import lombok.ToString;
 @Builder
 @ToString
 @EqualsAndHashCode
-public final class AddTask implements StartTask, TodolistCommand {
+public final class AddTask implements OpenTask, TodolistCommand {
 
     @NonNull
     public final String description;

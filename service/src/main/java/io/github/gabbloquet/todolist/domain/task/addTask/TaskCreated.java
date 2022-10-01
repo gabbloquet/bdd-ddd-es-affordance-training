@@ -1,8 +1,8 @@
 package io.github.gabbloquet.todolist.domain.task.addTask;
 
 import io.github.gabbloquet.todolist.annotations.DomainEvent;
-import io.github.gabbloquet.todolist.domain.task.model.Task;
 import io.github.gabbloquet.todolist.domain.task.model.TaskEvent;
+import io.github.gabbloquet.todolist.domain.task.model.TaskId;
 import lombok.*;
 
 @DomainEvent
@@ -12,7 +12,7 @@ import lombok.*;
 public class TaskCreated implements TaskEvent {
 
     @NonNull
-    public final Task task;
+    public final TaskId taskId;
 
     @Override
     public <T> T accept(Visitor<T> visitor) {

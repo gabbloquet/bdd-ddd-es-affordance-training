@@ -13,9 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class TodolistService {
     @NonNull
-    private final TodolistUseCaseTransaction todolistUseCaseTransaction;
-
-    @NonNull
     private final TodolistRepository todolistRepository;
 
     @NonNull
@@ -28,7 +25,7 @@ public class TodolistService {
 
         todolistRepository.save(new Todolist());
 
-        return todolistUseCaseTransaction.get();
+        return new Todolist();
     }
 
     public Todolist execute(TodolistCommand command) {
@@ -36,12 +33,8 @@ public class TodolistService {
                 command.getClass().getSimpleName(),
                 command);
 
-        todolistUseCaseTransaction.start();
-
         todolistCommandBus.dispatch(command);
 
-        todolistUseCaseTransaction.commit();
-
-        return todolistUseCaseTransaction.get();
+        return new Todolist();
     }
 }

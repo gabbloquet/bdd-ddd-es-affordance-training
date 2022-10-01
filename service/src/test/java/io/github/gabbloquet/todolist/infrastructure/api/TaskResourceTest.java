@@ -1,8 +1,7 @@
 package io.github.gabbloquet.todolist.infrastructure.api;
 
-import io.github.gabbloquet.todolist.domain.features.TodolistService;
-import io.github.gabbloquet.todolist.domain.features.commands.AddTask;
-import io.github.gabbloquet.todolist.domain.models.Task;
+import io.github.gabbloquet.todolist.domain.todolist.TodolistService;
+import io.github.gabbloquet.todolist.domain.task.model.Task;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;

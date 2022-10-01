@@ -2,10 +2,11 @@ package io.github.gabbloquet.todolist.domain.features;
 
 import io.cucumber.java.fr.Alors;
 import io.cucumber.java.fr.Lorsque;
-import io.github.gabbloquet.todolist.domain.TodolistUseCaseTransaction;
-import io.github.gabbloquet.todolist.domain.features.commands.AddTask;
-import io.github.gabbloquet.todolist.domain.models.Todolist;
-import io.github.gabbloquet.todolist.domain.repositories.TodolistRepository;
+import io.github.gabbloquet.todolist.domain.todolist.TodolistService;
+import io.github.gabbloquet.todolist.domain.todolist.TodolistUseCaseTransaction;
+import io.github.gabbloquet.todolist.domain.task.addTask.AddTask;
+import io.github.gabbloquet.todolist.domain.todolist.model.Todolist;
+import io.github.gabbloquet.todolist.domain.todolist.TodolistRepository;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 

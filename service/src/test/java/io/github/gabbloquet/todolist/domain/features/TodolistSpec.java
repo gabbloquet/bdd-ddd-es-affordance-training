@@ -1,10 +1,10 @@
 package io.github.gabbloquet.todolist.domain.features;
 
 import io.cucumber.java.fr.Etantdonné;
-import io.github.gabbloquet.todolist.domain.models.Task;
-import io.github.gabbloquet.todolist.domain.models.Todolist;
-import io.github.gabbloquet.todolist.domain.repositories.TaskRepository;
-import io.github.gabbloquet.todolist.domain.repositories.TodolistRepository;
+import io.github.gabbloquet.todolist.domain.task.model.Task;
+import io.github.gabbloquet.todolist.domain.todolist.model.Todolist;
+import io.github.gabbloquet.todolist.domain.task.TaskRepository;
+import io.github.gabbloquet.todolist.domain.todolist.TodolistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Optional;

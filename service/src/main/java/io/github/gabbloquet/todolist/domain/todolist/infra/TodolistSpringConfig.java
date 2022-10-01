@@ -1,30 +1,32 @@
-package io.github.gabbloquet.todolist.domain;
+package io.github.gabbloquet.todolist.domain.todolist.infra;
 
-import io.github.gabbloquet.todolist.MockRegistry;
+import io.github.gabbloquet.todolist.domain.task.TaskUseCaseTransaction;
+import io.github.gabbloquet.todolist.domain.task.addTask.AddTaskUseCase;
+import io.github.gabbloquet.todolist.domain.task.completeTask.CompleteTaskUseCase;
+import io.github.gabbloquet.todolist.domain.task.infra.InMemoryTaskRepository;
+import io.github.gabbloquet.todolist.domain.task.modifyTask.ModifyTaskUseCase;
+import io.github.gabbloquet.todolist.domain.todolist.TodolistService;
+import io.github.gabbloquet.todolist.domain.todolist.TodolistUseCaseTransaction;
 import io.github.gabbloquet.todolist.domain.task.model.Task;
+import io.github.gabbloquet.todolist.domain.todolist.infra.TodolistSpringCommandBus;
+import io.github.gabbloquet.todolist.domain.todolist.infra.TodolistSpringEventBus;
 import io.github.gabbloquet.todolist.domain.todolist.model.Todolist;
 import io.github.gabbloquet.todolist.domain.todolist.model.TodolistCommandBus;
 import io.github.gabbloquet.todolist.domain.todolist.model.TodolistEventBus;
 import io.github.gabbloquet.todolist.domain.task.TaskRepository;
-import io.github.gabbloquet.todolist.domain.task.TaskUseCaseTransaction;
-import io.github.gabbloquet.todolist.domain.task.addTask.AddTaskUseCase;
-import io.github.gabbloquet.todolist.domain.task.completeTask.CompleteTaskUseCase;
-import io.github.gabbloquet.todolist.domain.task.modifyTask.ModifyTaskUseCase;
 import io.github.gabbloquet.todolist.domain.todolist.TodolistRepository;
-import io.github.gabbloquet.todolist.domain.todolist.TodolistService;
-import io.github.gabbloquet.todolist.domain.todolist.TodolistUseCaseTransaction;
 import io.github.gabbloquet.todolist.domain.todolist.deprioritizeTask.DeprioritizeTaskUseCase;
+import io.github.gabbloquet.todolist.domain.todolist.infra.InMemoryTodolistRepository;
 import io.github.gabbloquet.todolist.domain.todolist.prioritizeTask.PriorizeTaskUseCase;
-import io.github.gabbloquet.todolist.domain.todolist.infra.TodolistSpringCommandBus;
-import io.github.gabbloquet.todolist.domain.todolist.infra.TodolistSpringEventBus;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.annotation.RequestScope;
 
 import java.util.function.Supplier;
 
-public class TodolistSpringTestConfig {
+@Configuration
+public class TodolistSpringConfig {
 
     @Bean
     @RequestScope
@@ -51,17 +53,13 @@ public class TodolistSpringTestConfig {
     }
 
     @Bean
-    public MockRegistry mockRegistry() {
-        return new MockRegistry();
+    public TodolistRepository todolistRepository() {
+        return new InMemoryTodolistRepository();
     }
 
     @Bean
-    @Primary
-    public TodolistEventBus todolistEventBus(
-            MockRegistry mockRegistry,
-            ApplicationEventPublisher eventPublisher,
-            Supplier<Todolist> todolistSupplier) {
-        return mockRegistry.spy(new TodolistSpringEventBus(eventPublisher, todolistSupplier));
+    public TaskRepository taskRepository() {
+        return new InMemoryTaskRepository();
     }
 
     @Bean
@@ -71,24 +69,19 @@ public class TodolistSpringTestConfig {
     }
 
     @Bean
+    public TodolistEventBus todolistEventBus(
+            ApplicationEventPublisher eventPublisher,
+            Supplier<Todolist> todolistSupplier) {
+        return new TodolistSpringEventBus(eventPublisher, todolistSupplier);
+    }
+
+    @Bean
     public TodolistService todolistService(
             TodolistUseCaseTransaction todolistUseCaseTransaction,
             TodolistRepository todolistRepository,
             TodolistCommandBus todolistCommandBus
     ) {
         return new TodolistService(todolistUseCaseTransaction, todolistRepository, todolistCommandBus);
-    }
-
-    @Bean
-    @RequestScope
-    public TodolistRepository todolistRepository(MockRegistry registry) {
-        return registry.mock(TodolistRepository.class);
-    }
-
-    @Bean
-    @RequestScope
-    public TaskRepository taskRepository(MockRegistry registry) {
-        return registry.mock(TaskRepository.class);
     }
 
     @Bean
@@ -117,7 +110,7 @@ public class TodolistSpringTestConfig {
     @Bean
     public PriorizeTaskUseCase priorizeTaskUseCase(
             Supplier<Todolist> todolistSupplier
-            ) {
+    ) {
         return new PriorizeTaskUseCase(todolistSupplier);
     }
 

@@ -1,12 +1,12 @@
 package io.github.gabbloquet.todolist.infrastructure.api;
 
-import io.github.gabbloquet.todolist.domain.features.TodolistService;
-import io.github.gabbloquet.todolist.domain.features.commands.DeprioritizeTask;
-import io.github.gabbloquet.todolist.domain.features.commands.OpenApplication;
-import io.github.gabbloquet.todolist.domain.features.commands.PrioritizeTask;
-import io.github.gabbloquet.todolist.domain.models.Task;
-import io.github.gabbloquet.todolist.domain.models.Todolist;
-import io.github.gabbloquet.todolist.infrastructure.api.dto.todolist.PrioritizeTaskRequest;
+import io.github.gabbloquet.todolist.domain.todolist.TodolistService;
+import io.github.gabbloquet.todolist.domain.todolist.deprioritizeTask.DeprioritizeTask;
+import io.github.gabbloquet.todolist.domain.todolist.openApplication.OpenApplication;
+import io.github.gabbloquet.todolist.domain.todolist.prioritizeTask.PrioritizeTask;
+import io.github.gabbloquet.todolist.domain.task.model.Task;
+import io.github.gabbloquet.todolist.domain.todolist.model.Todolist;
+import io.github.gabbloquet.todolist.domain.todolist.infra.dto.PrioritizeTaskRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

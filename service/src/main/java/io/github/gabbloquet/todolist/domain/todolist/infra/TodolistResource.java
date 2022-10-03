@@ -38,7 +38,7 @@ public class TodolistResource {
     @PostMapping("/prioritize/task")
     public EntityModel<TodolistResponse> prioritize(@RequestBody PrioritizeTaskRequest request) {
         TodolistCommand command = PrioritizeTask.builder()
-                .taskId(TaskId.from(request.id()))
+                .taskId(request.id())
                 .build();
 
         Todolist todolist = todolistService.execute(command);
@@ -49,7 +49,7 @@ public class TodolistResource {
     @PostMapping("/deprioritize/task")
     public EntityModel<TodolistResponse> deprioritize(@RequestBody PrioritizeTaskRequest request) {
         TodolistCommand command = DeprioritizeTask.builder()
-                .taskId(TaskId.from(request.id()))
+                .taskId(request.id())
                 .build();
 
         Todolist todolist = todolistService.execute(command);

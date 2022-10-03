@@ -19,6 +19,6 @@ public class DeprioritizeTaskUseCase implements TodolistCommandReceiver<Depriori
     @Override
     @EventListener
     public void execute(DeprioritizeTask command) {
-        todolistSupplier.get().deprioritize(command.taskId.id());
+        todolistSupplier.get().deprioritize(command.taskId);
     }
 }

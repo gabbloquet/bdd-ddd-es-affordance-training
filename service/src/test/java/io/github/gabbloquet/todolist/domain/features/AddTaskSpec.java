@@ -41,6 +41,7 @@ public class AddTaskSpec {
 
     @Alors("la tâche {string} est à faire")
     public void la_todolist_contient_une_tache(String expectedTask) {
+//        TODO: checker event créé 1 fois
         assertThat(scenarioState.taskState.getDescription()).isEqualTo(expectedTask);
         assertFalse(scenarioState.taskState.isCompleted());
 

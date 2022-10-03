@@ -3,6 +3,7 @@ package io.github.gabbloquet.todolist.domain.todolist.model;
 import io.github.gabbloquet.todolist.annotations.Aggregate;
 import io.github.gabbloquet.todolist.domain.task.addTask.TaskCreated;
 import io.github.gabbloquet.todolist.domain.task.model.TaskEvent;
+import io.github.gabbloquet.todolist.domain.task.model.TaskId;
 import io.github.gabbloquet.todolist.domain.task.model.TaskNotFound;
 import io.github.gabbloquet.todolist.domain.todolist.deprioritizeTask.TaskDeprioritized;
 import io.github.gabbloquet.todolist.domain.todolist.prioritizeTask.TaskPrioritized;
@@ -36,11 +37,11 @@ public class Todolist {
         return tasks;
     }
 
-    public TaskPrioritized prioritize(@NonNull UUID taskId) {
+    public TaskPrioritized prioritize(@NonNull TaskId taskId) {
         Task prioritizeTask = this.findById(taskId);
         List<Task> tasksWithoutPrioritize = new ArrayList<>(this.tasks)
                 .stream()
-                .filter(task -> task.id != taskId)
+                .filter(task -> task.taskId != taskId)
                 .toList();
 
         this.tasks.clear();
@@ -51,11 +52,11 @@ public class Todolist {
         return TaskPrioritized.builder().build();
     }
 
-    public TaskDeprioritized deprioritize(@NonNull UUID taskId) {
+    public TaskDeprioritized deprioritize(@NonNull TaskId taskId) {
         Task deprioritizeTask = this.findById(taskId);
         List<Task> tasksWithoutPrioritize = new ArrayList<>(this.tasks)
                 .stream()
-                .filter(task -> task.id != taskId)
+                .filter(task -> task.taskId != taskId)
                 .toList();
 
         this.tasks.clear();
@@ -66,9 +67,9 @@ public class Todolist {
         return TaskDeprioritized.builder().build();
     }
 
-    private Task findById(UUID taskId) {
+    private Task findById(TaskId taskId) {
         return this.tasks.stream()
-                .filter(task -> task.id.equals(taskId))
+                .filter(task -> task.equals(taskId))
                 .findFirst()
                 .orElseThrow(() -> new TaskNotInTodolist(taskId));
     }
@@ -112,12 +113,12 @@ public class Todolist {
     }
 
     public void apply(TaskCreated event) {
-        this.tasks.add(new Task(event.taskId.id(), event.description, event.isCompleted));
+        this.tasks.add(new Task(event.taskId, event.description, event.isCompleted));
     }
 
-    public record Task(UUID id, String name, boolean done) {
+    public record Task(TaskId taskId, String name, boolean done) {
         public Task(String task) {
-            this(UUID.randomUUID(), task, false);
+            this(new TaskId(UUID.randomUUID()), task, false);
         }
     }
 }

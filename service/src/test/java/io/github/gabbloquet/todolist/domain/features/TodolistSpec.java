@@ -3,6 +3,7 @@ package io.github.gabbloquet.todolist.domain.features;
 import io.cucumber.java.fr.Etantdonné;
 import io.github.gabbloquet.todolist.domain.ScenarioState;
 import io.github.gabbloquet.todolist.domain.task.TaskRepository;
+import io.github.gabbloquet.todolist.domain.task.model.TaskId;
 import io.github.gabbloquet.todolist.domain.todolist.TodolistRepository;
 import io.github.gabbloquet.todolist.domain.todolist.model.Todolist;
 import io.github.gabbloquet.todolist.domain.todolist.model.Todolist.Task;
@@ -39,16 +40,12 @@ public class TodolistSpec {
         scenarioState.startTodolist()
                 .addTask(task);
 
-        when(todolistRepository.get())
-                .thenReturn(Optional.of(new Todolist(new ArrayList(List.of(new Task(UUID.randomUUID(), task, false))))));
+        ArrayList<Task> tasks = new ArrayList<>(List.of(new Task(new TaskId(), task, false)));
+        Todolist existingTodolist = new Todolist(tasks);
+        scenarioState.todolist = existingTodolist;
 
-//        Todolist todolist = new Todolist();
-//
-//        Task taskToDo = new Task(task);
-//        todolist.add(taskToDo);
-//
-//        when(todolistRepository.get())
-//                .thenReturn(Optional.of(todolist));
+        when(todolistRepository.get())
+                .thenReturn(Optional.of(existingTodolist));
     }
 
     @Etantdonné("les tâches {string} et {string} à faire")
@@ -57,19 +54,15 @@ public class TodolistSpec {
                 .addTask(firstTask)
                 .addTask(secondTask);
 
-//        Todolist todolist = new Todolist();
-//        Task taskOne = new Task(firstTask);
-//        Task taskTwo = new Task(secondTask);
-//
-//        todolist.add(taskOne);
-//        todolist.add(taskTwo);
-//
-//        when(taskRepository.get(taskOne.id()))
-//                .thenReturn(Optional.of(taskOne));
-//        when(taskRepository.get(taskTwo.id()))
-//                .thenReturn(Optional.of(taskTwo));
-//        when(todolistRepository.get())
-//                .thenReturn(Optional.of(todolist));
+        ArrayList<Task> tasks = new ArrayList<>(List.of(
+                new Task(new TaskId(), firstTask, false),
+                new Task(new TaskId(), secondTask, false)
+        ));
+        Todolist existingTodolist = new Todolist(tasks);
+        scenarioState.todolist = existingTodolist;
+
+        when(todolistRepository.get())
+                .thenReturn(Optional.of(existingTodolist));
     }
 
     @Etantdonné("une tâche terminée {string}")
@@ -78,14 +71,11 @@ public class TodolistSpec {
                 .addTask(task)
                 .completeTask(task);
 
-//        Todolist todolist = new Todolist();
-//        Task completeTask = new Task(task, true);
-//
-//        todolist.add(completeTask);
-//
-//        when(taskRepository.get(completeTask.id()))
-//                .thenReturn(Optional.of(completeTask));
-//        when(todolistRepository.get())
-//                .thenReturn(Optional.of(todolist));
+        ArrayList<Task> tasks = new ArrayList<>(List.of(new Task(new TaskId(), task, true)));
+        Todolist existingTodolist = new Todolist(tasks);
+        scenarioState.todolist = existingTodolist;
+
+        when(todolistRepository.get())
+                .thenReturn(Optional.of(existingTodolist));
     }
 }

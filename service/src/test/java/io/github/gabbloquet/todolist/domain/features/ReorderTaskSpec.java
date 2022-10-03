@@ -22,7 +22,7 @@ public class ReorderTaskSpec {
         todolistUseCaseTransaction.start();
 
         Todolist todolist = todolistUseCaseTransaction.get();
-        TaskId taskId = new TaskId(todolist.findByName(tacheAPrioriser).id());
+        TaskId taskId = todolist.findByName(tacheAPrioriser).taskId();
         PrioritizeTask command = PrioritizeTask
                 .builder()
                 .taskId(taskId)
@@ -36,7 +36,7 @@ public class ReorderTaskSpec {
         todolistUseCaseTransaction.start();
 
         Todolist todolist = todolistUseCaseTransaction.get();
-        TaskId taskId = new TaskId(todolist.findByName(tacheADeprioriser).id());
+        TaskId taskId = todolist.findByName(tacheADeprioriser).taskId();
         DeprioritizeTask command = DeprioritizeTask.builder()
                 .taskId(taskId)
                 .build();

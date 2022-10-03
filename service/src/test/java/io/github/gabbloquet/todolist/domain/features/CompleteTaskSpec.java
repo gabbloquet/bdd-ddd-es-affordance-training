@@ -3,6 +3,7 @@ package io.github.gabbloquet.todolist.domain.features;
 import io.cucumber.java.fr.Alors;
 import io.cucumber.java.fr.Et;
 import io.cucumber.java.fr.Lorsque;
+import io.github.gabbloquet.todolist.domain.ScenarioState;
 import io.github.gabbloquet.todolist.domain.task.TaskService;
 import io.github.gabbloquet.todolist.domain.task.completeTask.CompleteTask;
 import io.github.gabbloquet.todolist.domain.task.model.TaskId;
@@ -15,6 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class CompleteTaskSpec {
 
     @Autowired
+    private ScenarioState scenarioState;
+
+    @Autowired
     private TodolistUseCaseTransaction todolistUseCaseTransaction;
 
     @Autowired
@@ -22,10 +26,8 @@ public class CompleteTaskSpec {
 
     @Lorsque("la tâche {string} est accomplie")
     public void latâcheEstAccomplie(String task) {
-        todolistUseCaseTransaction.start();
 
-        Todolist todolist = todolistUseCaseTransaction.get();
-        TaskId taskId = new TaskId(todolist.findByName(task).id());
+        TaskId taskId = scenarioState.getTask(task);
         CompleteTask command = CompleteTask.builder()
                 .taskId(taskId)
                 .build();

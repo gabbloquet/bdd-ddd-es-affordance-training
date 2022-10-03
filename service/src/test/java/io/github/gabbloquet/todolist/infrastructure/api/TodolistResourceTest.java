@@ -68,7 +68,7 @@ class TodolistResourceTest {
 
     @Test
     public void get_todolist_contains_tasks_affordance() throws Exception {
-        String taskId = task.id().toString();
+        String taskId = task.taskId().toString();
 
         executeGetRequest()
                 .andExpect(status().isOk())
@@ -102,7 +102,7 @@ class TodolistResourceTest {
 
     @Test
     public void prioritize_task_in_todolist_contains_tasks_affordances() throws Exception {
-        String taskId = task.id().toString();
+        String taskId = task.taskId().toString();
 
         assertTasksAffordances(executePrioritizeRequest(), taskId);
     }
@@ -116,7 +116,7 @@ class TodolistResourceTest {
 
     @Test
     public void deprioritize_task_in_todolist_contains_tasks_affordances() throws Exception {
-        String taskId = task.id().toString();
+        String taskId = task.taskId().toString();
 
         assertTasksAffordances(executeDeprioritizeRequest(), taskId);
     }
@@ -130,14 +130,14 @@ class TodolistResourceTest {
     private ResultActions executePrioritizeRequest() throws Exception {
         return mockMvc.perform(post("/todolist/prioritize/task")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(asJsonString(new PrioritizeTaskRequest(task.id())))
+                .content(asJsonString(new PrioritizeTaskRequest(task.taskId())))
                 .accept(MediaTypes.HAL_FORMS_JSON));
     }
 
     private ResultActions executeDeprioritizeRequest() throws Exception {
         return mockMvc.perform(post("/todolist/deprioritize/task")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(asJsonString(new PrioritizeTaskRequest(anotherTask.id())))
+                .content(asJsonString(new PrioritizeTaskRequest(anotherTask.taskId())))
                 .accept(MediaTypes.HAL_FORMS_JSON));
     }
 

@@ -1,11 +1,12 @@
 package io.github.gabbloquet.todolist.domain;
 
 import io.github.gabbloquet.todolist.domain.task.addTask.TaskCreated;
+import io.github.gabbloquet.todolist.domain.task.completeTask.TaskCompleted;
 import io.github.gabbloquet.todolist.domain.task.model.TaskEvent;
 import io.github.gabbloquet.todolist.domain.task.model.TaskId;
 import io.github.gabbloquet.todolist.domain.task.model.TaskState;
+import io.github.gabbloquet.todolist.domain.todolist.model.Todolist;
 import io.github.gabbloquet.todolist.domain.todolist.model.TodolistEvent;
-import io.github.gabbloquet.todolist.domain.todolist.model.TodolistState;
 import io.github.gabbloquet.todolist.domain.todolist.openApplication.TodolistCreated;
 import io.github.gabbloquet.todolist.domain.todolist.tmp.TaskAdded;
 import lombok.Data;
@@ -18,11 +19,8 @@ public class ScenarioState {
 
     private static final TaskId TASK_ID = new TaskId();
 
-    public String scenarioName;
-
-    public Throwable useCaseException;
+    public Todolist todolist;
     public TaskState taskState;
-    public TodolistState todolistState;
 
     private List<TaskEvent> taskHistory = new ArrayList<>();
     private List<TodolistEvent> todolistHistory = new ArrayList<>();
@@ -35,6 +33,7 @@ public class ScenarioState {
         todolistHistory.addAll(List.of(eventsToAppend));
     }
 
+//    TODO: check things to delete
     public ScenarioState startTask() {
         taskHistory.clear();
 
@@ -47,6 +46,7 @@ public class ScenarioState {
 
     public ScenarioState startTodolist() {
         todolistHistory.clear();
+        todolist = new Todolist();
 
         appendToHistory(TodolistCreated.builder()
                 .build());
@@ -65,18 +65,28 @@ public class ScenarioState {
     }
 
     public ScenarioState addTask(String task) {
+        TaskId taskId = new TaskId();
         appendToHistory(TaskAdded.builder()
-                .taskId(new TaskId())
+                .taskId(taskId)
                 .description(task)
                 .build());
+
+        todolist.add(new Todolist.Task(taskId, task, false));
 
         return this;
     }
 
     public ScenarioState completeTask(String task) {
-// TODO: try to find a way to do it in a clean way
-        //        todolistHistory.
+        TaskId taskId = getTask(task);
+
+        appendToHistory(TaskCompleted.builder()
+                .taskId(taskId)
+                .build());
 
         return this;
+    }
+
+    public TaskId getTask(String task) {
+        return todolist.findByName(task).taskId();
     }
 }

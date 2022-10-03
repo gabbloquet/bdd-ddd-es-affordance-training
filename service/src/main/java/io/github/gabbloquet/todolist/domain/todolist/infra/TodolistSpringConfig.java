@@ -1,12 +1,15 @@
 package io.github.gabbloquet.todolist.domain.todolist.infra;
 
 import io.github.gabbloquet.todolist.domain.task.TaskRepository;
+import io.github.gabbloquet.todolist.domain.task.TaskService;
+import io.github.gabbloquet.todolist.domain.task.TaskUseCaseTransaction;
 import io.github.gabbloquet.todolist.domain.task.addTask.AddTaskUseCase;
 import io.github.gabbloquet.todolist.domain.task.completeTask.CompleteTaskUseCase;
 import io.github.gabbloquet.todolist.domain.task.infra.InMemoryTaskRepository;
-import io.github.gabbloquet.todolist.domain.task.model.TaskFactory;
+import io.github.gabbloquet.todolist.domain.task.model.Task;
 import io.github.gabbloquet.todolist.domain.task.model.TaskId;
 import io.github.gabbloquet.todolist.domain.task.modifyTask.ModifyTaskUseCase;
+import io.github.gabbloquet.todolist.domain.todolist.TodolistEventHandler;
 import io.github.gabbloquet.todolist.domain.todolist.TodolistRepository;
 import io.github.gabbloquet.todolist.domain.todolist.TodolistService;
 import io.github.gabbloquet.todolist.domain.todolist.TodolistUseCaseTransaction;
@@ -38,6 +41,18 @@ public class TodolistSpringConfig {
     }
 
     @Bean
+    @RequestScope
+    public Supplier<Task> taskSupplier(TaskUseCaseTransaction taskUseCaseTransaction) {
+        return taskUseCaseTransaction;
+    }
+
+    @Bean
+    @RequestScope
+    public TaskUseCaseTransaction taskUseCaseTransaction(TaskRepository taskRepository) {
+        return new TaskUseCaseTransaction(taskRepository);
+    }
+
+    @Bean
     public TodolistRepository todolistRepository() {
         return new InMemoryTodolistRepository();
     }
@@ -66,6 +81,20 @@ public class TodolistSpringConfig {
             TodolistCommandBus todolistCommandBus
     ) {
         return new TodolistService(todolistRepository, todolistCommandBus);
+    }
+
+    @Bean
+    public TaskService taskService(
+            TaskUseCaseTransaction taskUseCaseTransaction,
+            TodolistCommandBus todolistCommandBus
+    ) {
+        return new TaskService(taskUseCaseTransaction, todolistCommandBus);
+    }
+
+    @Bean
+    public TodolistEventHandler todolistEventHandler(
+            TodolistUseCaseTransaction todolistUseCaseTransaction) {
+        return new TodolistEventHandler(todolistUseCaseTransaction);
     }
 
     @Bean
@@ -109,9 +138,4 @@ public class TodolistSpringConfig {
         return TaskId::new;
     }
 
-    @Bean
-    public TaskFactory taskFactory(
-    ){
-        return new TaskFactory();
-    }
 }

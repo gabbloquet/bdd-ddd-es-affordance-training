@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class TaskModified implements TaskEvent {
 
-    private final TaskId taskId;
+    public final TaskId taskId;
 
     private final String description;
 

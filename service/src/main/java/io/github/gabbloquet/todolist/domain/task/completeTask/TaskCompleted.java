@@ -12,7 +12,7 @@ import lombok.*;
 public class TaskCompleted implements TaskEvent {
 
     @NonNull
-    private final TaskId taskId;
+    public final TaskId taskId;
 
     @Override
     public <T> T accept(Visitor<T> visitor) {

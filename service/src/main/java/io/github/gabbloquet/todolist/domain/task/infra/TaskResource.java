@@ -9,6 +9,7 @@ import io.github.gabbloquet.todolist.domain.task.infra.dto.TaskRequest;
 import io.github.gabbloquet.todolist.domain.task.infra.dto.TasksResponseAssembler;
 import io.github.gabbloquet.todolist.domain.task.model.Task;
 import io.github.gabbloquet.todolist.domain.task.model.TaskId;
+import io.github.gabbloquet.todolist.domain.task.model.TaskState;
 import io.github.gabbloquet.todolist.domain.task.modifyTask.ModifyTask;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +34,7 @@ public class TaskResource {
     @GetMapping("/{id}")
     public EntityModel<TaskDto> getTask(@PathVariable UUID id) {
 
-        Task task = taskService.getTask(id);
+        TaskState task = taskService.getTask(id);
 
         return tasksResponseAssembler.map(TaskDto.from(task));
     }
@@ -45,7 +46,7 @@ public class TaskResource {
                 .description(taskRequest.description())
                 .build();
 
-        Task createdTask = taskService.execute(command);
+        TaskState createdTask = taskService.execute(command);
 
         return tasksResponseAssembler.map(TaskDto.from(createdTask));
     }
@@ -58,7 +59,7 @@ public class TaskResource {
                 .update(taskRequest.description())
                 .build();
 
-        Task modifiedTask = taskService.execute(command);
+        TaskState modifiedTask = taskService.execute(command);
 
         return tasksResponseAssembler.map(TaskDto.from(modifiedTask));
     }

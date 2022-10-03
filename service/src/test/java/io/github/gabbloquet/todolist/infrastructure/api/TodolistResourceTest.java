@@ -2,11 +2,11 @@ package io.github.gabbloquet.todolist.infrastructure.api;
 
 import io.github.gabbloquet.todolist.domain.todolist.TodolistService;
 import io.github.gabbloquet.todolist.domain.todolist.deprioritizeTask.DeprioritizeTask;
+import io.github.gabbloquet.todolist.domain.todolist.infra.dto.PrioritizeTaskRequest;
+import io.github.gabbloquet.todolist.domain.todolist.model.Todolist;
+import io.github.gabbloquet.todolist.domain.todolist.model.Todolist.Task;
 import io.github.gabbloquet.todolist.domain.todolist.openApplication.OpenApplication;
 import io.github.gabbloquet.todolist.domain.todolist.prioritizeTask.PrioritizeTask;
-import io.github.gabbloquet.todolist.domain.task.model.Task;
-import io.github.gabbloquet.todolist.domain.todolist.model.Todolist;
-import io.github.gabbloquet.todolist.domain.todolist.infra.dto.PrioritizeTaskRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,6 @@ import java.util.List;
 import static io.github.gabbloquet.todolist.TestUtils.asJsonString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -69,7 +68,7 @@ class TodolistResourceTest {
 
     @Test
     public void get_todolist_contains_tasks_affordance() throws Exception {
-        String taskId = task.id().id().toString();
+        String taskId = task.id().toString();
 
         executeGetRequest()
                 .andExpect(status().isOk())
@@ -103,7 +102,7 @@ class TodolistResourceTest {
 
     @Test
     public void prioritize_task_in_todolist_contains_tasks_affordances() throws Exception {
-        String taskId = task.id().id().toString();
+        String taskId = task.id().toString();
 
         assertTasksAffordances(executePrioritizeRequest(), taskId);
     }
@@ -117,7 +116,7 @@ class TodolistResourceTest {
 
     @Test
     public void deprioritize_task_in_todolist_contains_tasks_affordances() throws Exception {
-        String taskId = task.id().id().toString();
+        String taskId = task.id().toString();
 
         assertTasksAffordances(executeDeprioritizeRequest(), taskId);
     }
@@ -131,14 +130,14 @@ class TodolistResourceTest {
     private ResultActions executePrioritizeRequest() throws Exception {
         return mockMvc.perform(post("/todolist/prioritize/task")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(asJsonString(new PrioritizeTaskRequest(task.id().id())))
+                .content(asJsonString(new PrioritizeTaskRequest(task.id())))
                 .accept(MediaTypes.HAL_FORMS_JSON));
     }
 
     private ResultActions executeDeprioritizeRequest() throws Exception {
         return mockMvc.perform(post("/todolist/deprioritize/task")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(asJsonString(new PrioritizeTaskRequest(anotherTask.id().id())))
+                .content(asJsonString(new PrioritizeTaskRequest(anotherTask.id())))
                 .accept(MediaTypes.HAL_FORMS_JSON));
     }
 

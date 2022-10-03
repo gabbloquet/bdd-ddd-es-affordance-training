@@ -2,11 +2,8 @@ package io.github.gabbloquet.todolist.domain.todolist.model;
 
 import io.github.gabbloquet.todolist.annotations.Aggregate;
 import io.github.gabbloquet.todolist.domain.task.addTask.TaskCreated;
-import io.github.gabbloquet.todolist.domain.task.completeTask.TaskCompleted;
 import io.github.gabbloquet.todolist.domain.task.model.TaskEvent;
-import io.github.gabbloquet.todolist.domain.task.model.TaskId;
 import io.github.gabbloquet.todolist.domain.task.model.TaskNotFound;
-import io.github.gabbloquet.todolist.domain.task.modifyTask.TaskModified;
 import io.github.gabbloquet.todolist.domain.todolist.deprioritizeTask.TaskDeprioritized;
 import io.github.gabbloquet.todolist.domain.todolist.prioritizeTask.TaskPrioritized;
 import lombok.NonNull;
@@ -14,7 +11,6 @@ import lombok.NonNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 @Aggregate
@@ -79,7 +75,7 @@ public class Todolist {
 
     public Task findByName(String taskToFound) {
         return this.tasks.stream()
-                .filter(task -> task.description.equals(taskToFound))
+                .filter(task -> task.name.equals(taskToFound))
                 .findFirst()
                 .orElseThrow(() -> new TaskNotFound(taskToFound));
     }
@@ -109,30 +105,19 @@ public class Todolist {
 //    }
 
     public void add(Task task) {
-        if(task.isCompleted)
+        if(task.done)
             completedTasks.add(task);
         else
             tasks.add(task);
     }
 
-    public void addUnsavedEvent(TaskEvent event) {
-        this.unsavedEvents.add(event);
+    public void apply(TaskCreated event) {
+        this.tasks.add(new Task(event.taskId.id(), event.description, event.isCompleted));
     }
 
-    public List<TaskEvent> unsavedEvents() {
-//        return this.unsavedEvents.forEach(taskEvent -> {
-//            if(taskEvent instanceof ){
-//
-//            }
-//        });
-        return List.of();
-    }
-
-    class Task {
-
-        public UUID id;
-        public String description;
-
-        public boolean isCompleted;
+    public record Task(UUID id, String name, boolean done) {
+        public Task(String task) {
+            this(UUID.randomUUID(), task, false);
+        }
     }
 }

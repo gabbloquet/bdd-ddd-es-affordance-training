@@ -3,11 +3,12 @@ package io.github.gabbloquet.todolist.domain.features;
 import io.cucumber.java.fr.Alors;
 import io.cucumber.java.fr.Et;
 import io.cucumber.java.fr.Lorsque;
-import io.github.gabbloquet.todolist.domain.todolist.TodolistService;
-import io.github.gabbloquet.todolist.domain.todolist.TodolistUseCaseTransaction;
+import io.github.gabbloquet.todolist.domain.task.TaskService;
 import io.github.gabbloquet.todolist.domain.task.completeTask.CompleteTask;
-import io.github.gabbloquet.todolist.domain.task.model.Task;
+import io.github.gabbloquet.todolist.domain.task.model.TaskId;
+import io.github.gabbloquet.todolist.domain.todolist.TodolistUseCaseTransaction;
 import io.github.gabbloquet.todolist.domain.todolist.model.Todolist;
+import io.github.gabbloquet.todolist.domain.todolist.model.Todolist.Task;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,25 +18,26 @@ public class CompleteTaskSpec {
     private TodolistUseCaseTransaction todolistUseCaseTransaction;
 
     @Autowired
-    private TodolistService todolistService;
+    private TaskService taskService;
 
     @Lorsque("la tâche {string} est accomplie")
     public void latâcheEstAccomplie(String task) {
         todolistUseCaseTransaction.start();
 
-        Task taskToComplete = todolistUseCaseTransaction.get().findByName(task);
+        Todolist todolist = todolistUseCaseTransaction.get();
+        TaskId taskId = new TaskId(todolist.findByName(task).id());
         CompleteTask command = CompleteTask.builder()
-                .taskId(taskToComplete.id())
+                .taskId(taskId)
                 .build();
 
-        todolistService.execute(command);
+        taskService.execute(command);
     }
 
     @Alors("la tâche {string} est terminée")
     public void latâcheEstTerminée(String task) {
         Task completedTask = todolistUseCaseTransaction.get().findByName(task);
 
-        Assertions.assertTrue(completedTask.isCompleted());
+        Assertions.assertTrue(completedTask.done());
     }
 
     @Et("la tâche {string} est placée en haut de la liste")

@@ -18,7 +18,11 @@ Firstly, I tried to work on a TODO list example.
 3. Make the whole app works :tada:
 4. Try to work on another example -> _Provide me ideas with [issues](https://github.com/gabbloquet/bdd-ddd-affordance-training/issues)_
 
-###
+### Architecture
+
+[Architecture documentation](./doc/architecture.md).
+
+### Local
 
 For now this application is just a back office.  
 The easiest ways to test it is : 

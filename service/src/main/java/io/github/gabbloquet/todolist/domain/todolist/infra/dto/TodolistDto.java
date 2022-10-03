@@ -8,10 +8,11 @@ import java.util.List;
 public record TodolistDto(List<TaskDto> tasks) {
     public static TodolistDto from(Todolist todolist) {
 
-        List<TaskDto> todolistTasks = todolist.render().stream()
-                .map((TaskDto::from))
-                .toList();
+//        TODO
+//        List<TaskDto> todolistTasks = todolist.render().stream()
+//                .map((TaskDto::from))
+//                .toList();
 
-        return new TodolistDto(todolistTasks);
+        return new TodolistDto(List.of());
     }
 }

@@ -1,11 +1,8 @@
 package io.github.gabbloquet.todolist.domain.todolist;
 
-import io.github.gabbloquet.todolist.domain.task.model.TaskEvent;
 import io.github.gabbloquet.todolist.domain.todolist.model.Todolist;
 import io.github.gabbloquet.todolist.domain.todolist.model.TodolistNotFound;
 import lombok.NonNull;
-import org.springframework.context.event.EventListener;
-import org.springframework.core.annotation.Order;
 
 import java.util.function.Supplier;
 
@@ -35,9 +32,4 @@ public class TodolistUseCaseTransaction implements Supplier<Todolist> {
         todolistRepository.save(todolist);
     }
 
-    @EventListener
-    @Order(1)
-    public void onTaskEvent(TaskEvent event) {
-        todolist.addUnsavedEvent(event);
-    }
 }

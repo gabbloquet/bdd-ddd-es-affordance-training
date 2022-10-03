@@ -1,8 +1,6 @@
 package io.github.gabbloquet.todolist.domain.task.addTask;
 
 import io.github.gabbloquet.todolist.annotations.DomainService;
-import io.github.gabbloquet.todolist.domain.task.model.Task;
-import io.github.gabbloquet.todolist.domain.task.model.TaskFactory;
 import io.github.gabbloquet.todolist.domain.task.model.TaskId;
 import io.github.gabbloquet.todolist.domain.todolist.model.TodolistCommandReceiver;
 import io.github.gabbloquet.todolist.domain.todolist.model.TodolistEventBus;
@@ -27,6 +25,8 @@ public class AddTaskUseCase implements TodolistCommandReceiver<AddTask> {
     public void execute(AddTask command) {
         TaskCreated taskCreated = TaskCreated.builder()
                 .taskId(taskIdProvider.get())
+                .description(command.description)
+                .isCompleted(false)
                 .build();
 
         todolistEventBus.publish(taskCreated);

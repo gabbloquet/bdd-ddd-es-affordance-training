@@ -1,7 +1,9 @@
 package io.github.gabbloquet.todolist.infrastructure.api;
 
+import io.github.gabbloquet.todolist.domain.task.addTask.TaskCreated;
+import io.github.gabbloquet.todolist.domain.task.model.TaskId;
+import io.github.gabbloquet.todolist.domain.task.model.TaskState;
 import io.github.gabbloquet.todolist.domain.todolist.TodolistService;
-import io.github.gabbloquet.todolist.domain.task.model.Task;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,8 @@ import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+
+import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -28,7 +32,12 @@ class TaskResourceTest {
     @MockBean
     private TodolistService todolistService;
 
-    private final Task task = new Task("Practice TDD");
+    private final TaskState task = new TaskState(
+            List.of(TaskCreated.builder()
+                    .taskId(new TaskId())
+                    .description("Practice TDD")
+                    .build())
+    );
 
     @BeforeEach
     public void setUp() {

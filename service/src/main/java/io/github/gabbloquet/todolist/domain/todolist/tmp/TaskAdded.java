@@ -1,22 +1,21 @@
-package io.github.gabbloquet.todolist.domain.task.addTask;
+package io.github.gabbloquet.todolist.domain.todolist.tmp;
 
 import io.github.gabbloquet.todolist.annotations.DomainEvent;
 import io.github.gabbloquet.todolist.domain.task.model.TaskEvent;
 import io.github.gabbloquet.todolist.domain.task.model.TaskId;
+import io.github.gabbloquet.todolist.domain.todolist.model.TodolistEvent;
 import lombok.*;
 
 @DomainEvent
 @Builder
 @ToString
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-public class TaskCreated implements TaskEvent {
+public class TaskAdded implements TodolistEvent {
 
     @NonNull
     public final TaskId taskId;
 
     public final String description;
-
-    public final boolean isCompleted;
 
     @Override
     public <T> T accept(Visitor<T> visitor) {

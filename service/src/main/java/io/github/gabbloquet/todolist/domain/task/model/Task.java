@@ -1,13 +1,13 @@
 package io.github.gabbloquet.todolist.domain.task.model;
 
 import io.github.gabbloquet.todolist.annotations.Aggregate;
-import io.github.gabbloquet.todolist.domain.task.completeTask.CompleteTask;
-import io.github.gabbloquet.todolist.domain.task.completeTask.TaskCompleted;
-import io.github.gabbloquet.todolist.domain.task.modifyTask.TaskModified;
+import io.github.gabbloquet.todolist.domain.task.addTask.TaskCreated;
+import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Aggregate
 @RequiredArgsConstructor
@@ -17,10 +17,19 @@ public class Task {
     public final TaskId taskId;
 
     @NonNull
+    @Getter
     private final ArrayList<TaskEvent> events;
 
     public Task(@NonNull TaskId taskId) {
         this.taskId = taskId;
         this.events = new ArrayList<>();
+    }
+
+    public void addEvent(TaskEvent event) {
+        this.events.add(event);
+    }
+
+    public static Task from(TaskId taskId, TaskCreated event) {
+        return new Task(taskId, new ArrayList<>(List.of(event)));
     }
 }

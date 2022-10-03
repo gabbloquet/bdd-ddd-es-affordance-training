@@ -2,8 +2,8 @@ package io.github.gabbloquet.todolist.domain.task;
 
 import io.github.gabbloquet.todolist.annotations.DomainService;
 import io.github.gabbloquet.todolist.domain.task.addTask.OpenTask;
-import io.github.gabbloquet.todolist.domain.task.model.Task;
 import io.github.gabbloquet.todolist.domain.task.model.TaskId;
+import io.github.gabbloquet.todolist.domain.task.model.TaskState;
 import io.github.gabbloquet.todolist.domain.todolist.model.TodolistCommandBus;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -17,23 +17,24 @@ import java.util.UUID;
 public class TaskService {
 
     @NonNull
-    private final TaskRepository taskRepository;
+    private final TaskUseCaseTransaction taskUseCaseTransaction;
 
     @NonNull
     private final TodolistCommandBus todolistCommandBus;
 
-    public Task execute(OpenTask command) {
+    public TaskState execute(OpenTask command) {
         log.info("[{}] command={}",
                 command.getClass().getSimpleName(),
                 command);
 
         todolistCommandBus.dispatch(command);
+        taskUseCaseTransaction.commit();
 
-        return taskUseCaseTransaction.get();
+        return new TaskState(taskUseCaseTransaction.get().getEvents());
     }
 
 
-    public Task execute(TaskCommand command) {
+    public TaskState execute(TaskCommand command) {
         log.info("[{}] command={}",
                 command.getClass().getSimpleName(),
                 command);
@@ -44,12 +45,12 @@ public class TaskService {
 
         taskUseCaseTransaction.commit();
 
-//        TODO: maintenant on doit jouer les evenements pour les appliquer à la todolist
-
-        return taskUseCaseTransaction.get();
+        return new TaskState(taskUseCaseTransaction.get().getEvents());
     }
 
-    public Task getTask(UUID id) {
-        return new Task(new TaskId(id));
+    public TaskState getTask(UUID id) {
+        taskUseCaseTransaction.start(new TaskId(id));
+
+        return new TaskState(taskUseCaseTransaction.get().getEvents());
     }
 }

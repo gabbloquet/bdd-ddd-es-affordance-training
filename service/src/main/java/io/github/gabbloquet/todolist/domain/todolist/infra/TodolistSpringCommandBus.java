@@ -19,6 +19,7 @@ public class TodolistSpringCommandBus implements TodolistCommandBus {
         log.info("[{}] command={}",
                 command.getClass().getSimpleName(),
                 command);
+
         eventPublisher.publishEvent(command);
     }
 }

@@ -1,6 +1,7 @@
 package io.github.gabbloquet.todolist.domain.todolist.prioritizeTask;
 
 import io.github.gabbloquet.todolist.annotations.DomainService;
+import io.github.gabbloquet.todolist.domain.todolist.TodolistUseCaseTransaction;
 import io.github.gabbloquet.todolist.domain.todolist.model.Todolist;
 import io.github.gabbloquet.todolist.domain.todolist.model.TodolistCommandReceiver;
 import lombok.NonNull;
@@ -14,11 +15,15 @@ import java.util.function.Supplier;
 public class PriorizeTaskUseCase implements TodolistCommandReceiver<PrioritizeTask> {
 
     @NonNull
-    private final Supplier<Todolist> todolistSupplier;
+    private final TodolistUseCaseTransaction todolistUseCaseTransaction;
 
     @Override
     @EventListener
     public void execute(PrioritizeTask command) {
-        todolistSupplier.get().prioritize(command.taskId);
+        todolistUseCaseTransaction.start();
+
+        todolistUseCaseTransaction.get().prioritize(command.taskId);
+
+        todolistUseCaseTransaction.commit();
     }
 }

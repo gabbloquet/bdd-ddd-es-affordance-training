@@ -121,16 +121,16 @@ public class TodolistSpringConfig {
 
     @Bean
     public PriorizeTaskUseCase priorizeTaskUseCase(
-            Supplier<Todolist> todolistSupplier
+            TodolistUseCaseTransaction todolistUseCaseTransaction
     ) {
-        return new PriorizeTaskUseCase(todolistSupplier);
+        return new PriorizeTaskUseCase(todolistUseCaseTransaction);
     }
 
     @Bean
     public DeprioritizeTaskUseCase deprioritizeTaskUseCase(
-            Supplier<Todolist> todolistSupplier
+            TodolistUseCaseTransaction todolistUseCaseTransaction
     ) {
-        return new DeprioritizeTaskUseCase(todolistSupplier);
+        return new DeprioritizeTaskUseCase(todolistUseCaseTransaction);
     }
 
     @Bean

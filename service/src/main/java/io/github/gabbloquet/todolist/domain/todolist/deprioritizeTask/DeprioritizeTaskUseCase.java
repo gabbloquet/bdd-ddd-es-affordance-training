@@ -1,6 +1,7 @@
 package io.github.gabbloquet.todolist.domain.todolist.deprioritizeTask;
 
 import io.github.gabbloquet.todolist.annotations.DomainService;
+import io.github.gabbloquet.todolist.domain.todolist.TodolistUseCaseTransaction;
 import io.github.gabbloquet.todolist.domain.todolist.model.Todolist;
 import io.github.gabbloquet.todolist.domain.todolist.model.TodolistCommandReceiver;
 import lombok.NonNull;
@@ -14,11 +15,15 @@ import java.util.function.Supplier;
 public class DeprioritizeTaskUseCase implements TodolistCommandReceiver<DeprioritizeTask> {
 
     @NonNull
-    private final Supplier<Todolist> todolistSupplier;
+    private final TodolistUseCaseTransaction todolistUseCaseTransaction;
 
     @Override
     @EventListener
     public void execute(DeprioritizeTask command) {
-        todolistSupplier.get().deprioritize(command.taskId);
+        todolistUseCaseTransaction.start();
+
+        todolistUseCaseTransaction.get().deprioritize(command.taskId);
+
+        todolistUseCaseTransaction.commit();
     }
 }

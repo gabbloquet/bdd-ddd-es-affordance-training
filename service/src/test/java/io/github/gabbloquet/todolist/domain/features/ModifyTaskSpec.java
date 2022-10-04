@@ -5,9 +5,6 @@ import io.github.gabbloquet.todolist.domain.ScenarioState;
 import io.github.gabbloquet.todolist.domain.task.TaskService;
 import io.github.gabbloquet.todolist.domain.task.model.TaskId;
 import io.github.gabbloquet.todolist.domain.task.modifyTask.ModifyTask;
-import io.github.gabbloquet.todolist.domain.todolist.TodolistService;
-import io.github.gabbloquet.todolist.domain.todolist.TodolistUseCaseTransaction;
-import io.github.gabbloquet.todolist.domain.todolist.model.Todolist;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class ModifyTaskSpec {

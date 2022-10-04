@@ -2,7 +2,6 @@ package io.github.gabbloquet.todolist.domain.task.modifyTask;
 
 import io.github.gabbloquet.todolist.annotations.DomainCommand;
 import io.github.gabbloquet.todolist.domain.task.TaskCommand;
-import io.github.gabbloquet.todolist.domain.task.model.TaskId;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.ToString;

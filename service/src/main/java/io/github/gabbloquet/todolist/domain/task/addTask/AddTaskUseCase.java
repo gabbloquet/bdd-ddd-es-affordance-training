@@ -1,9 +1,9 @@
 package io.github.gabbloquet.todolist.domain.task.addTask;
 
 import io.github.gabbloquet.todolist.annotations.DomainService;
+import io.github.gabbloquet.todolist.domain.task.model.TaskEventBus;
 import io.github.gabbloquet.todolist.domain.task.model.TaskId;
 import io.github.gabbloquet.todolist.domain.todolist.model.TodolistCommandReceiver;
-import io.github.gabbloquet.todolist.domain.task.model.TaskEventBus;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;

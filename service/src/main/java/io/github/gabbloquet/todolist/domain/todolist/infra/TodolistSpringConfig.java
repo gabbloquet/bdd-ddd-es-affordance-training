@@ -8,6 +8,7 @@ import io.github.gabbloquet.todolist.domain.task.completeTask.CompleteTaskUseCas
 import io.github.gabbloquet.todolist.domain.task.infra.InMemoryTaskRepository;
 import io.github.gabbloquet.todolist.domain.task.infra.TaskSpringEventBus;
 import io.github.gabbloquet.todolist.domain.task.model.Task;
+import io.github.gabbloquet.todolist.domain.task.model.TaskEventBus;
 import io.github.gabbloquet.todolist.domain.task.model.TaskId;
 import io.github.gabbloquet.todolist.domain.task.modifyTask.ModifyTaskUseCase;
 import io.github.gabbloquet.todolist.domain.todolist.TodolistEventHandler;
@@ -17,7 +18,6 @@ import io.github.gabbloquet.todolist.domain.todolist.TodolistUseCaseTransaction;
 import io.github.gabbloquet.todolist.domain.todolist.deprioritizeTask.DeprioritizeTaskUseCase;
 import io.github.gabbloquet.todolist.domain.todolist.model.Todolist;
 import io.github.gabbloquet.todolist.domain.todolist.model.TodolistCommandBus;
-import io.github.gabbloquet.todolist.domain.task.model.TaskEventBus;
 import io.github.gabbloquet.todolist.domain.todolist.prioritizeTask.PriorizeTaskUseCase;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;

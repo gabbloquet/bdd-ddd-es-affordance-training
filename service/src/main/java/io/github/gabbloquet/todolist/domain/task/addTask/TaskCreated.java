@@ -14,6 +14,7 @@ public class TaskCreated implements TaskEvent {
     @NonNull
     public final TaskId taskId;
 
+    @NonNull
     public final String description;
 
     public final boolean isCompleted;

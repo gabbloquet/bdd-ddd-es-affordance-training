@@ -29,15 +29,12 @@ public class TodolistSpec {
 
     @Etantdonné("aucune tâche à faire")
     public void une_todolist_vierge() {
-        scenarioState.startTodolist();
-
         mockTodolist(new Todolist());
     }
 
     @Etantdonné("la tâche {string} à faire")
     public void la_tache_à_faire(String task) {
-        scenarioState.startTodolist()
-                .addTask(task);
+        scenarioState.addTask(task);
 
         TaskId taskId = scenarioState.getTaskId(task);
         ArrayList<Todolist.Task> tasks = new ArrayList<>(List.of(new Todolist.Task(taskId, task, false)));
@@ -49,7 +46,7 @@ public class TodolistSpec {
 
     @Etantdonné("les tâches {string} et {string} à faire")
     public void lestâchesEtÀFaire(String firstTask, String secondTask) {
-        scenarioState.startTodolist()
+        scenarioState
                 .addTask(firstTask)
                 .addTask(secondTask);
 
@@ -68,9 +65,8 @@ public class TodolistSpec {
 
     @Etantdonné("une tâche terminée {string}")
     public void unetâcheTerminée(String task) {
-        scenarioState.startTodolist()
-                .addTask(task)
-                .completeTask(task);
+        scenarioState
+                .addTask(task);
 
         TaskId taskId = scenarioState.getTaskId(task);
         ArrayList<Todolist.Task> tasks = new ArrayList<>(List.of(new Todolist.Task(taskId, task, true)));

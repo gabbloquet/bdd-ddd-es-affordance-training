@@ -4,7 +4,6 @@ import io.github.gabbloquet.todolist.annotations.DomainEvent;
 import io.github.gabbloquet.todolist.domain.todolist.deprioritizeTask.TaskDeprioritized;
 import io.github.gabbloquet.todolist.domain.todolist.openApplication.TodolistCreated;
 import io.github.gabbloquet.todolist.domain.todolist.prioritizeTask.TaskPrioritized;
-import io.github.gabbloquet.todolist.domain.todolist.tmp.TaskAdded;
 
 @DomainEvent
 public interface TodolistEvent {
@@ -18,7 +17,6 @@ public interface TodolistEvent {
         T apply(TaskDeprioritized event);
 
         T apply(TodolistCreated event);
-        T apply(TaskAdded event);
     }
 
 }

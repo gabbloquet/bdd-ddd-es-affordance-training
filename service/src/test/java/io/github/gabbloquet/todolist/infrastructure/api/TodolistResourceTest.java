@@ -68,7 +68,7 @@ class TodolistResourceTest {
 
     @Test
     public void get_todolist_contains_tasks_affordance() throws Exception {
-        String taskId = task.taskId().toString();
+        String taskId = task.taskId().id().toString();
 
         executeGetRequest()
                 .andExpect(status().isOk())
@@ -102,7 +102,7 @@ class TodolistResourceTest {
 
     @Test
     public void prioritize_task_in_todolist_contains_tasks_affordances() throws Exception {
-        String taskId = task.taskId().toString();
+        String taskId = task.taskId().id().toString();
 
         assertTasksAffordances(executePrioritizeRequest(), taskId);
     }
@@ -116,7 +116,7 @@ class TodolistResourceTest {
 
     @Test
     public void deprioritize_task_in_todolist_contains_tasks_affordances() throws Exception {
-        String taskId = task.taskId().toString();
+        String taskId = task.taskId().id().toString();
 
         assertTasksAffordances(executeDeprioritizeRequest(), taskId);
     }

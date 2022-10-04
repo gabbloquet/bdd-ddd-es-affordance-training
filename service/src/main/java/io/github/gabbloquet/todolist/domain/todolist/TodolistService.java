@@ -1,9 +1,9 @@
 package io.github.gabbloquet.todolist.domain.todolist;
 
 import io.github.gabbloquet.todolist.annotations.DomainService;
-import io.github.gabbloquet.todolist.domain.todolist.openApplication.OpenApplication;
 import io.github.gabbloquet.todolist.domain.todolist.model.Todolist;
 import io.github.gabbloquet.todolist.domain.todolist.model.TodolistCommandBus;
+import io.github.gabbloquet.todolist.domain.todolist.openApplication.OpenApplication;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

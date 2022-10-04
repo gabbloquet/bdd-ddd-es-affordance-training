@@ -1,6 +1,5 @@
 package io.github.gabbloquet.todolist.domain.todolist.infra;
 
-import io.github.gabbloquet.todolist.domain.task.model.TaskId;
 import io.github.gabbloquet.todolist.domain.todolist.TodolistCommand;
 import io.github.gabbloquet.todolist.domain.todolist.TodolistService;
 import io.github.gabbloquet.todolist.domain.todolist.deprioritizeTask.DeprioritizeTask;

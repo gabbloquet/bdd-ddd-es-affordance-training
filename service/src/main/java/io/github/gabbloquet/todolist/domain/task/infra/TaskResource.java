@@ -7,7 +7,6 @@ import io.github.gabbloquet.todolist.domain.task.addTask.OpenTask;
 import io.github.gabbloquet.todolist.domain.task.infra.dto.TaskDto;
 import io.github.gabbloquet.todolist.domain.task.infra.dto.TaskRequest;
 import io.github.gabbloquet.todolist.domain.task.infra.dto.TasksResponseAssembler;
-import io.github.gabbloquet.todolist.domain.task.model.Task;
 import io.github.gabbloquet.todolist.domain.task.model.TaskId;
 import io.github.gabbloquet.todolist.domain.task.model.TaskState;
 import io.github.gabbloquet.todolist.domain.task.modifyTask.ModifyTask;

@@ -1,8 +1,8 @@
 package io.github.gabbloquet.todolist.infrastructure.spi;
 
+import io.github.gabbloquet.todolist.domain.todolist.infra.InMemoryTodolistRepository;
 import io.github.gabbloquet.todolist.domain.todolist.model.Todolist;
 import io.github.gabbloquet.todolist.domain.todolist.model.Todolist.Task;
-import io.github.gabbloquet.todolist.domain.todolist.infra.InMemoryTodolistRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

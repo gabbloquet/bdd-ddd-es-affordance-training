@@ -6,6 +6,6 @@ import java.util.UUID;
 
 public record TaskDto(UUID id, String description, boolean isCompleted) {
     public static TaskDto from(TaskState task) {
-        return new TaskDto(task.getId(), task.getDescription(), task.isCompleted());
+        return new TaskDto(task.getId().id(), task.getDescription(), task.isCompleted());
     }
 }

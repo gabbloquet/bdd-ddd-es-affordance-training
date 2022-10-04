@@ -1,9 +1,12 @@
 package io.github.gabbloquet.todolist.domain.todolist.deprioritizeTask;
 
 import io.github.gabbloquet.todolist.annotations.DomainCommand;
-import io.github.gabbloquet.todolist.domain.todolist.TodolistCommand;
 import io.github.gabbloquet.todolist.domain.task.model.TaskId;
-import lombok.*;
+import io.github.gabbloquet.todolist.domain.todolist.TodolistCommand;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.NonNull;
+import lombok.ToString;
 
 @DomainCommand
 @Builder

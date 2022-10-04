@@ -1,16 +1,11 @@
 package io.github.gabbloquet.todolist.domain.task.completeTask;
 
 import io.github.gabbloquet.todolist.annotations.DomainService;
-import io.github.gabbloquet.todolist.domain.task.TaskRepository;
-import io.github.gabbloquet.todolist.domain.task.model.Task;
-import io.github.gabbloquet.todolist.domain.task.model.TaskNotFound;
 import io.github.gabbloquet.todolist.domain.todolist.model.TodolistCommandReceiver;
 import io.github.gabbloquet.todolist.domain.todolist.model.TodolistEventBus;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;
-
-import java.util.function.Supplier;
 
 @DomainService
 @RequiredArgsConstructor

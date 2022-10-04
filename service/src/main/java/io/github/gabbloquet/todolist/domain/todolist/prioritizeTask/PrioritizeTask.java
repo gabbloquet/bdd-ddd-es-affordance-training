@@ -1,8 +1,8 @@
 package io.github.gabbloquet.todolist.domain.todolist.prioritizeTask;
 
 import io.github.gabbloquet.todolist.annotations.DomainCommand;
-import io.github.gabbloquet.todolist.domain.todolist.TodolistCommand;
 import io.github.gabbloquet.todolist.domain.task.model.TaskId;
+import io.github.gabbloquet.todolist.domain.todolist.TodolistCommand;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;

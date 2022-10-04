@@ -1,7 +1,6 @@
 package io.github.gabbloquet.todolist.domain.todolist.tmp;
 
 import io.github.gabbloquet.todolist.annotations.DomainEvent;
-import io.github.gabbloquet.todolist.domain.task.model.TaskEvent;
 import io.github.gabbloquet.todolist.domain.task.model.TaskId;
 import io.github.gabbloquet.todolist.domain.todolist.model.TodolistEvent;
 import lombok.*;

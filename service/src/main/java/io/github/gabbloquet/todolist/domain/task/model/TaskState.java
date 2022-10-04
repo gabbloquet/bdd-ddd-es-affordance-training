@@ -7,12 +7,11 @@ import io.github.gabbloquet.todolist.domain.task.modifyTask.TaskModified;
 import lombok.Getter;
 
 import java.util.List;
-import java.util.UUID;
 
 @Projection
 @Getter
 public final class TaskState implements TaskEvent.Visitor<TaskState> {
-    private UUID id;
+    private TaskId id;
     private String description;
     private boolean isCompleted;
 
@@ -26,7 +25,7 @@ public final class TaskState implements TaskEvent.Visitor<TaskState> {
 
     @Override
     public TaskState apply(TaskCreated event) {
-        this.id = event.taskId.id();
+        this.id = event.taskId;
         this.description = event.description;
         this.isCompleted = event.isCompleted;
         return this;

@@ -6,6 +6,7 @@ import io.github.gabbloquet.todolist.domain.task.completeTask.TaskCompleted;
 import io.github.gabbloquet.todolist.domain.task.model.TaskEvent;
 import io.github.gabbloquet.todolist.domain.task.model.TaskId;
 import io.github.gabbloquet.todolist.domain.task.model.TaskNotFound;
+import io.github.gabbloquet.todolist.domain.task.modifyTask.TaskModified;
 import io.github.gabbloquet.todolist.domain.todolist.deprioritizeTask.TaskDeprioritized;
 import io.github.gabbloquet.todolist.domain.todolist.prioritizeTask.TaskPrioritized;
 import lombok.NonNull;
@@ -101,6 +102,15 @@ public class Todolist {
 
         completedTasks.add(completedTask);
         tasks.remove(existingTask);
+    }
+
+    public void apply(TaskModified event) {
+        Task existingTask = findById(event.taskId);
+        int position = tasks.indexOf(existingTask);
+
+        Task modifiedTask = new Task(existingTask.taskId, event.getDescription(), existingTask.done);
+
+        tasks.set(position, modifiedTask);
     }
 
     public record Task(TaskId taskId, String name, boolean done) {

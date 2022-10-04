@@ -2,6 +2,7 @@ package io.github.gabbloquet.todolist.domain.todolist;
 
 import io.github.gabbloquet.todolist.domain.task.addTask.TaskCreated;
 import io.github.gabbloquet.todolist.domain.task.completeTask.TaskCompleted;
+import io.github.gabbloquet.todolist.domain.task.modifyTask.TaskModified;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;
@@ -23,6 +24,15 @@ public class TodolistEventHandler {
 
     @EventListener
     public void onTaskCompleted(TaskCompleted event) {
+        todolistUseCaseTransaction.start();
+
+        todolistUseCaseTransaction.get().apply(event);
+
+        todolistUseCaseTransaction.commit();
+    }
+
+    @EventListener
+    public void onTaskCompleted(TaskModified event) {
         todolistUseCaseTransaction.start();
 
         todolistUseCaseTransaction.get().apply(event);

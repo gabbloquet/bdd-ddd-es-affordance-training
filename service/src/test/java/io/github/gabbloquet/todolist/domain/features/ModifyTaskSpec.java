@@ -1,6 +1,8 @@
 package io.github.gabbloquet.todolist.domain.features;
 
 import io.cucumber.java.fr.Lorsque;
+import io.github.gabbloquet.todolist.domain.ScenarioState;
+import io.github.gabbloquet.todolist.domain.task.TaskService;
 import io.github.gabbloquet.todolist.domain.task.model.TaskId;
 import io.github.gabbloquet.todolist.domain.task.modifyTask.ModifyTask;
 import io.github.gabbloquet.todolist.domain.todolist.TodolistService;
@@ -11,22 +13,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class ModifyTaskSpec {
 
     @Autowired
-    private TodolistUseCaseTransaction todolistUseCaseTransaction;
+    private ScenarioState scenarioState;
 
     @Autowired
-    private TodolistService todolistService;
+    private TaskService taskService;
 
     @Lorsque("la tâche {string} est modifée en {string}")
     public void laTâcheEstModiféeEn(String existingTask, String update) {
-        todolistUseCaseTransaction.start();
 
-        Todolist todolist = todolistUseCaseTransaction.get();
-        TaskId taskId = todolist.findByName(existingTask).taskId();
+        TaskId taskId = scenarioState.getTaskId(existingTask);
         ModifyTask command = ModifyTask.builder()
                 .taskId(taskId)
                 .update(update)
                 .build();
 
-        todolistService.execute(command);
+        scenarioState.taskState = taskService.execute(command);
     }
 }

@@ -15,9 +15,6 @@ import lombok.experimental.SuperBuilder;
 public final class ModifyTask extends TaskCommand {
 
     @NonNull
-    public final TaskId taskId;
-
-    @NonNull
     public final String update;
 
 }

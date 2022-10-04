@@ -16,10 +16,10 @@ import io.github.gabbloquet.todolist.domain.todolist.TodolistService;
 import io.github.gabbloquet.todolist.domain.todolist.TodolistUseCaseTransaction;
 import io.github.gabbloquet.todolist.domain.todolist.deprioritizeTask.DeprioritizeTaskUseCase;
 import io.github.gabbloquet.todolist.domain.todolist.infra.TodolistSpringCommandBus;
-import io.github.gabbloquet.todolist.domain.todolist.infra.TodolistSpringEventBus;
+import io.github.gabbloquet.todolist.domain.task.infra.TaskSpringEventBus;
 import io.github.gabbloquet.todolist.domain.todolist.model.Todolist;
 import io.github.gabbloquet.todolist.domain.todolist.model.TodolistCommandBus;
-import io.github.gabbloquet.todolist.domain.todolist.model.TodolistEventBus;
+import io.github.gabbloquet.todolist.domain.task.model.TaskEventBus;
 import io.github.gabbloquet.todolist.domain.todolist.prioritizeTask.PriorizeTaskUseCase;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
@@ -67,11 +67,11 @@ public class TodolistSpringTestConfig {
 
     @Bean
     @Primary
-    public TodolistEventBus todolistEventBus(
+    public TaskEventBus todolistEventBus(
             MockRegistry mockRegistry,
             ApplicationEventPublisher eventPublisher,
-            Supplier<Todolist> todolistSupplier) {
-        return mockRegistry.spy(new TodolistSpringEventBus(eventPublisher, todolistSupplier));
+            Supplier<Task> taskSupplier) {
+        return mockRegistry.spy(new TaskSpringEventBus(eventPublisher, taskSupplier));
     }
 
     @Bean
@@ -117,23 +117,23 @@ public class TodolistSpringTestConfig {
     @Bean
     public AddTaskUseCase addTaskUseCase(
             Supplier<TaskId> taskIdProvider,
-            TodolistEventBus todolistEventBus
+            TaskEventBus taskEventBus
     ) {
-        return new AddTaskUseCase(taskIdProvider, todolistEventBus);
+        return new AddTaskUseCase(taskIdProvider, taskEventBus);
     }
 
     @Bean
     public ModifyTaskUseCase updateTaskUseCase(
-            TodolistEventBus todolistEventBus
+            TaskEventBus taskEventBus
     ) {
-        return new ModifyTaskUseCase(todolistEventBus);
+        return new ModifyTaskUseCase(taskEventBus);
     }
 
     @Bean
     public CompleteTaskUseCase completeTaskUseCase(
-            TodolistEventBus todolistEventBus
+            TaskEventBus taskEventBus
     ) {
-        return new CompleteTaskUseCase(todolistEventBus);
+        return new CompleteTaskUseCase(taskEventBus);
     }
 
     @Bean

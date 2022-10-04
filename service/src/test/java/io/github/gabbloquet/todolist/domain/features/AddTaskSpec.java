@@ -45,19 +45,19 @@ public class AddTaskSpec {
         assertThat(scenarioState.taskState.getDescription()).isEqualTo(expectedTask);
         assertFalse(scenarioState.taskState.isCompleted());
 
-        Assertions.assertEquals(todolistUseCaseTransaction.get().tasks().get(0).name(), expectedTask);
-        Assertions.assertFalse(todolistUseCaseTransaction.get().tasks().get(0).done());
+        Assertions.assertEquals(todolistUseCaseTransaction.get().render().get(0).name(), expectedTask);
+        Assertions.assertFalse(todolistUseCaseTransaction.get().render().get(0).done());
 
         verify(todolistRepository, times(1)).save(todolistUseCaseTransaction.get());
     }
 
     @Alors("les tâches {string} et {string} sont à faire")
     public void la_todolist_contient_deux_tâches(String firstTask, String secondTask) {
-        Assertions.assertEquals(todolistUseCaseTransaction.get().tasks().get(0).name(), firstTask);
-        Assertions.assertFalse(todolistUseCaseTransaction.get().tasks().get(0).done());
+        Assertions.assertEquals(todolistUseCaseTransaction.get().render().get(0).name(), firstTask);
+        Assertions.assertFalse(todolistUseCaseTransaction.get().render().get(0).done());
 
-        Assertions.assertEquals(todolistUseCaseTransaction.get().tasks().get(1).name(), secondTask);
-        Assertions.assertFalse(todolistUseCaseTransaction.get().tasks().get(1).done());
+        Assertions.assertEquals(todolistUseCaseTransaction.get().render().get(1).name(), secondTask);
+        Assertions.assertFalse(todolistUseCaseTransaction.get().render().get(1).done());
 
         verify(todolistRepository, times(1)).save(todolistUseCaseTransaction.get());
     }

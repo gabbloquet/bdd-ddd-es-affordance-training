@@ -32,6 +32,6 @@ public class CreateTodolistSpec {
         verify(todolistRepository)
                 .save(todolistArgumentCaptor.capture());
 
-        Assertions.assertTrue(todolistArgumentCaptor.getValue().tasks().isEmpty());
+        Assertions.assertTrue(todolistArgumentCaptor.getValue().render().isEmpty());
     }
 }

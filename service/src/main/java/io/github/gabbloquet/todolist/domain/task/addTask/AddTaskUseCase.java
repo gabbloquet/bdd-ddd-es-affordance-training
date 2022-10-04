@@ -3,7 +3,7 @@ package io.github.gabbloquet.todolist.domain.task.addTask;
 import io.github.gabbloquet.todolist.annotations.DomainService;
 import io.github.gabbloquet.todolist.domain.task.model.TaskId;
 import io.github.gabbloquet.todolist.domain.todolist.model.TodolistCommandReceiver;
-import io.github.gabbloquet.todolist.domain.todolist.model.TodolistEventBus;
+import io.github.gabbloquet.todolist.domain.task.model.TaskEventBus;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;
@@ -18,7 +18,7 @@ public class AddTaskUseCase implements TodolistCommandReceiver<AddTask> {
     private final Supplier<TaskId> taskIdProvider;
 
     @NonNull
-    private final TodolistEventBus todolistEventBus;
+    private final TaskEventBus taskEventBus;
 
     @Override
     @EventListener
@@ -29,6 +29,6 @@ public class AddTaskUseCase implements TodolistCommandReceiver<AddTask> {
                 .isCompleted(false)
                 .build();
 
-        todolistEventBus.publish(taskCreated);
+        taskEventBus.publish(taskCreated);
     }
 }

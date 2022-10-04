@@ -3,7 +3,6 @@ package io.github.gabbloquet.todolist.domain.todolist.model;
 import io.github.gabbloquet.todolist.annotations.Aggregate;
 import io.github.gabbloquet.todolist.domain.task.addTask.TaskCreated;
 import io.github.gabbloquet.todolist.domain.task.completeTask.TaskCompleted;
-import io.github.gabbloquet.todolist.domain.task.model.TaskEvent;
 import io.github.gabbloquet.todolist.domain.task.model.TaskId;
 import io.github.gabbloquet.todolist.domain.task.model.TaskNotFound;
 import io.github.gabbloquet.todolist.domain.task.modifyTask.TaskModified;
@@ -32,12 +31,8 @@ public class Todolist {
         this.completedTasks = new ArrayList<>();
     }
 
-    public ArrayList<Task> tasks() {
-        return tasks;
-    }
-
     public TaskPrioritized prioritize(@NonNull TaskId taskId) {
-        Task prioritizeTask = this.findById(taskId);
+        Task taskToPrioritize = this.findById(taskId);
         List<Task> tasksWithoutPrioritize = new ArrayList<>(this.tasks)
                 .stream()
                 .filter(task -> task.taskId != taskId)
@@ -45,14 +40,14 @@ public class Todolist {
 
         this.tasks.clear();
 
-        this.tasks.add(prioritizeTask);
+        this.tasks.add(taskToPrioritize);
         this.tasks.addAll(tasksWithoutPrioritize);
 
         return TaskPrioritized.builder().build();
     }
 
     public TaskDeprioritized deprioritize(@NonNull TaskId taskId) {
-        Task deprioritizeTask = this.findById(taskId);
+        Task taskToDeprioritize = this.findById(taskId);
         List<Task> tasksWithoutPrioritize = new ArrayList<>(this.tasks)
                 .stream()
                 .filter(task -> task.taskId != taskId)
@@ -61,7 +56,7 @@ public class Todolist {
         this.tasks.clear();
 
         this.tasks.addAll(tasksWithoutPrioritize);
-        this.tasks.add(deprioritizeTask);
+        this.tasks.add(taskToDeprioritize);
 
         return TaskDeprioritized.builder().build();
     }

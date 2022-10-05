@@ -5,6 +5,7 @@ import io.github.gabbloquet.todolist.domain.task.TaskService;
 import io.github.gabbloquet.todolist.domain.task.TaskUseCaseTransaction;
 import io.github.gabbloquet.todolist.domain.task.addTask.AddTaskUseCase;
 import io.github.gabbloquet.todolist.domain.task.completeTask.CompleteTaskUseCase;
+import io.github.gabbloquet.todolist.domain.task.deleteTask.DeleteTaskUseCase;
 import io.github.gabbloquet.todolist.domain.task.infra.InMemoryTaskRepository;
 import io.github.gabbloquet.todolist.domain.task.infra.TaskSpringEventBus;
 import io.github.gabbloquet.todolist.domain.task.model.Task;
@@ -118,6 +119,13 @@ public class TodolistSpringConfig {
             TaskEventBus taskEventBus
     ) {
         return new CompleteTaskUseCase(taskEventBus);
+    }
+
+    @Bean
+    public DeleteTaskUseCase deleteTaskUseCase(
+            TaskEventBus taskEventBus
+    ) {
+        return new DeleteTaskUseCase(taskEventBus);
     }
 
     @Bean

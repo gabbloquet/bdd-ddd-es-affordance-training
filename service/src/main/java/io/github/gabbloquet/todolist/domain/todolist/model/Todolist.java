@@ -3,6 +3,7 @@ package io.github.gabbloquet.todolist.domain.todolist.model;
 import io.github.gabbloquet.todolist.annotations.Aggregate;
 import io.github.gabbloquet.todolist.domain.task.addTask.TaskCreated;
 import io.github.gabbloquet.todolist.domain.task.completeTask.TaskCompleted;
+import io.github.gabbloquet.todolist.domain.task.deleteTask.TaskDeleted;
 import io.github.gabbloquet.todolist.domain.task.model.TaskId;
 import io.github.gabbloquet.todolist.domain.task.model.TaskNotFound;
 import io.github.gabbloquet.todolist.domain.task.modifyTask.TaskModified;
@@ -106,6 +107,11 @@ public class Todolist {
         Task modifiedTask = new Task(existingTask.taskId, event.getDescription(), existingTask.done);
 
         tasks.set(position, modifiedTask);
+    }
+
+    public void apply(TaskDeleted event) {
+        Task taskToDelete = findById(event.taskId);
+        tasks.remove(taskToDelete);
     }
 
     public record Task(TaskId taskId, String name, boolean done) {

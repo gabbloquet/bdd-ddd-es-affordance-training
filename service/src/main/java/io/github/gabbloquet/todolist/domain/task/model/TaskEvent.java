@@ -3,6 +3,7 @@ package io.github.gabbloquet.todolist.domain.task.model;
 import io.github.gabbloquet.todolist.annotations.DomainEvent;
 import io.github.gabbloquet.todolist.domain.task.addTask.TaskCreated;
 import io.github.gabbloquet.todolist.domain.task.completeTask.TaskCompleted;
+import io.github.gabbloquet.todolist.domain.task.deleteTask.TaskDeleted;
 import io.github.gabbloquet.todolist.domain.task.modifyTask.TaskModified;
 
 @DomainEvent
@@ -16,6 +17,8 @@ public interface TaskEvent {
         T apply(TaskCreated event);
 
         T apply(TaskModified event);
+
+        T apply(TaskDeleted event);
     }
 
 }

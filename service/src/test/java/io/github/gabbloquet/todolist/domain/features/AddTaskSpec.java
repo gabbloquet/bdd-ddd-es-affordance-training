@@ -10,8 +10,6 @@ import io.github.gabbloquet.todolist.domain.todolist.TodolistUseCaseTransaction;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -41,8 +39,7 @@ public class AddTaskSpec {
 
     @Alors("la tâche {string} est à faire")
     public void la_todolist_contient_une_tache(String expectedTask) {
-        assertThat(scenarioState.taskState.getDescription()).isEqualTo(expectedTask);
-        assertFalse(scenarioState.taskState.isCompleted());
+        Assertions.assertEquals(todolistUseCaseTransaction.get().render().size(), 1);
 
         Assertions.assertEquals(todolistUseCaseTransaction.get().render().get(0).name(), expectedTask);
         Assertions.assertFalse(todolistUseCaseTransaction.get().render().get(0).done());
@@ -52,6 +49,8 @@ public class AddTaskSpec {
 
     @Alors("les tâches {string} et {string} sont à faire")
     public void la_todolist_contient_deux_tâches(String firstTask, String secondTask) {
+        Assertions.assertEquals(todolistUseCaseTransaction.get().render().size(), 2);
+
         Assertions.assertEquals(todolistUseCaseTransaction.get().render().get(0).name(), firstTask);
         Assertions.assertFalse(todolistUseCaseTransaction.get().render().get(0).done());
 

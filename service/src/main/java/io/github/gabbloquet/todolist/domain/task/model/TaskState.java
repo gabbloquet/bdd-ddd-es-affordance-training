@@ -3,6 +3,7 @@ package io.github.gabbloquet.todolist.domain.task.model;
 import io.github.gabbloquet.todolist.annotations.Projection;
 import io.github.gabbloquet.todolist.domain.task.addTask.TaskCreated;
 import io.github.gabbloquet.todolist.domain.task.completeTask.TaskCompleted;
+import io.github.gabbloquet.todolist.domain.task.deleteTask.TaskDeleted;
 import io.github.gabbloquet.todolist.domain.task.modifyTask.TaskModified;
 import lombok.Getter;
 
@@ -40,6 +41,14 @@ public final class TaskState implements TaskEvent.Visitor<TaskState> {
     @Override
     public TaskState apply(TaskCompleted event) {
         this.isCompleted = true;
+        return this;
+    }
+
+    @Override
+    public TaskState apply(TaskDeleted event) {
+        this.id = null;
+        this.description = null;
+        this.isCompleted = false;
         return this;
     }
 }

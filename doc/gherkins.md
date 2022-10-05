@@ -9,4 +9,4 @@ Gherkins are stored in [service/src/test/resources/features](../service/src/test
  - [Ouvrir l'application](../service/src/test/resources/features/open-application.feature)
 
 
-[One of my wonderful report](https://reports.cucumber.io/reports/f9496aaf-2b64-4e71-ab23-9f6a59e2d96b)
+[All reports](https://reports.cucumber.io/report-collections/798b6017-d10a-4416-9ac4-d00a04f1f162)

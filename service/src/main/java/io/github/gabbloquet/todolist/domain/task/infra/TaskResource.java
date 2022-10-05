@@ -4,6 +4,7 @@ import io.github.gabbloquet.todolist.domain.task.TaskCommand;
 import io.github.gabbloquet.todolist.domain.task.TaskService;
 import io.github.gabbloquet.todolist.domain.task.addTask.AddTask;
 import io.github.gabbloquet.todolist.domain.task.addTask.OpenTask;
+import io.github.gabbloquet.todolist.domain.task.deleteTask.DeleteTask;
 import io.github.gabbloquet.todolist.domain.task.infra.dto.TaskDto;
 import io.github.gabbloquet.todolist.domain.task.infra.dto.TaskRequest;
 import io.github.gabbloquet.todolist.domain.task.infra.dto.TasksResponseAssembler;
@@ -65,9 +66,11 @@ public class TaskResource {
 
     @DeleteMapping("/{id}")
     public RepresentationModel<?> deleteTask(@PathVariable UUID id) {
-//        TaskCommand command = new DeleteTask.builder().build();
+        TaskCommand command = DeleteTask.builder()
+                .taskId(TaskId.from(id))
+                .build();
 
-//        taskService.execute();
+        taskService.execute(command);
 
         return tasksResponseAssembler.get();
     }

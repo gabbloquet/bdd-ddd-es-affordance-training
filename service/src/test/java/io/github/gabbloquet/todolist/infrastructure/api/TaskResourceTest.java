@@ -4,6 +4,8 @@ import io.github.gabbloquet.todolist.domain.task.TaskService;
 import io.github.gabbloquet.todolist.domain.task.addTask.AddTask;
 import io.github.gabbloquet.todolist.domain.task.addTask.TaskCreated;
 import io.github.gabbloquet.todolist.domain.task.completeTask.CompleteTask;
+import io.github.gabbloquet.todolist.domain.task.deleteTask.DeleteTask;
+import io.github.gabbloquet.todolist.domain.task.deleteTask.TaskDeleted;
 import io.github.gabbloquet.todolist.domain.task.model.TaskId;
 import io.github.gabbloquet.todolist.domain.task.model.TaskState;
 import io.github.gabbloquet.todolist.domain.task.modifyTask.ModifyTask;
@@ -23,7 +25,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -167,6 +169,8 @@ class TaskResourceTest {
                 .andExpect(jsonPath("$._templates.default.target", is("http://localhost/tasks")))
 
                 .andExpect(jsonPath("$._links.todolist.href", is("http://localhost/todolist")));
+
+        verify(taskService).execute(DeleteTask.builder().taskId(taskId).build());
     }
 
 

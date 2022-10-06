@@ -18,8 +18,8 @@ Few words about [affordance and choices](../doc/affordance.md).
 - [x] Install Hateoas tool & configure it
 - [x] First steps with affordance, expose a resource
 - [x] [Implement Domain driven design](../doc/ddd.md)
-- [ ] [Implement Event sourcing](../doc/event_sourcing.md)
-- [ ] Write tests which describe consumer attendees
+- [x] [Implement Event sourcing](../doc/event_sourcing.md)
+- [x] Write tests which describe consumer attendees
 - [ ] Add more complex business rules
 - [ ] Add a database
 - [ ] Develop a front-end to demonstrate the principle

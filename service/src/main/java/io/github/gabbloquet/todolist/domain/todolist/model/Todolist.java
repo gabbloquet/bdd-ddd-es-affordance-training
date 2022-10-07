@@ -1,6 +1,6 @@
 package io.github.gabbloquet.todolist.domain.todolist.model;
 
-import io.github.gabbloquet.todolist.annotations.Aggregate;
+import io.github.gabbloquet.todolist.annotations.Projection;
 import io.github.gabbloquet.todolist.domain.task.addTask.TaskCreated;
 import io.github.gabbloquet.todolist.domain.task.completeTask.TaskCompleted;
 import io.github.gabbloquet.todolist.domain.task.deleteTask.TaskDeleted;
@@ -9,6 +9,7 @@ import io.github.gabbloquet.todolist.domain.task.model.TaskNotFound;
 import io.github.gabbloquet.todolist.domain.task.modifyTask.TaskModified;
 import io.github.gabbloquet.todolist.domain.todolist.deprioritizeTask.TaskDeprioritized;
 import io.github.gabbloquet.todolist.domain.todolist.prioritizeTask.TaskPrioritized;
+import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 
 import java.util.ArrayList;
@@ -16,7 +17,8 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Stream;
 
-@Aggregate
+@Projection
+@EqualsAndHashCode
 public class Todolist {
 
     private final ArrayList<Task> tasks;
@@ -27,9 +29,10 @@ public class Todolist {
         this.completedTasks = new ArrayList<>();
     }
 
-    public Todolist(ArrayList<Task> taskToAdd) {
-        this.tasks = taskToAdd;
+    public Todolist(ArrayList<Task> tasksToAdd) {
+        this.tasks = new ArrayList<>();
         this.completedTasks = new ArrayList<>();
+        tasksToAdd.forEach(this::add);
     }
 
     public TaskPrioritized prioritize(@NonNull TaskId taskId) {

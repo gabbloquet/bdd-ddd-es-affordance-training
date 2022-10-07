@@ -17,6 +17,8 @@ import io.github.gabbloquet.todolist.domain.todolist.TodolistRepository;
 import io.github.gabbloquet.todolist.domain.todolist.TodolistService;
 import io.github.gabbloquet.todolist.domain.todolist.TodolistUseCaseTransaction;
 import io.github.gabbloquet.todolist.domain.todolist.deprioritizeTask.DeprioritizeTaskUseCase;
+import io.github.gabbloquet.todolist.domain.todolist.filter.TodolistQueries;
+import io.github.gabbloquet.todolist.domain.todolist.filter.TodolistQueriesAdapter;
 import io.github.gabbloquet.todolist.domain.todolist.model.Todolist;
 import io.github.gabbloquet.todolist.domain.todolist.model.TodolistCommandBus;
 import io.github.gabbloquet.todolist.domain.todolist.prioritizeTask.PriorizeTaskUseCase;
@@ -140,6 +142,13 @@ public class TodolistSpringConfig {
             TodolistUseCaseTransaction todolistUseCaseTransaction
     ) {
         return new DeprioritizeTaskUseCase(todolistUseCaseTransaction);
+    }
+
+    @Bean
+    public TodolistQueries todolistQueries(
+            TodolistRepository todolistRepository
+    ) {
+        return new TodolistQueriesAdapter(todolistRepository);
     }
 
     @Bean

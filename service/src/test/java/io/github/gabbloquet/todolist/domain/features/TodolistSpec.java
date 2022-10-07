@@ -35,51 +35,46 @@ public class TodolistSpec {
 
     @Etantdonné("aucune tâche à faire")
     public void une_todolist_vierge() {
-        mockTodolist(new Todolist());
+        mockTodolist();
     }
 
     @Etantdonné("la tâche {string} à faire")
     public void la_tache_à_faire(String task) {
-        scenarioState.addTask(task);
-
-        TaskId taskId = scenarioState.getTaskId(task);
-        ArrayList<Todolist.Task> tasks = new ArrayList<>(List.of(new Todolist.Task(taskId, task, false)));
-        Todolist existingTodolist = new Todolist(tasks);
+        scenarioState.addTask(task, false);
 
         mockTaskToDo(task);
-        mockTodolist(existingTodolist);
+        mockTodolist();
     }
 
-    @Etantdonné("les tâches {string} et {string} à faire")
-    public void lestâchesEtÀFaire(String firstTask, String secondTask) {
+    @Etantdonné("la tâche {string} terminée")
+    public void la_tache_terminee(String task) {
         scenarioState
-                .addTask(firstTask)
-                .addTask(secondTask);
-
-        TaskId firstTaskId = scenarioState.getTaskId(firstTask);
-        TaskId secondTaskId = scenarioState.getTaskId(secondTask);
-        ArrayList<Todolist.Task> tasks = new ArrayList<>(List.of(
-                new Todolist.Task(firstTaskId, firstTask, false),
-                new Todolist.Task(secondTaskId, secondTask, false)
-        ));
-        Todolist existingTodolist = new Todolist(tasks);
-
-        mockTaskToDo(firstTask);
-        mockTaskToDo(secondTask);
-        mockTodolist(existingTodolist);
-    }
-
-    @Etantdonné("une tâche terminée {string}")
-    public void unetâcheTerminée(String task) {
-        scenarioState
-                .addTask(task);
-
-        TaskId taskId = scenarioState.getTaskId(task);
-        ArrayList<Todolist.Task> tasks = new ArrayList<>(List.of(new Todolist.Task(taskId, task, true)));
-        Todolist existingTodolist = new Todolist(tasks);
+            .addTask(task, true);
 
         mockTaskCompleted(task);
-        mockTodolist(existingTodolist);
+        mockTodolist();
+    }
+
+    @Etantdonné("les tâches à faire")
+    public void les_taches_a_faire(List<String> tasks) {
+        scenarioState
+            .addTask(tasks.get(0), false)
+            .addTask(tasks.get(1), false);
+
+        mockTaskToDo(tasks.get(0));
+        mockTaskToDo(tasks.get(1));
+        mockTodolist();
+    }
+
+    @Etantdonné("les tâches terminées")
+    public void les_taches_terminees(List<String> tasks) {
+        scenarioState
+                .addTask(tasks.get(0), true)
+                .addTask(tasks.get(1), true);
+
+        mockTaskToDo(tasks.get(0));
+        mockTaskToDo(tasks.get(1));
+        mockTodolist();
     }
 
     private void mockTaskToDo(String description) {
@@ -132,7 +127,15 @@ public class TodolistSpec {
                 )))));
     }
 
-    private void mockTodolist(Todolist todolist) {
+    private void mockTodolist() {
+        ArrayList<Todolist.Task> tasks = new ArrayList<>();
+
+        scenarioState.getTasks()
+                .forEach((name, task) -> {
+                    tasks.add(new Todolist.Task(task.taskId(), name, task.done()));
+                });
+
+        Todolist todolist = new Todolist(tasks);
         when(todolistRepository.get())
                 .thenReturn(Optional.of(todolist));
     }

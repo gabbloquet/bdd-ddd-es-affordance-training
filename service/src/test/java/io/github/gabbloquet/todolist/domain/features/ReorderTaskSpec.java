@@ -1,6 +1,7 @@
 package io.github.gabbloquet.todolist.domain.features;
 
 import io.cucumber.java.fr.Lorsque;
+import io.github.gabbloquet.todolist.domain.ScenarioState;
 import io.github.gabbloquet.todolist.domain.task.model.TaskId;
 import io.github.gabbloquet.todolist.domain.todolist.TodolistService;
 import io.github.gabbloquet.todolist.domain.todolist.TodolistUseCaseTransaction;
@@ -15,14 +16,12 @@ public class ReorderTaskSpec {
     private TodolistService todolistService;
 
     @Autowired
-    private TodolistUseCaseTransaction todolistUseCaseTransaction;
+    private ScenarioState scenarioState;
 
     @Lorsque("la tâche {string} est prorisée")
     public void laTâcheEstProrisée(String tacheAPrioriser) {
-        todolistUseCaseTransaction.start();
+        TaskId taskId = scenarioState.getTaskId(tacheAPrioriser);
 
-        Todolist todolist = todolistUseCaseTransaction.get();
-        TaskId taskId = todolist.findByName(tacheAPrioriser).taskId();
         PrioritizeTask command = PrioritizeTask
                 .builder()
                 .taskId(taskId)
@@ -33,10 +32,8 @@ public class ReorderTaskSpec {
 
     @Lorsque("la tâche {string} est dépriorisée")
     public void laTâcheEstDépriorisée(String tacheADeprioriser) {
-        todolistUseCaseTransaction.start();
+        TaskId taskId = scenarioState.getTaskId(tacheADeprioriser);
 
-        Todolist todolist = todolistUseCaseTransaction.get();
-        TaskId taskId = todolist.findByName(tacheADeprioriser).taskId();
         DeprioritizeTask command = DeprioritizeTask.builder()
                 .taskId(taskId)
                 .build();

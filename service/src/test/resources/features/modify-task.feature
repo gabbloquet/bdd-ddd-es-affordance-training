@@ -6,6 +6,8 @@ Fonctionnalité: Modifier une tâche de ma todolist
   Afin de la corriger
 
   Scénario: Modifier une tâche
-    Etant donné les tâches "Nettoyer la maison" et "Promener le chien" à faire
+    Etant donné les tâches à faire
+      | Nettoyer la maison |
+      | Promener le chien |
     Lorsque la tâche "Nettoyer la maison" est modifée en "Tout nettoyer"
     Alors les tâches "Tout nettoyer" et "Promener le chien" sont à faire

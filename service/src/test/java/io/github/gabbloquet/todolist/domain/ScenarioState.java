@@ -5,13 +5,13 @@ import io.github.gabbloquet.todolist.domain.task.model.TaskState;
 import io.github.gabbloquet.todolist.domain.todolist.model.Todolist;
 import lombok.Data;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 @Data
 public class ScenarioState {
 
-    private final Map<String, Todolist.Task> tasks = new HashMap<>();
+    private final Map<String, Todolist.Task> tasks = new TreeMap<>();
 
     public TaskState taskState;
 

@@ -4,10 +4,10 @@ import io.cucumber.java.fr.Lorsque;
 import io.github.gabbloquet.todolist.domain.ScenarioState;
 import io.github.gabbloquet.todolist.domain.task.TaskService;
 import io.github.gabbloquet.todolist.domain.task.model.TaskId;
-import io.github.gabbloquet.todolist.domain.task.modifyTask.ModifyTask;
+import io.github.gabbloquet.todolist.domain.task.renameTask.RenameTask;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class ModifyTaskSpec {
+public class RenameTaskSpec {
 
     @Autowired
     private ScenarioState scenarioState;
@@ -15,11 +15,11 @@ public class ModifyTaskSpec {
     @Autowired
     private TaskService taskService;
 
-    @Lorsque("la tâche {string} est modifée en {string}")
-    public void laTâcheEstModiféeEn(String existingTask, String update) {
+    @Lorsque("la tâche {string} est renommée {string}")
+    public void la_tache_est_renommee(String existingTask, String update) {
 
         TaskId taskId = scenarioState.getTaskId(existingTask);
-        ModifyTask command = ModifyTask.builder()
+        RenameTask command = RenameTask.builder()
                 .taskId(taskId)
                 .update(update)
                 .build();

@@ -1,4 +1,4 @@
-package io.github.gabbloquet.todolist.domain.task.modifyTask;
+package io.github.gabbloquet.todolist.domain.task.renameTask;
 
 import io.github.gabbloquet.todolist.annotations.DomainCommand;
 import io.github.gabbloquet.todolist.domain.task.TaskCommand;
@@ -11,7 +11,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-public final class ModifyTask extends TaskCommand {
+public final class RenameTask extends TaskCommand {
 
     @NonNull
     public final String update;

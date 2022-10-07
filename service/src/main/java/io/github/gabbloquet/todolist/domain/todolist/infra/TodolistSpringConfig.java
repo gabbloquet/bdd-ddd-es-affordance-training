@@ -11,7 +11,7 @@ import io.github.gabbloquet.todolist.domain.task.infra.TaskSpringEventBus;
 import io.github.gabbloquet.todolist.domain.task.model.Task;
 import io.github.gabbloquet.todolist.domain.task.model.TaskEventBus;
 import io.github.gabbloquet.todolist.domain.task.model.TaskId;
-import io.github.gabbloquet.todolist.domain.task.modifyTask.ModifyTaskUseCase;
+import io.github.gabbloquet.todolist.domain.task.renameTask.RenameTaskUseCase;
 import io.github.gabbloquet.todolist.domain.todolist.TodolistEventHandler;
 import io.github.gabbloquet.todolist.domain.todolist.TodolistRepository;
 import io.github.gabbloquet.todolist.domain.todolist.TodolistService;
@@ -110,10 +110,10 @@ public class TodolistSpringConfig {
     }
 
     @Bean
-    public ModifyTaskUseCase updateTaskUseCase(
+    public RenameTaskUseCase updateTaskUseCase(
             TaskEventBus taskEventBus
     ) {
-        return new ModifyTaskUseCase(taskEventBus);
+        return new RenameTaskUseCase(taskEventBus);
     }
 
     @Bean

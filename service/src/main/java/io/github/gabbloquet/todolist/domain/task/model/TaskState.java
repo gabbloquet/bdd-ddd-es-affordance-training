@@ -4,7 +4,7 @@ import io.github.gabbloquet.todolist.annotations.Projection;
 import io.github.gabbloquet.todolist.domain.task.addTask.TaskCreated;
 import io.github.gabbloquet.todolist.domain.task.completeTask.TaskCompleted;
 import io.github.gabbloquet.todolist.domain.task.deleteTask.TaskDeleted;
-import io.github.gabbloquet.todolist.domain.task.modifyTask.TaskModified;
+import io.github.gabbloquet.todolist.domain.task.renameTask.TaskRenamed;
 import lombok.Getter;
 
 import java.util.List;
@@ -33,7 +33,7 @@ public final class TaskState implements TaskEvent.Visitor<TaskState> {
     }
 
     @Override
-    public TaskState apply(TaskModified event) {
+    public TaskState apply(TaskRenamed event) {
         this.description = event.getDescription();
         return this;
     }

@@ -6,7 +6,7 @@ import io.github.gabbloquet.todolist.domain.task.completeTask.TaskCompleted;
 import io.github.gabbloquet.todolist.domain.task.deleteTask.TaskDeleted;
 import io.github.gabbloquet.todolist.domain.task.model.TaskId;
 import io.github.gabbloquet.todolist.domain.task.model.TaskNotFound;
-import io.github.gabbloquet.todolist.domain.task.modifyTask.TaskModified;
+import io.github.gabbloquet.todolist.domain.task.renameTask.TaskRenamed;
 import io.github.gabbloquet.todolist.domain.todolist.deprioritizeTask.TaskDeprioritized;
 import io.github.gabbloquet.todolist.domain.todolist.prioritizeTask.TaskPrioritized;
 import lombok.EqualsAndHashCode;
@@ -103,7 +103,7 @@ public class Todolist {
         tasks.remove(existingTask);
     }
 
-    public void apply(TaskModified event) {
+    public void apply(TaskRenamed event) {
         Task existingTask = findById(event.taskId);
         int position = tasks.indexOf(existingTask);
 

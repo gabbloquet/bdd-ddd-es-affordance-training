@@ -10,7 +10,7 @@ import io.github.gabbloquet.todolist.domain.task.infra.dto.TaskRequest;
 import io.github.gabbloquet.todolist.domain.task.infra.dto.TasksResponseAssembler;
 import io.github.gabbloquet.todolist.domain.task.model.TaskId;
 import io.github.gabbloquet.todolist.domain.task.model.TaskState;
-import io.github.gabbloquet.todolist.domain.task.modifyTask.ModifyTask;
+import io.github.gabbloquet.todolist.domain.task.renameTask.RenameTask;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.EntityModel;
@@ -54,7 +54,7 @@ public class TaskResource {
     @PutMapping("/{id}")
     public EntityModel<TaskDto> modifyTask(@RequestBody TaskRequest taskRequest, @PathVariable UUID id) {
 
-        TaskCommand command = ModifyTask.builder()
+        TaskCommand command = RenameTask.builder()
                 .taskId(TaskId.from(id))
                 .update(taskRequest.description())
                 .build();

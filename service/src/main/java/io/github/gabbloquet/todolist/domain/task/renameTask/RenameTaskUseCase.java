@@ -1,4 +1,4 @@
-package io.github.gabbloquet.todolist.domain.task.modifyTask;
+package io.github.gabbloquet.todolist.domain.task.renameTask;
 
 import io.github.gabbloquet.todolist.annotations.DomainService;
 import io.github.gabbloquet.todolist.domain.task.model.TaskEventBus;
@@ -9,15 +9,15 @@ import org.springframework.context.event.EventListener;
 
 @DomainService
 @RequiredArgsConstructor
-public class ModifyTaskUseCase implements TodolistCommandReceiver<ModifyTask> {
+public class RenameTaskUseCase implements TodolistCommandReceiver<RenameTask> {
 
     @NonNull
     private final TaskEventBus taskEventBus;
 
     @Override
     @EventListener
-    public void execute(ModifyTask command) {
-        TaskModified event = TaskModified
+    public void execute(RenameTask command) {
+        TaskRenamed event = TaskRenamed
                 .builder()
                 .taskId(command.taskId)
                 .description(command.update)

@@ -5,11 +5,9 @@ import io.github.gabbloquet.todolist.domain.task.addTask.AddTask;
 import io.github.gabbloquet.todolist.domain.task.addTask.TaskCreated;
 import io.github.gabbloquet.todolist.domain.task.completeTask.CompleteTask;
 import io.github.gabbloquet.todolist.domain.task.deleteTask.DeleteTask;
-import io.github.gabbloquet.todolist.domain.task.deleteTask.TaskDeleted;
 import io.github.gabbloquet.todolist.domain.task.model.TaskId;
 import io.github.gabbloquet.todolist.domain.task.model.TaskState;
-import io.github.gabbloquet.todolist.domain.task.modifyTask.ModifyTask;
-import io.github.gabbloquet.todolist.domain.todolist.TodolistService;
+import io.github.gabbloquet.todolist.domain.task.renameTask.RenameTask;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,7 +71,7 @@ class TaskResourceTest {
                 .thenReturn(addedTaskState);
         when(taskService.execute(CompleteTask.builder().taskId(taskState.getId()).build()))
                 .thenReturn(taskState);
-        when(taskService.execute(ModifyTask.builder().taskId(taskState.getId()).update("Always practice TDD!").build()))
+        when(taskService.execute(RenameTask.builder().taskId(taskState.getId()).update("Always practice TDD!").build()))
                 .thenReturn(modifiedTaskState);
     }
 

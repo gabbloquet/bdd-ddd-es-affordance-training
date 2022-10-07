@@ -1,4 +1,4 @@
-package io.github.gabbloquet.todolist.domain.task.modifyTask;
+package io.github.gabbloquet.todolist.domain.task.renameTask;
 
 import io.github.gabbloquet.todolist.annotations.DomainEvent;
 import io.github.gabbloquet.todolist.domain.task.model.TaskEvent;
@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @Builder
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-public class TaskModified implements TaskEvent {
+public class TaskRenamed implements TaskEvent {
 
     public final TaskId taskId;
 

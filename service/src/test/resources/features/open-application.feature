@@ -11,9 +11,9 @@ Fonctionnalité: Ouverture de l'application
 
   Scénario: Première ouverture de l'application
     Etant donné les tâches à faire
-      | Chanter du Joe Dassin |
-      | Se marier avec Yvette |
+      | Chanter du Joe Dassin      |
+      | Siffler avec Yvette Horner |
     Quand l'application est ouverte
-    Alors les tâches proposées sont
-      | Chanter du Joe Dassin |
-      | Se marier avec Yvette |
+    Alors les tâches à faire sont
+      | Chanter du Joe Dassin      |
+      | Siffler avec Yvette Horner |

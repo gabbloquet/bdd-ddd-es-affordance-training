@@ -147,9 +147,9 @@ public class TodolistSpringConfig {
 
     @Bean
     public TodolistQueries todolistQueries(
-            Supplier<Todolist> todolistSupplier
+            TodolistUseCaseTransaction todolistUseCaseTransaction
     ) {
-        return new TodolistQueriesAdapter(todolistSupplier);
+        return new TodolistQueriesAdapter(todolistUseCaseTransaction);
     }
 
     @Bean

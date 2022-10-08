@@ -13,13 +13,17 @@ Fonctionnalité: Prioriser / Déprioriser une tâche de ma todolist
   Scénario: Prioriser une tâche
     Etant donné les tâches à faire
       | Promener le chien |
-      | Faire le café |
+      | Faire le café     |
     Lorsque la tâche "Faire le café" est prorisée
-    Alors les tâches "Faire le café" et "Promener le chien" sont à faire
+    Alors les tâches à faire sont
+      | Faire le café     |
+      | Promener le chien |
 
   Scénario: Déprioriser une tâche
     Etant donné les tâches à faire
       | Promener le chien |
-      | Faire le café |
+      | Faire le café     |
     Lorsque la tâche "Promener le chien" est dépriorisée
-    Alors les tâches "Faire le café" et "Promener le chien" sont à faire
+    Alors les tâches à faire sont
+      | Faire le café     |
+      | Promener le chien |

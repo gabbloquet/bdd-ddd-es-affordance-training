@@ -162,9 +162,9 @@ public class TodolistSpringTestConfig {
 
     @Bean
     public TodolistQueries todolistQueries(
-            Supplier<Todolist> todolistSupplier
+            TodolistUseCaseTransaction todolistUseCaseTransaction
     ) {
-        return new TodolistQueriesAdapter(todolistSupplier);
+        return new TodolistQueriesAdapter(todolistUseCaseTransaction);
     }
 
     @Bean

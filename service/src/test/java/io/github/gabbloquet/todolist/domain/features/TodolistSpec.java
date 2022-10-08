@@ -75,16 +75,6 @@ public class TodolistSpec {
 //        mockTodolist();
 //    }
 
-    @Alors("les tâches proposées sont")
-    public void lesTâchesProposéesSont(List<String> tasks) {
-        List<Todolist.Task> purposedTasks = todolistUseCaseTransaction.get().render();
-
-        Assertions.assertEquals(tasks.size(), purposedTasks.size());
-
-        Assertions.assertEquals(tasks.get(0), purposedTasks.get(0).name());
-        Assertions.assertEquals(tasks.get(1), purposedTasks.get(1).name());
-    }
-
     @Alors("la tâche {string} est à faire")
     @Alors("la tâche {string} est affichée")
     public void la_todolist_contient_une_tache(String expectedTask) {
@@ -94,14 +84,14 @@ public class TodolistSpec {
         Assertions.assertFalse(todolistUseCaseTransaction.get().render().get(0).done());
     }
 
-    @Alors("les tâches {string} et {string} sont à faire")
-    public void la_todolist_contient_deux_tâches(String firstTask, String secondTask) {
+    @Alors("les tâches à faire sont")
+    public void la_todolist_contient_deux_tâches(List<String> tasks) {
         Assertions.assertEquals(2, todolistUseCaseTransaction.get().render().size());
 
-        Assertions.assertEquals(firstTask, todolistUseCaseTransaction.get().render().get(0).name());
+        Assertions.assertEquals(tasks.get(0), todolistUseCaseTransaction.get().render().get(0).name());
         Assertions.assertFalse(todolistUseCaseTransaction.get().render().get(0).done());
 
-        Assertions.assertEquals(secondTask, todolistUseCaseTransaction.get().render().get(1).name());
+        Assertions.assertEquals(tasks.get(1), todolistUseCaseTransaction.get().render().get(1).name());
         Assertions.assertFalse(todolistUseCaseTransaction.get().render().get(1).done());
     }
 

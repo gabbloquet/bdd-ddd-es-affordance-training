@@ -14,4 +14,6 @@ Fonctionnalité: Ajouter une tâche à ma todolist
   Scénario: Todolist contenant une tâche
     Etant donné la tâche "Travailler le BDD" à faire
     Lorsque la tâche "Travailler le hula hoop" est ajoutée
-    Alors les tâches "Travailler le BDD" et "Travailler le hula hoop" sont à faire
+    Alors les tâches à faire sont
+      | Travailler le BDD     |
+      | Travailler le hula hoop |

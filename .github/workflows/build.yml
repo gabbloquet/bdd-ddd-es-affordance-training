@@ -33,9 +33,9 @@ jobs:
         with:
           java-version: '18'
           distribution: 'adopt'
+      - name: Test
+        working-directory: service
+        run: mvn -B test
       - name: Build
         working-directory: service
         run: mvn --batch-mode -DskipTests package
-      - name: Test
-        working-directory: service
-        run: mvn run test

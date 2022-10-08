@@ -5,6 +5,8 @@ import io.github.gabbloquet.todolist.domain.task.model.TaskEvent;
 import io.github.gabbloquet.todolist.domain.task.model.TaskId;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @DomainEvent
 @Builder
 @ToString
@@ -18,6 +20,8 @@ public class TaskCreated implements TaskEvent {
     public final String description;
 
     public final boolean isCompleted;
+
+    public final LocalDateTime creationTime;
 
     @Override
     public <T> T accept(Visitor<T> visitor) {

@@ -23,6 +23,7 @@ import io.github.gabbloquet.todolist.domain.todolist.filter.TodolistQueriesAdapt
 import io.github.gabbloquet.todolist.domain.todolist.infra.TodolistSpringCommandBus;
 import io.github.gabbloquet.todolist.domain.todolist.model.Todolist;
 import io.github.gabbloquet.todolist.domain.todolist.model.TodolistCommandBus;
+import io.github.gabbloquet.todolist.domain.todolist.openApplication.OpenApplicationUseCase;
 import io.github.gabbloquet.todolist.domain.todolist.prioritizeTask.PriorizeTaskUseCase;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
@@ -52,8 +53,8 @@ public class TodolistSpringTestConfig {
 
     @Bean
     @RequestScope
-    public TodolistUseCaseTransaction todolistUseCaseTransaction(TodolistRepository todolistRepository) {
-        return new TodolistUseCaseTransaction(todolistRepository);
+    public TodolistUseCaseTransaction todolistUseCaseTransaction(TodolistRepository todolistRepository, TaskRepository taskRepository) {
+        return new TodolistUseCaseTransaction(todolistRepository, taskRepository);
     }
 
     @Bean
@@ -85,10 +86,9 @@ public class TodolistSpringTestConfig {
 
     @Bean
     public TodolistService todolistService(
-            TodolistRepository todolistRepository,
             TodolistCommandBus todolistCommandBus
     ) {
-        return new TodolistService(todolistRepository, todolistCommandBus);
+        return new TodolistService(todolistCommandBus);
     }
 
     @Bean
@@ -158,6 +158,13 @@ public class TodolistSpringTestConfig {
             TodolistUseCaseTransaction todolistUseCaseTransaction
     ) {
         return new DeprioritizeTaskUseCase(todolistUseCaseTransaction);
+    }
+
+    @Bean
+    public OpenApplicationUseCase openApplicationUseCase(
+            TodolistUseCaseTransaction todolistUseCaseTransaction
+    ) {
+        return new OpenApplicationUseCase(todolistUseCaseTransaction);
     }
 
     @Bean

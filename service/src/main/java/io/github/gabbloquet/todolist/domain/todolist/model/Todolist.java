@@ -4,6 +4,7 @@ import io.github.gabbloquet.todolist.annotations.Projection;
 import io.github.gabbloquet.todolist.domain.task.addTask.TaskCreated;
 import io.github.gabbloquet.todolist.domain.task.completeTask.TaskCompleted;
 import io.github.gabbloquet.todolist.domain.task.deleteTask.TaskDeleted;
+import io.github.gabbloquet.todolist.domain.task.model.TaskEvent;
 import io.github.gabbloquet.todolist.domain.task.model.TaskId;
 import io.github.gabbloquet.todolist.domain.task.model.TaskNotFound;
 import io.github.gabbloquet.todolist.domain.task.renameTask.TaskRenamed;
@@ -19,7 +20,7 @@ import java.util.stream.Stream;
 
 @Projection
 @EqualsAndHashCode
-public class Todolist {
+public class Todolist implements TaskEvent.Visitor<Todolist> {
 
     private final ArrayList<Task> tasks;
     private final ArrayList<Task> completedTasks;
@@ -90,31 +91,42 @@ public class Todolist {
             tasks.add(task);
     }
 
-    public void apply(TaskCreated event) {
+    public Todolist apply(TaskCreated event) {
         this.tasks.add(new Task(event.taskId, event.description, event.isCompleted));
+        return this;
     }
 
-    public void apply(TaskCompleted event) {
+    public Todolist apply(TaskCompleted event) {
         Task existingTask = findById(event.taskId);
 
         Task completedTask = new Task(existingTask.taskId, existingTask.name, true);
 
         completedTasks.add(completedTask);
         tasks.remove(existingTask);
+
+        return this;
     }
 
-    public void apply(TaskRenamed event) {
+    public Todolist apply(TaskRenamed event) {
         Task existingTask = findById(event.taskId);
         int position = tasks.indexOf(existingTask);
 
         Task modifiedTask = new Task(existingTask.taskId, event.getDescription(), existingTask.done);
 
         tasks.set(position, modifiedTask);
+
+        return this;
     }
 
-    public void apply(TaskDeleted event) {
+    public Todolist apply(TaskDeleted event) {
         Task taskToDelete = findById(event.taskId);
         tasks.remove(taskToDelete);
+
+        return this;
+    }
+
+    public Todolist apply(TaskEvent taskEvent) {
+        return taskEvent.accept(this);
     }
 
     public record Task(TaskId taskId, String name, boolean done) {

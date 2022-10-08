@@ -1,5 +1,6 @@
 package io.github.gabbloquet.todolist.domain.todolist;
 
+import io.github.gabbloquet.todolist.domain.task.TaskRepository;
 import io.github.gabbloquet.todolist.domain.todolist.model.Todolist;
 import io.github.gabbloquet.todolist.domain.todolist.model.TodolistNotFound;
 import lombok.NonNull;
@@ -11,16 +12,22 @@ public class TodolistUseCaseTransaction implements Supplier<Todolist> {
     @NonNull
     private final TodolistRepository todolistRepository;
 
+    @NonNull
+    private final TaskRepository taskRepository;
+
     private Todolist todolist;
 
-    public TodolistUseCaseTransaction(@NonNull TodolistRepository todolistRepository) {
+    public TodolistUseCaseTransaction(@NonNull TodolistRepository todolistRepository, TaskRepository taskRepository) {
         this.todolistRepository = todolistRepository;
+        this.taskRepository = taskRepository;
     }
 
     public void start() {
-//        TODO: par la suite, en gerant le multi todolist, en passant en param l'ID
-        this.todolist = todolistRepository.get()
-                .orElseThrow(TodolistNotFound::new);
+        todolist = new Todolist();
+        taskRepository.get()
+            .forEach(task -> {
+                task.getEvents().forEach(todolist::apply);
+            });
     }
 
     @Override

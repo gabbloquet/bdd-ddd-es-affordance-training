@@ -28,14 +28,4 @@ public class FilterTasksSpec {
     public void lesTâchesTerminéesSontDemandées() {
         todolist = todolistQueries.filterBy(COMPLETED_TASKS);
     }
-
-    @Alors("les tâches proposées sont")
-    public void lesTâchesProposéesSont(List<String> tasks) {
-        List<Todolist.Task> purposedTasks = todolist.render();
-
-        Assertions.assertEquals(tasks.size(), purposedTasks.size());
-
-        Assertions.assertEquals(tasks.get(0), purposedTasks.get(0).name());
-        Assertions.assertEquals(tasks.get(1), purposedTasks.get(1).name());
-    }
 }

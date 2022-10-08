@@ -7,7 +7,6 @@ import io.github.gabbloquet.todolist.domain.ScenarioState;
 import io.github.gabbloquet.todolist.domain.task.TaskService;
 import io.github.gabbloquet.todolist.domain.task.completeTask.CompleteTask;
 import io.github.gabbloquet.todolist.domain.task.model.TaskId;
-import io.github.gabbloquet.todolist.domain.todolist.TodolistRepository;
 import io.github.gabbloquet.todolist.domain.todolist.TodolistUseCaseTransaction;
 import io.github.gabbloquet.todolist.domain.todolist.model.Todolist;
 import io.github.gabbloquet.todolist.domain.todolist.model.Todolist.Task;
@@ -16,8 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 
 public class CompleteTaskSpec {
 
@@ -29,9 +26,6 @@ public class CompleteTaskSpec {
 
     @Autowired
     private TaskService taskService;
-
-    @Autowired
-    private TodolistRepository todolistRepository;
 
     @Lorsque("la tâche {string} est accomplie")
     public void latâcheEstAccomplie(String task) {
@@ -51,8 +45,6 @@ public class CompleteTaskSpec {
 
         Task completedTask = todolistUseCaseTransaction.get().findByName(task);
         Assertions.assertTrue(completedTask.done());
-
-        verify(todolistRepository, times(1)).save(todolistUseCaseTransaction.get());
     }
 
     @Et("la tâche {string} est placée en haut de la liste")

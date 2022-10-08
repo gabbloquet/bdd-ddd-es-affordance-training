@@ -1,24 +1,22 @@
 package io.github.gabbloquet.todolist.domain.todolist.filter;
 
-import io.github.gabbloquet.todolist.domain.todolist.TodolistRepository;
 import io.github.gabbloquet.todolist.domain.todolist.model.Todolist;
-import io.github.gabbloquet.todolist.domain.todolist.model.TodolistNotFound;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 @RequiredArgsConstructor
 public class TodolistQueriesAdapter implements TodolistQueries {
 
-    private final TodolistRepository todolistRepository;
+    private final Supplier<Todolist> todolistSupplier;
 
     @Override
     public Todolist filterBy(Filter filter) {
         List<Todolist.Task> filteredTasks;
-        Todolist todolist = todolistRepository.get()
-                .orElseThrow(TodolistNotFound::new);
+        Todolist todolist = todolistSupplier.get();
 
         Predicate<Todolist.Task> filteringFunction =
                 filter.equals(Filter.COMPLETED_TASKS)

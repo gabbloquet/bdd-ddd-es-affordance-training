@@ -6,8 +6,6 @@ import io.github.gabbloquet.todolist.domain.ScenarioState;
 import io.github.gabbloquet.todolist.domain.task.TaskRepository;
 import io.github.gabbloquet.todolist.domain.task.addTask.TaskCreated;
 import io.github.gabbloquet.todolist.domain.task.model.Task;
-import io.github.gabbloquet.todolist.domain.task.model.TaskId;
-import io.github.gabbloquet.todolist.domain.todolist.TodolistRepository;
 import io.github.gabbloquet.todolist.domain.todolist.TodolistUseCaseTransaction;
 import io.github.gabbloquet.todolist.domain.todolist.model.Todolist;
 import org.junit.jupiter.api.Assertions;
@@ -25,22 +23,20 @@ public class TodolistSpec {
     private ScenarioState scenarioState;
 
     @Autowired
-    private TodolistRepository todolistRepository;
-
-    @Autowired
     private TaskRepository taskRepository;
 
     @Autowired
     private TodolistUseCaseTransaction todolistUseCaseTransaction;
 
     @Etantdonné("aucune tâche à faire")
-    public void une_todolist_vierge() {}
+    public void une_todolist_vierge() {
+    }
 
     @Etantdonné("la tâche {string} à faire")
     public void la_tache_à_faire(String task) {
         scenarioState.addTask(task, false);
 
-        mockTaskToDo(task);
+        mockTasks();
     }
 
     @Etantdonné("la tâche {string} terminée")
@@ -48,7 +44,7 @@ public class TodolistSpec {
         scenarioState
                 .addTask(task, true);
 
-        mockTaskCompleted(task);
+        mockTasks();
     }
 
     @Etantdonné("les tâches à faire")
@@ -60,7 +56,16 @@ public class TodolistSpec {
         mockTasks();
     }
 
-//    @Etantdonné("les tâches à faire")
+    @Etantdonné("les tâches terminées")
+    public void les_taches_terminees(List<String> tasks) {
+        scenarioState
+                .addTask(tasks.get(0), true)
+                .addTask(tasks.get(1), true);
+
+        mockTasks();
+    }
+
+    //    @Etantdonné("les tâches à faire")
 //    public void les_taches_a_faire(Set<Task> tasks) {
 //        tasks.forEach(task -> {
 //            scenarioState.addTask(task.taskId, task., false);
@@ -69,16 +74,6 @@ public class TodolistSpec {
 //
 //        mockTodolist();
 //    }
-
-    @Etantdonné("les tâches terminées")
-    public void les_taches_terminees(List<String> tasks) {
-        scenarioState
-                .addTask(tasks.get(0), true)
-                .addTask(tasks.get(1), true);
-
-        mockTaskToDo(tasks.get(0));
-        mockTaskToDo(tasks.get(1));
-    }
 
     @Alors("les tâches proposées sont")
     public void lesTâchesProposéesSont(List<String> tasks) {
@@ -97,8 +92,6 @@ public class TodolistSpec {
 
         Assertions.assertEquals(expectedTask, todolistUseCaseTransaction.get().render().get(0).name());
         Assertions.assertFalse(todolistUseCaseTransaction.get().render().get(0).done());
-
-        verify(todolistRepository, times(1)).save(todolistUseCaseTransaction.get());
     }
 
     @Alors("les tâches {string} et {string} sont à faire")
@@ -110,8 +103,6 @@ public class TodolistSpec {
 
         Assertions.assertEquals(secondTask, todolistUseCaseTransaction.get().render().get(1).name());
         Assertions.assertFalse(todolistUseCaseTransaction.get().render().get(1).done());
-
-        verify(todolistRepository, times(1)).save(todolistUseCaseTransaction.get());
     }
 
     @Alors("aucune tâche n'est proposée")
@@ -119,63 +110,24 @@ public class TodolistSpec {
         Assertions.assertEquals(0, todolistUseCaseTransaction.get().render().size());
     }
 
-    private void mockTaskCompleted(String description) {
-        TaskId taskId = scenarioState.getTaskId(description);
-
-        when(taskRepository.get(taskId))
-                .thenReturn(Optional.of(new Task(taskId, new ArrayList<>(List.of(
-                        TaskCreated.builder()
-                                .taskId(taskId)
-                                .description(description)
-                                .isCompleted(true)
-                                .build()
-                )))));
-    }
-
-//    private void mockTodolist() {
-//        ArrayList<Todolist.Task> tasks = new ArrayList<>();
-//
-//        scenarioState.getTasks()
-//                .forEach((name, task) -> {
-//                    tasks.add(new Todolist.Task(task.taskId(), name, task.done()));
-//                });
-//
-//        Todolist todolist = new Todolist(tasks);
-//        when(todolistRepository.get())
-//                .thenReturn(Optional.of(todolist));
-//    }
-
-    private void mockTaskToDo(String description) {
-        TaskId taskId = scenarioState.getTaskId(description);
-
-        when(taskRepository.get(taskId))
-                .thenReturn(Optional.of(new Task(taskId, new ArrayList<>(List.of(
-                        TaskCreated.builder()
-                                .taskId(taskId)
-                                .description(description)
-                                .isCompleted(false)
-                                .build()
-                )))));
-    }
-
     private void mockTasks() {
         List<Task> taskAggregates = scenarioState.getTasks().values().stream()
                 .map((task) ->
-                     new Task(task.taskId(), new ArrayList<>(List.of(
-                                    TaskCreated.builder()
-                                            .taskId(task.taskId())
-                                            .description(task.description())
-                                            .creationTime(task.creationTime())
-                                            .isCompleted(task.done())
-                                            .build()
-                            )))
+                        new Task(task.taskId(), new ArrayList<>(List.of(
+                                TaskCreated.builder()
+                                        .taskId(task.taskId())
+                                        .description(task.description())
+                                        .creationTime(task.creationTime())
+                                        .isCompleted(task.done())
+                                        .build()
+                        )))
                 ).toList();
 
         taskAggregates
-            .forEach((task) -> {
-                when(taskRepository.get(task.taskId))
-                        .thenReturn(Optional.of(task));
-            });
+                .forEach((task) -> {
+                    when(taskRepository.get(task.taskId))
+                            .thenReturn(Optional.of(task));
+                });
 
         when(taskRepository.get())
                 .thenReturn(taskAggregates);

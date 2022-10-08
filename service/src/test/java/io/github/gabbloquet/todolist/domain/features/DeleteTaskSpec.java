@@ -12,11 +12,11 @@ public class DeleteTaskSpec {
 
     @Autowired
     private ScenarioState scenarioState;
-
     @Autowired
     private TaskService taskService;
+
     @Lorsque("la tâche {string} est supprimée")
-    public void laTâcheEstSupprimée(String task) {
+    public void la_tache_est_supprimee(String task) {
         TaskId taskId = scenarioState.getTaskId(task);
         DeleteTask command = DeleteTask.builder()
                 .taskId(taskId)

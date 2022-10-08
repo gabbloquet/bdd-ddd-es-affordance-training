@@ -1,10 +1,8 @@
 package io.github.gabbloquet.todolist.domain.todolist.filter;
 
 import io.github.gabbloquet.todolist.domain.task.model.TaskId;
-import io.github.gabbloquet.todolist.domain.todolist.TodolistRepository;
 import io.github.gabbloquet.todolist.domain.todolist.model.Todolist;
 import io.github.gabbloquet.todolist.domain.todolist.model.TodolistNotFound;
-import org.assertj.core.api.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,7 +13,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Supplier;
 
 import static org.mockito.Mockito.when;
@@ -24,7 +21,7 @@ import static org.mockito.Mockito.when;
 class TodolistQueriesAdapterTest {
 
     @Mock
-    private TodolistRepository todolistRepository;
+    private Supplier<Todolist> todolistSupplier;
 
     @InjectMocks
     private TodolistQueriesAdapter todolistQueriesAdapter;
@@ -45,8 +42,8 @@ class TodolistQueriesAdapterTest {
         );
         Todolist todolist = new Todolist(new ArrayList<>(tasks));
 
-        when(todolistRepository.get())
-                .thenReturn(Optional.of(todolist));
+        when(todolistSupplier.get())
+                .thenReturn(todolist);
     }
 
     @Test
@@ -77,8 +74,8 @@ class TodolistQueriesAdapterTest {
 
     @Test
     void throws_todolist_not_found() {
-        when(todolistRepository.get())
-                .thenReturn(Optional.empty());
+        when(todolistSupplier.get())
+                .thenReturn(null);
 
         TodolistNotFound exception = Assertions.assertThrows(TodolistNotFound.class, () ->
             todolistQueriesAdapter.filterBy(TodolistQueries.Filter.TO_DO_TASKS)

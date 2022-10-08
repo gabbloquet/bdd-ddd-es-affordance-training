@@ -14,7 +14,6 @@ import io.github.gabbloquet.todolist.domain.task.model.TaskEventBus;
 import io.github.gabbloquet.todolist.domain.task.model.TaskId;
 import io.github.gabbloquet.todolist.domain.task.renameTask.RenameTaskUseCase;
 import io.github.gabbloquet.todolist.domain.todolist.TodolistEventHandler;
-import io.github.gabbloquet.todolist.domain.todolist.TodolistRepository;
 import io.github.gabbloquet.todolist.domain.todolist.TodolistService;
 import io.github.gabbloquet.todolist.domain.todolist.TodolistUseCaseTransaction;
 import io.github.gabbloquet.todolist.domain.todolist.deprioritizeTask.DeprioritizeTaskUseCase;
@@ -53,8 +52,8 @@ public class TodolistSpringTestConfig {
 
     @Bean
     @RequestScope
-    public TodolistUseCaseTransaction todolistUseCaseTransaction(TodolistRepository todolistRepository, TaskRepository taskRepository) {
-        return new TodolistUseCaseTransaction(todolistRepository, taskRepository);
+    public TodolistUseCaseTransaction todolistUseCaseTransaction(TaskRepository taskRepository) {
+        return new TodolistUseCaseTransaction(taskRepository);
     }
 
     @Bean
@@ -103,12 +102,6 @@ public class TodolistSpringTestConfig {
     public TodolistEventHandler todolistEventHandler(
             TodolistUseCaseTransaction todolistUseCaseTransaction) {
         return new TodolistEventHandler(todolistUseCaseTransaction);
-    }
-
-    @Bean
-    @RequestScope
-    public TodolistRepository todolistRepository(MockRegistry registry) {
-        return registry.mock(TodolistRepository.class);
     }
 
     @Bean
@@ -169,9 +162,9 @@ public class TodolistSpringTestConfig {
 
     @Bean
     public TodolistQueries todolistQueries(
-            TodolistRepository todolistRepository
+            Supplier<Todolist> todolistSupplier
     ) {
-        return new TodolistQueriesAdapter(todolistRepository);
+        return new TodolistQueriesAdapter(todolistSupplier);
     }
 
     @Bean

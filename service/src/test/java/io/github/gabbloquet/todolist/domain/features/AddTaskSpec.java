@@ -1,16 +1,11 @@
 package io.github.gabbloquet.todolist.domain.features;
 
-import io.cucumber.java.fr.Alors;
 import io.cucumber.java.fr.Lorsque;
 import io.github.gabbloquet.todolist.domain.ScenarioState;
 import io.github.gabbloquet.todolist.domain.task.TaskService;
 import io.github.gabbloquet.todolist.domain.task.addTask.AddTask;
-import io.github.gabbloquet.todolist.domain.todolist.TodolistRepository;
-import io.github.gabbloquet.todolist.domain.todolist.TodolistUseCaseTransaction;
-import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 public class AddTaskSpec {

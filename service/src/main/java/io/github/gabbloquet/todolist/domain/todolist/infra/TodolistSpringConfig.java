@@ -13,7 +13,6 @@ import io.github.gabbloquet.todolist.domain.task.model.TaskEventBus;
 import io.github.gabbloquet.todolist.domain.task.model.TaskId;
 import io.github.gabbloquet.todolist.domain.task.renameTask.RenameTaskUseCase;
 import io.github.gabbloquet.todolist.domain.todolist.TodolistEventHandler;
-import io.github.gabbloquet.todolist.domain.todolist.TodolistRepository;
 import io.github.gabbloquet.todolist.domain.todolist.TodolistService;
 import io.github.gabbloquet.todolist.domain.todolist.TodolistUseCaseTransaction;
 import io.github.gabbloquet.todolist.domain.todolist.deprioritizeTask.DeprioritizeTaskUseCase;
@@ -41,8 +40,8 @@ public class TodolistSpringConfig {
 
     @Bean
     @RequestScope
-    public TodolistUseCaseTransaction todolistUseCaseTransaction(TodolistRepository todolistRepository, TaskRepository taskRepository) {
-        return new TodolistUseCaseTransaction(todolistRepository, taskRepository);
+    public TodolistUseCaseTransaction todolistUseCaseTransaction(TaskRepository taskRepository) {
+        return new TodolistUseCaseTransaction(taskRepository);
     }
 
     @Bean
@@ -55,11 +54,6 @@ public class TodolistSpringConfig {
     @RequestScope
     public TaskUseCaseTransaction taskUseCaseTransaction(TaskRepository taskRepository) {
         return new TaskUseCaseTransaction(taskRepository);
-    }
-
-    @Bean
-    public TodolistRepository todolistRepository() {
-        return new InMemoryTodolistRepository();
     }
 
     @Bean
@@ -153,9 +147,9 @@ public class TodolistSpringConfig {
 
     @Bean
     public TodolistQueries todolistQueries(
-            TodolistRepository todolistRepository
+            Supplier<Todolist> todolistSupplier
     ) {
-        return new TodolistQueriesAdapter(todolistRepository);
+        return new TodolistQueriesAdapter(todolistSupplier);
     }
 
     @Bean

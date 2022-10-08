@@ -2,7 +2,6 @@ package io.github.gabbloquet.todolist.domain.todolist;
 
 import io.github.gabbloquet.todolist.domain.task.TaskRepository;
 import io.github.gabbloquet.todolist.domain.todolist.model.Todolist;
-import io.github.gabbloquet.todolist.domain.todolist.model.TodolistNotFound;
 import lombok.NonNull;
 
 import java.util.function.Supplier;
@@ -10,15 +9,11 @@ import java.util.function.Supplier;
 public class TodolistUseCaseTransaction implements Supplier<Todolist> {
 
     @NonNull
-    private final TodolistRepository todolistRepository;
-
-    @NonNull
     private final TaskRepository taskRepository;
 
     private Todolist todolist;
 
-    public TodolistUseCaseTransaction(@NonNull TodolistRepository todolistRepository, TaskRepository taskRepository) {
-        this.todolistRepository = todolistRepository;
+    public TodolistUseCaseTransaction(TaskRepository taskRepository) {
         this.taskRepository = taskRepository;
     }
 
@@ -33,10 +28,6 @@ public class TodolistUseCaseTransaction implements Supplier<Todolist> {
     @Override
     public Todolist get() {
         return todolist;
-    }
-
-    public void commit() {
-        todolistRepository.save(todolist);
     }
 
 }

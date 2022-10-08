@@ -20,7 +20,5 @@ public class PriorizeTaskUseCase implements TodolistCommandReceiver<PrioritizeTa
         todolistUseCaseTransaction.start();
 
         todolistUseCaseTransaction.get().prioritize(command.taskId);
-
-        todolistUseCaseTransaction.commit();
     }
 }

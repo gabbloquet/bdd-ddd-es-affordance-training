@@ -19,8 +19,6 @@ public class TodolistEventHandler {
         todolistUseCaseTransaction.start();
 
         todolistUseCaseTransaction.get().apply(event);
-
-        todolistUseCaseTransaction.commit();
     }
 
     @EventListener
@@ -28,8 +26,6 @@ public class TodolistEventHandler {
         todolistUseCaseTransaction.start();
 
         todolistUseCaseTransaction.get().apply(event);
-
-        todolistUseCaseTransaction.commit();
     }
 
     @EventListener
@@ -37,16 +33,11 @@ public class TodolistEventHandler {
         todolistUseCaseTransaction.start();
 
         todolistUseCaseTransaction.get().apply(event);
-
-        todolistUseCaseTransaction.commit();
     }
 
     @EventListener
     public void onTaskDeleted(TaskDeleted event) {
+//        TODO: pourquoi l'event est déjà dans le repository ?
         todolistUseCaseTransaction.start();
-
-        todolistUseCaseTransaction.get().apply(event);
-
-        todolistUseCaseTransaction.commit();
     }
 }

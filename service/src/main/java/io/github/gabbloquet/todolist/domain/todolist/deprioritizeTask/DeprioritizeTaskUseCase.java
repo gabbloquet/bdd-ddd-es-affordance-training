@@ -20,7 +20,5 @@ public class DeprioritizeTaskUseCase implements TodolistCommandReceiver<Depriori
         todolistUseCaseTransaction.start();
 
         todolistUseCaseTransaction.get().deprioritize(command.taskId);
-
-        todolistUseCaseTransaction.commit();
     }
 }

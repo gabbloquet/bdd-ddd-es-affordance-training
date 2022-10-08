@@ -2,7 +2,7 @@
 
 This repository is a boot camp to try to implement BDD, DDD, affordance.  
 
-Firstly, I tried to work on a TODO list example.
+Firstly, I tried to work on a TODO list example. ([Feature examples](https://www.todolist.co/features.html))
 
 ## Documentation
 
@@ -18,7 +18,7 @@ Firstly, I tried to work on a TODO list example.
 3. Make the whole app works :tada:
 4. Try to work on another example -> _Provide me ideas with [issues](https://github.com/gabbloquet/bdd-ddd-affordance-training/issues)_
 
-## How add a feature
+## Ajouter une fonctionnalité
 
 1. Ajouter le / les acceptance tests (au format Gherkins) dans [resources/features](./service/src/test/resources/features)
 2. Écrire les Specs associées, proposées par l'auto-completion sur IntelliJ (Choisir Java), avec le code associé

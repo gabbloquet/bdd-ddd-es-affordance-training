@@ -8,7 +8,7 @@ on:
     types: [ opened, reopened, synchronize ]
 
 jobs:
-  test-front:
+  front:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -24,7 +24,7 @@ jobs:
       - name: Tests
         working-directory: front
         run: npm test
-  test-back:
+  service:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -35,7 +35,7 @@ jobs:
           distribution: 'adopt'
       - name: Build
         working-directory: service
-        run: mvn --batch-mode --update-snapshots -DskipTests
+        run: mvn --batch-mode -DskipTests package
       - name: Test
         working-directory: service
         run: mvn run test

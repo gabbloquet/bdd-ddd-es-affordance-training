@@ -13,6 +13,7 @@ import io.github.gabbloquet.todolist.domain.todolist.prioritizeTask.TaskPrioriti
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -92,14 +93,14 @@ public class Todolist implements TaskEvent.Visitor<Todolist> {
     }
 
     public Todolist apply(TaskCreated event) {
-        this.tasks.add(new Task(event.taskId, event.description, event.isCompleted));
+        this.tasks.add(new Task(event.taskId, event.description, Duration.ZERO, event.isCompleted));
         return this;
     }
 
     public Todolist apply(TaskCompleted event) {
         Task existingTask = findById(event.taskId);
 
-        Task completedTask = new Task(existingTask.taskId, existingTask.name, true);
+        Task completedTask = new Task(existingTask.taskId, existingTask.name, existingTask.duration,true);
 
         completedTasks.add(completedTask);
         tasks.remove(existingTask);
@@ -111,7 +112,7 @@ public class Todolist implements TaskEvent.Visitor<Todolist> {
         Task existingTask = findById(event.taskId);
         int position = tasks.indexOf(existingTask);
 
-        Task modifiedTask = new Task(existingTask.taskId, event.getDescription(), existingTask.done);
+        Task modifiedTask = new Task(existingTask.taskId, event.getDescription(), existingTask.duration, existingTask.done);
 
         tasks.set(position, modifiedTask);
 
@@ -129,9 +130,9 @@ public class Todolist implements TaskEvent.Visitor<Todolist> {
         return taskEvent.accept(this);
     }
 
-    public record Task(TaskId taskId, String name, boolean done) {
+    public record Task(TaskId taskId, String name, Duration duration, boolean done) {
         public Task(String task) {
-            this(new TaskId(UUID.randomUUID()), task, false);
+            this(new TaskId(UUID.randomUUID()), task, Duration.ZERO, false);
         }
     }
 }

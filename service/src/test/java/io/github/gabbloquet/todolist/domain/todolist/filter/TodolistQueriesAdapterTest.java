@@ -11,6 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
@@ -26,11 +27,11 @@ class TodolistQueriesAdapterTest {
     @InjectMocks
     private TodolistQueriesAdapter todolistQueriesAdapter;
 
-    Todolist.Task finishedTask = new Todolist.Task(new TaskId(), "a task", true);
-    Todolist.Task finishedTaskTwo = new Todolist.Task(new TaskId(), "2 task", true);
+    Todolist.Task finishedTask = new Todolist.Task(new TaskId(), "a task", Duration.ZERO, true);
+    Todolist.Task finishedTaskTwo = new Todolist.Task(new TaskId(), "2 task", Duration.ZERO, true);
 
-    Todolist.Task todoTask = new Todolist.Task(new TaskId(), "another task", false);
-    Todolist.Task todoTaskTwo = new Todolist.Task(new TaskId(), "another second task", false);
+    Todolist.Task todoTask = new Todolist.Task(new TaskId(), "another task", Duration.ZERO, false);
+    Todolist.Task todoTaskTwo = new Todolist.Task(new TaskId(), "another second task", Duration.ZERO, false);
 
     @BeforeEach
     void setUp() {

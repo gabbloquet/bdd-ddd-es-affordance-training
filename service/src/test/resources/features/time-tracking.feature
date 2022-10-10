@@ -11,23 +11,23 @@ Fonctionnalité: Connaitre le temps passé sur une tache
   Scénario: Afficher la durée de la tâche en cours
     Etant données les tâches à faire
       | Description           | Créée le           |
-      | Aller au parc Asterix | 01/10/2022 à 08:30  |
+      | Aller au parc Asterix | 01/10/2022 à 08:30 |
       | Aller au bar          | 05/10/2022 à 10:30 |
     Et la date du jour 08/10/2022 à 11:30
     Quand les tâches en cours sont demandées
     Alors les tâches proposées sont
-      | Tâche                 | Durée                   |
+      | Description           | Durée                   |
       | Aller au parc Asterix | 7 jour(s) et 3 heure(s) |
       | Aller au bar          | 3 jour(s) et 1 heure(s) |
 
   Scénario: Filtrer les tâches terminées
     Etant données les tâches terminées
-      | Description                               | Créée le          |
+      | Description                               | Créée le           |
       | Commencer la pratique de l'event sourcing | 06/10/2022 à 08:30 |
       | Commencer la pratique du DDD              | 06/10/2022 à 09:30 |
     Et la date du jour 08/10/2022 à 08:30
     Quand les tâches terminées sont demandées
     Alors les tâches proposées sont
-      | Tâche                                     | Durée                    |
+      | Description                               | Durée                    |
       | Commencer la pratique de l'event sourcing | 2 jour(s)                |
       | Commencer la pratique du DDD              | 1 jour(s) et 23 heure(s) |

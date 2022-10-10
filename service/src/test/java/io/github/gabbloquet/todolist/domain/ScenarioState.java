@@ -16,6 +16,7 @@ public class ScenarioState {
     private final Map<String, Task> tasks = new LinkedHashMap<>();
 
     public TaskState taskState;
+    public Todolist todolist;
 
     public ScenarioState addTask(String description, boolean done) {
         TaskId taskId = new TaskId();

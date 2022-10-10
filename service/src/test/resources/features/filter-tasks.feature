@@ -18,6 +18,7 @@ Fonctionnalité: Voir les tâches terminées
         | Sauter dans le vide |
       Quand les tâches en cours sont demandées
       Alors les tâches proposées sont
+        | Description           |
         | Aller au parc Asterix |
         | Aller au bar          |
 
@@ -32,5 +33,6 @@ Fonctionnalité: Voir les tâches terminées
         | Commencer la pratique du DDD              |
       Quand les tâches terminées sont demandées
       Alors les tâches proposées sont
+        | Description                               |
         | Commencer la pratique de l'event sourcing |
         | Commencer la pratique du DDD              |

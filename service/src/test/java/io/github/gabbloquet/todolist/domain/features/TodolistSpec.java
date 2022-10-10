@@ -13,8 +13,9 @@ import io.github.gabbloquet.todolist.domain.todolist.model.Todolist;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.time.LocalDateTime;
+import java.time.Duration;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.mockito.Mockito.*;
 
@@ -90,6 +91,31 @@ public class TodolistSpec {
 
         Assertions.assertEquals(tasks.get(1), todolistUseCaseTransaction.get().render().get(1).name());
         Assertions.assertFalse(todolistUseCaseTransaction.get().render().get(1).done());
+    }
+
+    @Alors("les tâches proposées sont")
+    public void les_taches_proposees_sont(DataTable dataTable) {
+        List<Todolist.Task> purposedTasks = scenarioState.todolist.render();
+
+        Assertions.assertEquals(dataTable.height() - 1, purposedTasks.size());
+
+        AtomicInteger counter = new AtomicInteger();
+        dataTable.entries().forEach((row) -> {
+            if(row.get("Durée") != null)
+                Assertions.assertEquals(parseDuration(row), purposedTasks.get(counter.get()).duration());
+            Assertions.assertEquals(row.get("Description"), purposedTasks.get(counter.get()).name());
+            counter.getAndIncrement();
+        });
+    }
+
+    private Duration parseDuration(Map<String, String> row) {
+        return switch (row.get("Durée")) {
+            case "7 jour(s) et 3 heure(s)" -> Duration.ofDays(7).plusHours(3);
+            case "3 jour(s) et 1 heure(s)" -> Duration.ofDays(3).plusHours(1);
+            case "2 jour(s)" -> Duration.ofDays(2);
+            case "1 jour(s) et 23 heure(s)" -> Duration.ofDays(1).plusHours(23);
+            default -> Duration.ZERO;
+        };
     }
 
     @Alors("aucune tâche n'est proposée")

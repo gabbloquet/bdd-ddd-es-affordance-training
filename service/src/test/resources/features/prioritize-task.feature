@@ -12,6 +12,7 @@ Fonctionnalité: Prioriser / Déprioriser une tâche de ma todolist
 
   Scénario: Prioriser une tâche
     Etant donné les tâches à faire
+      | Description       |
       | Promener le chien |
       | Faire le café     |
     Lorsque la tâche "Faire le café" est prorisée
@@ -21,6 +22,7 @@ Fonctionnalité: Prioriser / Déprioriser une tâche de ma todolist
 
   Scénario: Déprioriser une tâche
     Etant donné les tâches à faire
+      | Description       |
       | Promener le chien |
       | Faire le café     |
     Lorsque la tâche "Promener le chien" est dépriorisée

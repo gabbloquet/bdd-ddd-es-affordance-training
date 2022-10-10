@@ -9,9 +9,11 @@ Fonctionnalité: Voir les tâches terminées
 
     Scénario: Filtrer les tâches en cours
       Etant donné les tâches à faire
+        | Description           |
         | Aller au parc Asterix |
         | Aller au bar          |
       Et les tâches terminées
+        | Description         |
         | Aller courir        |
         | Sauter dans le vide |
       Quand les tâches en cours sont demandées
@@ -21,9 +23,11 @@ Fonctionnalité: Voir les tâches terminées
 
     Scénario: Filtrer les tâches terminées
       Etant donnée les tâches à faire
+        | Description                              |
         | Ajouter des fonctionnalités à mon projet |
         | Refactorer mon projet                    |
       Et les tâches terminées
+        | Description                               |
         | Commencer la pratique de l'event sourcing |
         | Commencer la pratique du DDD              |
       Quand les tâches terminées sont demandées

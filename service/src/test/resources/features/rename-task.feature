@@ -7,6 +7,7 @@ Fonctionnalité: Renommer une tâche de ma todolist
 
   Scénario: Renommer la première tâche de la liste
     Etant donné les tâches à faire
+      | Description        |
       | Nettoyer la maison |
       | Promener le chien  |
     Lorsque la tâche "Nettoyer la maison" est renommée "Tout nettoyer"

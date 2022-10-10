@@ -27,6 +27,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.annotation.RequestScope;
 
+import java.time.LocalDateTime;
 import java.util.function.Supplier;
 
 @Configuration
@@ -37,7 +38,6 @@ public class TodolistSpringConfig {
     public Supplier<Todolist> todolistSupplier(TodolistUseCaseTransaction todolistUseCaseTransaction) {
         return todolistUseCaseTransaction;
     }
-
     @Bean
     @RequestScope
     public TodolistUseCaseTransaction todolistUseCaseTransaction(TaskRepository taskRepository) {

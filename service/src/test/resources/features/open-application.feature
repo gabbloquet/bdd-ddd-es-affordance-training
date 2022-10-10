@@ -11,6 +11,7 @@ Fonctionnalité: Ouverture de l'application
 
   Scénario: Première ouverture de l'application
     Etant donné les tâches à faire
+      | Description                |
       | Chanter du Joe Dassin      |
       | Siffler avec Yvette Horner |
     Quand l'application est ouverte

@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: org.springframework:spring-webmvc:6.0.0-SNAPSHOT">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/6.0.0-SNAPSHOT/spring-webmvc-6.0.0-20220930.000906-881.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/6.0.0-SNAPSHOT/spring-webmvc-6.0.0-20221009.142944-943.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/6.0.0-SNAPSHOT/spring-webmvc-6.0.0-20220930.000906-881-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/6.0.0-SNAPSHOT/spring-webmvc-6.0.0-20221009.142944-943-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/6.0.0-SNAPSHOT/spring-webmvc-6.0.0-20220930.000906-881-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/6.0.0-SNAPSHOT/spring-webmvc-6.0.0-20221009.142944-943-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

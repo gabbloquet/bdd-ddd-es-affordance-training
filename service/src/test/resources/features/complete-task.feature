@@ -7,8 +7,9 @@ Fonctionnalité: Accomplir une tâche de ma todolist
 
   Scénario: Todolist contenant deux tâches à faire
     Etant donné les tâches à faire
+      | Description        |
       | Nettoyer la maison |
-      | Promener le chien |
+      | Promener le chien  |
     Lorsque la tâche "Promener le chien" est accomplie
     Alors la tâche "Promener le chien" est terminée
     Et la tâche "Promener le chien" est placée en haut de la liste
@@ -16,7 +17,8 @@ Fonctionnalité: Accomplir une tâche de ma todolist
   Scénario: Todolist contenant une tâche terminée et deux tâches à faire
     Etant donné la tâche "Nettoyer la maison" terminée
     Et les tâches à faire
-      | Faire le café |
+      | Description       |
+      | Faire le café     |
       | Promener le chien |
     Lorsque la tâche "Faire le café" est accomplie
     Alors la tâche "Faire le café" est accomplie

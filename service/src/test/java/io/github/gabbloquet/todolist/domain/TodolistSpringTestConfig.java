@@ -29,7 +29,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.web.context.annotation.RequestScope;
 
+import java.time.LocalDateTime;
 import java.util.function.Supplier;
+
+import static org.mockito.Mockito.mock;
 
 public class TodolistSpringTestConfig {
 

@@ -6,6 +6,7 @@ import io.github.gabbloquet.todolist.domain.todolist.model.Todolist;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -25,10 +26,12 @@ public class ScenarioState {
         return this;
     }
 
-    public ScenarioState addTask(String description, LocalDateTime creationDate, boolean done) {
+    public ScenarioState addTask(String description, String creationDate, boolean done) {
         TaskId taskId = new TaskId();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy à HH:mm");
+        LocalDateTime dateTime = LocalDateTime.parse(creationDate, formatter);
 
-        Task task = new Task(taskId, description, creationDate, done);
+        Task task = new Task(taskId, description, dateTime, done);
         tasks.put(description, task);
 
         return this;

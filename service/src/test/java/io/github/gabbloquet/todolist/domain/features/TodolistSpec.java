@@ -1,7 +1,9 @@
 package io.github.gabbloquet.todolist.domain.features;
 
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.fr.Alors;
 import io.cucumber.java.fr.Etantdonné;
+import io.cucumber.java.fr.Etantdonnées;
 import io.github.gabbloquet.todolist.domain.ScenarioState;
 import io.github.gabbloquet.todolist.domain.task.TaskRepository;
 import io.github.gabbloquet.todolist.domain.task.addTask.TaskCreated;
@@ -11,9 +13,8 @@ import io.github.gabbloquet.todolist.domain.todolist.model.Todolist;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDateTime;
+import java.util.*;
 
 import static org.mockito.Mockito.*;
 
@@ -47,33 +48,29 @@ public class TodolistSpec {
         mockTasks();
     }
 
-    @Etantdonné("les tâches à faire")
-    public void les_taches_a_faire(List<String> tasks) {
-        scenarioState
-                .addTask(tasks.get(0), false)
-                .addTask(tasks.get(1), false);
-
-        mockTasks();
-    }
-
     @Etantdonné("les tâches terminées")
-    public void les_taches_terminees(List<String> tasks) {
-        scenarioState
-                .addTask(tasks.get(0), true)
-                .addTask(tasks.get(1), true);
+    public void les_taches_terminees(DataTable dataTable) {
+        dataTable.entries().forEach(row -> {
+            if(row.get("Créée le") != null)
+                scenarioState.addTask(row.get("Description"), row.get("Créée le"), true);
+            else
+                scenarioState.addTask(row.get("Description"), true);
+        });
 
         mockTasks();
     }
 
-    //    @Etantdonné("les tâches à faire")
-//    public void les_taches_a_faire(Set<Task> tasks) {
-//        tasks.forEach(task -> {
-//            scenarioState.addTask(task.taskId, task., false);
-//            mockTaskToDo(row.get(0), LocalDateTime.parse(row.get(1)));
-//        });
-//
-//        mockTodolist();
-//    }
+    @Etantdonnées("les tâches à faire")
+    public void les_taches_a_faire(DataTable dataTable) {
+        dataTable.entries().forEach(row -> {
+            if(row.get("Créée le") != null)
+                scenarioState.addTask(row.get("Description"), row.get("Créée le"), false);
+            else
+                scenarioState.addTask(row.get("Description"), false);
+        });
+
+        mockTasks();
+    }
 
     @Alors("la tâche {string} est à faire")
     @Alors("la tâche {string} est affichée")
@@ -101,17 +98,7 @@ public class TodolistSpec {
     }
 
     private void mockTasks() {
-        List<Task> taskAggregates = scenarioState.getTasks().values().stream()
-                .map((task) ->
-                        new Task(task.taskId(), new ArrayList<>(List.of(
-                                TaskCreated.builder()
-                                        .taskId(task.taskId())
-                                        .description(task.description())
-                                        .creationTime(task.creationTime())
-                                        .isCompleted(task.done())
-                                        .build()
-                        )))
-                ).toList();
+        List<Task> taskAggregates = getTaskAggregatesFromScenarioStage();
 
         taskAggregates
                 .forEach((task) -> {
@@ -123,17 +110,17 @@ public class TodolistSpec {
                 .thenReturn(taskAggregates);
     }
 
-//    private void mockTaskToDo(String description, LocalDateTime dateTime) {
-//        TaskId taskId = scenarioState.getTaskId(description);
-//
-//        when(taskRepository.get(taskId))
-//                .thenReturn(Optional.of(new Task(taskId, new ArrayList<>(List.of(
-//                        TaskCreated.builder()
-//                                .taskId(taskId)
-//                                .description(description)
-//                                .creationTime(dateTime)
-//                                .isCompleted(false)
-//                                .build()
-//                )))));
-//    }
+    private List<Task> getTaskAggregatesFromScenarioStage() {
+        return scenarioState.getTasks().values().stream()
+                .map((task) ->
+                        new Task(task.taskId(), new ArrayList<>(List.of(
+                                TaskCreated.builder()
+                                        .taskId(task.taskId())
+                                        .description(task.description())
+                                        .creationTime(task.creationTime())
+                                        .isCompleted(task.done())
+                                        .build()
+                        )))
+                ).toList();
+    }
 }

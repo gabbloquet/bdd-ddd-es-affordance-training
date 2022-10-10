@@ -27,6 +27,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.annotation.RequestScope;
 
+import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.function.Supplier;
 
@@ -157,4 +158,8 @@ public class TodolistSpringConfig {
         return TaskId::new;
     }
 
+    @Bean
+    private Supplier<LocalDateTime> localDateTimeSupplier() {
+        return LocalDateTime::now;
+    };
 }

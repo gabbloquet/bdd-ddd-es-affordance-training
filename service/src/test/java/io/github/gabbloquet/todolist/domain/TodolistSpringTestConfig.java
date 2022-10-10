@@ -1,13 +1,13 @@
 package io.github.gabbloquet.todolist.domain;
 
 import io.cucumber.spring.ScenarioScope;
-import io.github.gabbloquet.todolist.MockRegistry;
 import io.github.gabbloquet.todolist.domain.task.TaskRepository;
 import io.github.gabbloquet.todolist.domain.task.TaskService;
 import io.github.gabbloquet.todolist.domain.task.TaskUseCaseTransaction;
 import io.github.gabbloquet.todolist.domain.task.addTask.AddTaskUseCase;
 import io.github.gabbloquet.todolist.domain.task.completeTask.CompleteTaskUseCase;
 import io.github.gabbloquet.todolist.domain.task.deleteTask.DeleteTaskUseCase;
+import io.github.gabbloquet.todolist.domain.task.infra.InMemoryTaskRepository;
 import io.github.gabbloquet.todolist.domain.task.infra.TaskSpringEventBus;
 import io.github.gabbloquet.todolist.domain.task.model.Task;
 import io.github.gabbloquet.todolist.domain.task.model.TaskEventBus;
@@ -43,11 +43,6 @@ public class TodolistSpringTestConfig {
     }
 
     @Bean
-    public MockRegistry mockRegistry() {
-        return new MockRegistry();
-    }
-
-    @Bean
     @RequestScope
     public Supplier<Todolist> todolistSupplier(TodolistUseCaseTransaction todolistUseCaseTransaction) {
         return todolistUseCaseTransaction;
@@ -74,10 +69,9 @@ public class TodolistSpringTestConfig {
     @Bean
     @Primary
     public TaskEventBus todolistEventBus(
-            MockRegistry mockRegistry,
             ApplicationEventPublisher eventPublisher,
             Supplier<Task> taskSupplier) {
-        return mockRegistry.spy(new TaskSpringEventBus(eventPublisher, taskSupplier));
+        return new TaskSpringEventBus(eventPublisher, taskSupplier);
     }
 
     @Bean
@@ -109,8 +103,8 @@ public class TodolistSpringTestConfig {
 
     @Bean
     @RequestScope
-    public TaskRepository taskRepository(MockRegistry registry) {
-        return registry.mock(TaskRepository.class);
+    public TaskRepository taskRepository() {
+        return mock(TaskRepository.class);
     }
 
     @Bean
@@ -174,4 +168,9 @@ public class TodolistSpringTestConfig {
     public Supplier<TaskId> taskIdProvider(){
         return TaskId::new;
     }
+
+    @Bean
+    private Supplier<LocalDateTime> localDateTimeSupplier() {
+        return mock(Supplier.class);
+    };
 }

@@ -23,7 +23,7 @@ Fonctionnalité: Voir les tâches terminées
         | Aller au bar          |
 
     Scénario: Filtrer les tâches terminées
-      Etant donnée les tâches à faire
+      Etant donné les tâches à faire
         | Description                              |
         | Ajouter des fonctionnalités à mon projet |
         | Refactorer mon projet                    |

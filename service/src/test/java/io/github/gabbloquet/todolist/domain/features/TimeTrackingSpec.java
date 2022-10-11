@@ -16,7 +16,7 @@ public class TimeTrackingSpec {
     @Autowired
     private Supplier<LocalDateTime> localDateTimeSupplier;
 
-    @Etantdonné("la date du jour {dateTime}")
+    @Etantdonné("la date et l'heure du jour {dateTime}")
     public void la_date_du_jour_a(LocalDateTime dateTime) {
         when(localDateTimeSupplier.get())
                 .thenReturn(dateTime);

@@ -3,7 +3,6 @@ package io.github.gabbloquet.todolist.domain.features;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.fr.Alors;
 import io.cucumber.java.fr.Etantdonné;
-import io.cucumber.java.fr.Etantdonnées;
 import io.github.gabbloquet.todolist.domain.ScenarioState;
 import io.github.gabbloquet.todolist.domain.task.TaskRepository;
 import io.github.gabbloquet.todolist.domain.task.addTask.TaskCreated;
@@ -61,7 +60,7 @@ public class TodolistSpec {
         mockTasks();
     }
 
-    @Etantdonnées("les tâches à faire")
+    @Etantdonné("les tâches à faire")
     public void les_taches_a_faire(DataTable dataTable) {
         dataTable.entries().forEach(row -> {
             if(row.get("Créée le") != null)

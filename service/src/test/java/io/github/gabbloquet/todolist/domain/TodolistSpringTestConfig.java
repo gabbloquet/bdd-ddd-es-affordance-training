@@ -7,7 +7,6 @@ import io.github.gabbloquet.todolist.domain.task.TaskUseCaseTransaction;
 import io.github.gabbloquet.todolist.domain.task.addTask.AddTaskUseCase;
 import io.github.gabbloquet.todolist.domain.task.completeTask.CompleteTaskUseCase;
 import io.github.gabbloquet.todolist.domain.task.deleteTask.DeleteTaskUseCase;
-import io.github.gabbloquet.todolist.domain.task.infra.InMemoryTaskRepository;
 import io.github.gabbloquet.todolist.domain.task.infra.TaskSpringEventBus;
 import io.github.gabbloquet.todolist.domain.task.model.Task;
 import io.github.gabbloquet.todolist.domain.task.model.TaskEventBus;
@@ -111,10 +110,10 @@ public class TodolistSpringTestConfig {
     @Bean
     public AddTaskUseCase addTaskUseCase(
             Supplier<TaskId> taskIdProvider,
-            TaskEventBus taskEventBus,
-            Clock clock
+            Supplier<LocalDateTime> localDateTimeSupplier,
+            TaskEventBus taskEventBus
     ) {
-        return new AddTaskUseCase(taskIdProvider, taskEventBus, clock);
+        return new AddTaskUseCase(taskIdProvider, localDateTimeSupplier, taskEventBus);
     }
 
     @Bean
@@ -127,9 +126,9 @@ public class TodolistSpringTestConfig {
     @Bean
     public CompleteTaskUseCase completeTaskUseCase(
             TaskEventBus taskEventBus,
-            Clock clock
+            Supplier<LocalDateTime> localDateTimeSupplier
     ) {
-        return new CompleteTaskUseCase(taskEventBus, clock);
+        return new CompleteTaskUseCase(taskEventBus, localDateTimeSupplier);
     }
 
     @Bean
@@ -162,9 +161,10 @@ public class TodolistSpringTestConfig {
 
     @Bean
     public TodolistQueries todolistQueries(
-            TodolistUseCaseTransaction todolistUseCaseTransaction
+            TodolistUseCaseTransaction todolistUseCaseTransaction,
+            Supplier<LocalDateTime> localDateTimeSupplier
     ) {
-        return new TodolistQueriesAdapter(todolistUseCaseTransaction);
+        return new TodolistQueriesAdapter(todolistUseCaseTransaction, localDateTimeSupplier);
     }
 
     @Bean
@@ -173,12 +173,8 @@ public class TodolistSpringTestConfig {
     }
 
     @Bean
-    private Supplier<LocalDateTime> localDateTimeSupplier() {
+    public Supplier<LocalDateTime> localDateTimeSupplier(){
         return mock(Supplier.class);
-    };
-
-    @Bean
-    public Clock clock() {
-        return Clock.systemDefaultZone();
     }
+
 }

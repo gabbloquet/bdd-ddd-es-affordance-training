@@ -1,15 +1,9 @@
 package io.github.gabbloquet.todolist.domain.features;
 
-import io.cucumber.datatable.DataTable;
-import io.cucumber.java.fr.Alors;
 import io.cucumber.java.fr.Quand;
 import io.github.gabbloquet.todolist.domain.ScenarioState;
 import io.github.gabbloquet.todolist.domain.todolist.filter.TodolistQueries;
-import io.github.gabbloquet.todolist.domain.todolist.model.Todolist;
-import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.List;
 
 import static io.github.gabbloquet.todolist.domain.todolist.filter.TodolistQueries.Filter.COMPLETED_TASKS;
 import static io.github.gabbloquet.todolist.domain.todolist.filter.TodolistQueries.Filter.TO_DO_TASKS;

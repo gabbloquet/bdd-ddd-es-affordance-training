@@ -9,6 +9,7 @@ import org.springframework.context.event.EventListener;
 
 import java.time.Clock;
 import java.time.LocalDateTime;
+import java.util.function.Supplier;
 
 @DomainService
 @RequiredArgsConstructor
@@ -18,14 +19,14 @@ public class CompleteTaskUseCase implements TodolistCommandReceiver<CompleteTask
     private final TaskEventBus taskEventBus;
 
     @NonNull
-    private final Clock clock;
+    private final Supplier<LocalDateTime> localDateTimeSupplier;
 
     @Override
     @EventListener
     public void execute(CompleteTask command) {
         TaskCompleted event = TaskCompleted.builder()
                 .taskId(command.taskId)
-                .at(LocalDateTime.now(clock))
+                .at(localDateTimeSupplier.get())
                 .build();
 
         taskEventBus.publish(event);

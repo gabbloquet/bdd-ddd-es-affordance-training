@@ -21,7 +21,7 @@ public class ScenarioState {
     public ScenarioState addTask(String description, boolean done) {
         TaskId taskId = new TaskId();
 
-        Task task = new Task(taskId, description, done);
+        Task task = new Task(taskId, description, LocalDateTime.MIN, LocalDateTime.MIN, done);
         tasks.put(description, task);
 
         return this;
@@ -54,10 +54,5 @@ public class ScenarioState {
         return tasks.get(task).taskId();
     }
 
-    public record Task(TaskId taskId, String description, LocalDateTime creationTime, LocalDateTime doneTime, boolean done){
-
-        public Task(TaskId taskId, String descritpion, boolean done) {
-            this(taskId, descritpion, LocalDateTime.now(), null, done);
-        }
-    }
+    public record Task(TaskId taskId, String description, LocalDateTime creationTime, LocalDateTime doneTime, boolean done){}
 }

@@ -15,6 +15,7 @@ import lombok.NonNull;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.temporal.Temporal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -83,7 +84,19 @@ public class Todolist implements TaskEvent.Visitor<Todolist> {
     }
 
     public List<Task> render() {
-        return Stream.concat(completedTasks.stream(), tasks.stream()).toList();
+        return Stream.concat(completedTasks.stream(), tasks.stream())
+                .toList();
+    }
+
+    public List<Task> render(Temporal now) {
+        return Stream.concat(completedTasks.stream(), tasks.stream())
+                .map(task -> {
+                    Duration duration = task.duration;
+                    if(!task.done)
+                        duration = Duration.between(task.creationDateTime, now);
+                    return new Task(task.taskId, task.name, task.creationDateTime, duration, task.done);
+                })
+                .toList();
     }
 
     public void add(Task task) {

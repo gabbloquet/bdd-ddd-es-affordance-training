@@ -4,6 +4,7 @@ import io.github.gabbloquet.todolist.domain.todolist.TodolistUseCaseTransaction;
 import io.github.gabbloquet.todolist.domain.todolist.model.Todolist;
 import lombok.RequiredArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -13,6 +14,7 @@ import java.util.function.Supplier;
 public class TodolistQueriesAdapter implements TodolistQueries {
 
     private final TodolistUseCaseTransaction todolistUseCaseTransaction;
+    private final Supplier<LocalDateTime> localDateTimeSupplier;
 
     @Override
     public Todolist filterBy(Filter filter) {
@@ -26,7 +28,7 @@ public class TodolistQueriesAdapter implements TodolistQueries {
                         ? getDone()
                         : getTodo();
 
-        filteredTasks = todolist.render().stream()
+        filteredTasks = todolist.render(localDateTimeSupplier.get()).stream()
                 .filter(filteringFunction)
                 .toList();
 

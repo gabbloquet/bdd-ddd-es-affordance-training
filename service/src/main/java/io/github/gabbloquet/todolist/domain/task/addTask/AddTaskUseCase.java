@@ -20,10 +20,11 @@ public class AddTaskUseCase implements TodolistCommandReceiver<AddTask> {
     private final Supplier<TaskId> taskIdProvider;
 
     @NonNull
-    private final TaskEventBus taskEventBus;
+    private final Supplier<LocalDateTime> localDateTimeSupplier;
 
     @NonNull
-    private final Clock clock;
+    private final TaskEventBus taskEventBus;
+
 
     @Override
     @EventListener
@@ -31,7 +32,7 @@ public class AddTaskUseCase implements TodolistCommandReceiver<AddTask> {
         TaskCreated taskCreated = TaskCreated.builder()
                 .taskId(taskIdProvider.get())
                 .description(command.description)
-                .creationTime(LocalDateTime.now(clock))
+                .creationTime(localDateTimeSupplier.get())
                 .isCompleted(false)
                 .build();
 

@@ -13,7 +13,10 @@ import io.github.gabbloquet.todolist.domain.todolist.model.Todolist.Task;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.LocalDateTime;
+
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.InstanceOfAssertFactories.LOCAL_DATE_TIME;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CompleteTaskSpec {
@@ -52,7 +55,10 @@ public class CompleteTaskSpec {
         Todolist todolist = todolistUseCaseTransaction.get();
         Task firstTask = todolist.findByName(task);
 
-        Assertions.assertEquals(todolist.render().get(0), firstTask);
+        Assertions.assertEquals(
+                todolist.render(LocalDateTime.now()).get(0).name(),
+                firstTask.name()
+        );
     }
 
     @Et("la tâche {string} est placée en seconde position de la liste")
@@ -60,6 +66,6 @@ public class CompleteTaskSpec {
         Todolist todolist = todolistUseCaseTransaction.get();
         Task secondTask = todolist.findByName(task);
 
-        Assertions.assertEquals(todolist.render().get(1).name(), secondTask.name());
+        Assertions.assertEquals(todolist.render(LocalDateTime.now()).get(1).name(), secondTask.name());
     }
 }

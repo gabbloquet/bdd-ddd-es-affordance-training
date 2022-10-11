@@ -1,20 +1,26 @@
 package io.github.gabbloquet.todolist.domain.features;
 
 import io.cucumber.datatable.DataTable;
+import io.cucumber.java.Before;
 import io.cucumber.java.fr.Alors;
 import io.cucumber.java.fr.Etantdonné;
 import io.github.gabbloquet.todolist.domain.ScenarioState;
 import io.github.gabbloquet.todolist.domain.task.TaskRepository;
 import io.github.gabbloquet.todolist.domain.task.addTask.TaskCreated;
+import io.github.gabbloquet.todolist.domain.task.completeTask.TaskCompleted;
 import io.github.gabbloquet.todolist.domain.task.model.Task;
+import io.github.gabbloquet.todolist.domain.task.model.TaskEvent;
 import io.github.gabbloquet.todolist.domain.todolist.TodolistUseCaseTransaction;
 import io.github.gabbloquet.todolist.domain.todolist.model.Todolist;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.Clock;
 import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Supplier;
 
 import static org.mockito.Mockito.*;
 
@@ -28,6 +34,15 @@ public class TodolistSpec {
 
     @Autowired
     private TodolistUseCaseTransaction todolistUseCaseTransaction;
+
+    @Autowired
+    private Supplier<LocalDateTime> localDateTimeSupplier;
+
+    @Before
+    public void setUp() {
+        when(localDateTimeSupplier.get())
+                .thenReturn(LocalDateTime.now());
+    }
 
     @Etantdonné("aucune tâche à faire")
     public void une_todolist_vierge() {
@@ -51,7 +66,7 @@ public class TodolistSpec {
     @Etantdonné("les tâches à faire")
     public void les_taches_a_faire(DataTable dataTable) {
         dataTable.entries().forEach(row -> {
-            if(row.get("Créée le") != null)
+            if (row.get("Créée le") != null)
                 scenarioState.addTask(row.get("Description"), row.get("Créée le"), false);
             else
                 scenarioState.addTask(row.get("Description"), false);
@@ -63,7 +78,7 @@ public class TodolistSpec {
     @Etantdonné("les tâches terminées")
     public void les_taches_terminees(DataTable dataTable) {
         dataTable.entries().forEach(row -> {
-            if(row.get("Créée le") != null && row.get("Terminée le") != null)
+            if (row.get("Créée le") != null && row.get("Terminée le") != null)
                 scenarioState.addTask(row.get("Description"), row.get("Créée le"), row.get("Terminée le"), true);
             else
                 scenarioState.addTask(row.get("Description"), true);
@@ -75,21 +90,21 @@ public class TodolistSpec {
     @Alors("la tâche {string} est à faire")
     @Alors("la tâche {string} est affichée")
     public void la_todolist_contient_une_tache(String expectedTask) {
-        Assertions.assertEquals(1, todolistUseCaseTransaction.get().render().size());
+        Assertions.assertEquals(1, todolistUseCaseTransaction.get().render(LocalDateTime.now()).size());
 
-        Assertions.assertEquals(expectedTask, todolistUseCaseTransaction.get().render().get(0).name());
-        Assertions.assertFalse(todolistUseCaseTransaction.get().render().get(0).done());
+        Assertions.assertEquals(expectedTask, todolistUseCaseTransaction.get().render(LocalDateTime.now()).get(0).name());
+        Assertions.assertFalse(todolistUseCaseTransaction.get().render(LocalDateTime.now()).get(0).done());
     }
 
     @Alors("les tâches à faire sont")
     public void la_todolist_contient_deux_tâches(List<String> tasks) {
-        Assertions.assertEquals(2, todolistUseCaseTransaction.get().render().size());
+        Assertions.assertEquals(2, todolistUseCaseTransaction.get().render(LocalDateTime.now()).size());
 
-        Assertions.assertEquals(tasks.get(0), todolistUseCaseTransaction.get().render().get(0).name());
-        Assertions.assertFalse(todolistUseCaseTransaction.get().render().get(0).done());
+        Assertions.assertEquals(tasks.get(0), todolistUseCaseTransaction.get().render(LocalDateTime.now()).get(0).name());
+        Assertions.assertFalse(todolistUseCaseTransaction.get().render(LocalDateTime.now()).get(0).done());
 
-        Assertions.assertEquals(tasks.get(1), todolistUseCaseTransaction.get().render().get(1).name());
-        Assertions.assertFalse(todolistUseCaseTransaction.get().render().get(1).done());
+        Assertions.assertEquals(tasks.get(1), todolistUseCaseTransaction.get().render(LocalDateTime.now()).get(1).name());
+        Assertions.assertFalse(todolistUseCaseTransaction.get().render(LocalDateTime.now()).get(1).done());
     }
 
     @Alors("les tâches proposées sont")
@@ -100,7 +115,7 @@ public class TodolistSpec {
 
         AtomicInteger counter = new AtomicInteger();
         dataTable.entries().forEach((row) -> {
-            if(row.get("Durée") != null)
+            if (row.get("Durée") != null)
                 Assertions.assertEquals(parseDuration(row), purposedTasks.get(counter.get()).duration());
             Assertions.assertEquals(row.get("Description"), purposedTasks.get(counter.get()).name());
             counter.getAndIncrement();
@@ -119,7 +134,7 @@ public class TodolistSpec {
 
     @Alors("aucune tâche n'est proposée")
     public void aucune_tache_proposée() {
-        Assertions.assertEquals(0, todolistUseCaseTransaction.get().render().size());
+        Assertions.assertEquals(0, todolistUseCaseTransaction.get().render(LocalDateTime.now()).size());
     }
 
     private void mockTasks() {
@@ -137,15 +152,24 @@ public class TodolistSpec {
 
     private List<Task> getTaskAggregatesFromScenarioStage() {
         return scenarioState.getTasks().values().stream()
-                .map((task) ->
-                        new Task(task.taskId(), new ArrayList<>(List.of(
-                                TaskCreated.builder()
-                                        .taskId(task.taskId())
-                                        .description(task.description())
-                                        .creationTime(task.creationTime())
-                                        .isCompleted(task.done())
-                                        .build()
-                        )))
-                ).toList();
+                .map((task) -> {
+
+                    ArrayList<TaskEvent> events = new ArrayList<>(List.of(
+                            TaskCreated.builder()
+                                    .taskId(task.taskId())
+                                    .description(task.description())
+                                    .creationTime(task.creationTime())
+                                    .isCompleted(task.done())
+                                    .build()));
+
+                    if(task.done()){
+                        events.add(TaskCompleted.builder()
+                                .taskId(task.taskId())
+                                .at(task.doneTime())
+                                .build());
+                    }
+
+                    return new Task(task.taskId(), events);
+                }).toList();
     }
 }

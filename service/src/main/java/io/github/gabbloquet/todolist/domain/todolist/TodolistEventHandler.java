@@ -29,7 +29,7 @@ public class TodolistEventHandler {
     }
 
     @EventListener
-    public void onTaskCompleted(TaskRenamed event) {
+    public void onTaskRenamed(TaskRenamed event) {
         todolistUseCaseTransaction.start();
 
         todolistUseCaseTransaction.get().apply(event);

@@ -14,6 +14,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -93,14 +94,15 @@ public class Todolist implements TaskEvent.Visitor<Todolist> {
     }
 
     public Todolist apply(TaskCreated event) {
-        this.tasks.add(new Task(event.taskId, event.description, Duration.ZERO, event.isCompleted));
+        this.tasks.add(new Task(event.taskId, event.description, event.creationTime, Duration.ZERO, event.isCompleted));
         return this;
     }
 
     public Todolist apply(TaskCompleted event) {
         Task existingTask = findById(event.taskId);
+        Duration duration = Duration.between(existingTask.creationDateTime, event.at);
 
-        Task completedTask = new Task(existingTask.taskId, existingTask.name, existingTask.duration,true);
+        Task completedTask = new Task(existingTask.taskId, existingTask.name, existingTask.creationDateTime, duration,true);
 
         completedTasks.add(completedTask);
         tasks.remove(existingTask);
@@ -112,7 +114,7 @@ public class Todolist implements TaskEvent.Visitor<Todolist> {
         Task existingTask = findById(event.taskId);
         int position = tasks.indexOf(existingTask);
 
-        Task modifiedTask = new Task(existingTask.taskId, event.getDescription(), existingTask.duration, existingTask.done);
+        Task modifiedTask = new Task(existingTask.taskId, event.getDescription(), existingTask.creationDateTime, existingTask.duration, existingTask.done);
 
         tasks.set(position, modifiedTask);
 
@@ -130,9 +132,9 @@ public class Todolist implements TaskEvent.Visitor<Todolist> {
         return taskEvent.accept(this);
     }
 
-    public record Task(TaskId taskId, String name, Duration duration, boolean done) {
+    public record Task(TaskId taskId, String name, LocalDateTime creationDateTime, Duration duration, boolean done) {
         public Task(String task) {
-            this(new TaskId(UUID.randomUUID()), task, Duration.ZERO, false);
+            this(new TaskId(UUID.randomUUID()), task, LocalDateTime.now(), Duration.ZERO, false);
         }
     }
 }

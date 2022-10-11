@@ -28,7 +28,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.annotation.RequestScope;
 
 import java.time.Clock;
-import java.time.LocalDateTime;
 import java.util.function.Supplier;
 
 @Configuration
@@ -99,9 +98,10 @@ public class TodolistSpringConfig {
     @Bean
     public AddTaskUseCase addTaskUseCase(
             Supplier<TaskId> taskIdProvider,
-            TaskEventBus taskEventBus
+            TaskEventBus taskEventBus,
+            Clock clock
     ) {
-        return new AddTaskUseCase(taskIdProvider, taskEventBus);
+        return new AddTaskUseCase(taskIdProvider, taskEventBus, clock);
     }
 
     @Bean
@@ -113,9 +113,10 @@ public class TodolistSpringConfig {
 
     @Bean
     public CompleteTaskUseCase completeTaskUseCase(
-            TaskEventBus taskEventBus
+            TaskEventBus taskEventBus,
+            Clock clock
     ) {
-        return new CompleteTaskUseCase(taskEventBus);
+        return new CompleteTaskUseCase(taskEventBus, clock);
     }
 
     @Bean
@@ -159,7 +160,7 @@ public class TodolistSpringConfig {
     }
 
     @Bean
-    private Supplier<LocalDateTime> localDateTimeSupplier() {
-        return LocalDateTime::now;
-    };
+    public Clock clock() {
+        return Clock.systemDefaultZone();
+    }
 }

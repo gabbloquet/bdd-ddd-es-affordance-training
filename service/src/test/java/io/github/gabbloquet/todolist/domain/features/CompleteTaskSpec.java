@@ -60,6 +60,6 @@ public class CompleteTaskSpec {
         Todolist todolist = todolistUseCaseTransaction.get();
         Task secondTask = todolist.findByName(task);
 
-        Assertions.assertEquals(todolist.render().get(1), secondTask);
+        Assertions.assertEquals(todolist.render().get(1).name(), secondTask.name());
     }
 }

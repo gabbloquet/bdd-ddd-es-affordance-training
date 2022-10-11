@@ -19,9 +19,11 @@ public class TaskCreated implements TaskEvent {
     @NonNull
     public final String description;
 
+    @NonNull
+    public final LocalDateTime creationTime;
+
     public final boolean isCompleted;
 
-    public final LocalDateTime creationTime;
 
     @Override
     public <T> T accept(Visitor<T> visitor) {

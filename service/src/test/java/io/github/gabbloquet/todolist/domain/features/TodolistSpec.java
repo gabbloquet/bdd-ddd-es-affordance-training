@@ -48,18 +48,6 @@ public class TodolistSpec {
         mockTasks();
     }
 
-    @Etantdonné("les tâches terminées")
-    public void les_taches_terminees(DataTable dataTable) {
-        dataTable.entries().forEach(row -> {
-            if(row.get("Créée le") != null)
-                scenarioState.addTask(row.get("Description"), row.get("Créée le"), true);
-            else
-                scenarioState.addTask(row.get("Description"), true);
-        });
-
-        mockTasks();
-    }
-
     @Etantdonné("les tâches à faire")
     public void les_taches_a_faire(DataTable dataTable) {
         dataTable.entries().forEach(row -> {
@@ -67,6 +55,18 @@ public class TodolistSpec {
                 scenarioState.addTask(row.get("Description"), row.get("Créée le"), false);
             else
                 scenarioState.addTask(row.get("Description"), false);
+        });
+
+        mockTasks();
+    }
+
+    @Etantdonné("les tâches terminées")
+    public void les_taches_terminees(DataTable dataTable) {
+        dataTable.entries().forEach(row -> {
+            if(row.get("Créée le") != null && row.get("Terminée le") != null)
+                scenarioState.addTask(row.get("Description"), row.get("Créée le"), row.get("Terminée le"), true);
+            else
+                scenarioState.addTask(row.get("Description"), true);
         });
 
         mockTasks();

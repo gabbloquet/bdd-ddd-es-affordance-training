@@ -27,12 +27,24 @@ public class ScenarioState {
         return this;
     }
 
-    public ScenarioState addTask(String description, String creationDate, boolean done) {
+    public ScenarioState addTask(String description, String creationDateTime, boolean done) {
         TaskId taskId = new TaskId();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy à HH:mm");
-        LocalDateTime dateTime = LocalDateTime.parse(creationDate, formatter);
+        LocalDateTime dateTime = LocalDateTime.parse(creationDateTime, formatter);
 
-        Task task = new Task(taskId, description, dateTime, done);
+        Task task = new Task(taskId, description, dateTime, null, done);
+        tasks.put(description, task);
+
+        return this;
+    }
+
+    public ScenarioState addTask(String description, String creationString, String doneString, boolean done) {
+        TaskId taskId = new TaskId();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy à HH:mm");
+        LocalDateTime creationDateTime = LocalDateTime.parse(creationString, formatter);
+        LocalDateTime doneDateTime = LocalDateTime.parse(doneString, formatter);
+
+        Task task = new Task(taskId, description, creationDateTime, doneDateTime, done);
         tasks.put(description, task);
 
         return this;
@@ -42,10 +54,10 @@ public class ScenarioState {
         return tasks.get(task).taskId();
     }
 
-    public record Task(TaskId taskId, String description, LocalDateTime creationTime, boolean done){
+    public record Task(TaskId taskId, String description, LocalDateTime creationTime, LocalDateTime doneTime, boolean done){
 
         public Task(TaskId taskId, String descritpion, boolean done) {
-            this(taskId, descritpion, LocalDateTime.now(), done);
+            this(taskId, descritpion, LocalDateTime.now(), null, done);
         }
     }
 }

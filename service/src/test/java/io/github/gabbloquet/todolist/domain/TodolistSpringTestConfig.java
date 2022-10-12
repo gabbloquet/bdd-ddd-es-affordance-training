@@ -19,6 +19,7 @@ import io.github.gabbloquet.todolist.domain.todolist.deprioritizeTask.Deprioriti
 import io.github.gabbloquet.todolist.domain.todolist.filter.TodolistQueries;
 import io.github.gabbloquet.todolist.domain.todolist.filter.TodolistQueriesAdapter;
 import io.github.gabbloquet.todolist.domain.todolist.infra.TodolistSpringCommandBus;
+import io.github.gabbloquet.todolist.domain.todolist.model.LocalDateTimeSupplier;
 import io.github.gabbloquet.todolist.domain.todolist.model.Todolist;
 import io.github.gabbloquet.todolist.domain.todolist.model.TodolistCommandBus;
 import io.github.gabbloquet.todolist.domain.todolist.openApplication.OpenApplicationUseCase;
@@ -109,7 +110,7 @@ public class TodolistSpringTestConfig {
     @Bean
     public AddTaskUseCase addTaskUseCase(
             Supplier<TaskId> taskIdProvider,
-            Supplier<LocalDateTime> localDateTimeSupplier,
+            LocalDateTimeSupplier localDateTimeSupplier,
             TaskEventBus taskEventBus
     ) {
         return new AddTaskUseCase(taskIdProvider, localDateTimeSupplier, taskEventBus);
@@ -125,7 +126,7 @@ public class TodolistSpringTestConfig {
     @Bean
     public CompleteTaskUseCase completeTaskUseCase(
             TaskEventBus taskEventBus,
-            Supplier<LocalDateTime> localDateTimeSupplier
+            LocalDateTimeSupplier localDateTimeSupplier
     ) {
         return new CompleteTaskUseCase(taskEventBus, localDateTimeSupplier);
     }
@@ -161,7 +162,7 @@ public class TodolistSpringTestConfig {
     @Bean
     public TodolistQueries todolistQueries(
             TodolistUseCaseTransaction todolistUseCaseTransaction,
-            Supplier<LocalDateTime> localDateTimeSupplier
+            LocalDateTimeSupplier localDateTimeSupplier
     ) {
         return new TodolistQueriesAdapter(todolistUseCaseTransaction, localDateTimeSupplier);
     }
@@ -172,8 +173,8 @@ public class TodolistSpringTestConfig {
     }
 
     @Bean
-    public Supplier<LocalDateTime> localDateTimeSupplier(){
-        return (Supplier<LocalDateTime>) mock(Supplier.class);
+    public LocalDateTimeSupplier localDateTimeSupplier(){
+        return mock(LocalDateTimeSupplier.class);
     }
 
 }

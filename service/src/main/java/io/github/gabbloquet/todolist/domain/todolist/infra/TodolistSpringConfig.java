@@ -18,6 +18,7 @@ import io.github.gabbloquet.todolist.domain.todolist.TodolistUseCaseTransaction;
 import io.github.gabbloquet.todolist.domain.todolist.deprioritizeTask.DeprioritizeTaskUseCase;
 import io.github.gabbloquet.todolist.domain.todolist.filter.TodolistQueries;
 import io.github.gabbloquet.todolist.domain.todolist.filter.TodolistQueriesAdapter;
+import io.github.gabbloquet.todolist.domain.todolist.model.LocalDateTimeSupplier;
 import io.github.gabbloquet.todolist.domain.todolist.model.Todolist;
 import io.github.gabbloquet.todolist.domain.todolist.model.TodolistCommandBus;
 import io.github.gabbloquet.todolist.domain.todolist.openApplication.OpenApplicationUseCase;
@@ -27,7 +28,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.annotation.RequestScope;
 
-import java.time.LocalDateTime;
 import java.util.function.Supplier;
 
 @Configuration
@@ -98,7 +98,7 @@ public class TodolistSpringConfig {
     @Bean
     public AddTaskUseCase addTaskUseCase(
             Supplier<TaskId> taskIdProvider,
-            Supplier<LocalDateTime> localDateTimeSupplier,
+            LocalDateTimeSupplier localDateTimeSupplier,
             TaskEventBus taskEventBus
     ) {
         return new AddTaskUseCase(taskIdProvider, localDateTimeSupplier, taskEventBus);
@@ -114,7 +114,7 @@ public class TodolistSpringConfig {
     @Bean
     public CompleteTaskUseCase completeTaskUseCase(
             TaskEventBus taskEventBus,
-            Supplier<LocalDateTime> localDateTimeSupplier
+            LocalDateTimeSupplier localDateTimeSupplier
     ) {
         return new CompleteTaskUseCase(taskEventBus, localDateTimeSupplier);
     }
@@ -150,7 +150,7 @@ public class TodolistSpringConfig {
     @Bean
     public TodolistQueries todolistQueries(
             TodolistUseCaseTransaction todolistUseCaseTransaction,
-            Supplier<LocalDateTime> localDateTimeSupplier
+            LocalDateTimeSupplier localDateTimeSupplier
     ) {
         return new TodolistQueriesAdapter(todolistUseCaseTransaction, localDateTimeSupplier);
     }
@@ -161,7 +161,7 @@ public class TodolistSpringConfig {
     }
 
     @Bean
-    public Supplier<LocalDateTime> localDateTimeSupplier(){
-        return LocalDateTime::now;
+    public LocalDateTimeSupplier localDateTimeSupplier(){
+        return new LocalDateTimeSupplier();
     }
 }

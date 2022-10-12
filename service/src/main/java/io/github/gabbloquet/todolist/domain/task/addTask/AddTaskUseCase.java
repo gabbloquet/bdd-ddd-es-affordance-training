@@ -3,12 +3,12 @@ package io.github.gabbloquet.todolist.domain.task.addTask;
 import io.github.gabbloquet.todolist.annotations.DomainService;
 import io.github.gabbloquet.todolist.domain.task.model.TaskEventBus;
 import io.github.gabbloquet.todolist.domain.task.model.TaskId;
+import io.github.gabbloquet.todolist.domain.todolist.model.LocalDateTimeSupplier;
 import io.github.gabbloquet.todolist.domain.todolist.model.TodolistCommandReceiver;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;
 
-import java.time.LocalDateTime;
 import java.util.function.Supplier;
 
 @DomainService
@@ -19,7 +19,7 @@ public class AddTaskUseCase implements TodolistCommandReceiver<AddTask> {
     private final Supplier<TaskId> taskIdProvider;
 
     @NonNull
-    private final Supplier<LocalDateTime> localDateTimeSupplier;
+    private final LocalDateTimeSupplier localDateTimeSupplier;
 
     @NonNull
     private final TaskEventBus taskEventBus;

@@ -2,6 +2,7 @@ package io.github.gabbloquet.todolist.domain.todolist.filter;
 
 import io.github.gabbloquet.todolist.domain.task.model.TaskId;
 import io.github.gabbloquet.todolist.domain.todolist.TodolistUseCaseTransaction;
+import io.github.gabbloquet.todolist.domain.todolist.model.LocalDateTimeSupplier;
 import io.github.gabbloquet.todolist.domain.todolist.model.Todolist;
 import io.github.gabbloquet.todolist.domain.todolist.model.TodolistNotFound;
 import org.junit.jupiter.api.Assertions;
@@ -15,7 +16,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Supplier;
 
 import static org.mockito.Mockito.when;
 
@@ -29,7 +29,7 @@ class TodolistQueriesAdapterTest {
     private TodolistUseCaseTransaction todolistUseCaseTransaction;
 
     @Mock
-    private Supplier<LocalDateTime> localDateTimeSupplier;
+    private LocalDateTimeSupplier localDateTimeSupplier;
 
     Todolist.Task finishedTask = new Todolist.Task(new TaskId(), "a task", LocalDateTime.now(), "2 jour(s)", true);
     Todolist.Task finishedTaskTwo = new Todolist.Task(new TaskId(), "2 task", LocalDateTime.now(), "1 jour(s)", true);
@@ -74,13 +74,8 @@ class TodolistQueriesAdapterTest {
 
         Todolist filteredTodolist = todolistQueriesAdapter.filterBy(TodolistQueries.Filter.TO_DO_TASKS);
 
-        List<Todolist.Task> expectedTasks = List.of(
-                todoTask,
-                todoTaskTwo
-        );
-        Todolist expectedTodolist = new Todolist(new ArrayList<>(expectedTasks));
-
-        Assertions.assertEquals(expectedTodolist, filteredTodolist);
+        Assertions.assertEquals(todoTask.name(), filteredTodolist.render().get(0).name());
+        Assertions.assertEquals(todoTaskTwo.name(), filteredTodolist.render().get(1).name());
     }
 
     @Test

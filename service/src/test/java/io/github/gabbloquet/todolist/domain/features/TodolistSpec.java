@@ -11,6 +11,7 @@ import io.github.gabbloquet.todolist.domain.task.completeTask.TaskCompleted;
 import io.github.gabbloquet.todolist.domain.task.model.Task;
 import io.github.gabbloquet.todolist.domain.task.model.TaskEvent;
 import io.github.gabbloquet.todolist.domain.todolist.TodolistUseCaseTransaction;
+import io.github.gabbloquet.todolist.domain.todolist.model.LocalDateTimeSupplier;
 import io.github.gabbloquet.todolist.domain.todolist.model.Todolist;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Supplier;
 
 import static org.mockito.Mockito.when;
 
@@ -36,7 +36,7 @@ public class TodolistSpec {
     private TodolistUseCaseTransaction todolistUseCaseTransaction;
 
     @Autowired
-    private Supplier<LocalDateTime> localDateTimeSupplier;
+    private LocalDateTimeSupplier localDateTimeSupplier;
 
     @Before
     public void setUp() {

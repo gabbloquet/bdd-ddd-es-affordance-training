@@ -1,0 +1,127 @@
+{
+  "className": "io.github.gabbloquet.todolist.domain.modifytask.FeatureModifyTaskSpec",
+  "name": "Feature Modify Task Spec",
+  "scenarios": [
+    {
+      "className": "io.github.gabbloquet.todolist.domain.modifytask.FeatureModifyTaskSpec",
+      "testMethodName": "modify_a_task",
+      "description": "modify a task",
+      "tagIds": [],
+      "explicitParameters": [],
+      "derivedParameters": [],
+      "scenarioCases": [
+        {
+          "caseNr": 1,
+          "steps": [
+            {
+              "name": "a todo list containing $ and $",
+              "words": [
+                {
+                  "value": "given",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "a todo list containing"
+                },
+                {
+                  "value": "Clean the house",
+                  "argumentInfo": {
+                    "argumentName": "task1",
+                    "formattedValue": "Clean the house"
+                  }
+                },
+                {
+                  "value": "and"
+                },
+                {
+                  "value": "Wash the car",
+                  "argumentInfo": {
+                    "argumentName": "task2",
+                    "formattedValue": "Wash the car"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 487568,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the user choose to modify $ by $",
+              "words": [
+                {
+                  "value": "when",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the user choose to modify"
+                },
+                {
+                  "value": "Clean the house",
+                  "argumentInfo": {
+                    "argumentName": "taskToModify",
+                    "formattedValue": "Clean the house"
+                  }
+                },
+                {
+                  "value": "by"
+                },
+                {
+                  "value": "Buy cheese",
+                  "argumentInfo": {
+                    "argumentName": "update",
+                    "formattedValue": "Buy cheese"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 257287,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the todo list contains $ and $",
+              "words": [
+                {
+                  "value": "then",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the todo list contains"
+                },
+                {
+                  "value": "Buy cheese",
+                  "argumentInfo": {
+                    "argumentName": "task1",
+                    "formattedValue": "Buy cheese"
+                  }
+                },
+                {
+                  "value": "and"
+                },
+                {
+                  "value": "Wash the car",
+                  "argumentInfo": {
+                    "argumentName": "task2",
+                    "formattedValue": "Wash the car"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 233928,
+              "depth": 0,
+              "parentFailed": false
+            }
+          ],
+          "explicitArguments": [],
+          "derivedArguments": [],
+          "status": "SUCCESS",
+          "durationInNanos": 1580773
+        }
+      ],
+      "casesAsTable": false,
+      "durationInNanos": 1580773
+    }
+  ],
+  "tagMap": {}
+}

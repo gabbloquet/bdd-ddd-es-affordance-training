@@ -1,8 +1,6 @@
 package io.github.gabbloquet.todolist.domain.task.deleteTask;
 
 import io.github.gabbloquet.todolist.annotations.DomainService;
-import io.github.gabbloquet.todolist.domain.task.completeTask.CompleteTask;
-import io.github.gabbloquet.todolist.domain.task.completeTask.TaskCompleted;
 import io.github.gabbloquet.todolist.domain.task.model.TaskEventBus;
 import io.github.gabbloquet.todolist.domain.todolist.model.TodolistCommandReceiver;
 import lombok.NonNull;

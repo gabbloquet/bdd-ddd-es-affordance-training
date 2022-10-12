@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.InstanceOfAssertFactories.LOCAL_DATE_TIME;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CompleteTaskSpec {

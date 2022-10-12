@@ -91,9 +91,14 @@ public class Todolist implements TaskEvent.Visitor<Todolist> {
     public List<Task> render(Temporal now) {
         return Stream.concat(completedTasks.stream(), tasks.stream())
                 .map(task -> {
-                    Duration duration = task.duration;
-                    if(!task.done)
-                        duration = Duration.between(task.creationDateTime, now);
+                    String duration = task.duration;
+
+                    if(!task.done){
+                        duration = toStringifiedDuration(
+                                Duration.between(task.creationDateTime, now)
+                        );
+                    }
+
                     return new Task(task.taskId, task.name, task.creationDateTime, duration, task.done);
                 })
                 .toList();
@@ -107,7 +112,8 @@ public class Todolist implements TaskEvent.Visitor<Todolist> {
     }
 
     public Todolist apply(TaskCreated event) {
-        this.tasks.add(new Task(event.taskId, event.description, event.creationTime, Duration.ZERO, event.isCompleted));
+        Duration duration = Duration.ZERO;
+        this.tasks.add(new Task(event.taskId, event.description, event.creationTime, toStringifiedDuration(duration), event.isCompleted));
         return this;
     }
 
@@ -115,7 +121,7 @@ public class Todolist implements TaskEvent.Visitor<Todolist> {
         Task existingTask = findById(event.taskId);
         Duration duration = Duration.between(existingTask.creationDateTime, event.at);
 
-        Task completedTask = new Task(existingTask.taskId, existingTask.name, existingTask.creationDateTime, duration,true);
+        Task completedTask = new Task(existingTask.taskId, existingTask.name, existingTask.creationDateTime, toStringifiedDuration(duration),true);
 
         completedTasks.add(completedTask);
         tasks.remove(existingTask);
@@ -141,13 +147,22 @@ public class Todolist implements TaskEvent.Visitor<Todolist> {
         return this;
     }
 
+    private String toStringifiedDuration(Duration duration) {
+        long days = duration.toDays();
+        long hours = duration.minusDays(days).toHours();
+        if(hours == 0){
+            return String.format("%d jour(s)", days);
+        }
+        return String.format("%d jour(s) et %d heure(s)", days, hours);
+    }
+
     public Todolist apply(TaskEvent taskEvent) {
         return taskEvent.accept(this);
     }
 
-    public record Task(TaskId taskId, String name, LocalDateTime creationDateTime, Duration duration, boolean done) {
+    public record Task(TaskId taskId, String name, LocalDateTime creationDateTime, String duration, boolean done) {
         public Task(String task) {
-            this(new TaskId(UUID.randomUUID()), task, LocalDateTime.now(), Duration.ZERO, false);
+            this(new TaskId(UUID.randomUUID()), task, LocalDateTime.now(), null, false);
         }
     }
 }

@@ -6,8 +6,6 @@ import io.github.gabbloquet.todolist.domain.task.TaskService;
 import io.github.gabbloquet.todolist.domain.task.addTask.AddTask;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import static org.mockito.Mockito.verify;
-
 public class AddTaskSpec {
 
     @Autowired

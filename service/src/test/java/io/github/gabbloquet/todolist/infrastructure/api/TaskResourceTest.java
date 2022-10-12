@@ -19,6 +19,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -42,11 +43,13 @@ class TaskResourceTest {
     private final UUID uuid = UUID.randomUUID();
     private final TaskId taskId = TaskId.from(uuid);
     private final String id = uuid.toString();
+    private final LocalDateTime creationTime = LocalDateTime.now();
 
     private final TaskState taskState = new TaskState(
             List.of(TaskCreated.builder()
                     .taskId(taskId)
                     .description("Practice TDD")
+                    .creationTime(creationTime)
                     .build())
     );
 
@@ -54,6 +57,7 @@ class TaskResourceTest {
             List.of(TaskCreated.builder()
                     .taskId(taskId)
                     .description("Always practice TDD!")
+                    .creationTime(creationTime)
                     .build())
     );
 
@@ -61,6 +65,7 @@ class TaskResourceTest {
             List.of(TaskCreated.builder()
                     .taskId(taskId)
                     .description("Hey! Im a new task !")
+                    .creationTime(creationTime)
                     .build())
     );
 

@@ -2,6 +2,7 @@ package io.github.gabbloquet.todolist.domain.todolist.filter;
 
 import io.github.gabbloquet.todolist.domain.todolist.TodolistUseCaseTransaction;
 import io.github.gabbloquet.todolist.domain.todolist.model.Todolist;
+import io.github.gabbloquet.todolist.domain.todolist.model.TodolistNotFound;
 import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
@@ -18,21 +19,29 @@ public class TodolistQueriesAdapter implements TodolistQueries {
 
     @Override
     public Todolist filterBy(Filter filter) {
-        List<Todolist.Task> filteredTasks;
-
-        todolistUseCaseTransaction.start();
-        Todolist todolist = todolistUseCaseTransaction.get();
+        Todolist todolist = getTodolist();
 
         Predicate<Todolist.Task> filteringFunction =
                 filter.equals(Filter.COMPLETED_TASKS)
                         ? getDone()
                         : getTodo();
 
-        filteredTasks = todolist.render(localDateTimeSupplier.get()).stream()
+        List<Todolist.Task> filteredTasks = todolist.render(localDateTimeSupplier.get()).stream()
                 .filter(filteringFunction)
                 .toList();
 
         return new Todolist(new ArrayList<>(filteredTasks));
+    }
+
+    private Todolist getTodolist() {
+        todolistUseCaseTransaction.start();
+        Todolist todolist = todolistUseCaseTransaction.get();
+
+        if(todolist == null){
+            throw new TodolistNotFound();
+        }
+
+        return todolist;
     }
 
     private static Predicate<Todolist.Task> getDone() {

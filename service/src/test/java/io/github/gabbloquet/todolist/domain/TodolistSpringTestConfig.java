@@ -173,7 +173,7 @@ public class TodolistSpringTestConfig {
 
     @Bean
     public Supplier<LocalDateTime> localDateTimeSupplier(){
-        return mock(Supplier.class);
+        return (Supplier<LocalDateTime>) mock(Supplier.class);
     }
 
 }

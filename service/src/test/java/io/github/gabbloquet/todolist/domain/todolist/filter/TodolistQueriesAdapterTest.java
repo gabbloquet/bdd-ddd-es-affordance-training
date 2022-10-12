@@ -1,6 +1,7 @@
 package io.github.gabbloquet.todolist.domain.todolist.filter;
 
 import io.github.gabbloquet.todolist.domain.task.model.TaskId;
+import io.github.gabbloquet.todolist.domain.todolist.TodolistUseCaseTransaction;
 import io.github.gabbloquet.todolist.domain.todolist.model.Todolist;
 import io.github.gabbloquet.todolist.domain.todolist.model.TodolistNotFound;
 import org.junit.jupiter.api.Assertions;
@@ -22,16 +23,19 @@ import static org.mockito.Mockito.when;
 class TodolistQueriesAdapterTest {
 
     @Mock
-    private Supplier<Todolist> todolistSupplier;
+    private TodolistUseCaseTransaction todolistUseCaseTransaction;
+
+    @Mock
+    private Supplier<LocalDateTime> localDateTimeSupplier;
 
     @InjectMocks
     private TodolistQueriesAdapter todolistQueriesAdapter;
 
-    Todolist.Task finishedTask = new Todolist.Task(new TaskId(), "a task", LocalDateTime.now(), "", true);
-    Todolist.Task finishedTaskTwo = new Todolist.Task(new TaskId(), "2 task", LocalDateTime.now(), "", true);
+    Todolist.Task finishedTask = new Todolist.Task(new TaskId(), "a task", LocalDateTime.now(), "2 jour(s)", true);
+    Todolist.Task finishedTaskTwo = new Todolist.Task(new TaskId(), "2 task", LocalDateTime.now(), "1 jour(s)", true);
 
-    Todolist.Task todoTask = new Todolist.Task(new TaskId(), "another task", LocalDateTime.now(), "", false);
-    Todolist.Task todoTaskTwo = new Todolist.Task(new TaskId(), "another second task", LocalDateTime.now(), "", false);
+    Todolist.Task todoTask = new Todolist.Task(new TaskId(), "another task", LocalDateTime.now(), "22 heure(s)", false);
+    Todolist.Task todoTaskTwo = new Todolist.Task(new TaskId(), "another second task", LocalDateTime.now(), "20 heure(s)", false);
 
     @BeforeEach
     void setUp() {
@@ -43,13 +47,16 @@ class TodolistQueriesAdapterTest {
         );
         Todolist todolist = new Todolist(new ArrayList<>(tasks));
 
-        when(todolistSupplier.get())
+        when(todolistUseCaseTransaction.get())
                 .thenReturn(todolist);
     }
 
     @Test
     void returns_completed_tasks() {
-        Todolist todolist = todolistQueriesAdapter.filterBy(TodolistQueries.Filter.COMPLETED_TASKS);
+        when(localDateTimeSupplier.get())
+                .thenReturn(LocalDateTime.now());
+
+        Todolist filteredTodolist = todolistQueriesAdapter.filterBy(TodolistQueries.Filter.COMPLETED_TASKS);
 
         List<Todolist.Task> expectedTasks = List.of(
                 finishedTask,
@@ -57,12 +64,15 @@ class TodolistQueriesAdapterTest {
         );
         Todolist expectedTodolist = new Todolist(new ArrayList<>(expectedTasks));
 
-        Assertions.assertEquals(expectedTodolist, todolist);
+        Assertions.assertEquals(expectedTodolist, filteredTodolist);
     }
 
     @Test
     void returns_to_do_tasks() {
-        Todolist todolist = todolistQueriesAdapter.filterBy(TodolistQueries.Filter.TO_DO_TASKS);
+        when(localDateTimeSupplier.get())
+                .thenReturn(LocalDateTime.now());
+
+        Todolist filteredTodolist = todolistQueriesAdapter.filterBy(TodolistQueries.Filter.TO_DO_TASKS);
 
         List<Todolist.Task> expectedTasks = List.of(
                 todoTask,
@@ -70,12 +80,12 @@ class TodolistQueriesAdapterTest {
         );
         Todolist expectedTodolist = new Todolist(new ArrayList<>(expectedTasks));
 
-        Assertions.assertEquals(expectedTodolist, todolist);
+        Assertions.assertEquals(expectedTodolist, filteredTodolist);
     }
 
     @Test
     void throws_todolist_not_found() {
-        when(todolistSupplier.get())
+        when(todolistUseCaseTransaction.get())
                 .thenReturn(null);
 
         TodolistNotFound exception = Assertions.assertThrows(TodolistNotFound.class, () ->

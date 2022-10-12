@@ -22,14 +22,14 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class TodolistQueriesAdapterTest {
 
+    @InjectMocks
+    private TodolistQueriesAdapter todolistQueriesAdapter;
+
     @Mock
     private TodolistUseCaseTransaction todolistUseCaseTransaction;
 
     @Mock
     private Supplier<LocalDateTime> localDateTimeSupplier;
-
-    @InjectMocks
-    private TodolistQueriesAdapter todolistQueriesAdapter;
 
     Todolist.Task finishedTask = new Todolist.Task(new TaskId(), "a task", LocalDateTime.now(), "2 jour(s)", true);
     Todolist.Task finishedTaskTwo = new Todolist.Task(new TaskId(), "2 task", LocalDateTime.now(), "1 jour(s)", true);

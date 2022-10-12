@@ -43,7 +43,7 @@ class TaskResourceTest {
     private final UUID uuid = UUID.randomUUID();
     private final TaskId taskId = TaskId.from(uuid);
     private final String id = uuid.toString();
-    private final LocalDateTime creationTime = LocalDateTime.now();
+    private final LocalDateTime creationTime = LocalDateTime.of(2022, 10, 1, 6, 0);
 
     private final TaskState taskState = new TaskState(
             List.of(TaskCreated.builder()
@@ -83,6 +83,7 @@ class TaskResourceTest {
 
     @Test
     public void get_a_task() throws Exception {
+//        TODO: Ajouter les durations
         ResultActions requestResult = executeGetTaskOneRequest();
 
         assertTaskAffordance(requestResult, "Practice TDD");

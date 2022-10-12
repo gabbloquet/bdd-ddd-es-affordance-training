@@ -1,5 +1,6 @@
 package io.github.gabbloquet.todolist.domain.todolist.filter;
 
+import io.github.gabbloquet.todolist.annotations.Adapter;
 import io.github.gabbloquet.todolist.domain.todolist.TodolistUseCaseTransaction;
 import io.github.gabbloquet.todolist.domain.todolist.model.Todolist;
 import io.github.gabbloquet.todolist.domain.todolist.model.TodolistNotFound;
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
+@Adapter
 @RequiredArgsConstructor
 public class TodolistQueriesAdapter implements TodolistQueries {
 

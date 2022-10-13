@@ -21,8 +21,9 @@ public class TasksResponseAssembler {
         return EntityModel.of( //
                 task,
                 getSelfLink(task)
-                    .andAffordance(afford(taskResource.modifyTask(null, task.id())))
-                    .andAffordance(afford(taskResource.deleteTask(task.id()))).withRel("deleteOrModifyTask").withTitle("Modify or delete a task"),
+                        .andAffordance(afford(taskResource.deleteTask(task.id()))).withRel("getOrDeleteTask").withTitle("Get or delete a task"),
+                getDeleteTaskAffordance(task),
+                getRenameTaskAffordance(task),
                 getAddTaskAffordance(),
                 getTodolistAffordance()
         );
@@ -34,11 +35,19 @@ public class TasksResponseAssembler {
     }
 
     private Link getSelfLink(TaskDto task) {
-        return linkTo(taskResource.getTask(task.id())).withSelfRel();
+        return linkTo(taskResource.getTask(task.id())).withSelfRel().withTitle("Get a task");
+    }
+
+    private Link getRenameTaskAffordance(TaskDto task) {
+        return linkTo(taskResource.renameTask(null, task.id())).withRel("renameTask").withTitle("Rename a task");
     }
 
     private Link getAddTaskAffordance() {
         return linkTo(taskResource.addTask(null)).withRel("addTask").withTitle("Add a task");
+    }
+
+    private Link getDeleteTaskAffordance(TaskDto task) {
+        return linkTo(taskResource.deleteTask(task.id())).withRel("deleteTask").withTitle("Delete a task");
     }
 
     private Link getTodolistAffordance() {

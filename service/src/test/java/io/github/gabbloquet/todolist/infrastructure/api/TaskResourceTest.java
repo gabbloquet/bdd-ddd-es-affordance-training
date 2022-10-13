@@ -4,6 +4,7 @@ import io.github.gabbloquet.todolist.domain.task.TaskService;
 import io.github.gabbloquet.todolist.domain.task.addTask.AddTask;
 import io.github.gabbloquet.todolist.domain.task.addTask.TaskCreated;
 import io.github.gabbloquet.todolist.domain.task.completeTask.CompleteTask;
+import io.github.gabbloquet.todolist.domain.task.completeTask.TaskCompleted;
 import io.github.gabbloquet.todolist.domain.task.deleteTask.DeleteTask;
 import io.github.gabbloquet.todolist.domain.task.model.TaskId;
 import io.github.gabbloquet.todolist.domain.task.model.TaskState;
@@ -44,6 +45,7 @@ class TaskResourceTest {
     private final TaskId taskId = TaskId.from(uuid);
     private final String id = uuid.toString();
     private final LocalDateTime creationTime = LocalDateTime.of(2022, 10, 1, 6, 0);
+    private final LocalDateTime completedTime = LocalDateTime.of(2022, 10, 11, 6, 0);
 
     private final TaskState taskState = new TaskState(
             List.of(TaskCreated.builder()
@@ -69,6 +71,19 @@ class TaskResourceTest {
                     .build())
     );
 
+    private final TaskState completedTaskState = new TaskState(
+            List.of(TaskCreated.builder()
+                            .taskId(taskId)
+                            .description("Practice TDD")
+                            .creationTime(creationTime)
+                            .build(),
+                    TaskCompleted.builder()
+                            .taskId(taskId)
+                            .at(completedTime)
+                            .build()
+            )
+    );
+
     @BeforeEach
     public void setUp() {
         when(taskService.getTask(uuid))
@@ -76,7 +91,7 @@ class TaskResourceTest {
         when(taskService.execute(AddTask.builder().description("Hey! Im a new task !").build()))
                 .thenReturn(addedTaskState);
         when(taskService.execute(CompleteTask.builder().taskId(taskState.getId()).build()))
-                .thenReturn(taskState);
+                .thenReturn(completedTaskState);
         when(taskService.execute(RenameTask.builder().taskId(taskState.getId()).update("Always practice TDD!").build()))
                 .thenReturn(modifiedTaskState);
     }
@@ -97,8 +112,8 @@ class TaskResourceTest {
     }
 
     @Test
-    public void modify_a_task() throws Exception {
-        ResultActions requestResult = executeModifyTaskTwoRequest();
+    public void rename_a_task() throws Exception {
+        ResultActions requestResult = executeRenameTaskTwoRequest();
 
         assertTaskAffordance(requestResult, "Always practice TDD!");
     }
@@ -121,27 +136,37 @@ class TaskResourceTest {
 
     private void assertTaskAffordance(ResultActions request, String description) throws Exception {
         request
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("id").value(id))
-            .andExpect(jsonPath("description").value(description))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("id").value(id))
+                .andExpect(jsonPath("description").value(description))
 
-            .andExpect(jsonPath("$._links.deleteOrModifyTask.href", is("http://localhost/tasks/" + id)))
-            .andExpect(jsonPath("$._links.deleteOrModifyTask.title", is("Modify or delete a task")))
+                .andExpect(jsonPath("$._links.getOrDeleteTask.href", is("http://localhost/tasks/" + id)))
+                .andExpect(jsonPath("$._links.getOrDeleteTask.title", is("Get or delete a task")))
 
-            .andExpect(jsonPath("$._templates.default.method", is("PUT")))
-            .andExpect(jsonPath("$._templates.default.properties[0].name", is("description")))
-            .andExpect(jsonPath("$._templates.default.properties[0].type", is("text")))
+                .andExpect(jsonPath("$._links.deleteTask.href", is("http://localhost/tasks/" + id)))
+                .andExpect(jsonPath("$._links.deleteTask.title", is("Delete a task")))
+                .andExpect(jsonPath("$._templates.deleteTask.method", is("DELETE")))
+                .andExpect(jsonPath("$._templates.deleteTask.target", is("http://localhost/tasks/" + id)))
+                .andExpect(jsonPath("$._templates.default.method", is("DELETE")))
+                .andExpect(jsonPath("$._templates.default.target", is("http://localhost/tasks/" + id)))
 
-            .andExpect(jsonPath("$._templates.deleteTask.method", is("DELETE")))
-            .andExpect(jsonPath("$._templates.deleteTask.target", is("http://localhost/tasks/" + id)))
+                .andExpect(jsonPath("$._links.renameTask.href", is("http://localhost/tasks/" + id + "/rename")))
+                .andExpect(jsonPath("$._templates.renameTask.method", is("PUT")))
+                .andExpect(jsonPath("$._templates.renameTask.properties[0].name", is("description")))
+                .andExpect(jsonPath("$._templates.renameTask.properties[0].type", is("text")))
+                .andExpect(jsonPath("$._templates.renameTask.target", is("http://localhost/tasks/" + id + "/rename")))
 
-            .andExpect(jsonPath("$._links.addTask.href", is("http://localhost/tasks")))
-            .andExpect(jsonPath("$._links.addTask.title", is("Add a task")))
-            .andExpect(jsonPath("$._templates.addTask.method", is("POST")))
-            .andExpect(jsonPath("$._templates.addTask.properties[0].name", is("description")))
-            .andExpect(jsonPath("$._templates.addTask.properties[0].type", is("text")))
-            .andExpect(jsonPath("$._templates.addTask.target", is("http://localhost/tasks")))
-            .andExpect(jsonPath("$._links.todolist.href", is("http://localhost/todolist")));
+                .andExpect(jsonPath("$._links.completeTask.href", is("http://localhost/tasks/" + id + "/complete")))
+                .andExpect(jsonPath("$._templates.completeTask.method", is("PUT")))
+                .andExpect(jsonPath("$._templates.completeTask.target", is("http://localhost/tasks/" + id + "/complete")))
+
+                .andExpect(jsonPath("$._links.addTask.href", is("http://localhost/tasks")))
+                .andExpect(jsonPath("$._links.addTask.title", is("Add a task")))
+                .andExpect(jsonPath("$._templates.addTask.method", is("POST")))
+                .andExpect(jsonPath("$._templates.addTask.properties[0].name", is("description")))
+                .andExpect(jsonPath("$._templates.addTask.properties[0].type", is("text")))
+                .andExpect(jsonPath("$._templates.addTask.target", is("http://localhost/tasks")))
+                .andExpect(jsonPath("$._links.todolist.href", is("http://localhost/todolist")));
     }
 
 
@@ -151,11 +176,17 @@ class TaskResourceTest {
                 .accept(MediaTypes.HAL_FORMS_JSON));
     }
 
-    private ResultActions executeModifyTaskTwoRequest() throws Exception {
-        return mockMvc.perform(put("/tasks/" + uuid)
+    private ResultActions executeRenameTaskTwoRequest() throws Exception {
+        return mockMvc.perform(put("/tasks/" + uuid + "/rename")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaTypes.HAL_FORMS_JSON)
                 .content("{\"description\": \"Always practice TDD!\"}"));
+    }
+
+    private ResultActions executeCompleteTaskTwoRequest() throws Exception {
+        return mockMvc.perform(put("/tasks/" + uuid + "/complete")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaTypes.HAL_FORMS_JSON));
     }
 
     private ResultActions executeAddATaskRequest() throws Exception {

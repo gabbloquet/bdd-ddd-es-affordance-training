@@ -51,8 +51,8 @@ public class TaskResource {
         return tasksResponseAssembler.map(TaskDto.from(createdTask));
     }
 
-    @PutMapping("/{id}")
-    public EntityModel<TaskDto> modifyTask(@RequestBody TaskRequest taskRequest, @PathVariable UUID id) {
+    @PutMapping("/{id}/rename")
+    public EntityModel<TaskDto> renameTask(@RequestBody TaskRequest taskRequest, @PathVariable UUID id) {
 
         TaskCommand command = RenameTask.builder()
                 .taskId(TaskId.from(id))

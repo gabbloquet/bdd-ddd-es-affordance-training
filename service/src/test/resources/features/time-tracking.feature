@@ -25,9 +25,11 @@ Fonctionnalité: Connaitre le temps passé sur une tache
       | Description                               | Créée le           | Terminée le        |
       | Commencer la pratique de l'event sourcing | 06/10/2022 à 08:30 | 08/10/2022 à 08:30 |
       | Commencer la pratique du DDD              | 06/10/2022 à 13:30 | 08/10/2022 à 12:30 |
+      | Faire un plan pour prépa vidage de fut    | 07/10/2022 à 05:30 | 07/10/2022 à 05:40 |
     Et la date et l'heure du jour 08/10/2022 à 08:30
     Quand les tâches terminées sont demandées
     Alors les tâches proposées sont
       | Description                               | Durée                    |
       | Commencer la pratique de l'event sourcing | 2 jour(s)                |
       | Commencer la pratique du DDD              | 1 jour(s) et 23 heure(s) |
+      | Faire un plan pour prépa vidage de fut    | 10 minute(s)             |

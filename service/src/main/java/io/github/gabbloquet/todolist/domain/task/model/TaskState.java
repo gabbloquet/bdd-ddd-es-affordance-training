@@ -65,7 +65,11 @@ public final class TaskState implements TaskEvent.Visitor<TaskState> {
     private String toStringifiedDuration(Duration duration) {
         long days = duration.toDays();
         long hours = duration.minusDays(days).toHours();
-        if(hours == 0){
+        long minutes = duration.minusDays(days).minusHours(hours).toMinutes();
+        if(days == 0 && hours == 0){
+            return String.format("%d minute(s)", minutes);
+        }
+        if(hours == 0 && minutes == 0){
             return String.format("%d jour(s)", days);
         }
         return String.format("%d jour(s) et %d heure(s)", days, hours);

@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -52,5 +53,14 @@ class InMemoryTaskRepositoryTest {
 
         // Then
         assertEquals(taskTwo, returnedTask);
+    }
+
+    @Test
+    void returns_empty() {
+        // When
+        Optional<Task> returnedTask = inMemoryTaskRepository.get(new TaskId());
+
+        // Then
+        assertTrue(returnedTask.isEmpty());
     }
 }

@@ -24,6 +24,7 @@ public class TasksResponseAssembler {
                         .andAffordance(afford(taskResource.deleteTask(task.id()))).withRel("getOrDeleteTask").withTitle("Get or delete a task"),
                 getDeleteTaskAffordance(task),
                 getRenameTaskAffordance(task),
+                getCompleteTaskAffordance(task),
                 getAddTaskAffordance(),
                 getTodolistAffordance()
         );
@@ -40,6 +41,10 @@ public class TasksResponseAssembler {
 
     private Link getRenameTaskAffordance(TaskDto task) {
         return linkTo(taskResource.renameTask(null, task.id())).withRel("renameTask").withTitle("Rename a task");
+    }
+
+    private Link getCompleteTaskAffordance(TaskDto task) {
+        return linkTo(taskResource.completeTask(task.id())).withRel("completeTask").withTitle("Complete a task");
     }
 
     private Link getAddTaskAffordance() {

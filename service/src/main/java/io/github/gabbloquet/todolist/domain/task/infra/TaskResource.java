@@ -64,6 +64,18 @@ public class TaskResource {
         return tasksResponseAssembler.map(TaskDto.from(modifiedTask));
     }
 
+    @PutMapping("/{id}/complete")
+    public EntityModel<TaskDto> completeTask(@PathVariable UUID id) {
+
+        TaskCommand command = RenameTask.builder()
+                .taskId(TaskId.from(id))
+                .build();
+
+        TaskState modifiedTask = taskService.execute(command);
+
+        return tasksResponseAssembler.map(TaskDto.from(modifiedTask));
+    }
+
     @DeleteMapping("/{id}")
     public RepresentationModel<?> deleteTask(@PathVariable UUID id) {
         TaskCommand command = DeleteTask.builder()

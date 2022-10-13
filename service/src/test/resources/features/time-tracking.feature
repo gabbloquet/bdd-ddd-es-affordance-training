@@ -13,12 +13,14 @@ Fonctionnalité: Connaitre le temps passé sur une tache
       | Description                        | Créée le           |
       | Démonter une entrecôte avec le Cis | 01/10/2022 à 08:30 |
       | Boire un canon avec Gégé           | 05/10/2022 à 10:30 |
+      | Siffler un demi                    | 08/10/2022 à 11:04 |
     Et la date et l'heure du jour 08/10/2022 à 11:30
     Quand les tâches en cours sont demandées
     Alors les tâches proposées sont
       | Description                        | Durée                   |
       | Démonter une entrecôte avec le Cis | 7 jour(s) et 3 heure(s) |
       | Boire un canon avec Gégé           | 3 jour(s) et 1 heure(s) |
+      | Siffler un demi                    | 26 minute(s)            |
 
   Scénario: Afficher la durée d'une tâche terminée
     Etant donné les tâches terminées

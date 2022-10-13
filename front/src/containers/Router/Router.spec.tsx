@@ -1,4 +1,3 @@
-import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import { Router } from './index';
 import { MemoryRouter } from 'react-router-dom';
@@ -25,7 +24,7 @@ describe('Router component', () => {
     );
 
     const titleElement = screen.getByText(
-      /Welcome to the application StarterHub generated for you!/i
+      /Welcome to the ULTIMATE Todolist! 🚀/i
     );
     expect(titleElement).toBeVisible();
   });

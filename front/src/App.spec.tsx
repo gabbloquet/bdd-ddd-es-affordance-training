@@ -1,4 +1,3 @@
-import '@testing-library/jest-dom';
 import { screen } from '@testing-library/react';
 import { renderWithData } from './utils/test-utils';
 import App from './App';

@@ -1,4 +1,4 @@
-import nock from 'nock';
+import * as nock from 'nock';
 import axios from 'axios';
 import { getContests } from './contest.service';
 import { contestsDtoExample } from './contest.dto';

@@ -40,7 +40,7 @@ Our Jest configuration (in [package.json](../package.json)):
 }
 ```
 
-Our Babel configuration (in [babel.config.js](../babel.config.js)):
+Our Babel configuration (in [babel.config.json](../babel.config.json)):
 
 ```js
 module.exports = {

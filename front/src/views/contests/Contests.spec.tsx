@@ -1,5 +1,4 @@
-import '@testing-library/jest-dom';
-import nock from 'nock';
+import * as nock from 'nock';
 import axios from 'axios';
 import { renderWithData } from '../../utils/test-utils';
 import { Contests } from './index';

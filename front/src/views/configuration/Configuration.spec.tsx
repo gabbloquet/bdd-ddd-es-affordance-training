@@ -1,4 +1,3 @@
-import '@testing-library/jest-dom';
 import { screen } from '@testing-library/react';
 import { Configuration } from './index';
 import { renderWithData } from '../../utils/test-utils';
@@ -11,7 +10,7 @@ describe('Configuration view', () => {
 
     const doc = screen.getByRole('article');
     expect(doc).toBeInTheDocument();
-    expect(doc.textContent).toContain('Vault');
+    expect(doc.textContent).toContain('secret manager');
   });
 
   it('loads configuration', async () => {

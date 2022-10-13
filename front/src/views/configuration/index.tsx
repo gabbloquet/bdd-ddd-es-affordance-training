@@ -9,8 +9,8 @@ export const Configuration = () => {
       <h1>Documentation</h1>
 
       <p role="article">
-        When deployed remotely, the configuration is provided from Vault. Locally, it's provided by
-        the file `public/conf.json`.
+        When deployed remotely, the configuration file could be provided vy your secret manager.
+        Locally, it's provided by the file `public/conf.json`.
       </p>
 
       <h2>Configuration</h2>

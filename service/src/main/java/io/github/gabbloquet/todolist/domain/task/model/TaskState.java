@@ -6,15 +6,21 @@ import io.github.gabbloquet.todolist.domain.task.completeTask.TaskCompleted;
 import io.github.gabbloquet.todolist.domain.task.deleteTask.TaskDeleted;
 import io.github.gabbloquet.todolist.domain.task.renameTask.TaskRenamed;
 import lombok.Getter;
+import lombok.experimental.Accessors;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Projection
 @Getter
+@Accessors(fluent = true)
 public final class TaskState implements TaskEvent.Visitor<TaskState> {
     private TaskId id;
     private String description;
     private boolean isCompleted;
+    private LocalDateTime creationTime;
+    private String duration;
 
     public TaskState(List<TaskEvent> history) {
         history.forEach(this::apply);
@@ -29,6 +35,7 @@ public final class TaskState implements TaskEvent.Visitor<TaskState> {
         this.id = event.taskId;
         this.description = event.description;
         this.isCompleted = event.isCompleted;
+        this.creationTime = event.creationTime;
         return this;
     }
 
@@ -40,7 +47,10 @@ public final class TaskState implements TaskEvent.Visitor<TaskState> {
 
     @Override
     public TaskState apply(TaskCompleted event) {
+        Duration duration = Duration.between(this.creationTime, event.at);
+
         this.isCompleted = true;
+        this.duration = toStringifiedDuration(duration);
         return this;
     }
 
@@ -50,5 +60,14 @@ public final class TaskState implements TaskEvent.Visitor<TaskState> {
         this.description = null;
         this.isCompleted = false;
         return this;
+    }
+
+    private String toStringifiedDuration(Duration duration) {
+        long days = duration.toDays();
+        long hours = duration.minusDays(days).toHours();
+        if(hours == 0){
+            return String.format("%d jour(s)", days);
+        }
+        return String.format("%d jour(s) et %d heure(s)", days, hours);
     }
 }

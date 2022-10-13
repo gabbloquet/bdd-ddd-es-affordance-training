@@ -42,7 +42,7 @@ public class CompleteTaskSpec {
 
     @Alors("la tâche {string} est terminée")
     public void latâcheEstTerminée(String task) {
-        assertThat(scenarioState.taskState.getDescription()).isEqualTo(task);
+        assertThat(scenarioState.taskState.description()).isEqualTo(task);
         assertTrue(scenarioState.taskState.isCompleted());
 
         Task completedTask = todolistUseCaseTransaction.get().findByName(task);

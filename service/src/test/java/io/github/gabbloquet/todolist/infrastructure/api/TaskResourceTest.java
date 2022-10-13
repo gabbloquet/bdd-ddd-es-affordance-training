@@ -90,9 +90,9 @@ class TaskResourceTest {
                 .thenReturn(taskState);
         when(taskService.execute(AddTask.builder().description("Hey! Im a new task !").build()))
                 .thenReturn(addedTaskState);
-        when(taskService.execute(CompleteTask.builder().taskId(taskState.getId()).build()))
+        when(taskService.execute(CompleteTask.builder().taskId(taskState.id()).build()))
                 .thenReturn(completedTaskState);
-        when(taskService.execute(RenameTask.builder().taskId(taskState.getId()).update("Always practice TDD!").build()))
+        when(taskService.execute(RenameTask.builder().taskId(taskState.id()).update("Always practice TDD!").build()))
                 .thenReturn(modifiedTaskState);
     }
 
@@ -102,6 +102,9 @@ class TaskResourceTest {
         ResultActions requestResult = executeGetTaskOneRequest();
 
         assertTaskAffordance(requestResult, "Practice TDD");
+
+        requestResult
+                .andExpect(jsonPath("completed").value(false));
     }
 
     @Test
@@ -109,6 +112,9 @@ class TaskResourceTest {
         ResultActions requestResult = executeAddATaskRequest();
 
         assertTaskAffordance(requestResult, "Hey! Im a new task !");
+
+        requestResult
+                .andExpect(jsonPath("completed").value(false));
     }
 
     @Test
@@ -116,6 +122,9 @@ class TaskResourceTest {
         ResultActions requestResult = executeRenameTaskRequest();
 
         assertTaskAffordance(requestResult, "Always practice TDD!");
+
+        requestResult
+                .andExpect(jsonPath("completed").value(false));
     }
 
     @Test
@@ -149,6 +158,7 @@ class TaskResourceTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("id").value(id))
                 .andExpect(jsonPath("description").value(description))
+                .andExpect(jsonPath("creationTime").value("2022-10-01T06:00:00"))
 
                 .andExpect(jsonPath("$._links.getOrDeleteTask.href", is("http://localhost/tasks/" + id)))
                 .andExpect(jsonPath("$._links.getOrDeleteTask.title", is("Get or delete a task")))

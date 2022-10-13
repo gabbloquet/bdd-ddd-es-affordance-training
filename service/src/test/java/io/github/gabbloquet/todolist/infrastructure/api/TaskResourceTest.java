@@ -98,7 +98,6 @@ class TaskResourceTest {
 
     @Test
     public void get_a_task() throws Exception {
-//        TODO: Ajouter les durations
         ResultActions requestResult = executeGetTaskOneRequest();
 
         assertTaskAffordance(requestResult, "Practice TDD");
@@ -134,7 +133,8 @@ class TaskResourceTest {
         assertTaskAffordance(requestResult, "Practice TDD");
 
         requestResult
-                .andExpect(jsonPath("completed").value(true));
+                .andExpect(jsonPath("completed").value(true))
+                .andExpect(jsonPath("duration").value("10 jour(s)"));
     }
 
     @Test

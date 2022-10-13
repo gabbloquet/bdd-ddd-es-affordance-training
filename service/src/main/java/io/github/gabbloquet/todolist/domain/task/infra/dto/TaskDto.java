@@ -5,7 +5,7 @@ import io.github.gabbloquet.todolist.domain.todolist.model.Todolist.Task;
 
 import java.util.UUID;
 
-public record TaskDto(UUID id, String description, boolean isCompleted) {
+public record TaskDto(UUID id, String description, boolean completed) {
     public static TaskDto from(Task task) {
         return new TaskDto(task.taskId().id(), task.name(), task.done());
     }

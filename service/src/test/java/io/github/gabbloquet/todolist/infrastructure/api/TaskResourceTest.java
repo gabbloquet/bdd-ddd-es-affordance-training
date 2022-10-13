@@ -113,9 +113,19 @@ class TaskResourceTest {
 
     @Test
     public void rename_a_task() throws Exception {
-        ResultActions requestResult = executeRenameTaskTwoRequest();
+        ResultActions requestResult = executeRenameTaskRequest();
 
         assertTaskAffordance(requestResult, "Always practice TDD!");
+    }
+
+    @Test
+    public void complete_a_task() throws Exception {
+        ResultActions requestResult = executeCompleteTaskRequest();
+
+        assertTaskAffordance(requestResult, "Practice TDD");
+
+        requestResult
+                .andExpect(jsonPath("completed").value(true));
     }
 
     @Test
@@ -176,14 +186,14 @@ class TaskResourceTest {
                 .accept(MediaTypes.HAL_FORMS_JSON));
     }
 
-    private ResultActions executeRenameTaskTwoRequest() throws Exception {
+    private ResultActions executeRenameTaskRequest() throws Exception {
         return mockMvc.perform(put("/tasks/" + uuid + "/rename")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaTypes.HAL_FORMS_JSON)
                 .content("{\"description\": \"Always practice TDD!\"}"));
     }
 
-    private ResultActions executeCompleteTaskTwoRequest() throws Exception {
+    private ResultActions executeCompleteTaskRequest() throws Exception {
         return mockMvc.perform(put("/tasks/" + uuid + "/complete")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaTypes.HAL_FORMS_JSON));

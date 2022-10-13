@@ -4,6 +4,7 @@ import io.github.gabbloquet.todolist.domain.task.TaskCommand;
 import io.github.gabbloquet.todolist.domain.task.TaskService;
 import io.github.gabbloquet.todolist.domain.task.addTask.AddTask;
 import io.github.gabbloquet.todolist.domain.task.addTask.OpenTask;
+import io.github.gabbloquet.todolist.domain.task.completeTask.CompleteTask;
 import io.github.gabbloquet.todolist.domain.task.deleteTask.DeleteTask;
 import io.github.gabbloquet.todolist.domain.task.infra.dto.TaskDto;
 import io.github.gabbloquet.todolist.domain.task.infra.dto.TaskRequest;
@@ -67,13 +68,13 @@ public class TaskResource {
     @PutMapping("/{id}/complete")
     public EntityModel<TaskDto> completeTask(@PathVariable UUID id) {
 
-        TaskCommand command = RenameTask.builder()
+        TaskCommand command = CompleteTask.builder()
                 .taskId(TaskId.from(id))
                 .build();
 
-        TaskState modifiedTask = taskService.execute(command);
+        TaskState completedTask = taskService.execute(command);
 
-        return tasksResponseAssembler.map(TaskDto.from(modifiedTask));
+        return tasksResponseAssembler.map(TaskDto.from(completedTask));
     }
 
     @DeleteMapping("/{id}")

@@ -9,16 +9,18 @@ Firstly, I tried to work on a TODO list example. ([Feature examples](https://www
 1. I started by working on [gherkins](./doc/gherkins.md)
 2. Then, tried to discover [affordance tools](./doc/affordance.md)
 3. Working on an [architecture schema](./doc/architecture.md)
-4. [Service development](./service/README.md)
+4. [Service development with BDD, DDD, event sourcing, affordance](./service/README.md)
+5. Added docker
+6. Worked on a [React Starter](https://github.com/gabbloquet/starter-react)
+7. I start to work on [front](./front)
 
 ## Next steps
 
-1. Make an amazing todolist service, [more informations here](./service/README.md)
-2. Try to implement a front-end to be compliant with it
-3. Make the whole app works :tada:
-4. Try to work on another example -> _Provide me ideas with [issues](https://github.com/gabbloquet/bdd-ddd-affordance-training/issues)_
+1. Try to implement a front-end to be compliant with it
+2. Make the whole app works :tada:
+3. Try to work on another example -> _Provide me ideas with [issues](https://github.com/gabbloquet/bdd-ddd-affordance-training/issues)_
 
-## Ajouter une fonctionnalité
+## Ajouter une fonctionnalité (service)
 
 1. Ajouter le / les acceptance tests (au format Gherkins) dans [resources/features](./service/src/test/resources/features)
 2. Écrire les Specs associées, proposées par l'auto-completion sur IntelliJ (Choisir Java), avec le code associé

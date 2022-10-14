@@ -40,3 +40,14 @@ For now this application is just a back office.
 The easiest ways to test it is : 
  - Performs tests [./service/src/test/java](./service/src/test/java) (If you use IntelliJ -> Left click -> `Run 'All Tests'`)
  - [Use this postman collection](https://www.getpostman.com/collections/29ec62bd3b5ed531c0b5) (Copy paste this content in `File` -> `Import` -> `Raw text`)
+
+#### Docker
+
+[Install Docker Desktop](https://www.docker.com/products/docker-desktop/)
+
+```shell
+docker compose up
+```
+
+to run front and service.  
+Else you can run each service independently by running dockerfiles directly.

@@ -20,7 +20,8 @@ Few words about [affordance and choices](../doc/affordance.md).
 - [x] [Implement Domain driven design](../doc/ddd.md)
 - [x] [Implement Event sourcing](../doc/event_sourcing.md)
 - [x] Write tests which describe consumer attendees
-- [ ] Add more complex business rules
+- [x] Add more complex business rules
+- [x] Add an in memory database
 - [ ] Add a database
 - [ ] Develop a front-end to demonstrate the principle
 
@@ -36,12 +37,6 @@ After writing it, I develop my functionalities, TDD approach.
 
 ## Features
 
-1. Check todo list tasks
-2. Add a task in my todo list
-3. Delete a task from my todo list
-4. Modify a task from my todo list
-5. Move a task from my todo list
-
 [Associated gherkins](../doc/gherkins.md)
 
 ## Installation
@@ -52,7 +47,7 @@ After writing it, I develop my functionalities, TDD approach.
 
 ### Without Nix
 
-Prerequisites : [`Maven`](https://maven.apache.org/install.html) & [`Jdk18`](https://www.oracle.com/java/technologies/javase/jdk18-archive-downloads.html) 
+Prerequisites : [`Maven`](https://maven.apache.org/install.html) & [`Jdk19`](https://jdk.java.net/19/) 
 
 ### Project
 

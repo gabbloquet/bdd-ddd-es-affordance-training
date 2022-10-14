@@ -1,9 +1,6 @@
 package io.github.gabbloquet.todolist.domain.todolist.model;
 
 import java.time.LocalDateTime;
+import java.util.function.Supplier;
 
-public class LocalDateTimeSupplier {
-    public LocalDateTime get() {
-        return LocalDateTime.now();
-    }
-}
+public interface LocalDateTimeSupplier extends Supplier<LocalDateTime> {}

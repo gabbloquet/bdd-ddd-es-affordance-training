@@ -168,5 +168,8 @@ public class Todolist implements TaskEvent.Visitor<Todolist> {
         public Task(String task) {
             this(new TaskId(UUID.randomUUID()), task, LocalDateTime.now(), null, false);
         }
+        public Task(String task, LocalDateTime creationDateTime) {
+            this(new TaskId(UUID.randomUUID()), task, creationDateTime, null, false);
+        }
     }
 }

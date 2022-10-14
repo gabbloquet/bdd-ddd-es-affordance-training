@@ -18,6 +18,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,8 +41,8 @@ class TodolistResourceTest {
     @MockBean
     private TodolistService todolistService;
 
-    private final Task task = new Task("Practice TDD");
-    private final Task anotherTask = new Task("Practice Simple Design");
+    private final Task task = new Task("Practice TDD", LocalDateTime.of(2022, 8, 1, 8, 20));
+    private final Task anotherTask = new Task("Practice Simple Design", LocalDateTime.of(2022, 8, 2, 7, 30));
 
     @BeforeEach
     public void setUp() {
@@ -69,28 +70,9 @@ class TodolistResourceTest {
     @Test
     public void get_todolist_contains_tasks_affordance() throws Exception {
         String taskId = task.taskId().id().toString();
+        ResultActions result = executeGetRequest();
 
-        executeGetRequest()
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.tasks[0].id").value(taskId))
-                .andExpect(jsonPath("$.tasks[0].description").value("Practice TDD"))
-
-                .andExpect(jsonPath("$.tasks[0]._links.deleteOrModifyTask.href", is("http://localhost/tasks/" + taskId)))
-                .andExpect(jsonPath("$.tasks[0]._links.deleteOrModifyTask.title", is("Modify or delete a task")))
-
-                .andExpect(jsonPath("$.tasks[0]._templates.default.method", is("PUT")))
-                .andExpect(jsonPath("$.tasks[0]._templates.default.properties[0].name", is("description")))
-                .andExpect(jsonPath("$.tasks[0]._templates.default.properties[0].type", is("text")))
-
-                .andExpect(jsonPath("$.tasks[0]._templates.deleteTask.method", is("DELETE")))
-                .andExpect(jsonPath("$.tasks[0]._templates.deleteTask.target", is("http://localhost/tasks/" + taskId)))
-
-                .andExpect(jsonPath("$.tasks[0]._links.addTask.href", is("http://localhost/tasks")))
-                .andExpect(jsonPath("$.tasks[0]._links.addTask.title", is("Add a task")))
-                .andExpect(jsonPath("$.tasks[0]._templates.addTask.method", is("POST")))
-                .andExpect(jsonPath("$.tasks[0]._templates.addTask.properties[0].name", is("description")))
-                .andExpect(jsonPath("$.tasks[0]._templates.addTask.properties[0].type", is("text")))
-                .andExpect(jsonPath("$.tasks[0]._templates.addTask.target", is("http://localhost/tasks")));
+        assertFirstTaskAffordances(result, taskId,"Practice TDD", "2022-08-01T08:20:00");
     }
 
     @Test
@@ -102,9 +84,13 @@ class TodolistResourceTest {
 
     @Test
     public void prioritize_task_in_todolist_contains_tasks_affordances() throws Exception {
-        String taskId = task.taskId().id().toString();
+        String firstTaskId = anotherTask.taskId().id().toString();
+        String secondTaskId = task.taskId().id().toString();
 
-        assertTasksAffordances(executePrioritizeRequest(), taskId);
+        ResultActions result = executePrioritizeRequest();
+
+        assertFirstTaskAffordances(result, firstTaskId, "Practice Simple Design", "2022-08-02T07:30:00");
+        assertSecondTaskAffordances(result, secondTaskId, "Practice TDD", "2022-08-01T08:20:00");
     }
 
     @Test
@@ -116,9 +102,13 @@ class TodolistResourceTest {
 
     @Test
     public void deprioritize_task_in_todolist_contains_tasks_affordances() throws Exception {
-        String taskId = task.taskId().id().toString();
+        String firstTaskId = anotherTask.taskId().id().toString();
+        String secondTaskId = task.taskId().id().toString();
 
-        assertTasksAffordances(executeDeprioritizeRequest(), taskId);
+        ResultActions result = executeDeprioritizeRequest();
+
+        assertFirstTaskAffordances(result, firstTaskId, "Practice Simple Design", "2022-08-02T07:30:00");
+        assertSecondTaskAffordances(result, secondTaskId, "Practice TDD", "2022-08-01T08:20:00");
     }
 
     private ResultActions executeGetRequest() throws Exception {
@@ -164,28 +154,76 @@ class TodolistResourceTest {
             .andExpect(jsonPath("$._templates.deprioritize.target", is("http://localhost/todolist/deprioritize/task")));
     }
 
-    private void assertTasksAffordances(ResultActions request, String taskId) throws Exception {
+    private void assertFirstTaskAffordances(ResultActions result, String taskId, String description, String date) throws Exception {
+        result
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.tasks[0].id").value(taskId))
+                .andExpect(jsonPath("$.tasks[0].description").value(description))
+                .andExpect(jsonPath("$.tasks[0].creationTime").value(date))
+
+                .andExpect(jsonPath("$.tasks[0]._links.getOrDeleteTask.href", is("http://localhost/tasks/" + taskId)))
+                .andExpect(jsonPath("$.tasks[0]._links.getOrDeleteTask.title", is("Get or delete a task")))
+
+                .andExpect(jsonPath("$.tasks[0]._links.deleteTask.href", is("http://localhost/tasks/" + taskId)))
+                .andExpect(jsonPath("$.tasks[0]._links.deleteTask.title", is("Delete a task")))
+                .andExpect(jsonPath("$.tasks[0]._templates.deleteTask.method", is("DELETE")))
+                .andExpect(jsonPath("$.tasks[0]._templates.deleteTask.target", is("http://localhost/tasks/" + taskId)))
+                .andExpect(jsonPath("$.tasks[0]._templates.default.method", is("DELETE")))
+                .andExpect(jsonPath("$.tasks[0]._templates.default.target", is("http://localhost/tasks/" + taskId)))
+
+                .andExpect(jsonPath("$.tasks[0]._links.renameTask.href", is("http://localhost/tasks/" + taskId + "/rename")))
+                .andExpect(jsonPath("$.tasks[0]._templates.renameTask.method", is("PUT")))
+                .andExpect(jsonPath("$.tasks[0]._templates.renameTask.properties[0].name", is("description")))
+                .andExpect(jsonPath("$.tasks[0]._templates.renameTask.properties[0].type", is("text")))
+                .andExpect(jsonPath("$.tasks[0]._templates.renameTask.target", is("http://localhost/tasks/" + taskId + "/rename")))
+
+                .andExpect(jsonPath("$.tasks[0]._links.completeTask.href", is("http://localhost/tasks/" + taskId + "/complete")))
+                .andExpect(jsonPath("$.tasks[0]._templates.completeTask.method", is("PUT")))
+                .andExpect(jsonPath("$.tasks[0]._templates.completeTask.target", is("http://localhost/tasks/" + taskId + "/complete")))
+
+                .andExpect(jsonPath("$.tasks[0]._links.addTask.href", is("http://localhost/tasks")))
+                .andExpect(jsonPath("$.tasks[0]._links.addTask.title", is("Add a task")))
+                .andExpect(jsonPath("$.tasks[0]._templates.addTask.method", is("POST")))
+                .andExpect(jsonPath("$.tasks[0]._templates.addTask.properties[0].name", is("description")))
+                .andExpect(jsonPath("$.tasks[0]._templates.addTask.properties[0].type", is("text")))
+                .andExpect(jsonPath("$.tasks[0]._templates.addTask.target", is("http://localhost/tasks")))
+                .andExpect(jsonPath("$.tasks[0]._links.todolist.href", is("http://localhost/todolist")));
+    }
+
+    private void assertSecondTaskAffordances(ResultActions request, String taskId, String description, String date) throws Exception {
         request
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.tasks[1].id").value(taskId))
-                .andExpect(jsonPath("$.tasks[1].description").value("Practice TDD"))
+                .andExpect(jsonPath("$.tasks[1].description").value(description))
+                .andExpect(jsonPath("$.tasks[1].creationTime").value(date))
 
-                .andExpect(jsonPath("$.tasks[1]._links.deleteOrModifyTask.href", is("http://localhost/tasks/" + taskId)))
-                .andExpect(jsonPath("$.tasks[1]._links.deleteOrModifyTask.title", is("Modify or delete a task")))
+                .andExpect(jsonPath("$.tasks[1]._links.getOrDeleteTask.href", is("http://localhost/tasks/" + taskId)))
+                .andExpect(jsonPath("$.tasks[1]._links.getOrDeleteTask.title", is("Get or delete a task")))
 
-                .andExpect(jsonPath("$.tasks[1]._templates.default.method", is("PUT")))
-                .andExpect(jsonPath("$.tasks[1]._templates.default.properties[0].name", is("description")))
-                .andExpect(jsonPath("$.tasks[1]._templates.default.properties[0].type", is("text")))
-
+                .andExpect(jsonPath("$.tasks[1]._links.deleteTask.href", is("http://localhost/tasks/" + taskId)))
+                .andExpect(jsonPath("$.tasks[1]._links.deleteTask.title", is("Delete a task")))
                 .andExpect(jsonPath("$.tasks[1]._templates.deleteTask.method", is("DELETE")))
                 .andExpect(jsonPath("$.tasks[1]._templates.deleteTask.target", is("http://localhost/tasks/" + taskId)))
+                .andExpect(jsonPath("$.tasks[1]._templates.default.method", is("DELETE")))
+                .andExpect(jsonPath("$.tasks[1]._templates.default.target", is("http://localhost/tasks/" + taskId)))
+
+                .andExpect(jsonPath("$.tasks[1]._links.renameTask.href", is("http://localhost/tasks/" + taskId + "/rename")))
+                .andExpect(jsonPath("$.tasks[1]._templates.renameTask.method", is("PUT")))
+                .andExpect(jsonPath("$.tasks[1]._templates.renameTask.properties[0].name", is("description")))
+                .andExpect(jsonPath("$.tasks[1]._templates.renameTask.properties[0].type", is("text")))
+                .andExpect(jsonPath("$.tasks[1]._templates.renameTask.target", is("http://localhost/tasks/" + taskId + "/rename")))
+
+                .andExpect(jsonPath("$.tasks[1]._links.completeTask.href", is("http://localhost/tasks/" + taskId + "/complete")))
+                .andExpect(jsonPath("$.tasks[1]._templates.completeTask.method", is("PUT")))
+                .andExpect(jsonPath("$.tasks[1]._templates.completeTask.target", is("http://localhost/tasks/" + taskId + "/complete")))
 
                 .andExpect(jsonPath("$.tasks[1]._links.addTask.href", is("http://localhost/tasks")))
                 .andExpect(jsonPath("$.tasks[1]._links.addTask.title", is("Add a task")))
                 .andExpect(jsonPath("$.tasks[1]._templates.addTask.method", is("POST")))
                 .andExpect(jsonPath("$.tasks[1]._templates.addTask.properties[0].name", is("description")))
                 .andExpect(jsonPath("$.tasks[1]._templates.addTask.properties[0].type", is("text")))
-                .andExpect(jsonPath("$.tasks[1]._templates.addTask.target", is("http://localhost/tasks")));
+                .andExpect(jsonPath("$.tasks[1]._templates.addTask.target", is("http://localhost/tasks")))
+                .andExpect(jsonPath("$.tasks[1]._links.todolist.href", is("http://localhost/todolist")));
     }
 
 }

@@ -153,7 +153,7 @@ class TaskResourceTest {
         verify(taskService).execute(DeleteTask.builder().taskId(taskId).build());
     }
 
-    private void assertTaskAffordance(ResultActions request, String description) throws Exception {
+    public void assertTaskAffordance(ResultActions request, String description) throws Exception {
         request
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("id").value(id))

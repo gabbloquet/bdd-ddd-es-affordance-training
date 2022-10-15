@@ -1,4 +1,3 @@
-import React from 'react';
 import { useContests } from '../contest.service';
 import Loader from '../../../../shared/components/Loader';
 
@@ -11,7 +10,6 @@ export const Contests = () => {
         <Loader data-testid="contests-loader" />
       ) : (
         <>
-          {/*@ts-ignore*/}
           <h1>Contests</h1>
           <p>You can find here all next contest events :</p>
           <ul>

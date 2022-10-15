@@ -1,4 +1,4 @@
 import { useQuery } from '@tanstack/react-query';
-import { Todolist } from './todolist.dtos';
+import { TodolistResource } from './todolist.dtos';
 
-export const useTodolist = () => useQuery<Todolist>(['todolist']);
+export const useTodolist = () => useQuery<TodolistResource>(['todolist']);

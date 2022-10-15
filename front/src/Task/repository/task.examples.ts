@@ -1,4 +1,4 @@
-import { TaskDto } from './task.dtos';
+import { TaskResource } from './task.dtos';
 
 export const taskExample = {
   id: '1a8d707e-506a-4923-a688-66cbc5674f13',
@@ -72,7 +72,7 @@ export const taskExample = {
       target: 'http://localhost:8080/tasks'
     }
   }
-} as TaskDto;
+} as TaskResource;
 
 export const anotherTaskExample = {
   id: '91f66717-1899-46ba-b398-eaaac31b3cd4',

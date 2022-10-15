@@ -1,14 +1,9 @@
-import { screen } from '@testing-library/react';
-import { renderWithData } from './utils/test-utils';
+import {render, screen} from '@testing-library/react';
 import App from './App';
 
 describe('App component', () => {
-  const configuration = { env_description: 'value123' };
-
   it('displays title', async () => {
-    renderWithData(<App />, {
-      configuration
-    });
+    render(<App />);
 
     expect(await screen.findByText(/Starter react/i)).toBeInTheDocument();
 

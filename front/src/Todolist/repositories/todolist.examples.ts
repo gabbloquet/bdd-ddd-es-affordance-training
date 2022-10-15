@@ -1,4 +1,4 @@
-import { taskExample } from '../../Task/repository/task.examples';
+import { anotherTaskExample, taskExample } from '../../Task/repository/task.examples';
 
 export const emptyTodolist = {
   tasks: [],
@@ -42,8 +42,8 @@ export const emptyTodolist = {
   }
 };
 
-export const todolistWithATask = {
-  tasks: [taskExample],
+export const todolistWithTwoTasks = {
+  tasks: [taskExample, anotherTaskExample],
   _links: {
     self: {
       href: 'http://localhost:8080/todolist',

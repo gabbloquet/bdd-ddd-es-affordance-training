@@ -71,3 +71,77 @@ export const taskExample = {
     }
   }
 };
+
+export const anotherTaskExample = {
+  id: '91f66717-1899-46ba-b398-eaaac31b3cd4',
+  description: "Saquer àl'pec avec chgros",
+  completed: false,
+  creationTime: '2022-10-15T09:39:22.887334531',
+  duration: null,
+  _links: {
+    getOrDeleteTask: {
+      href: 'http://localhost:8080/tasks/91f66717-1899-46ba-b398-eaaac31b3cd4',
+      title: 'Get or delete a task'
+    },
+    deleteTask: {
+      href: 'http://localhost:8080/tasks/91f66717-1899-46ba-b398-eaaac31b3cd4',
+      title: 'Delete a task'
+    },
+    renameTask: {
+      href: 'http://localhost:8080/tasks/91f66717-1899-46ba-b398-eaaac31b3cd4/rename',
+      title: 'Rename a task'
+    },
+    completeTask: {
+      href: 'http://localhost:8080/tasks/91f66717-1899-46ba-b398-eaaac31b3cd4/complete',
+      title: 'Complete a task'
+    },
+    addTask: {
+      href: 'http://localhost:8080/tasks',
+      title: 'Add a task'
+    },
+    todolist: {
+      href: 'http://localhost:8080/todolist',
+      title: 'Get todolist',
+      name: 'Get all tasks, todolist'
+    }
+  },
+  _templates: {
+    completeTask: {
+      method: 'PUT',
+      properties: [],
+      target: 'http://localhost:8080/tasks/91f66717-1899-46ba-b398-eaaac31b3cd4/complete'
+    },
+    default: {
+      method: 'DELETE',
+      properties: [],
+      target: 'http://localhost:8080/tasks/91f66717-1899-46ba-b398-eaaac31b3cd4'
+    },
+    renameTask: {
+      method: 'PUT',
+      properties: [
+        {
+          name: 'description',
+          readOnly: true,
+          type: 'text'
+        }
+      ],
+      target: 'http://localhost:8080/tasks/91f66717-1899-46ba-b398-eaaac31b3cd4/rename'
+    },
+    deleteTask: {
+      method: 'DELETE',
+      properties: [],
+      target: 'http://localhost:8080/tasks/91f66717-1899-46ba-b398-eaaac31b3cd4'
+    },
+    addTask: {
+      method: 'POST',
+      properties: [
+        {
+          name: 'description',
+          readOnly: true,
+          type: 'text'
+        }
+      ],
+      target: 'http://localhost:8080/tasks'
+    }
+  }
+};

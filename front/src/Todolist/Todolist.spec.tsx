@@ -1,6 +1,6 @@
 import { screen } from '@testing-library/react';
 import { renderWithStore } from '../shared/utils/test-utils';
-import { emptyTodolist, todolistWithATask } from './repositories/todolist.examples';
+import { emptyTodolist, todolistWithTwoTasks } from './repositories/todolist.examples';
 import { Todolist } from './index';
 
 describe('Todolist', () => {
@@ -18,11 +18,11 @@ describe('Todolist', () => {
 
     expect(tasks).toHaveLength(0);
   });
-  it('displays a task', () => {
-    renderWithStore(<Todolist />, { todolist: todolistWithATask });
+  it('displays tasks', () => {
+    renderWithStore(<Todolist />, { todolist: todolistWithTwoTasks });
 
     const tasks = screen.queryAllByTestId(/task-/);
 
-    expect(tasks).toHaveLength(1);
+    expect(tasks).toHaveLength(2);
   });
 });

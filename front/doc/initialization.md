@@ -1,6 +1,6 @@
 # Initialization
 
-This starter has been initialized with [Vite](https://vitejs.dev/) which is a build tool that aims to provide a faster and leaner development experience for modern web projects. (And more precisely [react-ts](https://stackblitz.com/edit/vitejs-vite-n1nea3?file=index.html&terminal=dev) template).  
+This starter has been initialized with [Vite](https://vitejs.dev/) which is a build tool that aims to provide a faster and leaner development experience for modern web projects. (And more precisely [react-ts](https://stackblitz.com/edit/vitejs-vite-n1nea3?file=index.html&terminal=dev) template).
 
 ## Vite, React, Typescript
 
@@ -30,9 +30,7 @@ Our Jest configuration (in [package.json](../package.json)):
   "verbose": true,
   "testEnvironment": "jsdom",
   "testResultsProcessor": "jest-sonar-reporter",
-  "transformIgnorePatterns": [
-    "/node_modules/(?!nanoid)(.*)"
-  ],
+  "transformIgnorePatterns": ["/node_modules/(?!nanoid)(.*)"],
   "moduleNameMapper": {
     "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/../fileMock.js",
     "\\.(css|less|scss)$": "identity-obj-proxy"

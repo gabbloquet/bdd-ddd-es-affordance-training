@@ -1,7 +1,5 @@
-import {Todolist} from "./Todolist";
+import { Todolist } from './Todolist';
 
-const App = () => (
-  <Todolist />
-);
+const App = () => <Todolist />;
 
 export default App;

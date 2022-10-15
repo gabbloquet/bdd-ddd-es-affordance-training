@@ -1,7 +1,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { render } from '@testing-library/react';
 
-export const renderWithData = (
+export const renderWithStore = (
   component: JSX.Element,
   initializedData?: Record<string, object>
 ) => {

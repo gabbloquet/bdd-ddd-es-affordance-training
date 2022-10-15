@@ -1,6 +1,6 @@
 import * as nock from 'nock';
 import axios from 'axios';
-import { renderWithData } from '../../../../shared/utils/test-utils';
+import { renderWithStore } from '../../shared/utils/test-utils';
 import { Contests } from './index';
 import { Contest } from '../contest.service';
 import { screen } from '@testing-library/react';
@@ -24,7 +24,7 @@ describe('Contests view', () => {
         url: 'bddcontest.io/amazing'
       }
     ];
-    renderWithData(<Contests />, {
+    renderWithStore(<Contests />, {
       contests
     });
 
@@ -37,7 +37,7 @@ describe('Contests view', () => {
   it('displays loader when fetching', () => {
     nock('https://kontests.net').get('/api/v1/all').delay(2000).reply(200, contestsDtoExample);
 
-    renderWithData(<Contests />);
+    renderWithStore(<Contests />);
 
     expect(screen.getByTestId('contests-loader')).toBeVisible();
   });

@@ -1,5 +1,5 @@
 import { useContests } from '../contest.service';
-import Loader from '../../../../shared/components/Loader';
+import Loader from '../../shared/components/Loader';
 
 export const Contests = () => {
   const { data: contests, isLoading } = useContests();

@@ -16,7 +16,7 @@ Routes are referenced [routes.tsx](../src/configuration/routes.tsx) file. To add
 
 ## Add an API
 
-To add an API you want to consume, you can take a look to what have been done in [Contest service](src/Todolist/repositories/contest).  
+To add an API you want to consume, you can take a look to what have been done in [Contest service](src/TO_DELETE).  
 In `services` directory you can create a directory by api or by feature for example.
 
 ```typescript

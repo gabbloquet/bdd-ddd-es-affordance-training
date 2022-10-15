@@ -1,7 +1,7 @@
-const App = () => (
-  <div className="App">
+import {Todolist} from "./Todolist";
 
-  </div>
+const App = () => (
+  <Todolist />
 );
 
 export default App;

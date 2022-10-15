@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react';
-import { Welcome } from './index';
+import { Todolist } from './index';
 
-describe('Welcome view', () => {
+describe('Todolist', () => {
   it('shows a mega title', () => {
-    render(<Welcome />);
+    render(<Todolist />);
 
     const title = screen.getByRole('heading', {level: 1});
 

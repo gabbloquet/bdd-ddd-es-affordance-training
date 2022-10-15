@@ -5,7 +5,8 @@ describe('App component', () => {
   it('displays todolist', async () => {
     render(<App />);
 
-    const titleElement = screen.getByText(/Welcome in the ultimate Todolist ! 🚀/i);
-    expect(titleElement).toBeInTheDocument();
+    const todolist = screen.getByTestId('todolist');
+
+    expect(todolist).toBeVisible();
   });
 });

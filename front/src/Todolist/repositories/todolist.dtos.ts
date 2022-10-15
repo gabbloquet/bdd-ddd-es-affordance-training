@@ -1,5 +1,5 @@
-import { Task } from '../../Task/repository/task.dtos';
+import { TaskDto } from '../../Task/repository/task.dtos';
 
 export interface Todolist {
-  tasks: Array<Task>;
+  tasks: Array<TaskDto>;
 }

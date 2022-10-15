@@ -13,8 +13,15 @@ describe('Task', () => {
   it('shows description', () => {
     render(<Task {...taskExample} description="Practice Testing Library" />);
 
-    const task = screen.getByText('Practice Testing Library');
+    const description = screen.getByText('Practice Testing Library');
 
-    expect(task).toBeVisible();
+    expect(description).toBeVisible();
+  });
+  it('shows ✅ if completed', () => {
+    render(<Task {...taskExample} completed={true} />);
+
+    const greenTick = screen.getByText('✅');
+
+    expect(greenTick).toBeVisible();
   });
 });

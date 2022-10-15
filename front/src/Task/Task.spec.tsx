@@ -10,4 +10,11 @@ describe('Task', () => {
 
     expect(task).toBeVisible();
   });
+  it('shows description', () => {
+    render(<Task {...taskExample} description="Practice Testing Library" />);
+
+    const task = screen.getByText('Practice Testing Library');
+
+    expect(task).toBeVisible();
+  });
 });

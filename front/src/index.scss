@@ -1,38 +1,81 @@
+:root {
+  --color_white: #FFFFFF;
+  --color_grey-light: #EFF1F3;
+}
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+}
+
+/* Set core root defaults */
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
 body {
-  --base-spacing: 1.5em;
-  --base-font-size: 1em;
-
-  margin: 0;
-  padding: 0;
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+  background: linear-gradient(180deg, var(--color_grey-light) 50%, var(--color_white) 85%);
 }
 
-* {
-  font-family: Roboto, arial, helvetica, sans-serif;
+#root {
+  min-height: 100vh;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-ul,
-pre {
-  margin: 0 0 var(--base-spacing) 0;
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
 }
 
-a,
-span,
-div,
-p,
-pre,
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
 input,
-select,
-button {
-  font-size: var(--base-font-size);
+button,
+textarea,
+select {
+  font: inherit;
 }
 
-input {
-  padding: calc(0.3 * var(--base-spacing));
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }

@@ -1,6 +1,6 @@
 import React from 'react';
-import { useContests } from '../../services/contest/contest.service';
-import Loader from '../components/Loader';
+import { useContests } from '../../Todolist/repositories/contest/contest.service';
+import Loader from '../../shared/components/Loader';
 
 export const Contests = () => {
   const { data: contests, isLoading } = useContests();

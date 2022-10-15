@@ -15,7 +15,7 @@ Routes are referenced [routes.tsx](../src/configuration/routes.tsx) file. To add
 ```
 ## Add an API
 
-To add an API you want to consume, you can take a look to what have been done in [Contest service](../src/services/contest).  
+To add an API you want to consume, you can take a look to what have been done in [Contest service](src/Todolist/repositories/contest).  
 In `services` directory you can create a directory by api or by feature for example.
 
 ```typescript
@@ -41,7 +41,7 @@ On the other hand, a smart component ([Smart VS Dumb components](https://medium.
 
 ## Utilities
 
-Utilities functions could be placed in [utils directory](../src/utils).  
+Utilities functions could be placed in [utils directory](src/shared/utils).  
 It could be a function to get Date, manipulate session or local storage, sort arrays, rework object...
 
 ## Style

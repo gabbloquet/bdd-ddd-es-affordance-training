@@ -1,10 +1,10 @@
 import * as nock from 'nock';
 import axios from 'axios';
-import { renderWithData } from '../../utils/test-utils';
+import { renderWithData } from '../../shared/utils/test-utils';
 import { Contests } from './index';
-import { Contest } from '../../services/contest/contest.service';
+import { Contest } from '../../Todolist/repositories/contest/contest.service';
 import { screen } from '@testing-library/react';
-import { contestsDtoExample } from '../../services/contest/contest.dto';
+import { contestsDtoExample } from '../../Todolist/repositories/contest/contest.dto';
 
 axios.defaults.adapter = require('axios/lib/adapters/http');
 

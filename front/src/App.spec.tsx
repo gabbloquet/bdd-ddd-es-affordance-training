@@ -2,12 +2,10 @@ import {render, screen} from '@testing-library/react';
 import App from './App';
 
 describe('App component', () => {
-  it('displays title', async () => {
+  it('displays todolist', async () => {
     render(<App />);
 
-    expect(await screen.findByText(/Starter react/i)).toBeInTheDocument();
-
-    const titleElement = screen.getByText(/Starter react/i);
+    const titleElement = screen.getByText(/Welcome in the ultimate Todolist ! 🚀/i);
     expect(titleElement).toBeInTheDocument();
   });
 });

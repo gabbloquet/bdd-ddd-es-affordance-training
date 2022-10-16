@@ -24,4 +24,11 @@ describe('Task', () => {
 
     expect(greenTick).toBeVisible();
   });
+  it('shows 💪 if to do', () => {
+    render(<Task {...taskExample} completed={false} />);
+
+    const muscle = screen.getByText('💪');
+
+    expect(muscle).toBeVisible();
+  });
 });

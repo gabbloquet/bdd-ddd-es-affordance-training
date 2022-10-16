@@ -1,4 +1,4 @@
-import { TaskResource } from '../../Task/repository/task.dtos';
+import { TaskResource } from '../../Task/repository/task.dto';
 
 export interface Resource {
   _links: object;

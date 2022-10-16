@@ -1,4 +1,4 @@
-import { anotherTaskExample, taskExample } from '../../Task/repository/task.examples';
+import { anotherTaskExample, taskExample } from '../../Task/repository/task.example';
 
 export const emptyTodolist = {
   tasks: [],

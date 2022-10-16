@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { Task } from './index';
-import { taskExample } from './repository/task.examples';
+import { taskExample } from './repository/task.example';
 
 describe('Task', () => {
   it('uses id in data-testid', () => {
@@ -30,5 +30,12 @@ describe('Task', () => {
     const muscle = screen.getByText('💪');
 
     expect(muscle).toBeVisible();
+  });
+  it('shows the creation time with natural language', () => {
+    render(<Task {...taskExample} creationTime={'2022-10-16T06:30:00'} />);
+
+    const date = screen.getByText('(Créée le 10/16/2022 à 6:30)');
+
+    expect(date).toBeVisible();
   });
 });

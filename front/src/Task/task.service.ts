@@ -1,4 +1,4 @@
-export const toLiteralDateTime = (dateTime: Date) => {
+export const toLiteralDateTime = (dateTime: Date): string => {
   const date = dateTime.toLocaleDateString('fr-FR');
   const time = dateTime.toLocaleTimeString('fr-FR').slice(0, -3);
 

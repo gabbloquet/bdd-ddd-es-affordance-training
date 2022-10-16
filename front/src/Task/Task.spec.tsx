@@ -39,4 +39,11 @@ describe('Task', () => {
 
     expect(date).toBeVisible();
   });
+  it('shows duration', () => {
+    render(<Task {...taskExample} duration={'2 jour(s) et 1 heure(s)'} />);
+
+    const duration = screen.getByText('2 jour(s) et 1 heure(s)');
+
+    expect(duration).toBeVisible();
+  });
 });

@@ -1,0 +1,13 @@
+.task {
+  display: flex;
+  align-items: center;
+
+  > .description {
+    padding: 0 1em;
+    font-size: larger;
+  }
+
+  > .duration {
+    padding-right: 1em;
+  }
+}

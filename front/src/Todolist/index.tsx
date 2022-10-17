@@ -6,9 +6,9 @@ export const Todolist = () => {
   const { data: todolist } = useTodolist();
 
   return (
-    <div data-testid="todolist" className="todolist">
+    <main data-testid="todolist" className="todolist">
       <h1>Welcome to the ULTIMATE Todolist! 🚀</h1>
       {todolist && todolist.tasks.map((task) => <Task {...task} key={task.id} />)}
-    </div>
+    </main>
   );
 };

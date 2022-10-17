@@ -1,13 +1,16 @@
 .task {
-  display: flex;
+
+  display: grid;
+  grid-template-columns: 3em 2fr minmax(0, 1fr) 1fr;
+  grid-template-rows: 3em;
+  justify-items: start;
   align-items: center;
 
-  > .description {
-    padding: 0 1em;
-    font-size: larger;
-  }
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
 
-  > .duration {
-    padding-right: 1em;
+  > .description {
+    font-size: larger;
   }
 }

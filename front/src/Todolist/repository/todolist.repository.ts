@@ -1,4 +1,4 @@
 import { useQuery } from '@tanstack/react-query';
-import { Todolist } from '../todolist.model';
+import { Todolist } from '../model/todolist.model';
 
 export const useTodolist = () => useQuery<Todolist>(['todolist']);

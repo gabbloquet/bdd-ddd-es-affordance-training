@@ -1,5 +1,5 @@
 import { TaskResource } from './task.dto';
-import { Task } from '../task.model';
+import { Task } from '../model/task.model';
 
 export const toTask = (taskDto: TaskResource): Task => ({
   id: taskDto.id,

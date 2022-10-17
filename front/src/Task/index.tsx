@@ -1,5 +1,5 @@
-import { Task as TaskState } from './task.model';
-import { toLiteralDateTime } from './task.service';
+import { Task as TaskState } from './model/task.model';
+import { toLiteralDateTime } from './model/task.service';
 import './task.scss';
 
 export const Task = ({ id, completed, creationTime, description, duration }: TaskState) => (

@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { taskCreated } from './task.model';
+import { taskCreated } from './model/task.model';
 import { Task } from './index';
 
 describe('Task', () => {

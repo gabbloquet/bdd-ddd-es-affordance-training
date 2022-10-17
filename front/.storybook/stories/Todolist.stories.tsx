@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { taskCompleted, taskCreated } from '../../src/Task/task.model';
+import { taskCompleted, taskCreated } from '../../src/Task/model/task.model';
 import { Todolist } from '../../src/Todolist';
 
 const queryClient = new QueryClient({});

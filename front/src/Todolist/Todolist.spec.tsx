@@ -1,7 +1,7 @@
 import { screen } from '@testing-library/react';
 import { renderWithStore } from '../shared/utils/test-utils';
 import { Todolist } from './index';
-import { taskCompleted, taskCreated } from '../Task/task.model';
+import { taskCompleted, taskCreated } from '../Task/model/task.model';
 
 describe('Todolist', () => {
   it('shows a welcome message', () => {

@@ -1,4 +1,4 @@
-import { Task, taskCreated } from '../Task/task.model';
+import { Task, taskCreated } from '../../Task/model/task.model';
 
 export interface Todolist {
   tasks: Array<Task>;

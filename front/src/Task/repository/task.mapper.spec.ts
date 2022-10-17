@@ -1,6 +1,6 @@
 import { toTask } from './task.mapper';
 import { TaskResource } from './task.dto';
-import { Task } from '../task.model';
+import { Task } from '../model/task.model';
 import { taskDtoExample } from './task.dto';
 
 describe('Task mapper', () => {

@@ -1,7 +1,7 @@
 import { screen } from '@testing-library/react';
 import { renderWithStore } from '../shared/utils/test-utils';
-import { emptyTodolist, todolistWithTwoTasks } from './repositories/todolist.examples';
 import { Todolist } from './index';
+import { taskCompleted, taskCreated } from '../Task/task.model';
 
 describe('Todolist', () => {
   it('shows a welcome message', () => {
@@ -12,6 +12,7 @@ describe('Todolist', () => {
     expect(title).toHaveTextContent('Welcome to the ULTIMATE Todolist! 🚀');
   });
   it('displays nothing if there is no task', () => {
+    const emptyTodolist = { tasks: [] };
     renderWithStore(<Todolist />, { todolist: emptyTodolist });
 
     const tasks = screen.queryAllByTestId(/task-/);
@@ -19,6 +20,9 @@ describe('Todolist', () => {
     expect(tasks).toHaveLength(0);
   });
   it('displays tasks', () => {
+    const todolistWithTwoTasks = {
+      tasks: [taskCreated, taskCompleted]
+    };
     renderWithStore(<Todolist />, { todolist: todolistWithTwoTasks });
 
     const tasks = screen.queryAllByTestId(/task-/);

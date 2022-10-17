@@ -1,6 +1,19 @@
-import { anotherTaskDtoExample, taskDtoExample } from '../../Task/repository/task.dto';
+import {
+  anotherTaskDtoExample,
+  taskDtoExample,
+  TaskResource
+} from '../../Task/repository/task.dto';
 
-export const emptyTodolist = {
+export interface Resource {
+  _links: object;
+  _templates: object;
+}
+
+export interface TodolistResource extends Resource {
+  tasks: Array<TaskResource>;
+}
+
+export const emptyDtoTodolist = {
   tasks: [],
   _links: {
     self: {
@@ -42,7 +55,7 @@ export const emptyTodolist = {
   }
 };
 
-export const todolistWithTwoTasks = {
+export const todolistDtoWithTwoTasks = {
   tasks: [taskDtoExample, anotherTaskDtoExample],
   _links: {
     self: {

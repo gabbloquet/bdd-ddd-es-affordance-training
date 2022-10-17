@@ -1,4 +1,4 @@
-import { useTodolist } from './repositories/todolist.repository';
+import { useTodolist } from './repository/todolist.repository';
 import { Task } from '../Task';
 import './todolist.scss';
 

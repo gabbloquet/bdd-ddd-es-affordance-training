@@ -1,4 +1,4 @@
-import { Resource } from '../../Todolist/repositories/todolist.dtos';
+import { Resource } from '../../Todolist/repository/todolist.dtos';
 
 export interface TaskResource extends Resource {
   id: string;

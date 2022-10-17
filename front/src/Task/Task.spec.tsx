@@ -1,31 +1,31 @@
 import { render, screen } from '@testing-library/react';
-import { taskExample } from './task.model';
+import { taskCreated } from './task.model';
 import { Task } from './index';
 
 describe('Task', () => {
   it('uses id in data-testid', () => {
-    render(<Task {...taskExample} id="toto" />);
+    render(<Task {...taskCreated} id="toto" />);
 
     const task = screen.getByTestId('task-toto');
 
     expect(task).toBeVisible();
   });
   it('shows description', () => {
-    render(<Task {...taskExample} description="Practice Testing Library" />);
+    render(<Task {...taskCreated} description="Practice Testing Library" />);
 
     const description = screen.getByText('Practice Testing Library');
 
     expect(description).toBeVisible();
   });
   it('shows ✅ if completed', () => {
-    render(<Task {...taskExample} completed={true} />);
+    render(<Task {...taskCreated} completed={true} />);
 
     const greenTick = screen.getByText('✅');
 
     expect(greenTick).toBeVisible();
   });
   it('shows 💪 if to do', () => {
-    render(<Task {...taskExample} completed={false} />);
+    render(<Task {...taskCreated} completed={false} />);
 
     const muscle = screen.getByText('💪');
 
@@ -33,14 +33,14 @@ describe('Task', () => {
   });
   it('shows the creation time with natural language', () => {
     const dateTime = new Date('2022-10-16T06:30:00');
-    render(<Task {...taskExample} creationTime={dateTime} />);
+    render(<Task {...taskCreated} creationTime={dateTime} />);
 
     const date = screen.getByText('(Créée le 16/10/2022 à 06:30)');
 
     expect(date).toBeVisible();
   });
   it('shows duration', () => {
-    render(<Task {...taskExample} duration={'2 jour(s) et 1 heure(s)'} />);
+    render(<Task {...taskCreated} duration={'2 jour(s) et 1 heure(s)'} />);
 
     const duration = screen.getByText('2 jour(s) et 1 heure(s)');
 

@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { Task } from './index';
+import { Task } from '../../src/Task';
 
 export default {
   title: 'Task',

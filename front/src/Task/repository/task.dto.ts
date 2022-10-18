@@ -1,4 +1,4 @@
-import { Resource } from '../../Todolist/repository/todolist.dtos';
+import { Resource } from '../../shared/types/hateoas.types';
 
 export interface TaskResource extends Resource {
   id: string;
@@ -8,11 +8,11 @@ export interface TaskResource extends Resource {
   duration: string | null;
 }
 
-export const taskDtoExample = {
-  id: '1a8d707e-506a-4923-a688-66cbc5674f13',
+export const taskCreatedDtoExample: TaskResource = {
+  id: '1a8d707e-506a-4923-a688-66cbc5674f14',
   description: 'Allé fumé du canon avec Gégé',
   completed: false,
-  creationTime: '2022-10-15T09:04:17.725932205',
+  creationTime: '2022-09-16T05:10:00.000Z',
   duration: null,
   _links: {
     getOrDeleteTask: {
@@ -80,7 +80,7 @@ export const taskDtoExample = {
       target: 'http://localhost:8080/tasks'
     }
   }
-} as TaskResource;
+};
 
 export const anotherTaskDtoExample = {
   id: '91f66717-1899-46ba-b398-eaaac31b3cd4',

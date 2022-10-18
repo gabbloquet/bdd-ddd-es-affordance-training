@@ -1,13 +1,9 @@
 import {
   anotherTaskDtoExample,
-  taskDtoExample,
+  taskCreatedDtoExample,
   TaskResource
 } from '../../Task/repository/task.dto';
-
-export interface Resource {
-  _links: object;
-  _templates: object;
-}
+import { Resource } from '../../shared/types/hateoas.types';
 
 export interface TodolistResource extends Resource {
   tasks: Array<TaskResource>;
@@ -56,7 +52,7 @@ export const emptyDtoTodolist = {
 };
 
 export const todolistDtoWithTwoTasks = {
-  tasks: [taskDtoExample, anotherTaskDtoExample],
+  tasks: [taskCreatedDtoExample, anotherTaskDtoExample],
   _links: {
     self: {
       href: 'http://localhost:8080/todolist',

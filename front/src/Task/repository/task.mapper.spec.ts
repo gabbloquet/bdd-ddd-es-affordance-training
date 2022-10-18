@@ -1,7 +1,7 @@
 import { toTask } from './task.mapper';
 import { TaskResource } from './task.dto';
 import { Task } from '../model/task.model';
-import { taskDtoExample } from './task.dto';
+import { taskCreatedDtoExample } from './task.dto';
 
 describe('Task mapper', () => {
   it('returns id, description, date, completed and duration', () => {
@@ -33,7 +33,7 @@ describe('Task mapper', () => {
   it('returns undefined duration', () => {
     // Given
     const taskResource: TaskResource = {
-      ...taskDtoExample,
+      ...taskCreatedDtoExample,
       duration: null
     };
 

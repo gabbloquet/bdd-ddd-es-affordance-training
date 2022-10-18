@@ -27,7 +27,7 @@ JustCreated.args = {
 
 export const ToDo = Template.bind({});
 ToDo.args = {
-  id: '1a8d707e-506a-4923-a688-66cbc5674f13',
+  id: '1a8d606e-506a-4923-a688-66cbc5674f13',
   description: 'Allé fumé du canon avec Gégé',
   completed: false,
   creationTime: new Date('2022-09-16T07:10:00'),
@@ -36,7 +36,7 @@ ToDo.args = {
 
 export const Completed = Template.bind({});
 Completed.args = {
-  id: '1a8d707e-506a-4923-a688-66cbc5674f13',
+  id: '1a8d808e-506a-4923-a688-66cbc5674f13',
   description: 'Allé fumé du canon avec Gégé',
   completed: true,
   creationTime: new Date('2022-09-16T07:10:00'),

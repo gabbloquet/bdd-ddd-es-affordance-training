@@ -2,7 +2,7 @@ import { screen } from '@testing-library/react';
 import { renderWithStore } from '../shared/utils/test-utils';
 import { Todolist } from './index';
 import { taskCompleted, taskCreated } from '../Task/model/task.model';
-import { todolistExample } from './model/todolist.model';
+import { priorizationAction } from './model/todolist.model';
 
 describe('Todolist', () => {
   it('shows a welcome message', () => {
@@ -21,24 +21,30 @@ describe('Todolist', () => {
     expect(tasks).toHaveLength(0);
   });
   it('displays tasks', () => {
+    // Given
     const todolistWithTwoTasks = {
       tasks: [taskCreated, taskCompleted]
     };
+
+    // When
     renderWithStore(<Todolist />, { todolist: todolistWithTwoTasks });
 
-    const tasks = screen.queryAllByTestId(/task-/);
-
+    // Then
+    const tasks = screen.queryAllByTestId(/^task-/);
     expect(tasks).toHaveLength(2);
   });
   it('allows to prioritize tasks if available', () => {
+    // Given
     const todolistWithTwoTasks = {
-      ...todolistExample,
-      tasks: [taskCreated, taskCompleted]
+      tasks: [taskCreated, taskCompleted],
+      actions: [priorizationAction]
     };
+
+    // When
     renderWithStore(<Todolist />, { todolist: todolistWithTwoTasks });
 
-    const tasks = screen.queryAllByTestId(/task-/);
-
+    // Then
+    const tasks = screen.queryAllByTestId(/prioritize-task-/);
     expect(tasks).toHaveLength(2);
   });
 });

@@ -1,5 +1,5 @@
 import { Task, taskCreated } from '../../Task/model/task.model';
-import { Action } from '../../shared/types/hateoas.types';
+import { Action, HTTP_METHOD } from '../../shared/types/hateoas.types';
 
 export enum TODOLIST_ACTIONS {
   PRIORITIZE_TASK = 'PRIORITIZE_TASK',
@@ -20,7 +20,13 @@ export const todolistExample: Todolist = {
   actions: []
 };
 
-export const todolistWithPriorization: Todolist = {
-  tasks: [taskCreated],
-  actions: []
+export const priorizationAction: TodolistAction = {
+  method: HTTP_METHOD.POST,
+  type: TODOLIST_ACTIONS.PRIORITIZE_TASK,
+  url: new URL('http://localhost:8080/todolist/prioritize/task'),
+  properties: [
+    {
+      name: 'id'
+    }
+  ]
 };

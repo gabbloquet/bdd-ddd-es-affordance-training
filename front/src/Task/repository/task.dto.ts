@@ -82,7 +82,7 @@ export const taskCreatedDtoExample: TaskResource = {
   }
 };
 
-export const anotherTaskDtoExample = {
+export const anotherTaskDtoExample: TaskResource = {
   id: '91f66717-1899-46ba-b398-eaaac31b3cd4',
   description: "Saquer àl'pec avec chgros",
   completed: false,

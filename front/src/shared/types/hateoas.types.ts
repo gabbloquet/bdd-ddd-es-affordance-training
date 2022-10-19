@@ -5,29 +5,40 @@ export interface ResourceLink {
 }
 
 export interface ResourceTemplate {
-  method: 'GET' | 'POST' | 'PUT';
+  method: 'GET' | 'POST' | 'PUT' | 'DELETE';
   properties: Array<ResourceProperty>;
   target: string;
 }
 
+export type Links = {
+  [key: string]: ResourceLink;
+};
+
+export type Templates = {
+  [key: string]: ResourceTemplate;
+};
+
 export interface Resource {
-  _links?: Map<string, ResourceLink>;
-  _templates?: Map<string, ResourceTemplate>;
+  _links?: Links;
+  _templates?: Templates;
 }
 
-interface ResourceProperty {
+export interface ResourceProperty {
   name: string;
-  readOnly: boolean;
+  readOnly?: boolean;
+  type?: string;
 }
 
-interface Property {
+export interface Property {
   name: string;
+  type?: string;
 }
 
 export enum HTTP_METHOD {
   GET = 'GET',
   POST = 'POST',
-  PUT = 'PUT'
+  PUT = 'PUT',
+  DELETE = 'DELETE'
 }
 
 export interface Action {

@@ -9,7 +9,7 @@ export interface TodolistResource extends Resource {
   tasks: Array<TaskResource>;
 }
 
-export const emptyDtoTodolist = {
+export const emptyDtoTodolist: TodolistResource = {
   tasks: [],
   _links: {
     self: {
@@ -51,7 +51,7 @@ export const emptyDtoTodolist = {
   }
 };
 
-export const todolistDtoWithTwoTasks = {
+export const todolistDtoWithTwoTasks: TodolistResource = {
   tasks: [taskCreatedDtoExample, anotherTaskDtoExample],
   _links: {
     self: {

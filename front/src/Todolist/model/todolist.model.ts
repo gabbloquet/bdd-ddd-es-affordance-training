@@ -19,3 +19,8 @@ export const todolistExample: Todolist = {
   tasks: [taskCreated],
   actions: []
 };
+
+export const todolistWithPriorization: Todolist = {
+  tasks: [taskCreated],
+  actions: []
+};

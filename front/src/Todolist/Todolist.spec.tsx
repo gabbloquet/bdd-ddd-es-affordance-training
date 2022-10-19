@@ -2,6 +2,7 @@ import { screen } from '@testing-library/react';
 import { renderWithStore } from '../shared/utils/test-utils';
 import { Todolist } from './index';
 import { taskCompleted, taskCreated } from '../Task/model/task.model';
+import { todolistExample } from './model/todolist.model';
 
 describe('Todolist', () => {
   it('shows a welcome message', () => {
@@ -21,6 +22,17 @@ describe('Todolist', () => {
   });
   it('displays tasks', () => {
     const todolistWithTwoTasks = {
+      tasks: [taskCreated, taskCompleted]
+    };
+    renderWithStore(<Todolist />, { todolist: todolistWithTwoTasks });
+
+    const tasks = screen.queryAllByTestId(/task-/);
+
+    expect(tasks).toHaveLength(2);
+  });
+  it('allows to prioritize tasks if available', () => {
+    const todolistWithTwoTasks = {
+      ...todolistExample,
       tasks: [taskCreated, taskCompleted]
     };
     renderWithStore(<Todolist />, { todolist: todolistWithTwoTasks });

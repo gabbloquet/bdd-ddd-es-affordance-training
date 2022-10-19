@@ -4,9 +4,9 @@ import { Todolist } from '../model/todolist.model';
 import { toTodolist } from './todolist.mapper';
 
 export const getTodolist = async () => {
-  const { data } = await axios.get(`${process.env.SERVICE_URL}/todolist`);
+  const { data: todolistResource } = await axios.get(`${process.env.SERVICE_URL}/todolist`);
 
-  return data.map(toTodolist);
+  return toTodolist(todolistResource);
 };
 
 export const useTodolist = () => useQuery<Todolist>(['todolist']);

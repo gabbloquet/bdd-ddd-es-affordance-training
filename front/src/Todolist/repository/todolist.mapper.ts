@@ -56,22 +56,23 @@ const checkMissingTemplates = (
   });
 };
 
+const buildActions = (
+  templates: Templates | undefined,
+  templateNames: Array<string | undefined>
+): Array<TodolistAction> => {
+  checkMissingTemplates(templates, templateNames);
+  return templateNames.map((templateName) => getTaskAction(templates!, templateName!));
+};
+
 const toActions = (todolistResource: TodolistResource): Array<TodolistAction> => {
   checkMissingLinks(todolistResource._links);
   const prioritizeTemplateName = todolistResource._links!['prioritizeTask'].name;
   const deprioritizeTemplateName = todolistResource._links!['deprioritizeTask'].name;
 
-  checkMissingTemplates(todolistResource._templates, [
+  return buildActions(todolistResource._templates, [
     prioritizeTemplateName,
     deprioritizeTemplateName
   ]);
-  const prioritizeTaskAction = getTaskAction(todolistResource._templates!, prioritizeTemplateName!);
-  const deprioritizeTaskAction = getTaskAction(
-    todolistResource._templates!,
-    deprioritizeTemplateName!
-  );
-
-  return [prioritizeTaskAction, deprioritizeTaskAction];
 };
 
 export const toTodolist = (todolistResource: TodolistResource): Todolist => ({

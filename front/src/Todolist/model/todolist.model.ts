@@ -30,3 +30,14 @@ export const priorizationAction: TodolistAction = {
     }
   ]
 };
+
+export const depriorizationAction: TodolistAction = {
+  method: HTTP_METHOD.POST,
+  type: TODOLIST_ACTIONS.DEPRIORITIZE_ACTION,
+  url: new URL('http://localhost:8080/todolist/deprioritize/task'),
+  properties: [
+    {
+      name: 'id'
+    }
+  ]
+};

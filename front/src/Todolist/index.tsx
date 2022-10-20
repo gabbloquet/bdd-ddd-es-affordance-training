@@ -14,8 +14,12 @@ export const Todolist = () => {
           <div data-testid={`task-${task.id}`} key={task.id}>
             <Task {...task} />
             {todolist.actions && hasAction(todolist.actions, TODOLIST_ACTIONS.PRIORITIZE_TASK) && (
-              <button data-testid={`prioritize-task-${task.id}`}>Prioritize</button>
+              <button>Prioritize</button>
             )}
+            {todolist.actions &&
+              hasAction(todolist.actions, TODOLIST_ACTIONS.DEPRIORITIZE_ACTION) && (
+                <button>Deprioritize</button>
+              )}
           </div>
         ))}
     </main>

@@ -2,7 +2,7 @@ import { screen } from '@testing-library/react';
 import { renderWithStore } from '../shared/utils/test-utils';
 import { Todolist } from './index';
 import { taskCompleted, taskCreated } from '../Task/model/task.model';
-import { priorizationAction } from './model/todolist.model';
+import { depriorizationAction, priorizationAction } from './model/todolist.model';
 
 describe('Todolist', () => {
   it('shows a welcome message', () => {
@@ -33,32 +33,66 @@ describe('Todolist', () => {
     const tasks = screen.queryAllByTestId(/^task-/);
     expect(tasks).toHaveLength(2);
   });
-  it('allows to prioritize tasks if available', () => {
-    // Given
-    const todolistWithTwoTasks = {
-      tasks: [taskCreated, taskCompleted],
-      actions: [priorizationAction]
-    };
 
-    // When
-    renderWithStore(<Todolist />, { todolist: todolistWithTwoTasks });
+  describe('Task prioritization', () => {
+    it('allows to prioritize tasks if available', () => {
+      // Given
+      const todolistWithTwoTasks = {
+        tasks: [taskCreated, taskCompleted],
+        actions: [priorizationAction]
+      };
 
-    // Then
-    const buttons = screen.getAllByRole('button', { name: 'Prioritize' });
-    expect(buttons).toHaveLength(2);
+      // When
+      renderWithStore(<Todolist />, { todolist: todolistWithTwoTasks });
+
+      // Then
+      const buttons = screen.getAllByRole('button', { name: 'Prioritize' });
+      expect(buttons).toHaveLength(2);
+    });
+    it('doesnt allow to prioritize tasks if not available', () => {
+      // Given
+      const todolistWithTwoTasks = {
+        tasks: [taskCreated, taskCompleted],
+        actions: []
+      };
+
+      // When
+      renderWithStore(<Todolist />, { todolist: todolistWithTwoTasks });
+
+      // Then
+      const buttons = screen.queryAllByRole('button', { name: 'Prioritize' });
+      expect(buttons).toHaveLength(0);
+    });
   });
-  it('doesnt allow to prioritize tasks if not available', () => {
-    // Given
-    const todolistWithTwoTasks = {
-      tasks: [taskCreated, taskCompleted],
-      actions: []
-    };
 
-    // When
-    renderWithStore(<Todolist />, { todolist: todolistWithTwoTasks });
+  describe('Task deprioritization', () => {
+    it('allows to deprioritize tasks if available', () => {
+      // Given
+      const todolistWithTwoTasks = {
+        tasks: [taskCreated, taskCompleted],
+        actions: [depriorizationAction]
+      };
 
-    // Then
-    const buttons = screen.queryAllByRole('button', { name: 'Prioritize' });
-    expect(buttons).toHaveLength(0);
+      // When
+      renderWithStore(<Todolist />, { todolist: todolistWithTwoTasks });
+
+      // Then
+      const buttons = screen.getAllByRole('button', { name: 'Deprioritize' });
+      expect(buttons).toHaveLength(2);
+    });
+    it('doesnt allow to deprioritize tasks if not available', () => {
+      // Given
+      const todolistWithTwoTasks = {
+        tasks: [taskCreated, taskCompleted],
+        actions: []
+      };
+
+      // When
+      renderWithStore(<Todolist />, { todolist: todolistWithTwoTasks });
+
+      // Then
+      const buttons = screen.queryAllByRole('button', { name: 'Deprioritize' });
+      expect(buttons).toHaveLength(0);
+    });
   });
 });

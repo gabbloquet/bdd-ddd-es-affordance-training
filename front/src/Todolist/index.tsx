@@ -4,7 +4,7 @@ import {
   TODOLIST_ACTIONS,
   TodolistAction
 } from './model/todolist.model';
-import CommandHelper from '../shared/utils/event/EventHelper';
+import CommandHelper from '../shared/utils/event/CommandHelper';
 import { Task } from '../Task';
 import './todolist.scss';
 

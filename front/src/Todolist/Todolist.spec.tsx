@@ -2,7 +2,7 @@ import { screen } from '@testing-library/react';
 import { renderWithStore } from '../shared/utils/test-utils';
 import { taskCompleted, taskCreated } from '../Task/model/task.model';
 import { depriorizationAction, priorizationAction } from './model/todolist.model';
-import CommandHelper from '../shared/utils/event/EventHelper';
+import CommandHelper from '../shared/utils/event/CommandHelper';
 import { Todolist } from './index';
 
 describe('Todolist', () => {

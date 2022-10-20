@@ -1,5 +1,6 @@
 import { useTodolist } from './repository/todolist.repository';
 import { Task } from '../Task';
+import { TODOLIST_ACTIONS, TodolistAction } from './model/todolist.model';
 import './todolist.scss';
 
 export const Todolist = () => {
@@ -12,9 +13,14 @@ export const Todolist = () => {
         todolist.tasks.map((task) => (
           <div data-testid={`task-${task.id}`} key={task.id}>
             <Task {...task} />
-            <button data-testid={`prioritize-task-${task.id}`}>Prioritize</button>
+            {todolist.actions && hasAction(todolist.actions, TODOLIST_ACTIONS.PRIORITIZE_TASK) && (
+              <button data-testid={`prioritize-task-${task.id}`}>Prioritize</button>
+            )}
           </div>
         ))}
     </main>
   );
 };
+
+const hasAction = (actions: Array<TodolistAction>, actionToFind: TODOLIST_ACTIONS): boolean =>
+  actions.some((action: TodolistAction) => action.type === actionToFind);

@@ -44,7 +44,21 @@ describe('Todolist', () => {
     renderWithStore(<Todolist />, { todolist: todolistWithTwoTasks });
 
     // Then
-    const tasks = screen.queryAllByTestId(/prioritize-task-/);
-    expect(tasks).toHaveLength(2);
+    const buttons = screen.getAllByRole('button', { name: 'Prioritize' });
+    expect(buttons).toHaveLength(2);
+  });
+  it('doesnt allow to prioritize tasks if not available', () => {
+    // Given
+    const todolistWithTwoTasks = {
+      tasks: [taskCreated, taskCompleted],
+      actions: []
+    };
+
+    // When
+    renderWithStore(<Todolist />, { todolist: todolistWithTwoTasks });
+
+    // Then
+    const buttons = screen.queryAllByRole('button', { name: 'Prioritize' });
+    expect(buttons).toHaveLength(0);
   });
 });

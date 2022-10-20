@@ -3,13 +3,6 @@ import { taskCreated } from './model/task.model';
 import { Task } from './index';
 
 describe('Task', () => {
-  it('uses id in data-testid', () => {
-    render(<Task {...taskCreated} id="toto" />);
-
-    const task = screen.getByTestId('task-toto');
-
-    expect(task).toBeVisible();
-  });
   it('shows description', () => {
     render(<Task {...taskCreated} description="Practice Testing Library" />);
 

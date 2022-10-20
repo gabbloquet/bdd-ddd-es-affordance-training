@@ -8,6 +8,8 @@ import { Todolist } from './index';
 describe('Todolist', () => {
   const emitCommandSpy = jest.spyOn(CommandHelper, 'emit');
 
+  afterEach(() => jest.resetAllMocks());
+
   it('shows a welcome message', () => {
     renderWithStore(<Todolist />);
 
@@ -113,6 +115,23 @@ describe('Todolist', () => {
       // Then
       const buttons = screen.queryAllByRole('button', { name: 'Deprioritize' });
       expect(buttons).toHaveLength(0);
+    });
+    it('emits deprioritize task command', () => {
+      // Given
+      const todolistWithTwoTasks = {
+        tasks: [taskCreated],
+        actions: [depriorizationAction]
+      };
+
+      // When
+      renderWithStore(<Todolist />, { todolist: todolistWithTwoTasks });
+
+      const deprioritizeButton = screen.getByRole('button', { name: 'Deprioritize' });
+      deprioritizeButton.click();
+
+      // Then
+      expect(emitCommandSpy).toHaveBeenCalledTimes(1);
+      expect(emitCommandSpy).toHaveBeenCalledWith(depriorizationAction, taskCreated);
     });
   });
 });

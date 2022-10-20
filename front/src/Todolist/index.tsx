@@ -24,7 +24,11 @@ export const Todolist = () => {
             {prioritizeAction && (
               <button onClick={() => CommandHelper.emit(prioritizeAction, task)}>Prioritize</button>
             )}
-            {deprioritizeAction && <button>Deprioritize</button>}
+            {deprioritizeAction && (
+              <button onClick={() => CommandHelper.emit(deprioritizeAction, task)}>
+                Deprioritize
+              </button>
+            )}
           </div>
         ))}
     </main>

@@ -1,18 +1,17 @@
 import { useTodolist } from './repository/todolist.repository';
-import { Task } from '../Task';
-import { TODOLIST_ACTIONS, TodolistAction } from './model/todolist.model';
-import './todolist.scss';
+import {
+  Todolist as TodolistState,
+  TODOLIST_ACTIONS,
+  TodolistAction
+} from './model/todolist.model';
 import CommandHelper from '../shared/utils/event/EventHelper';
+import { Task } from '../Task';
+import './todolist.scss';
 
 export const Todolist = () => {
   const { data: todolist } = useTodolist();
 
-  const prioritizeAction =
-    todolist && todolist.actions && getAction(todolist.actions, TODOLIST_ACTIONS.PRIORITIZE_TASK);
-  const deprioritizeAction =
-    todolist &&
-    todolist.actions &&
-    getAction(todolist.actions, TODOLIST_ACTIONS.DEPRIORITIZE_ACTION);
+  const { prioritizeAction, deprioritizeAction } = getActions(todolist);
 
   return (
     <main data-testid="todolist" className="todolist">
@@ -34,6 +33,15 @@ export const Todolist = () => {
     </main>
   );
 };
+
+const getActions = (todolist: TodolistState | undefined) => ({
+  prioritizeAction:
+    todolist && todolist.actions && getAction(todolist.actions, TODOLIST_ACTIONS.PRIORITIZE_TASK),
+  deprioritizeAction:
+    todolist &&
+    todolist.actions &&
+    getAction(todolist.actions, TODOLIST_ACTIONS.DEPRIORITIZE_ACTION)
+});
 
 const getAction = (
   actions: Array<TodolistAction>,

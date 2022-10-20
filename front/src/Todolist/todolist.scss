@@ -1,4 +1,24 @@
 .todolist {
   padding-top: 2rem;
   text-align: center;
+
+  &__task {
+    display: grid;
+    grid-template-columns: fit-content(100%) 1fr 1fr;
+    grid-template-rows: 3em;
+    justify-items: start;
+    align-items: center;
+    gap: 1em;
+
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  button {
+    padding: 0.5em;
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 5px;
+  }
 }

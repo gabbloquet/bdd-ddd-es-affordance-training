@@ -11,7 +11,7 @@ export const Todolist = () => {
       <h1>Welcome to the ULTIMATE Todolist! 🚀</h1>
       {todolist &&
         todolist.tasks.map((task) => (
-          <div data-testid={`task-${task.id}`} key={task.id}>
+          <div className="todolist__task" data-testid={`task-${task.id}`} key={task.id}>
             <Task {...task} />
             {todolist.actions && hasAction(todolist.actions, TODOLIST_ACTIONS.PRIORITIZE_TASK) && (
               <button>Prioritize</button>

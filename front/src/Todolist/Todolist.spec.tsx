@@ -4,15 +4,12 @@ import { screen, waitFor } from '@testing-library/react';
 import { renderWithStore } from '../shared/utils/test-utils';
 import { taskCompleted, taskCreated } from '../Task/model/task.model';
 import { depriorizationAction, priorizationAction } from './model/todolist.model';
-import CommandHelper from '../shared/utils/event/CommandHelper';
 import { Todolist } from './index';
 import { todolistDtoWithTwoTasks } from './repository/todolist.dtos';
 
 axios.defaults.adapter = require('axios/lib/adapters/http');
 
 describe('Todolist', () => {
-  const emitCommandSpy = jest.spyOn(CommandHelper, 'emit');
-
   afterEach(() => jest.resetAllMocks());
 
   it('shows a welcome message', () => {

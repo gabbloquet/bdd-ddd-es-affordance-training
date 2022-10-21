@@ -1,5 +1,4 @@
 import { useTodolist } from './repository/todolist.repository';
-import CommandHelper from '../shared/utils/event/CommandHelper';
 import { getActions } from './todolist.service';
 import { Task } from '../Task';
 import './todolist.scss';

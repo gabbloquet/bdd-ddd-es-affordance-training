@@ -3,13 +3,6 @@ import {
   TODOLIST_ACTIONS,
   TodolistAction
 } from './model/todolist.model';
-import CommandHelper from '../shared/utils/event/CommandHelper';
-
-const handleTodolistCommand = (command: Event) => {
-  console.log('la commande : ', command);
-};
-
-CommandHelper.handle(handleTodolistCommand);
 
 export const getActions = (todolist: TodolistState | undefined) => ({
   prioritizeAction:

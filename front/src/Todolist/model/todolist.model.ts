@@ -1,24 +1,15 @@
 import { Task, taskCreated } from '../../Task/model/task.model';
 import { Action, HTTP_METHOD } from '../../shared/types/hateoas.types';
 
-export enum TODOLIST_ACTIONS {
-  PRIORITIZE_TASK = 'PRIORITIZE_TASK',
-  DEPRIORITIZE_ACTION = 'DEPRIORITIZE_ACTION'
-}
-
-export interface TodolistAction extends Action {
-  type: TODOLIST_ACTIONS;
-}
-
 export interface Todolist {
   tasks: Array<Task>;
-  actions: Array<TodolistAction>;
+  actions: Array<Action>;
 }
 
-export const priorizationAction: TodolistAction = {
+export const priorizationAction: Action = {
   method: HTTP_METHOD.POST,
-  type: TODOLIST_ACTIONS.PRIORITIZE_TASK,
-  url: new URL('http://localhost:8080/todolist/prioritize/task'),
+  name: 'Prioritize',
+  url: 'http://localhost:8080/todolist/prioritize/task',
   properties: [
     {
       name: 'id'
@@ -26,10 +17,10 @@ export const priorizationAction: TodolistAction = {
   ]
 };
 
-export const depriorizationAction: TodolistAction = {
+export const depriorizationAction: Action = {
   method: HTTP_METHOD.POST,
-  type: TODOLIST_ACTIONS.DEPRIORITIZE_ACTION,
-  url: new URL('http://localhost:8080/todolist/deprioritize/task'),
+  name: 'Deprioritize',
+  url: 'http://localhost:8080/todolist/deprioritize/task',
   properties: [
     {
       name: 'id'

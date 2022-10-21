@@ -1,6 +1,5 @@
 import { toTodolist } from './todolist.mapper';
 import { emptyDtoTodolist, TodolistResource } from './todolist.dtos';
-import { TODOLIST_ACTIONS } from '../model/todolist.model';
 import { taskCreatedDtoExample } from '../../Task/repository/task.dto';
 import { taskCreated } from '../../Task/model/task.model';
 import { HTTP_METHOD, ResourceLink, ResourceTemplate } from '../../shared/types/hateoas.types';
@@ -50,8 +49,8 @@ describe('Todolist mapper', () => {
     // Then
     const expectedAction = {
       method: HTTP_METHOD.POST,
-      type: TODOLIST_ACTIONS.PRIORITIZE_TASK,
-      url: new URL('http://localhost:8080/todolist/prioritize/task'),
+      name: 'Prioritize',
+      url: 'http://localhost:8080/todolist/prioritize/task',
       properties: [
         {
           name: 'id'
@@ -75,8 +74,8 @@ describe('Todolist mapper', () => {
     // Then
     const expectedAction = {
       method: HTTP_METHOD.POST,
-      type: TODOLIST_ACTIONS.DEPRIORITIZE_ACTION,
-      url: new URL('http://localhost:8080/todolist/deprioritize/task'),
+      type: 'Deprioritize',
+      url: 'http://localhost:8080/todolist/deprioritize/task',
       properties: [
         {
           name: 'id'

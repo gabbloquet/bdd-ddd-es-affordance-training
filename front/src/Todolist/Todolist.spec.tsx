@@ -30,7 +30,8 @@ describe('Todolist', () => {
   it('displays tasks', () => {
     // Given
     const todolistWithTwoTasks = {
-      tasks: [taskCreated, taskCompleted]
+      tasks: [taskCreated, taskCompleted],
+      actions: []
     };
 
     // When

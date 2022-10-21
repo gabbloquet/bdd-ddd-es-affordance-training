@@ -1,7 +1,8 @@
 import { TodolistResource } from './todolist.dtos';
-import { Todolist, TODOLIST_ACTIONS, TodolistAction } from '../model/todolist.model';
+import { Todolist } from '../model/todolist.model';
 import { toTask } from '../../Task/repository/task.mapper';
 import {
+  Action,
   HTTP_METHOD,
   Links,
   Property,
@@ -16,13 +17,10 @@ const toProperties = (properties: Array<ResourceProperty>): Array<Property> =>
     ...(property.type && { type: property.type })
   }));
 
-const getTaskAction = (templates: Templates, templateName: string): TodolistAction => ({
+const getTaskAction = (templates: Templates, templateName: string): Action => ({
   method: templates[templateName].method === 'POST' ? HTTP_METHOD.POST : HTTP_METHOD.GET,
-  type:
-    templateName === 'default'
-      ? TODOLIST_ACTIONS.PRIORITIZE_TASK
-      : TODOLIST_ACTIONS.DEPRIORITIZE_ACTION,
-  url: new URL(templates[templateName].target),
+  name: 'TODO',
+  url: templates[templateName].target,
   properties: toProperties(templates[templateName].properties)
 });
 
@@ -59,12 +57,12 @@ const checkMissingTemplates = (
 const buildActions = (
   templates: Templates | undefined,
   templateNames: Array<string | undefined>
-): Array<TodolistAction> => {
+): Array<Action> => {
   checkMissingTemplates(templates, templateNames);
   return templateNames.map((templateName) => getTaskAction(templates!, templateName!));
 };
 
-const toActions = (todolistResource: TodolistResource): Array<TodolistAction> => {
+const toActions = (todolistResource: TodolistResource): Array<Action> => {
   checkMissingLinks(todolistResource._links);
   const prioritizeTemplateName = todolistResource._links!['prioritizeTask'].name;
   const deprioritizeTemplateName = todolistResource._links!['deprioritizeTask'].name;

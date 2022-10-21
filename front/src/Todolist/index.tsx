@@ -1,10 +1,6 @@
 import { useTodolist } from './repository/todolist.repository';
-import {
-  Todolist as TodolistState,
-  TODOLIST_ACTIONS,
-  TodolistAction
-} from './model/todolist.model';
 import CommandHelper from '../shared/utils/event/CommandHelper';
+import { getActions } from './todolist.service';
 import { Task } from '../Task';
 import './todolist.scss';
 
@@ -33,18 +29,3 @@ export const Todolist = () => {
     </main>
   );
 };
-
-const getActions = (todolist: TodolistState | undefined) => ({
-  prioritizeAction:
-    todolist && todolist.actions && getAction(todolist.actions, TODOLIST_ACTIONS.PRIORITIZE_TASK),
-  deprioritizeAction:
-    todolist &&
-    todolist.actions &&
-    getAction(todolist.actions, TODOLIST_ACTIONS.DEPRIORITIZE_ACTION)
-});
-
-const getAction = (
-  actions: Array<TodolistAction>,
-  actionToFind: TODOLIST_ACTIONS
-): TodolistAction | undefined =>
-  actions.find((action: TodolistAction) => action.type === actionToFind);

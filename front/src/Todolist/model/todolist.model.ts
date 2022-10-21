@@ -15,11 +15,6 @@ export interface Todolist {
   actions: Array<TodolistAction>;
 }
 
-export const todolistExample: Todolist = {
-  tasks: [taskCreated],
-  actions: []
-};
-
 export const priorizationAction: TodolistAction = {
   method: HTTP_METHOD.POST,
   type: TODOLIST_ACTIONS.PRIORITIZE_TASK,
@@ -40,4 +35,9 @@ export const depriorizationAction: TodolistAction = {
       name: 'id'
     }
   ]
+};
+
+export const todolistExample: Todolist = {
+  tasks: [taskCreated],
+  actions: [priorizationAction, depriorizationAction]
 };

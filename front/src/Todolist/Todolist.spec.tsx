@@ -1,9 +1,14 @@
-import { screen } from '@testing-library/react';
+import axios from 'axios';
+import * as nock from 'nock';
+import { screen, waitFor } from '@testing-library/react';
 import { renderWithStore } from '../shared/utils/test-utils';
 import { taskCompleted, taskCreated } from '../Task/model/task.model';
 import { depriorizationAction, priorizationAction } from './model/todolist.model';
 import CommandHelper from '../shared/utils/event/CommandHelper';
 import { Todolist } from './index';
+import { todolistDtoWithTwoTasks } from './repository/todolist.dtos';
+
+axios.defaults.adapter = require('axios/lib/adapters/http');
 
 describe('Todolist', () => {
   const emitCommandSpy = jest.spyOn(CommandHelper, 'emit');
@@ -132,6 +137,23 @@ describe('Todolist', () => {
       // Then
       expect(emitCommandSpy).toHaveBeenCalledTimes(1);
       expect(emitCommandSpy).toHaveBeenCalledWith(depriorizationAction, taskCreated);
+    });
+  });
+
+  describe('Integration test', () => {
+    it('shows tasks from todolist', async () => {
+      // Given
+      process.env.SERVICE_URL = 'https://my-wonderful-todolist.fr';
+      nock(process.env.SERVICE_URL).get('/todolist').reply(200, todolistDtoWithTwoTasks);
+
+      // When
+      renderWithStore(<Todolist />);
+
+      // Then
+      await waitFor(() => {
+        expect(screen.getByText('Allé fumé du canon avec Gégé')).toBeVisible();
+        expect(screen.getByText("Saquer àl'pec avec chgros")).toBeVisible();
+      });
     });
   });
 });

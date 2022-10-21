@@ -27,11 +27,11 @@ const getTaskAction = (templates: Templates, templateName: string): Action => ({
 const checkMissingLinks = (links: Links | undefined) => {
   if (links === undefined || isNull(links)) throw new TypeError('Ressource links are missing.');
 
-  if (links['prioritizeTask'] === undefined || isNull(links['prioritizeTask'])) {
+  if (links['default'] === undefined || isNull(links['default'])) {
     throw new TypeError('Prioritize task link in missing.');
   }
 
-  if (links['deprioritizeTask'] === undefined || isNull(links['deprioritizeTask'])) {
+  if (links['deprioritize'] === undefined || isNull(links['deprioritize'])) {
     throw new TypeError('Deprioritize task link in missing.');
   }
 };
@@ -64,8 +64,10 @@ const buildActions = (
 
 const toActions = (todolistResource: TodolistResource): Array<Action> => {
   checkMissingLinks(todolistResource._links);
-  const prioritizeTemplateName = todolistResource._links!['prioritizeTask'].name;
-  const deprioritizeTemplateName = todolistResource._links!['deprioritizeTask'].name;
+
+  // TODO: rendre ça automatique, réutilisable
+  const prioritizeTemplateName = 'default';
+  const deprioritizeTemplateName = 'deprioritize';
 
   return buildActions(todolistResource._templates, [
     prioritizeTemplateName,

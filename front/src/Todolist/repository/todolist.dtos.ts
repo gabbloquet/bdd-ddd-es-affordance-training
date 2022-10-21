@@ -16,15 +16,15 @@ export const emptyDtoTodolist: TodolistResource = {
       href: 'http://localhost:8080/todolist',
       title: 'Get todolist'
     },
-    prioritizeTask: {
+    default: {
       href: 'http://localhost:8080/todolist/prioritize/task',
       title: 'Prioritize a task',
-      name: 'default'
+      name: 'Prioritize'
     },
-    deprioritizeTask: {
+    deprioritize: {
       href: 'http://localhost:8080/todolist/deprioritize/task',
       title: 'Deprioritize a task',
-      name: 'deprioritize'
+      name: 'Deprioritize'
     }
   },
   _templates: {
@@ -58,15 +58,15 @@ export const todolistDtoWithTwoTasks: TodolistResource = {
       href: 'http://localhost:8080/todolist',
       title: 'Get todolist'
     },
-    prioritizeTask: {
+    default: {
       href: 'http://localhost:8080/todolist/prioritize/task',
       title: 'Prioritize a task',
-      name: 'default'
+      name: 'Prioritize'
     },
-    deprioritizeTask: {
+    deprioritize: {
       href: 'http://localhost:8080/todolist/deprioritize/task',
       title: 'Deprioritize a task',
-      name: 'deprioritize'
+      name: 'Deprioritize'
     }
   },
   _templates: {

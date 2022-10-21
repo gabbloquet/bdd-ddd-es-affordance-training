@@ -44,6 +44,6 @@ export enum HTTP_METHOD {
 export interface Action {
   method: HTTP_METHOD;
   type: string;
-  url: URL;
+  url: string;
   properties: Array<Property>;
 }

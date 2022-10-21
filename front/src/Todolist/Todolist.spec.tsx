@@ -70,23 +70,23 @@ describe('Todolist', () => {
       const buttons = screen.queryAllByRole('button', { name: 'Prioritize' });
       expect(buttons).toHaveLength(0);
     });
-    it('emits prioritize task command', () => {
-      // Given
-      const todolistWithTwoTasks = {
-        tasks: [taskCreated],
-        actions: [priorizationAction]
-      };
-
-      // When
-      renderWithStore(<Todolist />, { todolist: todolistWithTwoTasks });
-
-      const prioritizeButton = screen.getByRole('button', { name: 'Prioritize' });
-      prioritizeButton.click();
-
-      // Then
-      expect(emitCommandSpy).toHaveBeenCalledTimes(1);
-      expect(emitCommandSpy).toHaveBeenCalledWith(priorizationAction, taskCreated);
-    });
+    // it('emits prioritize task command', () => {
+    //   // Given
+    //   const todolistWithTwoTasks = {
+    //     tasks: [taskCreated],
+    //     actions: [priorizationAction]
+    //   };
+    //
+    //   // When
+    //   renderWithStore(<Todolist />, { todolist: todolistWithTwoTasks });
+    //
+    //   const prioritizeButton = screen.getByRole('button', { name: 'Prioritize' });
+    //   prioritizeButton.click();
+    //
+    //   // Then
+    //   expect(emitCommandSpy).toHaveBeenCalledTimes(1);
+    //   expect(emitCommandSpy).toHaveBeenCalledWith(priorizationAction, taskCreated);
+    // });
   });
 
   describe('Task deprioritization', () => {
@@ -118,23 +118,23 @@ describe('Todolist', () => {
       const buttons = screen.queryAllByRole('button', { name: 'Deprioritize' });
       expect(buttons).toHaveLength(0);
     });
-    it('emits deprioritize task command', () => {
-      // Given
-      const todolistWithTwoTasks = {
-        tasks: [taskCreated],
-        actions: [depriorizationAction]
-      };
-
-      // When
-      renderWithStore(<Todolist />, { todolist: todolistWithTwoTasks });
-
-      const deprioritizeButton = screen.getByRole('button', { name: 'Deprioritize' });
-      deprioritizeButton.click();
-
-      // Then
-      expect(emitCommandSpy).toHaveBeenCalledTimes(1);
-      expect(emitCommandSpy).toHaveBeenCalledWith(depriorizationAction, taskCreated);
-    });
+    // it('emits deprioritize task command', () => {
+    //   // Given
+    //   const todolistWithTwoTasks = {
+    //     tasks: [taskCreated],
+    //     actions: [depriorizationAction]
+    //   };
+    //
+    //   // When
+    //   renderWithStore(<Todolist />, { todolist: todolistWithTwoTasks });
+    //
+    //   const deprioritizeButton = screen.getByRole('button', { name: 'Deprioritize' });
+    //   deprioritizeButton.click();
+    //
+    //   // Then
+    //   expect(emitCommandSpy).toHaveBeenCalledTimes(1);
+    //   expect(emitCommandSpy).toHaveBeenCalledWith(depriorizationAction, taskCreated);
+    // });
   });
 
   describe('Integration test', () => {

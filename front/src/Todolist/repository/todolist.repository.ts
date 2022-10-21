@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { QueryClient, useMutation, useQuery } from '@tanstack/react-query';
-import { Todolist, todolistExample } from '../model/todolist.model';
+import { Todolist, TodolistAction, todolistExample } from '../model/todolist.model';
 import { toTodolist } from './todolist.mapper';
 import { Task } from '../../Task/model/task.model';
 import { TodolistResource } from './todolist.dtos';
@@ -13,20 +13,24 @@ export const getTodolist = async () => {
 
 export const useTodolist = () => useQuery<Todolist>(['todolist'], getTodolist);
 
-export const prioritizeTask = async (task: Task) => {
-  const { data: todolistResource } = await axios.post(`${process.env.SERVICE_URL}/todolist`);
+export const todolistAction = async (action: TodolistAction, task: Task) => {
+  console.log('request : ', {
+    method: action.method,
+    url: action.url,
+    data: task
+  });
+  const { data: todolistResource } = await axios.request({
+    method: action.method,
+    url: action.url,
+    data: task
+  });
   return toTodolist(todolistResource);
 };
 
-export const usePrioritizeTask = (queryClient: QueryClient) =>
+export const useTodolistAction = (queryClient: QueryClient) =>
   useMutation(
-    (task: Task) => {
-      console.log('popop bien de trop ', task);
-      return prioritizeTask(task);
-    },
+    ({ action, task }: { action: TodolistAction; task: Task }) => todolistAction(action, task),
     {
-      onSuccess: (todolist: Todolist) => {
-        queryClient.setQueryData(['todolist'], () => todolist);
-      }
+      onSuccess: (todolist) => console.log(todolist)
     }
   );

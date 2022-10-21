@@ -1,10 +1,13 @@
-import { useTodolist } from './repository/todolist.repository';
+import { useQueryClient } from '@tanstack/react-query';
+import { useTodolist, useTodolistAction } from './repository/todolist.repository';
 import { getActions } from './todolist.service';
 import { Task } from '../Task';
 import './todolist.scss';
 
 export const Todolist = () => {
+  const queryClient = useQueryClient();
   const { data: todolist } = useTodolist();
+  const { mutate } = useTodolistAction(queryClient);
 
   const { prioritizeAction, deprioritizeAction } = getActions(todolist);
 
@@ -16,10 +19,10 @@ export const Todolist = () => {
           <div className="todolist__task" data-testid={`task-${task.id}`} key={task.id}>
             <Task {...task} />
             {prioritizeAction && (
-              <button onClick={() => CommandHelper.emit(prioritizeAction, task)}>Prioritize</button>
+              <button onClick={() => mutate({ action: prioritizeAction, task })}>Prioritize</button>
             )}
             {deprioritizeAction && (
-              <button onClick={() => CommandHelper.emit(deprioritizeAction, task)}>
+              <button onClick={() => mutate({ action: deprioritizeAction, task })}>
                 Deprioritize
               </button>
             )}

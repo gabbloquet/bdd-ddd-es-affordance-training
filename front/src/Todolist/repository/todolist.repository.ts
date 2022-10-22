@@ -13,7 +13,7 @@ export const getTodolist = async () => {
 
 export const useTodolist = () => useQuery<Todolist>(['todolist'], getTodolist);
 
-export const todolistAction = async (action: Action, task: Task) => {
+export const todolistAction = async (action: Action, task: Task): Promise<Todolist> => {
   const { data: todolistResource } = await axios.request({
     method: action.method,
     url: action.url,

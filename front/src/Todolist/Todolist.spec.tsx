@@ -4,13 +4,21 @@ import { screen, waitFor } from '@testing-library/react';
 import { renderWithStore } from '../shared/utils/test-utils';
 import { taskCompleted, taskCreated } from '../Task/model/task.model';
 import { depriorizationAction, priorizationAction } from './model/todolist.model';
-import { Todolist } from './index';
 import { todolistDtoWithTwoTasks } from './repository/todolist.dtos';
+import * as todolistRepository from './repository/todolist.repository';
+import { Todolist } from './index';
 
 axios.defaults.adapter = require('axios/lib/adapters/http');
 
 describe('Todolist', () => {
-  afterEach(() => jest.resetAllMocks());
+  const todolistActionSpy = jest.fn();
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    jest
+      .spyOn(todolistRepository, 'useTodolistAction')
+      .mockImplementation(() => ({ mutate: todolistActionSpy } as any));
+  });
 
   it('shows a welcome message', () => {
     renderWithStore(<Todolist />);
@@ -71,23 +79,26 @@ describe('Todolist', () => {
       const buttons = screen.queryAllByRole('button', { name: 'Prioritize' });
       expect(buttons).toHaveLength(0);
     });
-    // it('emits prioritize task command', () => {
-    //   // Given
-    //   const todolistWithTwoTasks = {
-    //     tasks: [taskCreated],
-    //     actions: [priorizationAction]
-    //   };
-    //
-    //   // When
-    //   renderWithStore(<Todolist />, { todolist: todolistWithTwoTasks });
-    //
-    //   const prioritizeButton = screen.getByRole('button', { name: 'Prioritize' });
-    //   prioritizeButton.click();
-    //
-    //   // Then
-    //   expect(emitCommandSpy).toHaveBeenCalledTimes(1);
-    //   expect(emitCommandSpy).toHaveBeenCalledWith(priorizationAction, taskCreated);
-    // });
+    it('emits prioritize task action', () => {
+      // Given
+      const todolistWithTwoTasks = {
+        tasks: [taskCreated],
+        actions: [priorizationAction]
+      };
+
+      // When
+      renderWithStore(<Todolist />, { todolist: todolistWithTwoTasks });
+
+      const prioritizeButton = screen.getByRole('button', { name: 'Prioritize' });
+      prioritizeButton.click();
+
+      // Then
+      expect(todolistActionSpy).toHaveBeenCalledTimes(1);
+      expect(todolistActionSpy).toHaveBeenCalledWith({
+        action: priorizationAction,
+        task: taskCreated
+      });
+    });
   });
 
   describe('Task deprioritization', () => {
@@ -119,23 +130,26 @@ describe('Todolist', () => {
       const buttons = screen.queryAllByRole('button', { name: 'Deprioritize' });
       expect(buttons).toHaveLength(0);
     });
-    // it('emits deprioritize task command', () => {
-    //   // Given
-    //   const todolistWithTwoTasks = {
-    //     tasks: [taskCreated],
-    //     actions: [depriorizationAction]
-    //   };
-    //
-    //   // When
-    //   renderWithStore(<Todolist />, { todolist: todolistWithTwoTasks });
-    //
-    //   const deprioritizeButton = screen.getByRole('button', { name: 'Deprioritize' });
-    //   deprioritizeButton.click();
-    //
-    //   // Then
-    //   expect(emitCommandSpy).toHaveBeenCalledTimes(1);
-    //   expect(emitCommandSpy).toHaveBeenCalledWith(depriorizationAction, taskCreated);
-    // });
+    it('emits deprioritize task action', () => {
+      // Given
+      const todolistWithTwoTasks = {
+        tasks: [taskCreated],
+        actions: [depriorizationAction]
+      };
+
+      // When
+      renderWithStore(<Todolist />, { todolist: todolistWithTwoTasks });
+
+      const deprioritizeButton = screen.getByRole('button', { name: 'Deprioritize' });
+      deprioritizeButton.click();
+
+      // Then
+      expect(todolistActionSpy).toHaveBeenCalledTimes(1);
+      expect(todolistActionSpy).toHaveBeenCalledWith({
+        action: depriorizationAction,
+        task: taskCreated
+      });
+    });
   });
 
   describe('Integration test', () => {

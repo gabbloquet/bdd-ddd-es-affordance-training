@@ -17,7 +17,7 @@ export const todolistAction = async (action: Action, task: Task): Promise<Todoli
   const { data: todolistResource } = await axios.request({
     method: action.method,
     url: action.url,
-    data: task
+    data: { id: task.id }
   });
   return toTodolist(todolistResource);
 };

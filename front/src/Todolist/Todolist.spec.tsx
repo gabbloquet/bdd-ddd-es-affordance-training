@@ -1,10 +1,8 @@
 import axios from 'axios';
-import * as nock from 'nock';
-import { screen, waitFor } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { renderWithStore } from '../shared/utils/test-utils';
 import { taskCompleted, taskCreated } from '../Task/model/task.model';
-import { depriorizationAction, priorizationAction, todolistExample } from './model/todolist.model';
-import { SERVICE_HREF, todolistDtoWithTwoTasks } from './repository/todolist.dtos';
+import { depriorizationAction, priorizationAction } from './model/todolist.model';
 import * as todolistRepository from './repository/todolist.repository';
 import { Todolist } from './index';
 

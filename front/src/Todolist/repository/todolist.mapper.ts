@@ -6,7 +6,9 @@ import {
   HTTP_METHOD,
   Links,
   Property,
+  ResourceLink,
   ResourceProperty,
+  ResourceTemplate,
   Templates
 } from '../../shared/types/hateoas.types';
 import { isNull } from '../../shared/utils/object.utils';
@@ -17,62 +19,44 @@ const toProperties = (properties: Array<ResourceProperty>): Array<Property> =>
     ...(property.type && { type: property.type })
   }));
 
-const getTaskAction = (templates: Templates, templateName: string): Action => ({
-  method: templates[templateName].method === 'POST' ? HTTP_METHOD.POST : HTTP_METHOD.GET,
-  name: 'TODO',
-  url: templates[templateName].target,
-  properties: toProperties(templates[templateName].properties)
+const toAction = (link: ResourceLink, template: ResourceTemplate): Action => ({
+  method: HTTP_METHOD[template.method],
+  name: link.name ?? '',
+  url: link.href,
+  properties: toProperties(template.properties)
 });
 
-const checkMissingLinks = (links: Links | undefined) => {
-  if (links === undefined || isNull(links)) throw new TypeError('Ressource links are missing.');
-
-  if (links['default'] === undefined || isNull(links['default'])) {
-    throw new TypeError('Prioritize task link in missing.');
-  }
-
-  if (links['deprioritize'] === undefined || isNull(links['deprioritize'])) {
-    throw new TypeError('Deprioritize task link in missing.');
+const checkTemplates = (templates: Templates | undefined): void => {
+  if (!templates || isNull(templates)) {
+    throw new TypeError('Templates (_templates) are missing in Resource.');
   }
 };
 
-const checkMissingTemplates = (
-  templates: Templates | undefined,
-  templateNames: Array<string | undefined>
-) => {
-  if (templates === undefined || isNull(templates)) {
-    throw new TypeError('Ressource templates are missing.');
+const checkTemplate = (template: ResourceTemplate | undefined, name: string, key: string): void => {
+  if (!template || isNull(template)) {
+    throw new TypeError(`${name} (${key}) template is missing.`);
   }
-  templateNames.forEach((templateName) => {
-    if (
-      templateName === undefined ||
-      templates[templateName] === undefined ||
-      isNull(templates[templateName])
-    ) {
-      throw new TypeError(`${templateName} template is missing.`);
-    }
-  });
 };
 
-const buildActions = (
-  templates: Templates | undefined,
-  templateNames: Array<string | undefined>
-): Array<Action> => {
-  checkMissingTemplates(templates, templateNames);
-  return templateNames.map((templateName) => getTaskAction(templates!, templateName!));
+const checkLinks = (links: Links | undefined): void => {
+  if (!links || isNull(links)) {
+    throw new TypeError('Links (_links) are missing in Resource.');
+  }
 };
 
 const toActions = (todolistResource: TodolistResource): Array<Action> => {
-  checkMissingLinks(todolistResource._links);
+  const actions: Array<Action> = [];
+  checkLinks(todolistResource._links);
 
-  // TODO: rendre ça automatique, réutilisable
-  const prioritizeTemplateName = 'default';
-  const deprioritizeTemplateName = 'deprioritize';
+  Object.entries(todolistResource._links!).forEach(([key, resourceLink]) => {
+    checkTemplates(todolistResource._templates);
+    if (key !== 'self') {
+      checkTemplate(todolistResource._templates![key], resourceLink.name!, key);
+      actions.push(toAction(resourceLink, todolistResource._templates![key]));
+    }
+  });
 
-  return buildActions(todolistResource._templates, [
-    prioritizeTemplateName,
-    deprioritizeTemplateName
-  ]);
+  return actions;
 };
 
 export const toTodolist = (todolistResource: TodolistResource): Todolist => ({

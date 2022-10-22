@@ -74,7 +74,7 @@ describe('Todolist mapper', () => {
     // Then
     const expectedAction = {
       method: HTTP_METHOD.POST,
-      type: 'Deprioritize',
+      name: 'Deprioritize',
       url: 'http://localhost:8080/todolist/deprioritize/task',
       properties: [
         {
@@ -99,47 +99,7 @@ describe('Todolist mapper', () => {
     };
 
     expect(t).toThrow(TypeError);
-    expect(t).toThrow('Ressource links are missing.');
-  });
-
-  it('throws if prioritize task is undefined', () => {
-    // Given
-    const todoListResource: TodolistResource = {
-      _links: {
-        ...emptyDtoTodolist._links,
-        prioritizeTask: {} as ResourceLink
-      },
-      _templates: emptyDtoTodolist._templates,
-      tasks: []
-    };
-
-    // When
-    const t = () => {
-      const todolist = toTodolist(todoListResource);
-    };
-
-    expect(t).toThrow(TypeError);
-    expect(t).toThrow('Prioritize task link in missing.');
-  });
-
-  it('throws if deprioritize task is undefined', () => {
-    // Given
-    const todoListResource: TodolistResource = {
-      _links: {
-        ...emptyDtoTodolist._links,
-        deprioritizeTask: {} as ResourceLink
-      },
-      _templates: emptyDtoTodolist._templates,
-      tasks: []
-    };
-
-    // When
-    const t = () => {
-      const todolist = toTodolist(todoListResource);
-    };
-
-    expect(t).toThrow(TypeError);
-    expect(t).toThrow('Deprioritize task link in missing.');
+    expect(t).toThrow('Links (_links) are missing in Resource.');
   });
 
   it('throws if templates are undefined', () => {
@@ -156,7 +116,7 @@ describe('Todolist mapper', () => {
     };
 
     expect(t).toThrow(TypeError);
-    expect(t).toThrow('Ressource templates are missing.');
+    expect(t).toThrow('Templates (_templates) are missing in Resource.');
   });
 
   it('throws if prioritize template is undefined', () => {
@@ -176,7 +136,7 @@ describe('Todolist mapper', () => {
     };
 
     expect(t).toThrow(TypeError);
-    expect(t).toThrow('default template is missing.');
+    expect(t).toThrow('Prioritize (default) template is missing.');
   });
 
   it('throws if deprioritize template is undefined', () => {
@@ -196,6 +156,6 @@ describe('Todolist mapper', () => {
     };
 
     expect(t).toThrow(TypeError);
-    expect(t).toThrow('deprioritize template is missing.');
+    expect(t).toThrow('Deprioritize (deprioritize) template is missing.');
   });
 });

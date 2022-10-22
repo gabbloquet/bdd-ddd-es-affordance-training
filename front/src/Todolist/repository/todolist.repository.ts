@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { QueryClient, useMutation, useQuery } from '@tanstack/react-query';
-import { Todolist, todolistExample } from '../model/todolist.model';
+import { Todolist } from '../model/todolist.model';
 import { toTodolist } from './todolist.mapper';
 import { Task } from '../../Task/model/task.model';
 import { Action } from '../../shared/types/hateoas.types';
@@ -24,5 +24,5 @@ export const todolistAction = async (action: Action, task: Task): Promise<Todoli
 
 export const useTodolistAction = (queryClient: QueryClient) =>
   useMutation(({ action, task }: { action: Action; task: Task }) => todolistAction(action, task), {
-    onSuccess: (todolist) => console.log(todolist)
+    onSuccess: (todolist) => queryClient.setQueryData(['todolist'], () => todolist)
   });

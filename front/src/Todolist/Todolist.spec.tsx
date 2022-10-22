@@ -3,8 +3,8 @@ import * as nock from 'nock';
 import { screen, waitFor } from '@testing-library/react';
 import { renderWithStore } from '../shared/utils/test-utils';
 import { taskCompleted, taskCreated } from '../Task/model/task.model';
-import { depriorizationAction, priorizationAction } from './model/todolist.model';
-import { todolistDtoWithTwoTasks } from './repository/todolist.dtos';
+import { depriorizationAction, priorizationAction, todolistExample } from './model/todolist.model';
+import { SERVICE_HREF, todolistDtoWithTwoTasks } from './repository/todolist.dtos';
 import * as todolistRepository from './repository/todolist.repository';
 import { Todolist } from './index';
 
@@ -15,9 +15,6 @@ describe('Todolist', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    jest
-      .spyOn(todolistRepository, 'useTodolistAction')
-      .mockImplementation(() => ({ mutate: todolistActionSpy } as any));
   });
 
   it('shows a welcome message', () => {
@@ -81,6 +78,9 @@ describe('Todolist', () => {
     });
     it('emits prioritize task action', () => {
       // Given
+      jest
+        .spyOn(todolistRepository, 'useTodolistAction')
+        .mockImplementation(() => ({ mutate: todolistActionSpy } as any));
       const todolistWithTwoTasks = {
         tasks: [taskCreated],
         actions: [priorizationAction]
@@ -88,7 +88,6 @@ describe('Todolist', () => {
 
       // When
       renderWithStore(<Todolist />, { todolist: todolistWithTwoTasks });
-
       const prioritizeButton = screen.getByRole('button', { name: 'Prioritize' });
       prioritizeButton.click();
 
@@ -132,6 +131,9 @@ describe('Todolist', () => {
     });
     it('emits deprioritize task action', () => {
       // Given
+      jest
+        .spyOn(todolistRepository, 'useTodolistAction')
+        .mockImplementation(() => ({ mutate: todolistActionSpy } as any));
       const todolistWithTwoTasks = {
         tasks: [taskCreated],
         actions: [depriorizationAction]
@@ -152,20 +154,57 @@ describe('Todolist', () => {
     });
   });
 
-  describe('Integration test', () => {
-    it('shows tasks from todolist', async () => {
-      // Given
-      process.env.SERVICE_URL = 'https://my-wonderful-todolist.fr';
-      nock(process.env.SERVICE_URL).get('/todolist').reply(200, todolistDtoWithTwoTasks);
-
-      // When
-      renderWithStore(<Todolist />);
-
-      // Then
-      await waitFor(() => {
-        expect(screen.getByText('Allé fumé du canon avec Gégé')).toBeVisible();
-        expect(screen.getByText("Saquer àl'pec avec chgros")).toBeVisible();
-      });
-    });
-  });
+  // todo: test it with playright
+  // describe('Integration test', () => {
+  //   it('shows tasks from todolist', async () => {
+  //     // Given
+  //     process.env.SERVICE_URL = SERVICE_HREF;
+  //     nock(process.env.SERVICE_URL).get('/todolist').reply(200, todolistDtoWithTwoTasks);
+  //
+  //     // When
+  //     renderWithStore(<Todolist />);
+  //
+  //     // Then
+  //     await waitFor(() => {
+  //       expect(screen.getByText('Allé fumé du canon avec Gégé')).toBeVisible();
+  //       expect(screen.getByText("Saquer àl'pec avec chgros")).toBeVisible();
+  //     });
+  //   });
+  //   it('prioritizes a task', async () => {
+  //     // Given
+  //     process.env.SERVICE_URL = SERVICE_HREF;
+  //     nock(process.env.SERVICE_URL)
+  //       .post('/todolist/prioritize/task')
+  //       .reply(200, todolistDtoWithTwoTasks);
+  //
+  //     // When
+  //     renderWithStore(<Todolist />, { todolist: todolistExample });
+  //     const prioritizeButton = screen.getByRole('button', { name: 'Prioritize' });
+  //     prioritizeButton.click();
+  //
+  //     // Then
+  //     await waitFor(() => {
+  //       expect(screen.getByText('Allé fumé du canon avec Gégé')).toBeVisible();
+  //       expect(screen.getByText("Saquer àl'pec avec chgros")).toBeVisible();
+  //     });
+  //   });
+  //   it('deprioritizes a task', async () => {
+  //     // Given
+  //     process.env.SERVICE_URL = SERVICE_HREF;
+  //     nock(process.env.SERVICE_URL)
+  //       .post('/todolist/deprioritize/task')
+  //       .reply(200, todolistDtoWithTwoTasks);
+  //
+  //     // When
+  //     renderWithStore(<Todolist />, { todolist: todolistExample });
+  //     const deprioritizeButton = screen.getByRole('button', { name: 'Deprioritize' });
+  //     deprioritizeButton.click();
+  //
+  //     // Then
+  //     await waitFor(() => {
+  //       expect(screen.getByText('Allé fumé du canon avec Gégé')).toBeVisible();
+  //       expect(screen.getByText("Saquer àl'pec avec chgros")).toBeVisible();
+  //     });
+  //   });
+  // });
 });

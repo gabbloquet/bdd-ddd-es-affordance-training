@@ -9,20 +9,22 @@ export interface TodolistResource extends Resource {
   tasks: Array<TaskResource>;
 }
 
+export const SERVICE_HREF = 'http://localhost:8080';
+
 export const emptyDtoTodolist: TodolistResource = {
   tasks: [],
   _links: {
     self: {
-      href: 'http://localhost:8080/todolist',
+      href: `${SERVICE_HREF}/todolist`,
       title: 'Get todolist'
     },
     default: {
-      href: 'http://localhost:8080/todolist/prioritize/task',
+      href: `${SERVICE_HREF}/todolist/prioritize/task`,
       title: 'Prioritize a task',
       name: 'Prioritize'
     },
     deprioritize: {
-      href: 'http://localhost:8080/todolist/deprioritize/task',
+      href: `${SERVICE_HREF}/todolist/deprioritize/task`,
       title: 'Deprioritize a task',
       name: 'Deprioritize'
     }
@@ -36,7 +38,7 @@ export const emptyDtoTodolist: TodolistResource = {
           readOnly: true
         }
       ],
-      target: 'http://localhost:8080/todolist/prioritize/task'
+      target: `${SERVICE_HREF}/todolist/prioritize/task`
     },
     deprioritize: {
       method: 'POST',
@@ -46,7 +48,7 @@ export const emptyDtoTodolist: TodolistResource = {
           readOnly: true
         }
       ],
-      target: 'http://localhost:8080/todolist/deprioritize/task'
+      target: `${SERVICE_HREF}/todolist/deprioritize/task`
     }
   }
 };
@@ -55,16 +57,16 @@ export const todolistDtoWithTwoTasks: TodolistResource = {
   tasks: [taskCreatedDtoExample, anotherTaskDtoExample],
   _links: {
     self: {
-      href: 'http://localhost:8080/todolist',
+      href: `${SERVICE_HREF}/todolist`,
       title: 'Get todolist'
     },
     default: {
-      href: 'http://localhost:8080/todolist/prioritize/task',
+      href: `${SERVICE_HREF}/todolist/prioritize/task`,
       title: 'Prioritize a task',
       name: 'Prioritize'
     },
     deprioritize: {
-      href: 'http://localhost:8080/todolist/deprioritize/task',
+      href: `${SERVICE_HREF}/todolist/deprioritize/task`,
       title: 'Deprioritize a task',
       name: 'Deprioritize'
     }
@@ -78,7 +80,7 @@ export const todolistDtoWithTwoTasks: TodolistResource = {
           readOnly: true
         }
       ],
-      target: 'http://localhost:8080/todolist/prioritize/task'
+      target: `${SERVICE_HREF}/todolist/prioritize/task`
     },
     deprioritize: {
       method: 'POST',
@@ -88,7 +90,7 @@ export const todolistDtoWithTwoTasks: TodolistResource = {
           readOnly: true
         }
       ],
-      target: 'http://localhost:8080/todolist/deprioritize/task'
+      target: `${SERVICE_HREF}/todolist/deprioritize/task`
     }
   }
 };

@@ -1,4 +1,4 @@
-import { Task, taskCreated } from '../../Task/model/task.model';
+import { anotherTaskCreated, Task, taskCreated } from '../../Task/model/task.model';
 import { Action, HTTP_METHOD } from '../../shared/types/hateoas.types';
 
 export interface Todolist {
@@ -28,7 +28,12 @@ export const depriorizationAction: Action = {
   ]
 };
 
-export const todolistExample: Todolist = {
-  tasks: [taskCreated],
+export const emptyTodolist: Todolist = {
+  tasks: [],
+  actions: [priorizationAction, depriorizationAction]
+};
+
+export const todolistWithTwoTasks: Todolist = {
+  tasks: [taskCreated, anotherTaskCreated],
   actions: [priorizationAction, depriorizationAction]
 };

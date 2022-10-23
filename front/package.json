@@ -7,6 +7,8 @@
     "build": "tsc && vite build",
     "test": "jest --watch",
     "test:ci": "jest --coverage",
+    "test:e2e": "npx playwright test",
+    "test:e2e-reports": "npx playwright show-report",
     "preview": "vite preview",
     "lint": "eslint src",
     "lint:fix": "eslint --fix",
@@ -23,6 +25,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
+    "@playwright/test": "^1.27.1",
     "@storybook/addon-actions": "^6.5.12",
     "@storybook/addon-essentials": "^6.5.12",
     "@storybook/addon-interactions": "^6.5.12",

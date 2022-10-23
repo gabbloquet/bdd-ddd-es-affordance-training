@@ -1,3 +1,4 @@
+import { isNull } from '../../shared/utils/object.utils';
 import { TodolistResource } from './todolist.dtos';
 import { Todolist } from '../model/todolist.model';
 import { toTask } from '../../Task/repository/task.mapper';
@@ -11,17 +12,15 @@ import {
   ResourceTemplate,
   Templates
 } from '../../shared/types/hateoas.types';
-import { isNull } from '../../shared/utils/object.utils';
 
 const toProperties = (properties: Array<ResourceProperty>): Array<Property> =>
   properties.map((property) => ({
-    name: property.name,
-    ...(property.type && { type: property.type })
+    name: property.name
   }));
 
 const toAction = (link: ResourceLink, template: ResourceTemplate): Action => ({
   method: HTTP_METHOD[template.method],
-  name: link.name ?? '',
+  name: link.name!,
   url: link.href,
   properties: toProperties(template.properties)
 });

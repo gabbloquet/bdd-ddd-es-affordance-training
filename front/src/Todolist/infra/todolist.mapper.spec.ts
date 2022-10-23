@@ -1,6 +1,6 @@
 import { toTodolist } from './todolist.mapper';
 import { emptyDtoTodolist, TodolistResource } from './todolist.dtos';
-import { taskCreatedDtoExample } from '../../Task/repository/task.dto';
+import { taskCreatedDtoExample } from '../../Task/infra/task.dto';
 import { taskCreated } from '../../Task/model/task.model';
 import { HTTP_METHOD, ResourceLink, ResourceTemplate } from '../../shared/types/hateoas.types';
 

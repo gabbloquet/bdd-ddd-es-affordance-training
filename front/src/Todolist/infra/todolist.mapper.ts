@@ -1,7 +1,7 @@
 import { isNull } from '../../shared/utils/object.utils';
 import { TodolistResource } from './todolist.dtos';
 import { Todolist } from '../model/todolist.model';
-import { toTask } from '../../Task/repository/task.mapper';
+import { toTask } from '../../Task/infra/task.mapper';
 import {
   Action,
   HTTP_METHOD,

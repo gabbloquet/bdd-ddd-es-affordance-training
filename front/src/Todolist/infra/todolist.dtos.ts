@@ -2,7 +2,7 @@ import {
   anotherTaskDtoExample,
   taskCreatedDtoExample,
   TaskResource
-} from '../../Task/repository/task.dto';
+} from '../../Task/infra/task.dto';
 import { Resource } from '../../shared/types/hateoas.types';
 
 export interface TodolistResource extends Resource {

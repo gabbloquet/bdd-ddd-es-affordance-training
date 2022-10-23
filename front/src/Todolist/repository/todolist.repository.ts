@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { QueryClient, useMutation, useQuery } from '@tanstack/react-query';
 import { Todolist } from '../model/todolist.model';
-import { toTodolist } from './todolist.mapper';
+import { toTodolist } from '../infra/todolist.mapper';
 import { Task } from '../../Task/model/task.model';
 import { Action } from '../../shared/types/hateoas.types';
 

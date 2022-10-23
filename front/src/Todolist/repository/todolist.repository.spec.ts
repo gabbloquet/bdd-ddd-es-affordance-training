@@ -1,8 +1,8 @@
 import * as nock from 'nock';
 import axios from 'axios';
-import { emptyDtoTodolist, todolistDtoWithTwoTasks } from './todolist.dtos';
+import { emptyDtoTodolist, todolistDtoWithTwoTasks } from '../infra/todolist.dtos';
 import { getTodolist, todolistAction } from './todolist.repository';
-import * as todolistMapper from './todolist.mapper';
+import * as todolistMapper from '../infra/todolist.mapper';
 import { emptyTodolist, todolistWithTwoTasks } from '../model/todolist.model';
 import { taskCreated } from '../../Task/model/task.model';
 import { HTTP_METHOD } from '../../shared/types/hateoas.types';

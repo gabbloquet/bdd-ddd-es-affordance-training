@@ -40,15 +40,22 @@ public class TasksResponseAssembler {
     }
 
     private Link getRenameTaskAffordance(TaskDto task) {
-        return linkTo(taskResource.renameTask(null, task.id())).withRel("renameTask").withTitle("Rename a task");
+        return linkTo(taskResource.renameTask(null, task.id()))
+                .withRel("renameTask")
+                .withTitle("Rename a task");
     }
 
     private Link getCompleteTaskAffordance(TaskDto task) {
-        return linkTo(taskResource.completeTask(task.id())).withRel("completeTask").withTitle("Complete a task");
+        return linkTo(taskResource.completeTask(task.id()))
+                .withRel("completeTask")
+                .withTitle("Complete a task");
     }
 
-    private Link getAddTaskAffordance() {
-        return linkTo(taskResource.addTask(null)).withRel("addTask").withTitle("Add a task");
+    public Link getAddTaskAffordance() {
+        return linkTo(taskResource.addTask(null))
+                .withRel("addTask")
+                .withName("Add a task")
+                .withTitle("Add a task");
     }
 
     private Link getDeleteTaskAffordance(TaskDto task) {

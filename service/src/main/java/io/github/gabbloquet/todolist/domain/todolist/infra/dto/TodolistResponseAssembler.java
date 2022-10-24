@@ -29,7 +29,8 @@ public class TodolistResponseAssembler {
                 todolistResponse,
                 getSelfLink(),
                 getPrioritizeTaskAffordance(),
-                getDeprioritizeTaskAffordance());
+                getDeprioritizeTaskAffordance(),
+                tasksResponseAssembler.getAddTaskAffordance());
     }
 
     private List<EntityModel<TaskDto>> getTasksAffordances(TodolistDto todolist) {

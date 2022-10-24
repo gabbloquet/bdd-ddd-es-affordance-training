@@ -8,7 +8,6 @@ import { Action } from '../../shared/types/hateoas.types';
 export const getTodolist = async () => {
   const { data: todolistResource } = await axios.get(`${process.env.SERVICE_URL}/todolist`);
   return toTodolist(todolistResource);
-  // return todolistExample;
 };
 
 export const useTodolist = () => useQuery<Todolist>(['todolist'], getTodolist);

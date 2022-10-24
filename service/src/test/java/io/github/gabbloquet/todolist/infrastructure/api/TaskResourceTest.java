@@ -182,6 +182,7 @@ class TaskResourceTest {
 
                 .andExpect(jsonPath("$._links.addTask.href", is("http://localhost/tasks")))
                 .andExpect(jsonPath("$._links.addTask.title", is("Add a task")))
+                .andExpect(jsonPath("$._links.addTask.name", is("Add a task")))
                 .andExpect(jsonPath("$._templates.addTask.method", is("POST")))
                 .andExpect(jsonPath("$._templates.addTask.properties[0].name", is("description")))
                 .andExpect(jsonPath("$._templates.addTask.properties[0].type", is("text")))

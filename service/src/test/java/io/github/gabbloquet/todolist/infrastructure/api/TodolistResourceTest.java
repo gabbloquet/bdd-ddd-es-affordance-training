@@ -72,7 +72,7 @@ class TodolistResourceTest {
         String taskId = task.taskId().id().toString();
         ResultActions result = executeGetRequest();
 
-        assertFirstTaskAffordances(result, taskId,"Practice TDD", "2022-08-01T08:20:00");
+        assertFirstTaskAffordances(result, taskId, "Practice TDD", "2022-08-01T08:20:00");
     }
 
     @Test
@@ -133,25 +133,33 @@ class TodolistResourceTest {
 
     private void assertTodolistAffordance(ResultActions request) throws Exception {
         request
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$._links.self.href", is("http://localhost/todolist")))
-            .andExpect(jsonPath("$._links.self.title", is("Get todolist")))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$._links.self.href", is("http://localhost/todolist")))
+                .andExpect(jsonPath("$._links.self.title", is("Get todolist")))
 
-            .andExpect(jsonPath("$._links.default.href", is("http://localhost/todolist/prioritize/task")))
-            .andExpect(jsonPath("$._links.default.title", is("Prioritize a task")))
-            .andExpect(jsonPath("$._links.default.name", is("Prioritize")))
-            .andExpect(jsonPath("$._templates.default.properties[0].name", is("id")))
-            .andExpect(jsonPath("$._templates.default.properties[0].readOnly", is(true)))
-            .andExpect(jsonPath("$._templates.default.method", is("POST")))
-            .andExpect(jsonPath("$._templates.default.target", is("http://localhost/todolist/prioritize/task")))
+                .andExpect(jsonPath("$._links.default.href", is("http://localhost/todolist/prioritize/task")))
+                .andExpect(jsonPath("$._links.default.title", is("Prioritize a task")))
+                .andExpect(jsonPath("$._links.default.name", is("Prioritize")))
+                .andExpect(jsonPath("$._templates.default.properties[0].name", is("id")))
+                .andExpect(jsonPath("$._templates.default.properties[0].readOnly", is(true)))
+                .andExpect(jsonPath("$._templates.default.method", is("POST")))
+                .andExpect(jsonPath("$._templates.default.target", is("http://localhost/todolist/prioritize/task")))
 
-            .andExpect(jsonPath("$._links.deprioritize.href", is("http://localhost/todolist/deprioritize/task")))
-            .andExpect(jsonPath("$._links.deprioritize.title", is("Deprioritize a task")))
-            .andExpect(jsonPath("$._links.deprioritize.name", is("Deprioritize")))
-            .andExpect(jsonPath("$._templates.default.properties[0].name", is("id")))
-            .andExpect(jsonPath("$._templates.default.properties[0].readOnly", is(true)))
-            .andExpect(jsonPath("$._templates.deprioritize.method", is("POST")))
-            .andExpect(jsonPath("$._templates.deprioritize.target", is("http://localhost/todolist/deprioritize/task")));
+                .andExpect(jsonPath("$._links.deprioritize.href", is("http://localhost/todolist/deprioritize/task")))
+                .andExpect(jsonPath("$._links.deprioritize.title", is("Deprioritize a task")))
+                .andExpect(jsonPath("$._links.deprioritize.name", is("Deprioritize")))
+                .andExpect(jsonPath("$._templates.deprioritize.properties[0].name", is("id")))
+                .andExpect(jsonPath("$._templates.deprioritize.properties[0].readOnly", is(true)))
+                .andExpect(jsonPath("$._templates.deprioritize.method", is("POST")))
+                .andExpect(jsonPath("$._templates.deprioritize.target", is("http://localhost/todolist/deprioritize/task")))
+
+                .andExpect(jsonPath("$._links.addTask.href", is("http://localhost/tasks")))
+                .andExpect(jsonPath("$._links.addTask.title", is("Add a task")))
+                .andExpect(jsonPath("$._links.addTask.name", is("Add a task")))
+                .andExpect(jsonPath("$._templates.addTask.properties[0].name", is("description")))
+                .andExpect(jsonPath("$._templates.addTask.properties[0].type", is("text")))
+                .andExpect(jsonPath("$._templates.addTask.method", is("POST")))
+                .andExpect(jsonPath("$._templates.addTask.target", is("http://localhost/tasks")));
     }
 
     private void assertFirstTaskAffordances(ResultActions result, String taskId, String description, String date) throws Exception {

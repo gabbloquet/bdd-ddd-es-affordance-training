@@ -1,7 +1,14 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { useTodolist, useTodolistAction } from './repository/todolist.repository';
+import { Action } from '../shared/types/hateoas.types';
+import { Todolist as TodolistState } from './model/todolist.model';
 import { Task } from '../Task';
 import './todolist.scss';
+
+const addTaskActionIsAvailable = (todolist: TodolistState | undefined) =>
+  todolist &&
+  todolist.actions &&
+  todolist.actions.some((action: Action) => action.name === 'Add a task');
 
 export const Todolist = () => {
   const queryClient = useQueryClient();
@@ -23,6 +30,12 @@ export const Todolist = () => {
             ))}
           </div>
         ))}
+
+      {addTaskActionIsAvailable(todolist) && (
+        <div className="todolist__task" key="add-task">
+          <input name="Add a task" placeholder="Add a task" />
+        </div>
+      )}
     </main>
   );
 };

@@ -1,7 +1,11 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { taskCompleted, taskCreated } from '../../src/Task/model/task.model';
-import { depriorizationAction, priorizationAction } from '../../src/Todolist/model/todolist.model';
+import {
+  addTaskAction,
+  depriorizationAction,
+  priorizationAction
+} from '../../src/Todolist/model/todolist.model';
 import { Todolist } from '../../src/Todolist';
 
 export default {
@@ -11,7 +15,8 @@ export default {
 
 const queryClient = new QueryClient({});
 queryClient.setQueryData(['todolist'], {
-  tasks: [taskCreated, taskCompleted]
+  tasks: [taskCreated, taskCompleted],
+  actions: [priorizationAction, depriorizationAction, addTaskAction]
 });
 const Template: ComponentStory<typeof Todolist> = () => (
   <QueryClientProvider client={queryClient}>
@@ -22,12 +27,12 @@ export const WithCreatedTaskAndCompletedTask = Template.bind({});
 
 const queryClientActions = new QueryClient({});
 queryClientActions.setQueryData(['todolist'], {
-  tasks: [taskCreated, taskCompleted],
-  actions: [priorizationAction, depriorizationAction]
+  tasks: [],
+  actions: [priorizationAction, depriorizationAction, addTaskAction]
 });
-const TemplateWithActions: ComponentStory<typeof Todolist> = () => (
+const TemplateWithoutTask: ComponentStory<typeof Todolist> = () => (
   <QueryClientProvider client={queryClientActions}>
     <Todolist />
   </QueryClientProvider>
 );
-export const WithActions = TemplateWithActions.bind({});
+export const WithoutTask = TemplateWithoutTask.bind({});

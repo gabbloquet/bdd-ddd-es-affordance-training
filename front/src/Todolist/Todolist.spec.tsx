@@ -2,7 +2,7 @@ import axios from 'axios';
 import { screen } from '@testing-library/react';
 import { renderWithStore } from '../shared/utils/test-utils';
 import { taskCompleted, taskCreated } from '../Task/model/task.model';
-import { depriorizationAction, priorizationAction } from './model/todolist.model';
+import { addTaskAction, depriorizationAction, priorizationAction } from './model/todolist.model';
 import * as todolistRepository from './repository/todolist.repository';
 import { Todolist } from './index';
 
@@ -60,6 +60,7 @@ describe('Todolist', () => {
       const buttons = screen.getAllByRole('button', { name: 'Prioritize' });
       expect(buttons).toHaveLength(2);
     });
+
     it('doesnt allow to prioritize tasks if not available', () => {
       // Given
       const todolistWithTwoTasks = {
@@ -74,6 +75,7 @@ describe('Todolist', () => {
       const buttons = screen.queryAllByRole('button', { name: 'Prioritize' });
       expect(buttons).toHaveLength(0);
     });
+
     it('emits prioritize task action', () => {
       // Given
       jest
@@ -113,6 +115,7 @@ describe('Todolist', () => {
       const buttons = screen.getAllByRole('button', { name: 'Deprioritize' });
       expect(buttons).toHaveLength(2);
     });
+
     it('doesnt allow to deprioritize tasks if not available', () => {
       // Given
       const todolistWithTwoTasks = {
@@ -127,6 +130,7 @@ describe('Todolist', () => {
       const buttons = screen.queryAllByRole('button', { name: 'Deprioritize' });
       expect(buttons).toHaveLength(0);
     });
+
     it('emits deprioritize task action', () => {
       // Given
       jest
@@ -150,6 +154,62 @@ describe('Todolist', () => {
         task: taskCreated
       });
     });
+  });
+
+  describe('Add a task', () => {
+    it('allows to add a task if available', () => {
+      // Given
+      const todolistWithTwoTasks = {
+        tasks: [taskCreated, taskCompleted],
+        actions: [addTaskAction]
+      };
+
+      // When
+      renderWithStore(<Todolist />, { todolist: todolistWithTwoTasks });
+      const input = screen.getByRole('textbox');
+
+      // Then
+      expect(input).toBeVisible();
+      expect(input).toHaveAttribute('placeholder', 'Add a task');
+    });
+
+    it('doesnt allow to add task if not available', () => {
+      // Given
+      const todolistWithTwoTasks = {
+        tasks: [taskCreated, taskCompleted],
+        actions: []
+      };
+
+      // When
+      renderWithStore(<Todolist />, { todolist: todolistWithTwoTasks });
+      const input = screen.queryByRole('textbox');
+
+      // Then
+      expect(input).toBeNull();
+    });
+
+    // it('emits prioritize task action', () => {
+    //   // Given
+    //   jest
+    //     .spyOn(todolistRepository, 'useTodolistAction')
+    //     .mockImplementation(() => ({ mutate: todolistActionSpy } as any));
+    //   const todolistWithTwoTasks = {
+    //     tasks: [taskCreated],
+    //     actions: [priorizationAction]
+    //   };
+    //
+    //   // When
+    //   renderWithStore(<Todolist />, { todolist: todolistWithTwoTasks });
+    //   const prioritizeButton = screen.getByRole('button', { name: 'Prioritize' });
+    //   prioritizeButton.click();
+    //
+    //   // Then
+    //   expect(todolistActionSpy).toHaveBeenCalledTimes(1);
+    //   expect(todolistActionSpy).toHaveBeenCalledWith({
+    //     action: priorizationAction,
+    //     task: taskCreated
+    //   });
+    // });
   });
 
   // todo: test it with playright

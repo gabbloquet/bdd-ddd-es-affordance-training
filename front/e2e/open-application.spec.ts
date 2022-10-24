@@ -1,7 +1,8 @@
 import { test, expect } from '@playwright/test';
+import { visitHomepage } from './commands';
 
 test('homepage has ultimate title', async ({ page }) => {
-  await page.goto('http://localhost:5173/');
+  visitHomepage(page);
 
   await expect(page).toHaveTitle('Ultimate todolist');
 

@@ -1,19 +1,31 @@
 import { useQueryClient } from '@tanstack/react-query';
-import { useTodolist, useTodolistAction } from './repository/todolist.repository';
+import { useAddTaskAction, useTodolist, useTodolistAction } from './repository/todolist.repository';
 import { Action } from '../shared/types/hateoas.types';
 import { Todolist as TodolistState } from './model/todolist.model';
 import { Task } from '../Task';
 import './todolist.scss';
 
-const addTaskActionIsAvailable = (todolist: TodolistState | undefined) =>
+const getAddTaskAction = (todolist: TodolistState | undefined) =>
   todolist &&
   todolist.actions &&
-  todolist.actions.some((action: Action) => action.name === 'Add a task');
+  todolist.actions.find((action: Action) => action.name === 'Add a task');
 
 export const Todolist = () => {
   const queryClient = useQueryClient();
   const { data: todolist } = useTodolist();
   const { mutate } = useTodolistAction(queryClient);
+  const { mutate: addTaskMutate } = useAddTaskAction(queryClient);
+
+  const addTaskAction = getAddTaskAction(todolist);
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    event.key === 'Enter' &&
+      addTaskAction &&
+      addTaskMutate({
+        action: addTaskAction,
+        task: { description: (event.target as HTMLTextAreaElement).value }
+      });
+  };
 
   return (
     <main data-testid="todolist" className="todolist">
@@ -31,9 +43,13 @@ export const Todolist = () => {
           </div>
         ))}
 
-      {addTaskActionIsAvailable(todolist) && (
+      {addTaskAction && (
         <div className="todolist__task" key="add-task">
-          <input name="Add a task" placeholder="Add a task" />
+          <input
+            name={addTaskAction.name}
+            placeholder={addTaskAction.name}
+            onKeyDown={handleKeyDown}
+          />
         </div>
       )}
     </main>

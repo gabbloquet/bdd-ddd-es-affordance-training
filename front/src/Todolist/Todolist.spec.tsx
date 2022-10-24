@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { screen } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import { renderWithStore } from '../shared/utils/test-utils';
 import { taskCompleted, taskCreated } from '../Task/model/task.model';
 import { addTaskAction, depriorizationAction, priorizationAction } from './model/todolist.model';
@@ -10,6 +10,7 @@ axios.defaults.adapter = require('axios/lib/adapters/http');
 
 describe('Todolist', () => {
   const todolistActionSpy = jest.fn();
+  const addTaskActionSpy = jest.fn();
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -188,28 +189,35 @@ describe('Todolist', () => {
       expect(input).toBeNull();
     });
 
-    // it('emits prioritize task action', () => {
-    //   // Given
-    //   jest
-    //     .spyOn(todolistRepository, 'useTodolistAction')
-    //     .mockImplementation(() => ({ mutate: todolistActionSpy } as any));
-    //   const todolistWithTwoTasks = {
-    //     tasks: [taskCreated],
-    //     actions: [priorizationAction]
-    //   };
-    //
-    //   // When
-    //   renderWithStore(<Todolist />, { todolist: todolistWithTwoTasks });
-    //   const prioritizeButton = screen.getByRole('button', { name: 'Prioritize' });
-    //   prioritizeButton.click();
-    //
-    //   // Then
-    //   expect(todolistActionSpy).toHaveBeenCalledTimes(1);
-    //   expect(todolistActionSpy).toHaveBeenCalledWith({
-    //     action: priorizationAction,
-    //     task: taskCreated
-    //   });
-    // });
+    it('emits add task action', () => {
+      // Given
+      jest
+        .spyOn(todolistRepository, 'useAddTaskAction')
+        .mockImplementation(() => ({ mutate: addTaskActionSpy } as any));
+
+      const description = 'Rinté vire chpetit';
+      const todolistWithTwoTasks = {
+        tasks: [taskCreated],
+        actions: [addTaskAction]
+      };
+
+      // When
+      renderWithStore(<Todolist />, { todolist: todolistWithTwoTasks });
+      const input = screen.queryByRole('textbox');
+      input && fireEvent.change(input, { target: { value: description } });
+      expect(addTaskActionSpy).toHaveBeenCalledTimes(0);
+
+      input && fireEvent.keyDown(input, { key: 'Enter', code: 'Enter' });
+
+      // Then
+      expect(addTaskActionSpy).toHaveBeenCalledTimes(1);
+      expect(addTaskActionSpy).toHaveBeenCalledWith({
+        action: addTaskAction,
+        task: {
+          description
+        }
+      });
+    });
   });
 
   // todo: test it with playright

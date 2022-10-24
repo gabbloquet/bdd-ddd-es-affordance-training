@@ -1,11 +1,12 @@
 import * as nock from 'nock';
 import axios from 'axios';
 import { emptyDtoTodolist, todolistDtoWithTwoTasks } from '../infra/todolist.dtos';
-import { getTodolist, todolistAction } from './todolist.repository';
+import { addTaskAction, getTodolist, todolistAction } from './todolist.repository';
 import * as todolistMapper from '../infra/todolist.mapper';
 import { emptyTodolist, todolistWithTwoTasks } from '../model/todolist.model';
 import { taskCreated } from '../../Task/model/task.model';
 import { HTTP_METHOD } from '../../shared/types/hateoas.types';
+import { taskCreatedDtoExample } from '../../Task/infra/task.dto';
 
 axios.defaults.adapter = require('axios/lib/adapters/http');
 
@@ -83,6 +84,34 @@ describe('Todolist repository', () => {
       ...taskCreated,
       id
     });
+
+    // Then
+    expect(toTodolistSpy).toHaveBeenCalledTimes(1);
+    expect(toTodolistSpy).toHaveBeenCalledWith(todolistDtoWithTwoTasks);
+
+    expect(todolist).toStrictEqual(todolistWithTwoTasks);
+  });
+
+  it('add a task', async () => {
+    // Given
+    process.env.SERVICE_URL = 'https://my-wonderful-todolist.fr';
+    const description = 'wonderful-description';
+    const taskAction = {
+      method: HTTP_METHOD.POST,
+      name: 'Add a task',
+      url: 'https://my-wonderful-todolist.fr/tasks',
+      properties: [
+        {
+          name: 'description'
+        }
+      ]
+    };
+    nock(process.env.SERVICE_URL)
+      .post('/tasks', { description })
+      .reply(200, todolistDtoWithTwoTasks);
+
+    // When
+    const todolist = await addTaskAction(taskAction, { description });
 
     // Then
     expect(toTodolistSpy).toHaveBeenCalledTimes(1);

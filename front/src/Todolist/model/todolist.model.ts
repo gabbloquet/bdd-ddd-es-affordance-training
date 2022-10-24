@@ -28,12 +28,23 @@ export const depriorizationAction: Action = {
   ]
 };
 
+export const addTaskAction: Action = {
+  method: HTTP_METHOD.POST,
+  name: 'Add a task',
+  properties: [
+    {
+      name: 'description'
+    }
+  ],
+  url: 'http://localhost:8080/tasks'
+};
+
 export const emptyTodolist: Todolist = {
   tasks: [],
-  actions: [priorizationAction, depriorizationAction]
+  actions: [priorizationAction, depriorizationAction, addTaskAction]
 };
 
 export const todolistWithTwoTasks: Todolist = {
   tasks: [taskCreated, anotherTaskCreated],
-  actions: [priorizationAction, depriorizationAction]
+  actions: [priorizationAction, depriorizationAction, addTaskAction]
 };

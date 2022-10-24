@@ -27,6 +27,11 @@ export const emptyDtoTodolist: TodolistResource = {
       href: `${SERVICE_HREF}/todolist/deprioritize/task`,
       title: 'Deprioritize a task',
       name: 'Deprioritize'
+    },
+    addTask: {
+      href: `${SERVICE_HREF}/tasks`,
+      title: 'Add a task',
+      name: 'Add a task'
     }
   },
   _templates: {
@@ -49,6 +54,17 @@ export const emptyDtoTodolist: TodolistResource = {
         }
       ],
       target: `${SERVICE_HREF}/todolist/deprioritize/task`
+    },
+    addTask: {
+      method: 'POST',
+      properties: [
+        {
+          name: 'description',
+          readOnly: true,
+          type: 'text'
+        }
+      ],
+      target: `${SERVICE_HREF}/tasks`
     }
   }
 };
@@ -69,6 +85,11 @@ export const todolistDtoWithTwoTasks: TodolistResource = {
       href: `${SERVICE_HREF}/todolist/deprioritize/task`,
       title: 'Deprioritize a task',
       name: 'Deprioritize'
+    },
+    addTask: {
+      href: `${SERVICE_HREF}/tasks`,
+      title: 'Add a task',
+      name: 'Add a task'
     }
   },
   _templates: {
@@ -91,6 +112,17 @@ export const todolistDtoWithTwoTasks: TodolistResource = {
         }
       ],
       target: `${SERVICE_HREF}/todolist/deprioritize/task`
+    },
+    addTask: {
+      method: 'POST',
+      properties: [
+        {
+          name: 'description',
+          readOnly: true,
+          type: 'text'
+        }
+      ],
+      target: `${SERVICE_HREF}/tasks`
     }
   }
 };

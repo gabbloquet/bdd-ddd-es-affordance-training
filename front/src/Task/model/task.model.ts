@@ -7,7 +7,7 @@ export interface Task {
 }
 
 export const taskCreated: Task = {
-  id: '1a8d707e-506a-4923-a688-66cbc5674f14',
+  id: '1531a79f-2f95-41ee-b5e5-98e1aec6a235',
   description: 'Allé fumé du canon avec Gégé',
   completed: false,
   creationTime: new Date('2022-09-16T07:10:00'),

@@ -15,7 +15,8 @@ import {
 
 const toProperties = (properties: Array<ResourceProperty>): Array<Property> =>
   properties.map((property) => ({
-    name: property.name
+    name: property.name,
+    type: property.type
   }));
 
 const toAction = (link: ResourceLink, template: ResourceTemplate): Action => ({

@@ -1,4 +1,5 @@
 import { Resource } from '../../shared/types/hateoas.types';
+import { SERVICE_HREF } from '../../Todolist/infra/todolist.dtos';
 
 export interface TaskResource extends Resource {
   id: string;
@@ -9,56 +10,49 @@ export interface TaskResource extends Resource {
 }
 
 export const taskCreatedDtoExample: TaskResource = {
-  id: '1a8d707e-506a-4923-a688-66cbc5674f14',
+  id: '1531a79f-2f95-41ee-b5e5-98e1aec6a235',
   description: 'Allé fumé du canon avec Gégé',
   completed: false,
   creationTime: '2022-09-16T05:10:00.000Z',
   duration: null,
   _links: {
-    getOrDeleteTask: {
-      href: 'http://localhost/tasks/1a8d707e-506a-4923-a688-66cbc5674f14',
-      title: 'Get or delete a task'
+    default: {
+      href: `${SERVICE_HREF}/tasks/1531a79f-2f95-41ee-b5e5-98e1aec6a235`,
+      title: 'Delete a task',
+      name: 'Delete'
     },
-    deleteTask: {
-      href: 'http://localhost/tasks/1a8d707e-506a-4923-a688-66cbc5674f14',
-      title: 'Delete a task'
-    },
-    renameTask: {
-      href: 'http://localhost/tasks/1a8d707e-506a-4923-a688-66cbc5674f14/rename',
+    rename: {
+      href: `${SERVICE_HREF}/tasks/1531a79f-2f95-41ee-b5e5-98e1aec6a235/rename`,
       title: 'Rename a task'
     },
-    completeTask: {
-      href: 'http://localhost/tasks/1a8d707e-506a-4923-a688-66cbc5674f14/complete',
-      title: 'Complete a task'
+    complete: {
+      href: `${SERVICE_HREF}/tasks/1531a79f-2f95-41ee-b5e5-98e1aec6a235/complete`,
+      title: 'Complete a task',
+      name: 'Complete'
     },
     todolist: {
-      href: 'http://localhost/todolist',
+      href: `${SERVICE_HREF}/todolist`,
       title: 'Get todolist',
       name: 'Get all tasks, todolist'
     },
     prioritize: {
-      href: 'http://localhost/todolist/prioritize/task',
+      href: `${SERVICE_HREF}/todolist/prioritize/task`,
       title: 'Prioritize a task',
       name: 'Prioritize'
     },
     deprioritize: {
-      href: 'http://localhost/todolist/deprioritize/task',
+      href: `${SERVICE_HREF}/todolist/deprioritize/task`,
       title: 'Deprioritize a task',
       name: 'Deprioritize'
     }
   },
   _templates: {
-    completeTask: {
-      method: 'PUT',
-      properties: [],
-      target: 'http://localhost/tasks/1a8d707e-506a-4923-a688-66cbc5674f14/complete'
-    },
     default: {
       method: 'DELETE',
       properties: [],
-      target: 'http://localhost/tasks/1a8d707e-506a-4923-a688-66cbc5674f14'
+      target: `${SERVICE_HREF}/tasks/1531a79f-2f95-41ee-b5e5-98e1aec6a235`
     },
-    renameTask: {
+    rename: {
       method: 'PUT',
       properties: [
         {
@@ -67,12 +61,12 @@ export const taskCreatedDtoExample: TaskResource = {
           type: 'text'
         }
       ],
-      target: 'http://localhost/tasks/1a8d707e-506a-4923-a688-66cbc5674f14/rename'
+      target: `${SERVICE_HREF}/tasks/1531a79f-2f95-41ee-b5e5-98e1aec6a235/rename`
     },
-    deleteTask: {
-      method: 'DELETE',
+    complete: {
+      method: 'PUT',
       properties: [],
-      target: 'http://localhost/tasks/1a8d707e-506a-4923-a688-66cbc5674f14'
+      target: `${SERVICE_HREF}/tasks/1531a79f-2f95-41ee-b5e5-98e1aec6a235/complete`
     },
     prioritize: {
       method: 'POST',
@@ -82,7 +76,7 @@ export const taskCreatedDtoExample: TaskResource = {
           readOnly: true
         }
       ],
-      target: 'http://localhost/todolist/prioritize/task'
+      target: `${SERVICE_HREF}/todolist/prioritize/task`
     },
     deprioritize: {
       method: 'POST',
@@ -92,7 +86,7 @@ export const taskCreatedDtoExample: TaskResource = {
           readOnly: true
         }
       ],
-      target: 'http://localhost/todolist/deprioritize/task'
+      target: `${SERVICE_HREF}/todolist/deprioritize/task`
     }
   }
 };
@@ -104,50 +98,43 @@ export const anotherTaskDtoExample: TaskResource = {
   creationTime: '2022-10-15T09:39:22.887334531',
   duration: null,
   _links: {
-    getOrDeleteTask: {
-      href: 'http://localhost/tasks/750826f7-1950-4346-945e-de3c865b9449',
-      title: 'Get or delete a task'
+    default: {
+      href: `${SERVICE_HREF}/tasks/91f66717-1899-46ba-b398-eaaac31b3cd4`,
+      title: 'Delete a task',
+      name: 'Delete'
     },
-    deleteTask: {
-      href: 'http://localhost/tasks/750826f7-1950-4346-945e-de3c865b9449',
-      title: 'Delete a task'
-    },
-    renameTask: {
-      href: 'http://localhost/tasks/750826f7-1950-4346-945e-de3c865b9449/rename',
+    rename: {
+      href: `${SERVICE_HREF}/tasks/91f66717-1899-46ba-b398-eaaac31b3cd4/rename`,
       title: 'Rename a task'
     },
-    completeTask: {
-      href: 'http://localhost/tasks/750826f7-1950-4346-945e-de3c865b9449/complete',
-      title: 'Complete a task'
+    complete: {
+      href: `${SERVICE_HREF}/tasks/91f66717-1899-46ba-b398-eaaac31b3cd4/complete`,
+      title: 'Complete a task',
+      name: 'Complete'
     },
     todolist: {
-      href: 'http://localhost/todolist',
+      href: `${SERVICE_HREF}/todolist`,
       title: 'Get todolist',
       name: 'Get all tasks, todolist'
     },
     prioritize: {
-      href: 'http://localhost/todolist/prioritize/task',
+      href: `${SERVICE_HREF}/todolist/prioritize/task`,
       title: 'Prioritize a task',
       name: 'Prioritize'
     },
     deprioritize: {
-      href: 'http://localhost/todolist/deprioritize/task',
+      href: `${SERVICE_HREF}/todolist/deprioritize/task`,
       title: 'Deprioritize a task',
       name: 'Deprioritize'
     }
   },
   _templates: {
-    completeTask: {
-      method: 'PUT',
-      properties: [],
-      target: 'http://localhost/tasks/750826f7-1950-4346-945e-de3c865b9449/complete'
-    },
     default: {
       method: 'DELETE',
       properties: [],
-      target: 'http://localhost/tasks/750826f7-1950-4346-945e-de3c865b9449'
+      target: `${SERVICE_HREF}/tasks/91f66717-1899-46ba-b398-eaaac31b3cd4`
     },
-    renameTask: {
+    rename: {
       method: 'PUT',
       properties: [
         {
@@ -156,12 +143,12 @@ export const anotherTaskDtoExample: TaskResource = {
           type: 'text'
         }
       ],
-      target: 'http://localhost/tasks/750826f7-1950-4346-945e-de3c865b9449/rename'
+      target: `${SERVICE_HREF}/tasks/91f66717-1899-46ba-b398-eaaac31b3cd4/rename`
     },
-    deleteTask: {
-      method: 'DELETE',
+    complete: {
+      method: 'PUT',
       properties: [],
-      target: 'http://localhost/tasks/750826f7-1950-4346-945e-de3c865b9449'
+      target: `${SERVICE_HREF}/tasks/91f66717-1899-46ba-b398-eaaac31b3cd4/complete`
     },
     prioritize: {
       method: 'POST',
@@ -171,7 +158,7 @@ export const anotherTaskDtoExample: TaskResource = {
           readOnly: true
         }
       ],
-      target: 'http://localhost/todolist/prioritize/task'
+      target: `${SERVICE_HREF}/todolist/prioritize/task`
     },
     deprioritize: {
       method: 'POST',
@@ -181,7 +168,7 @@ export const anotherTaskDtoExample: TaskResource = {
           readOnly: true
         }
       ],
-      target: 'http://localhost/todolist/deprioritize/task'
+      target: `${SERVICE_HREF}/todolist/deprioritize/task`
     }
   }
 };

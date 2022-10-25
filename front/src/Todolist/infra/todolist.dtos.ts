@@ -19,17 +19,7 @@ export const emptyDtoTodolist: TodolistResource = {
       title: 'Get todolist'
     },
     default: {
-      href: `${SERVICE_HREF}/todolist/prioritize/task`,
-      title: 'Prioritize a task',
-      name: 'Prioritize'
-    },
-    deprioritize: {
-      href: `${SERVICE_HREF}/todolist/deprioritize/task`,
-      title: 'Deprioritize a task',
-      name: 'Deprioritize'
-    },
-    addTask: {
-      href: `${SERVICE_HREF}/tasks`,
+      href: `${SERVICE_HREF}/todolist/add/task`,
       title: 'Add a task',
       name: 'Add a task'
     }
@@ -39,32 +29,12 @@ export const emptyDtoTodolist: TodolistResource = {
       method: 'POST',
       properties: [
         {
-          name: 'id',
-          readOnly: true
-        }
-      ],
-      target: `${SERVICE_HREF}/todolist/prioritize/task`
-    },
-    deprioritize: {
-      method: 'POST',
-      properties: [
-        {
-          name: 'id',
-          readOnly: true
-        }
-      ],
-      target: `${SERVICE_HREF}/todolist/deprioritize/task`
-    },
-    addTask: {
-      method: 'POST',
-      properties: [
-        {
           name: 'description',
           readOnly: true,
           type: 'text'
         }
       ],
-      target: `${SERVICE_HREF}/tasks`
+      target: `${SERVICE_HREF}/todolist/add/task`
     }
   }
 };
@@ -77,17 +47,7 @@ export const todolistDtoWithTwoTasks: TodolistResource = {
       title: 'Get todolist'
     },
     default: {
-      href: `${SERVICE_HREF}/todolist/prioritize/task`,
-      title: 'Prioritize a task',
-      name: 'Prioritize'
-    },
-    deprioritize: {
-      href: `${SERVICE_HREF}/todolist/deprioritize/task`,
-      title: 'Deprioritize a task',
-      name: 'Deprioritize'
-    },
-    addTask: {
-      href: `${SERVICE_HREF}/tasks`,
+      href: `${SERVICE_HREF}/todolist/add/task`,
       title: 'Add a task',
       name: 'Add a task'
     }
@@ -97,32 +57,12 @@ export const todolistDtoWithTwoTasks: TodolistResource = {
       method: 'POST',
       properties: [
         {
-          name: 'id',
-          readOnly: true
-        }
-      ],
-      target: `${SERVICE_HREF}/todolist/prioritize/task`
-    },
-    deprioritize: {
-      method: 'POST',
-      properties: [
-        {
-          name: 'id',
-          readOnly: true
-        }
-      ],
-      target: `${SERVICE_HREF}/todolist/deprioritize/task`
-    },
-    addTask: {
-      method: 'POST',
-      properties: [
-        {
           name: 'description',
           readOnly: true,
           type: 'text'
         }
       ],
-      target: `${SERVICE_HREF}/tasks`
+      target: `${SERVICE_HREF}/todolist/add/task`
     }
   }
 };

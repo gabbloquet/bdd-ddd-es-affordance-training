@@ -145,25 +145,23 @@ class TaskResourceTest {
                 .andExpect(jsonPath("description").value(description))
                 .andExpect(jsonPath("creationTime").value("2022-10-01T06:00:00"))
 
-                .andExpect(jsonPath("$._links.getOrDeleteTask.href", is("http://localhost/tasks/" + id)))
-                .andExpect(jsonPath("$._links.getOrDeleteTask.title", is("Get or delete a task")))
-
-                .andExpect(jsonPath("$._links.deleteTask.href", is("http://localhost/tasks/" + id)))
-                .andExpect(jsonPath("$._links.deleteTask.title", is("Delete a task")))
-                .andExpect(jsonPath("$._templates.deleteTask.method", is("DELETE")))
-                .andExpect(jsonPath("$._templates.deleteTask.target", is("http://localhost/tasks/" + id)))
+                .andExpect(jsonPath("$._links.default.href", is("http://localhost/tasks/" + id)))
+                .andExpect(jsonPath("$._links.default.title", is("Delete a task")))
+                .andExpect(jsonPath("$._links.default.name", is("Delete")))
                 .andExpect(jsonPath("$._templates.default.method", is("DELETE")))
                 .andExpect(jsonPath("$._templates.default.target", is("http://localhost/tasks/" + id)))
 
-                .andExpect(jsonPath("$._links.renameTask.href", is("http://localhost/tasks/" + id + "/rename")))
-                .andExpect(jsonPath("$._templates.renameTask.method", is("PUT")))
-                .andExpect(jsonPath("$._templates.renameTask.properties[0].name", is("description")))
-                .andExpect(jsonPath("$._templates.renameTask.properties[0].type", is("text")))
-                .andExpect(jsonPath("$._templates.renameTask.target", is("http://localhost/tasks/" + id + "/rename")))
+                .andExpect(jsonPath("$._links.rename.href", is("http://localhost/tasks/" + id + "/rename")))
+                .andExpect(jsonPath("$._templates.rename.method", is("PUT")))
+                .andExpect(jsonPath("$._templates.rename.properties[0].name", is("description")))
+                .andExpect(jsonPath("$._templates.rename.properties[0].type", is("text")))
+                .andExpect(jsonPath("$._templates.rename.target", is("http://localhost/tasks/" + id + "/rename")))
 
-                .andExpect(jsonPath("$._links.completeTask.href", is("http://localhost/tasks/" + id + "/complete")))
-                .andExpect(jsonPath("$._templates.completeTask.method", is("PUT")))
-                .andExpect(jsonPath("$._templates.completeTask.target", is("http://localhost/tasks/" + id + "/complete")));
+                .andExpect(jsonPath("$._links.complete.href", is("http://localhost/tasks/" + id + "/complete")))
+                .andExpect(jsonPath("$._links.complete.title", is("Complete a task")))
+                .andExpect(jsonPath("$._links.complete.name", is("Complete")))
+                .andExpect(jsonPath("$._templates.complete.method", is("PUT")))
+                .andExpect(jsonPath("$._templates.complete.target", is("http://localhost/tasks/" + id + "/complete")));
     }
 
 

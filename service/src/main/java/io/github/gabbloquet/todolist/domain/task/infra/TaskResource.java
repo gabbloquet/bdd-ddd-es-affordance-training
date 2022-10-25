@@ -40,7 +40,7 @@ public class TaskResource {
     }
 
     @PutMapping("/{id}/rename")
-    public EntityModel<TaskDto> renameTask(@RequestBody TaskRequest taskRequest, @PathVariable UUID id) {
+    public EntityModel<TaskDto> rename(@RequestBody TaskRequest taskRequest, @PathVariable UUID id) {
 
         TaskCommand command = RenameTask.builder()
                 .taskId(TaskId.from(id))
@@ -53,7 +53,7 @@ public class TaskResource {
     }
 
     @PutMapping("/{id}/complete")
-    public EntityModel<TaskDto> completeTask(@PathVariable UUID id) {
+    public EntityModel<TaskDto> complete(@PathVariable UUID id) {
 
         TaskCommand command = CompleteTask.builder()
                 .taskId(TaskId.from(id))

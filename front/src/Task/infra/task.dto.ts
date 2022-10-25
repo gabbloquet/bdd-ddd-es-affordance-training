@@ -16,41 +16,47 @@ export const taskCreatedDtoExample: TaskResource = {
   duration: null,
   _links: {
     getOrDeleteTask: {
-      href: 'http://localhost:8080/tasks/1a8d707e-506a-4923-a688-66cbc5674f13',
+      href: 'http://localhost/tasks/1a8d707e-506a-4923-a688-66cbc5674f14',
       title: 'Get or delete a task'
     },
     deleteTask: {
-      href: 'http://localhost:8080/tasks/1a8d707e-506a-4923-a688-66cbc5674f13',
+      href: 'http://localhost/tasks/1a8d707e-506a-4923-a688-66cbc5674f14',
       title: 'Delete a task'
     },
     renameTask: {
-      href: 'http://localhost:8080/tasks/1a8d707e-506a-4923-a688-66cbc5674f13/rename',
+      href: 'http://localhost/tasks/1a8d707e-506a-4923-a688-66cbc5674f14/rename',
       title: 'Rename a task'
     },
     completeTask: {
-      href: 'http://localhost:8080/tasks/1a8d707e-506a-4923-a688-66cbc5674f13/complete',
+      href: 'http://localhost/tasks/1a8d707e-506a-4923-a688-66cbc5674f14/complete',
       title: 'Complete a task'
     },
-    addTask: {
-      href: 'http://localhost:8080/tasks',
-      title: 'Add a task'
-    },
     todolist: {
-      href: 'http://localhost:8080/todolist',
+      href: 'http://localhost/todolist',
       title: 'Get todolist',
       name: 'Get all tasks, todolist'
+    },
+    prioritize: {
+      href: 'http://localhost/todolist/prioritize/task',
+      title: 'Prioritize a task',
+      name: 'Prioritize'
+    },
+    deprioritize: {
+      href: 'http://localhost/todolist/deprioritize/task',
+      title: 'Deprioritize a task',
+      name: 'Deprioritize'
     }
   },
   _templates: {
     completeTask: {
       method: 'PUT',
       properties: [],
-      target: 'http://localhost:8080/tasks/1a8d707e-506a-4923-a688-66cbc5674f13/complete'
+      target: 'http://localhost/tasks/1a8d707e-506a-4923-a688-66cbc5674f14/complete'
     },
     default: {
       method: 'DELETE',
       properties: [],
-      target: 'http://localhost:8080/tasks/1a8d707e-506a-4923-a688-66cbc5674f13'
+      target: 'http://localhost/tasks/1a8d707e-506a-4923-a688-66cbc5674f14'
     },
     renameTask: {
       method: 'PUT',
@@ -61,23 +67,32 @@ export const taskCreatedDtoExample: TaskResource = {
           type: 'text'
         }
       ],
-      target: 'http://localhost:8080/tasks/1a8d707e-506a-4923-a688-66cbc5674f13/rename'
+      target: 'http://localhost/tasks/1a8d707e-506a-4923-a688-66cbc5674f14/rename'
     },
     deleteTask: {
       method: 'DELETE',
       properties: [],
-      target: 'http://localhost:8080/tasks/1a8d707e-506a-4923-a688-66cbc5674f13'
+      target: 'http://localhost/tasks/1a8d707e-506a-4923-a688-66cbc5674f14'
     },
-    addTask: {
+    prioritize: {
       method: 'POST',
       properties: [
         {
-          name: 'description',
-          readOnly: true,
-          type: 'text'
+          name: 'id',
+          readOnly: true
         }
       ],
-      target: 'http://localhost:8080/tasks'
+      target: 'http://localhost/todolist/prioritize/task'
+    },
+    deprioritize: {
+      method: 'POST',
+      properties: [
+        {
+          name: 'id',
+          readOnly: true
+        }
+      ],
+      target: 'http://localhost/todolist/deprioritize/task'
     }
   }
 };
@@ -90,41 +105,47 @@ export const anotherTaskDtoExample: TaskResource = {
   duration: null,
   _links: {
     getOrDeleteTask: {
-      href: 'http://localhost:8080/tasks/91f66717-1899-46ba-b398-eaaac31b3cd4',
+      href: 'http://localhost/tasks/750826f7-1950-4346-945e-de3c865b9449',
       title: 'Get or delete a task'
     },
     deleteTask: {
-      href: 'http://localhost:8080/tasks/91f66717-1899-46ba-b398-eaaac31b3cd4',
+      href: 'http://localhost/tasks/750826f7-1950-4346-945e-de3c865b9449',
       title: 'Delete a task'
     },
     renameTask: {
-      href: 'http://localhost:8080/tasks/91f66717-1899-46ba-b398-eaaac31b3cd4/rename',
+      href: 'http://localhost/tasks/750826f7-1950-4346-945e-de3c865b9449/rename',
       title: 'Rename a task'
     },
     completeTask: {
-      href: 'http://localhost:8080/tasks/91f66717-1899-46ba-b398-eaaac31b3cd4/complete',
+      href: 'http://localhost/tasks/750826f7-1950-4346-945e-de3c865b9449/complete',
       title: 'Complete a task'
     },
-    addTask: {
-      href: 'http://localhost:8080/tasks',
-      title: 'Add a task'
-    },
     todolist: {
-      href: 'http://localhost:8080/todolist',
+      href: 'http://localhost/todolist',
       title: 'Get todolist',
       name: 'Get all tasks, todolist'
+    },
+    prioritize: {
+      href: 'http://localhost/todolist/prioritize/task',
+      title: 'Prioritize a task',
+      name: 'Prioritize'
+    },
+    deprioritize: {
+      href: 'http://localhost/todolist/deprioritize/task',
+      title: 'Deprioritize a task',
+      name: 'Deprioritize'
     }
   },
   _templates: {
     completeTask: {
       method: 'PUT',
       properties: [],
-      target: 'http://localhost:8080/tasks/91f66717-1899-46ba-b398-eaaac31b3cd4/complete'
+      target: 'http://localhost/tasks/750826f7-1950-4346-945e-de3c865b9449/complete'
     },
     default: {
       method: 'DELETE',
       properties: [],
-      target: 'http://localhost:8080/tasks/91f66717-1899-46ba-b398-eaaac31b3cd4'
+      target: 'http://localhost/tasks/750826f7-1950-4346-945e-de3c865b9449'
     },
     renameTask: {
       method: 'PUT',
@@ -135,23 +156,32 @@ export const anotherTaskDtoExample: TaskResource = {
           type: 'text'
         }
       ],
-      target: 'http://localhost:8080/tasks/91f66717-1899-46ba-b398-eaaac31b3cd4/rename'
+      target: 'http://localhost/tasks/750826f7-1950-4346-945e-de3c865b9449/rename'
     },
     deleteTask: {
       method: 'DELETE',
       properties: [],
-      target: 'http://localhost:8080/tasks/91f66717-1899-46ba-b398-eaaac31b3cd4'
+      target: 'http://localhost/tasks/750826f7-1950-4346-945e-de3c865b9449'
     },
-    addTask: {
+    prioritize: {
       method: 'POST',
       properties: [
         {
-          name: 'description',
-          readOnly: true,
-          type: 'text'
+          name: 'id',
+          readOnly: true
         }
       ],
-      target: 'http://localhost:8080/tasks'
+      target: 'http://localhost/todolist/prioritize/task'
+    },
+    deprioritize: {
+      method: 'POST',
+      properties: [
+        {
+          name: 'id',
+          readOnly: true
+        }
+      ],
+      target: 'http://localhost/todolist/deprioritize/task'
     }
   }
 };

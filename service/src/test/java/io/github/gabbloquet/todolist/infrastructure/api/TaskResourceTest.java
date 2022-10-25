@@ -131,12 +131,9 @@ class TaskResourceTest {
     public void delete_a_task_do_nothing() throws Exception {
         executeDeleteATaskRequest()
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$._templates.default.method", is("POST")))
-                .andExpect(jsonPath("$._templates.default.properties[0].name", is("description")))
-                .andExpect(jsonPath("$._templates.default.properties[0].type", is("text")))
-                .andExpect(jsonPath("$._templates.default.target", is("http://localhost/tasks")))
-
-                .andExpect(jsonPath("$._links.todolist.href", is("http://localhost/todolist")));
+                .andExpect(jsonPath("$._links.todolist.href", is("http://localhost/todolist")))
+                .andExpect(jsonPath("$._links.todolist.name", is("Get all tasks, todolist")))
+                .andExpect(jsonPath("$._links.todolist.title", is("Get todolist")));
 
         verify(taskService).execute(DeleteTask.builder().taskId(taskId).build());
     }

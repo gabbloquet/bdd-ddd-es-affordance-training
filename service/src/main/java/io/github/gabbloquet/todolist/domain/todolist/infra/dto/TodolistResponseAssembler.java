@@ -28,20 +28,27 @@ public class TodolistResponseAssembler {
         return EntityModel.of(
                 todolistResponse,
                 getSelfLink(),
-                getPrioritizeTaskAffordance(),
-                getDeprioritizeTaskAffordance(),
-                tasksResponseAssembler.getAddTaskAffordance());
+                getAddTaskAffordance());
     }
 
     private List<EntityModel<TaskDto>> getTasksAffordances(TodolistDto todolist) {
+        List<Link> links = List.of(getPrioritizeTaskAffordance(),
+                getDeprioritizeTaskAffordance());
         return todolist.tasks().stream()
-                .map((tasksResponseAssembler::map))
+                .map(task -> tasksResponseAssembler.map(task, links))
                 .toList();
+    }
+
+    public Link getAddTaskAffordance() {
+        return linkTo(todolistResource.addTask(null))
+                .withRel("default")
+                .withName("Add a task")
+                .withTitle("Add a task");
     }
 
     private Link getPrioritizeTaskAffordance() {
         return linkTo(todolistResource.prioritize(null))
-                .withRel("default")
+                .withRel("prioritize")
                 .withName("Prioritize")
                 .withTitle("Prioritize a task");
     }

@@ -8,6 +8,8 @@ import org.springframework.hateoas.Link;
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 @Service
@@ -17,22 +19,23 @@ public class TasksResponseAssembler {
     private final TodolistResource todolistResource = methodOn(TodolistResource.class);
     private final TaskResource taskResource = methodOn(TaskResource.class);
 
-    public EntityModel<TaskDto> map(TaskDto task) {
-        return EntityModel.of( //
+    public EntityModel<TaskDto> map(TaskDto task, List<Link> links) {
+        EntityModel<TaskDto> model = EntityModel.of( //
                 task,
                 getSelfLink(task)
                         .andAffordance(afford(taskResource.deleteTask(task.id()))).withRel("getOrDeleteTask").withTitle("Get or delete a task"),
                 getDeleteTaskAffordance(task),
                 getRenameTaskAffordance(task),
                 getCompleteTaskAffordance(task),
-                getAddTaskAffordance(),
                 getTodolistAffordance()
         );
+        model.add(links);
+        return model;
     }
 
     public RepresentationModel<?> get() {
         return new RepresentationModel()
-                .add(getAddTaskAffordance(), getTodolistAffordance());
+                .add(getTodolistAffordance());
     }
 
     private Link getSelfLink(TaskDto task) {
@@ -49,13 +52,6 @@ public class TasksResponseAssembler {
         return linkTo(taskResource.completeTask(task.id()))
                 .withRel("completeTask")
                 .withTitle("Complete a task");
-    }
-
-    public Link getAddTaskAffordance() {
-        return linkTo(taskResource.addTask(null))
-                .withRel("addTask")
-                .withName("Add a task")
-                .withTitle("Add a task");
     }
 
     private Link getDeleteTaskAffordance(TaskDto task) {

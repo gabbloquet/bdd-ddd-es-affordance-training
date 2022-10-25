@@ -2,8 +2,6 @@ package io.github.gabbloquet.todolist.domain.task.infra;
 
 import io.github.gabbloquet.todolist.domain.task.TaskCommand;
 import io.github.gabbloquet.todolist.domain.task.TaskService;
-import io.github.gabbloquet.todolist.domain.task.addTask.AddTask;
-import io.github.gabbloquet.todolist.domain.task.addTask.OpenTask;
 import io.github.gabbloquet.todolist.domain.task.completeTask.CompleteTask;
 import io.github.gabbloquet.todolist.domain.task.deleteTask.DeleteTask;
 import io.github.gabbloquet.todolist.domain.task.infra.dto.TaskDto;
@@ -18,6 +16,7 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -37,19 +36,7 @@ public class TaskResource {
 
         TaskState task = taskService.getTask(id);
 
-        return tasksResponseAssembler.map(TaskDto.from(task));
-    }
-
-    @PostMapping()
-    public EntityModel<TaskDto> addTask(@RequestBody TaskRequest taskRequest) {
-
-        OpenTask command = AddTask.builder()
-                .description(taskRequest.description())
-                .build();
-
-        TaskState createdTask = taskService.execute(command);
-
-        return tasksResponseAssembler.map(TaskDto.from(createdTask));
+        return tasksResponseAssembler.map(TaskDto.from(task), List.of());
     }
 
     @PutMapping("/{id}/rename")
@@ -62,7 +49,7 @@ public class TaskResource {
 
         TaskState modifiedTask = taskService.execute(command);
 
-        return tasksResponseAssembler.map(TaskDto.from(modifiedTask));
+        return tasksResponseAssembler.map(TaskDto.from(modifiedTask), List.of());
     }
 
     @PutMapping("/{id}/complete")
@@ -74,7 +61,7 @@ public class TaskResource {
 
         TaskState completedTask = taskService.execute(command);
 
-        return tasksResponseAssembler.map(TaskDto.from(completedTask));
+        return tasksResponseAssembler.map(TaskDto.from(completedTask), List.of());
     }
 
     @DeleteMapping("/{id}")

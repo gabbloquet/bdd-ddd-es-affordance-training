@@ -107,16 +107,6 @@ class TaskResourceTest {
     }
 
     @Test
-    public void add_a_task() throws Exception {
-        ResultActions requestResult = executeAddATaskRequest();
-
-        assertTaskAffordance(requestResult, "Hey! Im a new task !");
-
-        requestResult
-                .andExpect(jsonPath("completed").value(false));
-    }
-
-    @Test
     public void rename_a_task() throws Exception {
         ResultActions requestResult = executeRenameTaskRequest();
 
@@ -141,8 +131,6 @@ class TaskResourceTest {
     public void delete_a_task_do_nothing() throws Exception {
         executeDeleteATaskRequest()
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$._links.addTask.href", is("http://localhost/tasks")))
-                .andExpect(jsonPath("$._links.addTask.title", is("Add a task")))
                 .andExpect(jsonPath("$._templates.default.method", is("POST")))
                 .andExpect(jsonPath("$._templates.default.properties[0].name", is("description")))
                 .andExpect(jsonPath("$._templates.default.properties[0].type", is("text")))
@@ -178,16 +166,7 @@ class TaskResourceTest {
 
                 .andExpect(jsonPath("$._links.completeTask.href", is("http://localhost/tasks/" + id + "/complete")))
                 .andExpect(jsonPath("$._templates.completeTask.method", is("PUT")))
-                .andExpect(jsonPath("$._templates.completeTask.target", is("http://localhost/tasks/" + id + "/complete")))
-
-                .andExpect(jsonPath("$._links.addTask.href", is("http://localhost/tasks")))
-                .andExpect(jsonPath("$._links.addTask.title", is("Add a task")))
-                .andExpect(jsonPath("$._links.addTask.name", is("Add a task")))
-                .andExpect(jsonPath("$._templates.addTask.method", is("POST")))
-                .andExpect(jsonPath("$._templates.addTask.properties[0].name", is("description")))
-                .andExpect(jsonPath("$._templates.addTask.properties[0].type", is("text")))
-                .andExpect(jsonPath("$._templates.addTask.target", is("http://localhost/tasks")))
-                .andExpect(jsonPath("$._links.todolist.href", is("http://localhost/todolist")));
+                .andExpect(jsonPath("$._templates.completeTask.target", is("http://localhost/tasks/" + id + "/complete")));
     }
 
 
@@ -208,13 +187,6 @@ class TaskResourceTest {
         return mockMvc.perform(put("/tasks/" + uuid + "/complete")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaTypes.HAL_FORMS_JSON));
-    }
-
-    private ResultActions executeAddATaskRequest() throws Exception {
-        return mockMvc.perform(post("/tasks")
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaTypes.HAL_FORMS_JSON)
-                .content("{\"description\": \"Hey! Im a new task !\"}"));
     }
 
     private ResultActions executeDeleteATaskRequest() throws Exception {

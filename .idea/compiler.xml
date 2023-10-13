@@ -8,10 +8,10 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="todolist" />
+        <module name="bdd-training" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="bdd-training" target="17" />
       <module name="demo" target="18" />
       <module name="todolist" target="18" />
     </bytecodeTargetLevel>

@@ -2,9 +2,19 @@
 <project version="4">
   <component name="RemoteRepositoriesConfiguration">
     <remote-repository>
+      <option name="id" value="cube" />
+      <option name="name" value="cube" />
+      <option name="url" value="http://repository.cube-net.org/repository/releases" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="central" />
       <option name="name" value="Central Repository" />
       <option name="url" value="https://repo.maven.apache.org/maven2" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="osiris-release" />
+      <option name="name" value="osiris2" />
+      <option name="url" value="http://nexus.osiris.withoxylane.com/content/repositories/corporate" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="spring-milestones" />
@@ -15,6 +25,11 @@
       <option name="id" value="adeo-artifactory-releases" />
       <option name="name" value="Adeo Artifactory Releases Repository" />
       <option name="url" value="https://adeo.jfrog.io/adeo/maven-releases" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="osiris-snapshot" />
+      <option name="name" value="osiris" />
+      <option name="url" value="http://nexus.osiris.withoxylane.com/content/repositories/snapshots" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="central" />

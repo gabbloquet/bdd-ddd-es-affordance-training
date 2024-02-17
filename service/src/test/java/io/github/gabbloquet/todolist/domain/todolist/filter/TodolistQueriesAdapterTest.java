@@ -1,10 +1,12 @@
 package io.github.gabbloquet.todolist.domain.todolist.filter;
 
-import io.github.gabbloquet.todolist.domain.task.model.TaskId;
-import io.github.gabbloquet.todolist.domain.todolist.TodolistUseCaseTransaction;
-import io.github.gabbloquet.todolist.domain.todolist.model.LocalDateTimeSupplier;
-import io.github.gabbloquet.todolist.domain.todolist.model.Todolist;
-import io.github.gabbloquet.todolist.domain.todolist.model.TodolistNotFound;
+import io.github.gabbloquet.todolist.task.model.TaskId;
+import io.github.gabbloquet.todolist.todolist.TodolistUseCaseTransaction;
+import io.github.gabbloquet.todolist.todolist.filter.TodolistQueries;
+import io.github.gabbloquet.todolist.todolist.filter.TodolistQueriesAdapter;
+import io.github.gabbloquet.todolist.todolist.model.LocalDateTimeSupplier;
+import io.github.gabbloquet.todolist.todolist.model.Todolist;
+import io.github.gabbloquet.todolist.todolist.model.TodolistNotFound;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

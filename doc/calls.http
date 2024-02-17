@@ -1,0 +1,13 @@
+### Get todolist
+GET localhost:8080/todolist
+Content-Type: application/json
+Accept: application/prs.hal-forms+json
+
+### Add task
+POST localhost:8080/todolist/add/task
+Content-Type: application/json
+Accept: application/prs.hal-forms+json
+
+{
+  "description": "Aller al pec'"
+}

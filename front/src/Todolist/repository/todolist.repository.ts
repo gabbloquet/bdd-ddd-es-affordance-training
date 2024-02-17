@@ -10,7 +10,12 @@ interface TaskToCreate {
 }
 
 export const getTodolist = async () => {
-  const { data: todolistResource } = await axios.get(`${process.env.SERVICE_URL}/todolist`);
+  const { data: todolistResource } = await axios.get(`${process.env.SERVICE_URL}/todolist`, {
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/prs.hal-forms+json'
+    }
+  });
   return toTodolist(todolistResource);
 };
 

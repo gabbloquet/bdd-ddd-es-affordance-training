@@ -1,17 +1,12 @@
 package io.github.gabbloquet.todolist.domain.task.infra;
 
-import io.github.gabbloquet.todolist.domain.task.model.Task;
-import io.github.gabbloquet.todolist.domain.task.model.TaskId;
-import io.github.gabbloquet.todolist.domain.task.model.TaskNotFound;
-import io.github.gabbloquet.todolist.domain.todolist.filter.TodolistQueries;
-import io.github.gabbloquet.todolist.domain.todolist.model.TodolistNotFound;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
+import io.github.gabbloquet.todolist.task.infra.InMemoryTaskRepository;
+import io.github.gabbloquet.todolist.task.model.Task;
+import io.github.gabbloquet.todolist.task.model.TaskId;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 

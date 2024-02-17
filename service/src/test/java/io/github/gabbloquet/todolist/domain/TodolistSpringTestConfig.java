@@ -1,35 +1,35 @@
 package io.github.gabbloquet.todolist.domain;
 
 import io.cucumber.spring.ScenarioScope;
-import io.github.gabbloquet.todolist.domain.task.TaskRepository;
-import io.github.gabbloquet.todolist.domain.task.TaskService;
-import io.github.gabbloquet.todolist.domain.task.TaskUseCaseTransaction;
-import io.github.gabbloquet.todolist.domain.task.addTask.AddTaskUseCase;
-import io.github.gabbloquet.todolist.domain.task.completeTask.CompleteTaskUseCase;
-import io.github.gabbloquet.todolist.domain.task.deleteTask.DeleteTaskUseCase;
-import io.github.gabbloquet.todolist.domain.task.infra.TaskSpringEventBus;
-import io.github.gabbloquet.todolist.domain.task.model.Task;
-import io.github.gabbloquet.todolist.domain.task.model.TaskEventBus;
-import io.github.gabbloquet.todolist.domain.task.model.TaskId;
-import io.github.gabbloquet.todolist.domain.task.renameTask.RenameTaskUseCase;
-import io.github.gabbloquet.todolist.domain.todolist.TodolistEventHandler;
-import io.github.gabbloquet.todolist.domain.todolist.TodolistService;
-import io.github.gabbloquet.todolist.domain.todolist.TodolistUseCaseTransaction;
-import io.github.gabbloquet.todolist.domain.todolist.deprioritizeTask.DeprioritizeTaskUseCase;
-import io.github.gabbloquet.todolist.domain.todolist.filter.TodolistQueries;
-import io.github.gabbloquet.todolist.domain.todolist.filter.TodolistQueriesAdapter;
-import io.github.gabbloquet.todolist.domain.todolist.infra.TodolistSpringCommandBus;
-import io.github.gabbloquet.todolist.domain.todolist.model.LocalDateTimeSupplier;
-import io.github.gabbloquet.todolist.domain.todolist.model.Todolist;
-import io.github.gabbloquet.todolist.domain.todolist.model.TodolistCommandBus;
-import io.github.gabbloquet.todolist.domain.todolist.openApplication.OpenApplicationUseCase;
-import io.github.gabbloquet.todolist.domain.todolist.prioritizeTask.PriorizeTaskUseCase;
+import io.github.gabbloquet.todolist.task.TaskRepository;
+import io.github.gabbloquet.todolist.task.TaskService;
+import io.github.gabbloquet.todolist.task.TaskUseCaseTransaction;
+import io.github.gabbloquet.todolist.task.addTask.AddTaskUseCase;
+import io.github.gabbloquet.todolist.task.completeTask.CompleteTaskUseCase;
+import io.github.gabbloquet.todolist.task.deleteTask.DeleteTaskUseCase;
+import io.github.gabbloquet.todolist.task.infra.TaskSpringEventBus;
+import io.github.gabbloquet.todolist.task.model.Task;
+import io.github.gabbloquet.todolist.task.model.TaskEventBus;
+import io.github.gabbloquet.todolist.task.model.TaskId;
+import io.github.gabbloquet.todolist.task.renameTask.RenameTaskUseCase;
+import io.github.gabbloquet.todolist.todolist.TodolistEventHandler;
+import io.github.gabbloquet.todolist.todolist.TodolistService;
+import io.github.gabbloquet.todolist.todolist.TodolistUseCaseTransaction;
+import io.github.gabbloquet.todolist.todolist.deprioritizeTask.DeprioritizeTaskUseCase;
+import io.github.gabbloquet.todolist.todolist.filter.TodolistQueries;
+import io.github.gabbloquet.todolist.todolist.filter.TodolistQueriesAdapter;
+import io.github.gabbloquet.todolist.todolist.infra.TodolistSpringCommandBus;
+import io.github.gabbloquet.todolist.todolist.model.LocalDateTimeSupplier;
+import io.github.gabbloquet.todolist.todolist.model.Todolist;
+import io.github.gabbloquet.todolist.todolist.model.TodolistCommandBus;
+import io.github.gabbloquet.todolist.todolist.openApplication.OpenApplicationUseCase;
+import io.github.gabbloquet.todolist.todolist.prioritizeTask.PriorizeTaskUseCase;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.web.context.annotation.RequestScope;
 
-import java.time.LocalDateTime;
 import java.util.function.Supplier;
 
 import static org.mockito.Mockito.mock;
@@ -82,9 +82,10 @@ public class TodolistSpringTestConfig {
 
     @Bean
     public TodolistService todolistService(
-            TodolistCommandBus todolistCommandBus
+            TodolistCommandBus todolistCommandBus,
+            TodolistUseCaseTransaction todolistUseCaseTransaction
     ) {
-        return new TodolistService(todolistCommandBus);
+        return new TodolistService(todolistCommandBus, todolistUseCaseTransaction);
     }
 
     @Bean

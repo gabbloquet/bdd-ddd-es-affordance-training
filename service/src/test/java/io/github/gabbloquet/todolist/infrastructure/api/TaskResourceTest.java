@@ -1,14 +1,14 @@
 package io.github.gabbloquet.todolist.infrastructure.api;
 
-import io.github.gabbloquet.todolist.domain.task.TaskService;
-import io.github.gabbloquet.todolist.domain.task.addTask.AddTask;
-import io.github.gabbloquet.todolist.domain.task.addTask.TaskCreated;
-import io.github.gabbloquet.todolist.domain.task.completeTask.CompleteTask;
-import io.github.gabbloquet.todolist.domain.task.completeTask.TaskCompleted;
-import io.github.gabbloquet.todolist.domain.task.deleteTask.DeleteTask;
-import io.github.gabbloquet.todolist.domain.task.model.TaskId;
-import io.github.gabbloquet.todolist.domain.task.model.TaskState;
-import io.github.gabbloquet.todolist.domain.task.renameTask.RenameTask;
+import io.github.gabbloquet.todolist.task.TaskService;
+import io.github.gabbloquet.todolist.task.addTask.AddTask;
+import io.github.gabbloquet.todolist.task.addTask.TaskCreated;
+import io.github.gabbloquet.todolist.task.completeTask.CompleteTask;
+import io.github.gabbloquet.todolist.task.completeTask.TaskCompleted;
+import io.github.gabbloquet.todolist.task.deleteTask.DeleteTask;
+import io.github.gabbloquet.todolist.task.model.TaskId;
+import io.github.gabbloquet.todolist.task.model.TaskState;
+import io.github.gabbloquet.todolist.task.renameTask.RenameTask;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

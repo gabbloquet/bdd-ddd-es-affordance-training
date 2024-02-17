@@ -50,7 +50,7 @@ jobs:
           node-version: 16
       - name: Install dependencies
         run: npm ci
-#        TODO: add step to launch service
+        working-directory: front
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
       - name: Run Playwright tests

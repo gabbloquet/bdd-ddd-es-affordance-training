@@ -1,8 +1,8 @@
 package io.github.gabbloquet.todolist.domain;
 
-import io.github.gabbloquet.todolist.domain.task.model.TaskId;
-import io.github.gabbloquet.todolist.domain.task.model.TaskState;
-import io.github.gabbloquet.todolist.domain.todolist.model.Todolist;
+import io.github.gabbloquet.todolist.task.model.TaskId;
+import io.github.gabbloquet.todolist.task.model.TaskState;
+import io.github.gabbloquet.todolist.todolist.model.Todolist;
 import lombok.Data;
 
 import java.time.LocalDateTime;

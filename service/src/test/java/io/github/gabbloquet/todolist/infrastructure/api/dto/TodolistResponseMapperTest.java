@@ -1,6 +1,6 @@
 package io.github.gabbloquet.todolist.infrastructure.api.dto;
 
-import io.github.gabbloquet.todolist.domain.todolist.infra.dto.TodolistResponseAssembler;
+import io.github.gabbloquet.todolist.todolist.infra.dto.TodolistResponseAssembler;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;

@@ -6,6 +6,7 @@ import io.github.gabbloquet.todolist.todolist.model.LocalDateTimeSupplier;
 import io.github.gabbloquet.todolist.todolist.model.Todolist;
 import io.github.gabbloquet.todolist.todolist.model.TodolistNotFound;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;

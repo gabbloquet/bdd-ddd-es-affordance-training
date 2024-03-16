@@ -1,0 +1,7 @@
+server:
+  shutdown: immediate
+
+spring:
+  main:
+    banner-mode: off
+    allow-bean-definition-overriding: true

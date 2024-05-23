@@ -1,5 +1,5 @@
 # language: fr
-Fonctionnalité: Valider une demande de location
+Fonctionnalité: Bloquer la location pour les téléphones jetables
 
   Scénario: Client au téléphone jetable et prix haut
     Etant donné Mr "Tapie" propriétaire d’un téléphone jetable

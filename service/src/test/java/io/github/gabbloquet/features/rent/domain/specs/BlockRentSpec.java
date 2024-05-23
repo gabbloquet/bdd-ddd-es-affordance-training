@@ -15,7 +15,7 @@ import io.github.gabbloquet.rent.infra.InMemoryCustomerRepository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ValidateRentSpec {
+public class BlockRentSpec {
 
     private RentalRequest rentalRequest;
 
